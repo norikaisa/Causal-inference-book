@@ -1,0 +1,23 @@
+# Time Series Analysis
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Simple interrupted time series
+
+_To be added._
+
+## Multiple-time-point interrupted time series
+
+_To be added._
+
+## Multi-group interrupted time series
+
+_To be added._
+
+## Cautions in interrupted time series analysis
+
+_To be added._
+

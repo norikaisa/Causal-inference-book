@@ -1,0 +1,27 @@
+# Causal Discovery
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Causal discovery algorithms and their assumptions
+
+_To be added._
+
+## Constraint-based causal discovery
+
+_To be added._
+
+## Score/model-based causal discovery
+
+_To be added._
+
+## Hybrid methods
+
+_To be added._
+
+## Examples
+
+_To be added._
+

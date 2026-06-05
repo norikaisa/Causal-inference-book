@@ -1,0 +1,39 @@
+# Randomized Controlled Trials
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## The magic of randomization
+
+_To be added._
+
+## Common RCT designs
+
+_To be added._
+
+## Randomization methods
+
+_To be added._
+
+## Blinding
+
+_To be added._
+
+## Non-inferiority trials
+
+_To be added._
+
+## Pragmatic trials
+
+_To be added._
+
+## Adaptive trials
+
+_To be added._
+
+## Interpreting negative RCT results
+
+_To be added._
+

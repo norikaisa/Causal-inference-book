@@ -1,0 +1,27 @@
+# Clinical Studies with Survival Outcomes
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## The proportional hazards assumption
+
+_To be added._
+
+## Cox regression under non-proportional hazards
+
+_To be added._
+
+## Cox regression with time-dependent covariates
+
+_To be added._
+
+## Competing risks models
+
+_To be added._
+
+## Limitations of the hazard ratio
+
+_To be added._
+

@@ -1,0 +1,27 @@
+# Regression
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Outcome regression
+
+_To be added._
+
+## Misspecified regression models
+
+_To be added._
+
+## Effect modification
+
+_To be added._
+
+## Marginal effects
+
+_To be added._
+
+## Interaction
+
+_To be added._
+

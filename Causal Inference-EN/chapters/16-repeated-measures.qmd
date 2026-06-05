@@ -1,0 +1,23 @@
+# Statistical Analysis of Repeated-Measures Data
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Traditional methods
+
+_To be added._
+
+## Mixed-effects models
+
+_To be added._
+
+## Generalized estimating equations
+
+_To be added._
+
+## Latent class models
+
+_To be added._
+

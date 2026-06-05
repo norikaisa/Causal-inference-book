@@ -1,0 +1,31 @@
+# Causal Diagrams and Structural Causal Models
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Causal directed acyclic graphs
+
+_To be added._
+
+## Applications of causal DAGs
+
+_To be added._
+
+## The back-door criterion and d-separation
+
+_To be added._
+
+## The front-door criterion
+
+_To be added._
+
+## Structural causal models
+
+_To be added._
+
+## A taxonomy of biases
+
+_To be added._
+

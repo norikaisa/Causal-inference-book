@@ -1,0 +1,19 @@
+# Writing RCT Protocols and Informed Consent
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Writing an RCT protocol
+
+_To be added._
+
+## Writing informed consent
+
+_To be added._
+
+## Appendix: A multicenter trial protocol example
+
+_To be added._
+

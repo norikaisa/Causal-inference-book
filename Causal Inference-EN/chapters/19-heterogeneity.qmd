@@ -1,0 +1,31 @@
+# Heterogeneity and Individual Causal Effects
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Subgroup analysis
+
+_To be added._
+
+## Risk modeling
+
+_To be added._
+
+## Treatment effect (uplift) modeling
+
+_To be added._
+
+## Regression-based uplift modeling
+
+_To be added._
+
+## Tree-based uplift modeling
+
+_To be added._
+
+## Validation of uplift models
+
+_To be added._
+

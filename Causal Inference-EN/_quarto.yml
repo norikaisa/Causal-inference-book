@@ -1,0 +1,64 @@
+project:
+  type: book
+  output-dir: ../docs/en
+  render:
+    - index.qmd
+    - chapters/*.qmd
+    - references.qmd
+
+lang: en
+
+book:
+  title: "Causal Inference in Clinical Medical Research"
+  author: "Nidan Qiao"
+  date: today
+  search: true
+  sidebar:
+    style: docked
+  page-footer:
+    center: "© 2026 Nidan Qiao · Released under CC BY 4.0"
+  chapters:
+    - index.qmd
+    - chapters/01-framework.qmd
+    - chapters/02-rct.qmd
+    - chapters/03-rct-statistics.qmd
+    - chapters/04-protocol-consent.qmd
+    - chapters/05-survival.qmd
+    - chapters/06-meta-analysis.qmd
+    - chapters/07-advanced-meta.qmd
+    - chapters/08-dag-scm.qmd
+    - chapters/09-regression.qmd
+    - chapters/10-propensity-score.qmd
+    - chapters/11-instrumental-variables.qmd
+    - chapters/12-regression-discontinuity.qmd
+    - chapters/13-time-series.qmd
+    - chapters/14-sensitivity-analysis.qmd
+    - chapters/15-mediation.qmd
+    - chapters/16-repeated-measures.qmd
+    - chapters/17-missing-data.qmd
+    - chapters/18-ml-causal-inference.qmd
+    - chapters/19-heterogeneity.qmd
+    - chapters/20-sequential-decisions.qmd
+    - chapters/21-causal-discovery.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-copy: true
+    code-tools: true
+  pdf:
+    documentclass: scrreprt
+    keep-tex: true
+
+execute:
+  freeze: auto
+  warning: false
+  message: false
+
+editor: visual

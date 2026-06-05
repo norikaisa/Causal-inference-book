@@ -1,0 +1,35 @@
+# Instrumental Variable Methods
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Instrumental variables
+
+_To be added._
+
+## Applying instrumental variables
+
+_To be added._
+
+## Analysis steps
+
+_To be added._
+
+## Statistical tests
+
+_To be added._
+
+## Finding instruments
+
+_To be added._
+
+## Limitations
+
+_To be added._
+
+## Mendelian randomization
+
+_To be added._
+

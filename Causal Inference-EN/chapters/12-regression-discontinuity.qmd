@@ -1,0 +1,27 @@
+# Regression Discontinuity
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Sharp and fuzzy discontinuities
+
+_To be added._
+
+## Identifying the cutoff
+
+_To be added._
+
+## Estimation methods
+
+_To be added._
+
+## Validity checks
+
+_To be added._
+
+## Applications
+
+_To be added._
+

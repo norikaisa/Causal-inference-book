@@ -1,0 +1,35 @@
+# Statistical Considerations in Randomized Controlled Trials
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Intention-to-treat and per-protocol analysis
+
+_To be added._
+
+## Protocol violations
+
+_To be added._
+
+## Multiple comparisons
+
+_To be added._
+
+## Interim analysis and alpha spending
+
+_To be added._
+
+## Subgroup analysis
+
+_To be added._
+
+## Multicenter trials
+
+_To be added._
+
+## Appendix: NEJM statistical guidelines
+
+_To be added._
+

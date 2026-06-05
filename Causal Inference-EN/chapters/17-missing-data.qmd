@@ -1,0 +1,23 @@
+# Missing Data
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Mechanisms of missingness
+
+_To be added._
+
+## Traditional methods for missing data
+
+_To be added._
+
+## Adherence
+
+_To be added._
+
+## Survivor bias and treatment time zero
+
+_To be added._
+

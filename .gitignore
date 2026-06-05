@@ -1,0 +1,20 @@
+# ===== 白名单：默认忽略所有顶层内容，只发布 Quarto 书 =====
+/*
+
+# 仅保留以下内容
+!/Causal Inference/
+!/Causal Inference-EN/
+!/docs/
+!/data/
+!/README.md
+!/LICENSE
+!/.gitignore
+
+# ===== 源项目里的构建产物 / 临时文件，无需进仓库 =====
+Causal Inference/.quarto/
+Causal Inference/_book/
+Causal Inference/.Rproj.user/
+Causal Inference-EN/.quarto/
+Causal Inference-EN/_book/
+Causal Inference-EN/.Rproj.user/
+**/.DS_Store

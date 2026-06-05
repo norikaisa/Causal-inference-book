@@ -1,0 +1,55 @@
+studyname,study,responders,sampleSize,treatment
+IFNB MS Group,1,18,123,placebo
+IFNB MS Group,1,59,249,betaseron
+BRAVO,2,227,450,placebo
+BRAVO,2,264,447,avonex
+BRAVO,2,233,434,laquin
+MSCRG,3,23,143,placebo
+MSCRG,3,32,158,avonex
+PRISMS,4,28,187,placebo
+PRISMS,4,105,373,rebif
+Bornstein,5,6,25,placebo
+Bornstein,5,14,25,copaxone
+CONFIRM,6,122,363,placebo
+CONFIRM,6,156,360,copaxone
+CONFIRM,6,270,707,dimethyl
+Johnson,7,29,126,placebo
+Johnson,7,36,125,copaxone
+AFFIRM,8,112,315,placebo
+AFFIRM,8,402,627,natalizumab
+Millefiorini,9,5,24,placebo
+Millefiorini,9,17,27,mitoxantrone
+FREEDOMS,10,145,418,placebo
+FREEDOMS,10,458,854,fingolimod
+FREEDOMS II,11,151,355,placebo
+FREEDOMS II,11,420,728,fingolimod
+TEMSO,12,143,363,placebo
+TEMSO,12,338,725,teriflunomide
+DEFINE,13,115,410,placebo
+DEFINE,13,320,827,dimethyl
+ALLEGRO,14,161,556,placebo
+ALLEGRO,14,233,550,laquinimod
+Goodkin,15,5,29,placebo
+Goodkin,15,11,30,azathioprine
+Fazekas,16,26,75,placebo
+Fazekas,16,40,75,igg
+Achiron,17,0,20,placebo
+Achiron,17,5,20,igg
+INCOMIN,18,47,96,betaseron
+INCOMIN,18,29,92,avonex
+Koch-Henrisksen,19,28,158,betaseron
+Koch-Henrisksen,19,26,143,rebif
+BECOME,20,12,36,betaseron
+BECOME,20,24,39,copaxone
+BEYOND,21,773,1796,betaseron
+BEYOND,21,190,448,copaxone
+REGARD,22,218,386,rebif
+REGARD,22,226,378,copaxone
+CAMMS,23,71,111,rebif
+CAMMS,23,197,223,alemtuzimab
+CARE-MS I,24,101,195,rebif
+CARE-MS I,24,287,386,alemtuzimab
+CARE-MS II,25,79,231,rebif
+CARE-MS II,25,266,436,alemtuzimab
+MAIN,26,31,73,ifn
+MAIN,26,39,77,azathioprine

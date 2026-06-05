@@ -1,0 +1,19 @@
+# Sensitivity Analysis for Observational Studies
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Sensitivity analysis in observational studies
+
+_To be added._
+
+## Unmeasured confounding
+
+_To be added._
+
+## Negative controls
+
+_To be added._
+

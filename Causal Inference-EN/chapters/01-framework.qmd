@@ -1,0 +1,27 @@
+# The Causal Inference Framework
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Individual causal effects
+
+_To be added._
+
+## Causation and correlation
+
+_To be added._
+
+## Simpson's paradox
+
+_To be added._
+
+## Average causal effects
+
+_To be added._
+
+## Conditions for identifying average causal effects
+
+_To be added._
+

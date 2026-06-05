@@ -1,0 +1,23 @@
+# Advanced Meta-Analysis
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Meta-analysis of diagnostic studies
+
+_To be added._
+
+## Network meta-analysis
+
+_To be added._
+
+## Multiple-outcome network meta-analysis
+
+_To be added._
+
+## Prospective meta-analysis
+
+_To be added._
+

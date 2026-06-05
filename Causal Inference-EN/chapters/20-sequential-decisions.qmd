@@ -1,0 +1,35 @@
+# Sequential Decision Strategies
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Basic concepts of reinforcement learning
+
+_To be added._
+
+## Statistical reinforcement learning
+
+_To be added._
+
+## Time-varying treatments and confounding
+
+_To be added._
+
+## Computational reinforcement learning
+
+_To be added._
+
+## Causal reinforcement learning
+
+_To be added._
+
+## Policy evaluation
+
+_To be added._
+
+## Limitations
+
+_To be added._
+

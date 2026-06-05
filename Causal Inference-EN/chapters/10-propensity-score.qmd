@@ -1,0 +1,31 @@
+# Propensity-Score-Based Methods
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## The propensity score
+
+_To be added._
+
+## Including the propensity score in a regression model
+
+_To be added._
+
+## Propensity score matching
+
+_To be added._
+
+## Inverse probability weighting
+
+_To be added._
+
+## Other weighting methods
+
+_To be added._
+
+## Choosing among propensity-score methods
+
+_To be added._
+

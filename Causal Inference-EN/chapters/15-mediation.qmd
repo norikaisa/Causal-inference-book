@@ -1,0 +1,31 @@
+# Causal Mediation Analysis
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Traditional mediation analysis
+
+_To be added._
+
+## Defining causal mediation effects
+
+_To be added._
+
+## Statistical assumptions
+
+_To be added._
+
+## Estimating mediation effects
+
+_To be added._
+
+## Reporting recommendations
+
+_To be added._
+
+## Limitations
+
+_To be added._
+

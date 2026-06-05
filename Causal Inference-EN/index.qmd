@@ -1,0 +1,12 @@
+# Preface {.unnumbered}
+
+Causal inference is a central scientific approach to studying cause-and-effect relationships: its core aim is to determine whether a cause produces an effect and how large that effect is. This book systematically introduces causal-inference methods for contemporary clinical medical research, spanning randomized controlled trials; real-world study designs based on propensity scores, instrumental variables, regression discontinuity, and time-series analysis; and machine-learning- and AI-driven causal inference.
+
+The book is intended as an advanced text in medical statistics for medical students, clinical researchers, and researchers in statistics and artificial intelligence.
+
+::: {.callout-note}
+## About this online edition
+This book is available in [中文](../zh/) and [English](../en/), released free online. Companion datasets are in the repository `data/` directory; code examples accompany each chapter.
+:::
+
+> How to cite: Qiao N. Causal Inference in Clinical Medical Research. Online edition, 2026. (DOI to be added)

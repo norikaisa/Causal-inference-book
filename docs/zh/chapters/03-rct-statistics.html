@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; 随机对照研究中的统计学考虑 – 临床医学研究中的因果推断</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/04-protocol-consent.html" rel="next">
+<link href="../chapters/02-rct.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-45e05568501181137173a7be470b3fff.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/03-rct-statistics.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">随机对照研究中的统计学考虑</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">临床医学研究中的因果推断</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/01-framework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">因果推断框架</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/02-rct.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">随机对照研究</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03-rct-statistics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">随机对照研究中的统计学考虑</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/04-protocol-consent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">随机对照研究方案与受试者知情同意的撰写</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05-survival.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">生存结局的临床研究</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06-meta-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">荟萃分析基本原理与方法</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07-advanced-meta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">进阶荟萃分析</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/08-dag-scm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">因果图与结构因果模型</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/09-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">回归</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10-propensity-score.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">基于倾向评分的方法</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/11-instrumental-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">工具变量法</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/12-regression-discontinuity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/13-time-series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">时间序列分析</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/14-sensitivity-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">观察性研究的敏感性分析</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/15-mediation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">因果中介分析</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/16-repeated-measures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">重复测量数据的统计分析</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/17-missing-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">缺失数据</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/18-ml-causal-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">因果推断与机器学习的交融</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/19-heterogeneity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">异质性与个体因果效应</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/20-sequential-decisions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">序贯决策方案</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/21-causal-discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">因果发现</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考文献</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目录</h2>
+   
+  <ul>
+  <li><a href="#意向性分析与符合方案分析" id="toc-意向性分析与符合方案分析" class="nav-link active" data-scroll-target="#意向性分析与符合方案分析"><span class="header-section-number">3.1</span> 意向性分析与符合方案分析</a></li>
+  <li><a href="#违背方案" id="toc-违背方案" class="nav-link" data-scroll-target="#违背方案"><span class="header-section-number">3.2</span> 违背方案</a>
+  <ul class="collapse">
+  <li><a href="#不符合入组条件" id="toc-不符合入组条件" class="nav-link" data-scroll-target="#不符合入组条件"><span class="header-section-number">3.2.1</span> 不符合入组条件</a></li>
+  <li><a href="#依从性" id="toc-依从性" class="nav-link" data-scroll-target="#依从性"><span class="header-section-number">3.2.2</span> 依从性</a></li>
+  </ul></li>
+  <li><a href="#多重比较" id="toc-多重比较" class="nav-link" data-scroll-target="#多重比较"><span class="header-section-number">3.3</span> 多重比较</a>
+  <ul class="collapse">
+  <li><a href="#存在多个主要疗效指标" id="toc-存在多个主要疗效指标" class="nav-link" data-scroll-target="#存在多个主要疗效指标"><span class="header-section-number">3.3.1</span> 存在多个主要疗效指标</a></li>
+  <li><a href="#多组间疗效指标比较" id="toc-多组间疗效指标比较" class="nav-link" data-scroll-target="#多组间疗效指标比较"><span class="header-section-number">3.3.2</span> 多组间疗效指标比较</a></li>
+  <li><a href="#复合指标" id="toc-复合指标" class="nav-link" data-scroll-target="#复合指标"><span class="header-section-number">3.3.3</span> 复合指标</a></li>
+  <li><a href="#同一个主要疗效指标比较的类型发生改变" id="toc-同一个主要疗效指标比较的类型发生改变" class="nav-link" data-scroll-target="#同一个主要疗效指标比较的类型发生改变"><span class="header-section-number">3.3.4</span> 同一个主要疗效指标，比较的类型发生改变</a></li>
+  </ul></li>
+  <li><a href="#期中分析与α消耗" id="toc-期中分析与α消耗" class="nav-link" data-scroll-target="#期中分析与α消耗"><span class="header-section-number">3.4</span> 期中分析与α消耗</a>
+  <ul class="collapse">
+  <li><a href="#及时监测临床试验的安全性" id="toc-及时监测临床试验的安全性" class="nav-link" data-scroll-target="#及时监测临床试验的安全性"><span class="header-section-number">3.4.1</span> 及时监测临床试验的安全性</a></li>
+  <li><a href="#尽早确认干预的有效性" id="toc-尽早确认干预的有效性" class="nav-link" data-scroll-target="#尽早确认干预的有效性"><span class="header-section-number">3.4.2</span> 尽早确认干预的有效性</a></li>
+  <li><a href="#样本量的重新估计" id="toc-样本量的重新估计" class="nav-link" data-scroll-target="#样本量的重新估计"><span class="header-section-number">3.4.3</span> 样本量的重新估计</a></li>
+  </ul></li>
+  <li><a href="#亚组分析" id="toc-亚组分析" class="nav-link" data-scroll-target="#亚组分析"><span class="header-section-number">3.5</span> 亚组分析</a></li>
+  <li><a href="#多中心临床研究" id="toc-多中心临床研究" class="nav-link" data-scroll-target="#多中心临床研究"><span class="header-section-number">3.6</span> 多中心临床研究</a></li>
+  <li><a href="#附录新英格兰医学杂志的统计学规范" id="toc-附录新英格兰医学杂志的统计学规范" class="nav-link" data-scroll-target="#附录新英格兰医学杂志的统计学规范"><span class="header-section-number">3.7</span> 附录：新英格兰医学杂志的统计学规范</a>
+  <ul class="collapse">
+  <li><a href="#所有研究" id="toc-所有研究" class="nav-link" data-scroll-target="#所有研究"><span class="header-section-number">3.7.1</span> 所有研究</a></li>
+  <li><a href="#临床试验" id="toc-临床试验" class="nav-link" data-scroll-target="#临床试验"><span class="header-section-number">3.7.2</span> 临床试验</a></li>
+  <li><a href="#观察性研究" id="toc-观察性研究" class="nav-link" data-scroll-target="#观察性研究"><span class="header-section-number">3.7.3</span> 观察性研究</a></li>
+  </ul></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献"><span class="header-section-number">3.8</span> 参考文献</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">随机对照研究中的统计学考虑</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="意向性分析与符合方案分析" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="意向性分析与符合方案分析"><span class="header-section-number">3.1</span> 意向性分析与符合方案分析</h2>
+<p>随机对照研究通常采用的分析策略是意向性分析（Intention to treat analysis, ITT），即不论试验后续情况如何，当初所有参与随机分组的受试者均统统按照随机时的分组进行分析。与ITT分析相对应的是符合方案分析（Per-protocol analysis, PP），是对入组受试者按照实际遵循方案的情况进行分析。然而，对于ITT，往往存在三种认识误区。</p>
+<p>首先，ITT得出的结果更倾向于无效吗？有一种误区认为如果干预的实际效应为无效，那么ITT应该比PP倾向于无效，这种认识是错误的。比如干预A和干预B的实际效应相同，理论上干预A和干预B的效应差应该为零。但在临床研究中由于干预A的副作用比较大，依从性比较差，导致疗效差。而干预B的副作用较小，依从性比较好，导致疗效好，按照这种情况得出的ITT结论会是干预B优于干预A。</p>
+<p>第二种误区认为ITT更保守，这种认识也是错误的。假设干预A副作用较干预B大，干预A的受试者由于副作用比较大，依从性比较差，导致实际发生的副作用和干预B相似，那么ITT得出的结论会是干预A和干预B的副作用没有差别，但实际上干预A因为副作用比较大而更多地违背方案，这种结果不能称之为ITT更加保守。</p>
+<p>第三种认识误区，认为ITT更反映真实世界，因为ITT的分析，考虑到了部分受试者依从性差的情况，而真实世界中总有部分患者依从性比较差。假设你是一位医生，一对夫妇想要了解某种避孕方法的有效性，那么，你会回答他们40%的受试者没有正确使用该方法情况下的ITT分析显示这个方法的有效性是多少；还是回答，如果正确使用该方法情况下的PP分析显示该方法的有效性是多少？我想大部分的医生回答的应该都是后者。</p>
+<p>在随机对照研究当中，由于神奇的随机化，ITT分析可以直接比较两个治疗组之间的差别。然而，PP分析中不仅在随机化前存在两组各项指标的不一致，随机化后也会因为受试者接受的治疗在两组中产生很多不一致的情况（如，根据患者的情况进行的药物剂量调整，由于副作用产生的失访等）。在随机对照研究中进行PP分析，其方法与非随机对照研究一样，也需要纠正这些随机前和随机后的混杂因素。而在随机对照研究设计与方案撰写的时候，也需要预先明确随机化后搜集哪些与预后相关的指标，以及明确如何进行PP分析。</p>
+<p>用第1章的因果语言来说，ITT 分析估计的是“被分配（指派）到某干预”的因果效应（指派效应），它回答的是政策层面的问题，且因随机化而可直接识别；符合方案分析估计的则是“实际按方案接受干预”的效应，由于依从与否往往受随机化后的预后因素影响，朴素的 PP 分析会引入选择偏倚，需要像观察性研究那样校正随机化后的混杂（如逆概率加权），相关方法将在后续章节展开（Hernán 与 Hernández-Díaz，2012）。</p>
+</section>
+<section id="违背方案" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="违背方案"><span class="header-section-number">3.2</span> 违背方案</h2>
+<p>违背方案的两种常见情况包括：</p>
+<section id="不符合入组条件" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="不符合入组条件"><span class="header-section-number">3.2.1</span> 不符合入组条件</h3>
+<p>入组时违反方案规定，可能由于文书错误、实验室错误、错分类等原因。例如，在心肌梗死的多中心研究中，受试者因可能的急性心肌梗死入院，予干预组或安慰剂治疗。然而，心肌梗死的诊断是在监测了数天的心电图和血清酶变化后才确认的。部分受试者在初步诊断为心肌梗死的基础上参与了随机分配，后续的心肌酶谱监测却不支持最初的诊断。</p>
+<p>更复杂的情况是，给予受试者的干预可能会影响或改变入组条件。例如，在上述心肌梗死的研究中，如果干预措施成功地限制了梗死面积，可能会影响心电图和血清酶水平，从而影响心肌梗死的诊断。而安慰剂组则不可能存在这种情况。对照组中不符合入组条件的参与者很容易被识别出来，而干预组中真正不符合入组条件的受试者必须与那些因干预效果而显得不符合的受试者区分开来。</p>
+<p>鉴于此，随机对照研究设计时可遵从三种策略。策略一、诊断得到确认并仔细检查之前，不得入组。策略二、确需删除不符合入组标准的受试者，所依据的信息需基于入组前收集的数据，且决定人需保持结局与分组分配的盲法。策略三、允许不符合入组标准的受试者入组，但不允许退出，因为两组有同等的机会纳入不符合入组标准的受试者，但可能会因为不符合入组标准的受试者存在而减少结局事件的差异。</p>
+</section>
+<section id="依从性" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="依从性"><span class="header-section-number">3.2.2</span> 依从性</h3>
+<p>不遵守方案是受试者退出分析的另一个原因。不依从的另一种形式是失访。不依从可能是由于干预组或对照组中的不良事件、兴趣或感知利益的丧失、潜在状况的变化或各种其他原因。不依从性对试验结果的影响是，与对照相比，干预的任何益处都将减少，从而使试验所需样本量大于计划。其次，如果某组中的不依从性比另一组更大，且不依从与结果相关，那么不依从受试者的退出可能会导致偏倚。最好的策略是设计试验时考虑将不依从性降至最小，然后使用ITT分析结果。</p>
+<p>不依从性的定义也会对分析产生重大影响。临床研究实践中可以将依从性定义为受试者实际接受的干预与方案规定干预的匹配比例。在药物/安慰剂的临床试验中需要分别描述干预组与对照组的依从性，如果干预组的依从性低于对照组，则可能无法合理预期该疗法在临床实践中的广泛使用。即，干预可能是有效的，但如果大部分受试者不能忍受，则可能没有什么价值。</p>
+</section>
+</section>
+<section id="多重比较" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="多重比较"><span class="header-section-number">3.3</span> 多重比较</h2>
+<p>假设张三在玩猜硬币游戏，连猜五次后发现他次次都猜中。于是我们认为他在作弊，因为如果他没作弊的话，连续猜对五次的概率只有</p>
+<p><span class="math display">\[{0.5}^{5}\  \approx \ 0.03\]</span></p>
+<p>然而当100个人同时玩猜硬币游戏，每个人猜五次，然后发现只有李四连猜五次都猜对了。那么，是不是能像前面一样，认为李四在猜硬币时作弊了呢？简单计算一下就可以发现，当100个人猜硬币时，出现一人或以上五次都猜对的概率为</p>
+<p><span class="math display">\[1 - {(1 - 1/32)}^{100} = \ 0.958\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>p_one <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2</span><span class="sc">^</span><span class="dv">5</span>                 <span class="co"># 一个人连对 5 次</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>p_any <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> p_one)<span class="sc">^</span><span class="dv">100</span>     <span class="co"># 100 人中至少一人连对 5 次</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(单人 <span class="ot">=</span> p_one, <span class="st">`</span><span class="at">100人至少一人</span><span class="st">`</span> <span class="ot">=</span> p_any)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         单人 100人至少一人 
+    0.0312500     0.9582005 </code></pre>
+</div>
+</div>
+<p>显然，这时我们就不能再说李四在作弊了。</p>
+<p>统计学的假设检验基本原理是小概率原理，即认为小概率事件在一次试验中实际上不可能发生。但当同一研究进行多次假设检验时，不再符合小概率原理所说的“一次试验”。</p>
+<p>1992年瑞典有研究者试图找出高压电线对健康的影响，他们收集了高压电线300米范围内所有住户的样本，在长达25年的时间内，对超过800种疾病一一检查其发生率与高压电线外住户的统计差异。他们发现幼年白血病的发病率是一般人的4倍，因此推动政府为此采取行动。此研究的问题就出在多重比较中，当比对超过800种疾病时，有一种以上的疾病因为随机效应而呈现发病率增加是非常可能的。在多重比较中需区分两类错误控制目标：一类是控制总体犯一类错误的概率（族系错误率，FWER），Bonferroni 法、Holm 法等属此类；另一类是控制错误发现率（FDR），即被拒绝的假设中假阳性所占的期望比例，Benjamini–Hochberg 法属此类，在大规模探索性检验中更不保守。随机对照试验中多重性问题的系统讨论可参考 Schulz 与 Grimes（2005）。</p>
+<p>临床研究中需要考虑多重比较问题的情况有如下几种：</p>
+<section id="存在多个主要疗效指标" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="存在多个主要疗效指标"><span class="header-section-number">3.3.1</span> 存在多个主要疗效指标</h3>
+<p>临床研究中的多重比较问题通常是选择了多个主要结局。解决方法为选择一个最重要的结局为主要结局，其他的作为次要结局，用主要结局的结果来决定试验的结果；或者将几个指标构建成一个复合结局作为主要结局进行分析。如果确需采用多个主要结局，需要考虑多重性问题。</p>
+<p>1）当要求多个指标同时有统计学意义，才认为试验有效，此时无需校正α。</p>
+<p>2）只要有一个指标有效，即认为试验药物有效，此时需校正α；一般按重要性进行分配，重要的指标检验水准大一些，不重要的指标检验水准小一些，也可以等分，但总和不超过α。可采用简单的Bonferroni法矫正，</p>
+<p><span class="math display">\[\text{矫正}\alpha\text{值} = 0.05/n\]</span></p>
+<p>n为主要结局的数量。Bonferroni法非常简单，但缺点在于非常保守，尤其当n很大时，经过Bonferroni法矫正后总的一类错误可能会远远小于既定α。</p>
+<p>3）按指标的重要性排序，进行序贯检验，即从最重要的指标开始，依次进行假设检验，当前一个假设检验拒绝原假设时，方可进行下一个指标的假设检验；如果前一个假设检验不拒绝原假设，则停止所有后续指标的检验，并由此推断后面的指标组间差异均无统计学意义。这种情况不需要校正α。由于假设检验的顺序将直接影响统计结果，因此，指标的检验顺序的确定需在方案中事先明确声明。揭盲后再确定或调整检验顺序的做法是绝对禁止的。</p>
+</section>
+<section id="多组间疗效指标比较" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="多组间疗效指标比较"><span class="header-section-number">3.3.2</span> 多组间疗效指标比较</h3>
+<p>1）如果组间是剂量大小关系，则可以采用序贯检验。即按剂量组由高到低的顺序逐一与对照组比较，对多个假设进行检验。此时也不需要校正α。</p>
+<p>2）如果组间没有剂量大小关系，则需要校正α。例如试验组与安慰剂对照组、阳性对照组相互比较，常采用Bonferroni校正α至α/n，这里n是比较的次数。</p>
+</section>
+<section id="复合指标" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="复合指标"><span class="header-section-number">3.3.3</span> 复合指标</h3>
+<p>1）复合指标是由不同的分指标加权合并而成（如，评分量表），或由不同的指标定义（如，主要不良心血管事件），当复合指标有统计学意义时，再对每个分指标进行假设检验，无需校正α；</p>
+<p>2）无论复合指标是否有统计学意义，都对每个分指标进行假设检验，且只要有一个指标有统计学意义，即认为试验药物有效。此时需校正α。</p>
+</section>
+<section id="同一个主要疗效指标比较的类型发生改变" class="level3" data-number="3.3.4">
+<h3 data-number="3.3.4" class="anchored" data-anchor-id="同一个主要疗效指标比较的类型发生改变"><span class="header-section-number">3.3.4</span> 同一个主要疗效指标，比较的类型发生改变</h3>
+<p>这种情况常见于先将试验组和阳性对照组比较，进行非劣效检验。如果非劣效性成立，再进行优效性检验，此时不需要校正α。</p>
+</section>
+</section>
+<section id="期中分析与α消耗" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="期中分析与α消耗"><span class="header-section-number">3.4</span> 期中分析与α消耗</h2>
+<p>期中分析是临床试验正式完成前，根据事先制订的统计分析计划，对干预组和对照组间的有效性和安全性所进行的分析。由于期中分析的次数、方法及结果将对试验结果的解释产生影响，所有期中分析必须预先在试验方案中阐明。特殊情况下，期中分析未能在试验开始前确定，至少应在最终的统计分析前完善期中分析方案并修改试验方案。</p>
+<p>期中分析一般有三个目的：</p>
+<section id="及时监测临床试验的安全性" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="及时监测临床试验的安全性"><span class="header-section-number">3.4.1</span> 及时监测临床试验的安全性</h3>
+<p>如果干预出现安全性问题，则提前终止试验。</p>
+</section>
+<section id="尽早确认干预的有效性" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="尽早确认干预的有效性"><span class="header-section-number">3.4.2</span> 尽早确认干预的有效性</h3>
+<p>如果试验有效并达到预先设定的标准，可以提前因有效而终止；如果试验无效低于预先设定的标准，可以提前因无效而终止；避免后续研究费事费力费钱。</p>
+</section>
+<section id="样本量的重新估计" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="样本量的重新估计"><span class="header-section-number">3.4.3</span> 样本量的重新估计</h3>
+<p>由于试验设计时先验信息有限，对干预组的有效性或安全性估计不尽准确，导致样本量的估计也不够准确，期中分析时可以重新估计样本量，计算后验概率，确保试验有足够的把握度。</p>
+<p>绝大多数的期中分析是为了证明干预措施的有效性，此时则需要考虑控制假阳性率（I类错误率）。因为，每进行一次期中分析，即进行一次假设检验，根据上述多重检验的原则，会使假阳性或I类错误率增加。如果每一次期中分析时研究者都采用α=0.05的检验水准，那么最后的总体α 水平随着检验次数而升高。为了使研究的总体I类错误控制在检验水准α (0.05)，则必须校正每一次期中分析的检验水准。即，每一次期中分析都会消耗一定比例的α，期中分析越多，消耗的α越多，留给最终分析的α越少。</p>
+<p>由于期中分析的结果会对后续试验的结果产生影响，因此，期中分析的日程、安排、α 消耗或分配等应当事先制订计划并在试验方案中阐明。各阶段检验水准、检验效能及样本量受到α消耗方法的影响，常用的α消耗方法有以下三种: Pocock法、O’Brien-Fleming法和Peto法。</p>
+<p>Pocock较简易，进行一次期中分析和一次最终分析，共分析两次，为控制总检验水准为0.05，两次α均为0.029。其缺点是最后一次α远小于0.05。若期中分析未得到阳性结果，则最终研究不易得到阳性结果。</p>
+<p>O’Brien-Fleming法，简称O-F 法，该法在期中分析时采用严格的标准，而随着试验的进行，信息逐渐累积，使结果变得可靠与稳定，此时α也随之放宽，最后一次分析的α较接近0.05。如果研究继续进行达到计划的样本，那么最终的分析如同没有期中分析一样。因此，用O-F 法来设计试验与传统试验很相似，而且当试验组被证明有很强的优势时可以提早终止试验。</p>
+<p>Peto法与O-F法类似，期中分析时采用严格的标准，而最后一次的α更接近0.05。其易于理解、执行与描述。但由于要求早期终止的α很小（0.001），一般认为用Peto法早期终止研究比较困难。上述方法可统一在 α 消耗函数（alpha spending function）框架下理解：DeMets 与 Lan（1994）指出，只要预先设定 α 随信息量累积的消耗方式，便可灵活安排期中分析的时点与次数，而无需事先固定；Pocock（1977）与 O’Brien-Fleming（1979）则分别对应消耗较快与早期严格、消耗较慢的两类经典边界。</p>
+<p><strong>案例3.1</strong></p>
+<p>KEYNOTE-604是一项随机、双盲、Ⅲ期临床研究，符合条件的453例肺癌患者，按照1:1随机分配接受帕博利珠单抗或安慰剂治疗35个周期或至疾病进展。主要终点为无进展生存和总体生存。预先设定两次期中分析和一次最终分析，第一次期中分析的α为0.0024，第二次期中分析的α为0.0071，最终分析的α为0.012。</p>
+<p>两次期中分析都没有得到阳性的结果。最终分析显示，帕博利珠单抗和安慰剂组中位总体生存率分别为10.8个月和9.7个月，在意向治疗人群中未达到显著性（危险比0.80；95% 置信区间0.64-0.98；p = 0.016）。虽然生存曲线最终呈现明显分开的趋势，0.016和0.012的微弱差距却造就了阴性结果。期中分析对α的消耗不容忽视，如果没有期中分析，OS就可以得到阳性的结果。之所以强调临床医生对于统计方法学的理解，是不希望一个临床上有显著差异的案例，由于统计设计/分析方法的失误而得到阴性结果，导致浪费大量的人力物力和时间。</p>
+</section>
+</section>
+<section id="亚组分析" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="亚组分析"><span class="header-section-number">3.5</span> 亚组分析</h2>
+<p>随机对照研究中常见的分析技术是根据基线特征对受试者进行分组，以评估不同亚组的患者对干预的反应是否不同。亚组分析可以支持或详细说明试验的总体效应，亦可对特定亚组提供探索性结果。然而，在解释亚组发现时必须小心谨慎，因为亚组分析的结果通常具有误导性。针对亚组分析的具体建议包括如下几点。</p>
+<ol type="1">
+<li>亚组分析应该预先指定。</li>
+</ol>
+<p>由于在试验结束后通过对数据的持续探索几乎总是可以找到至少一个暗示性的亚组效应，建议在研究方案中预先指定需要分析的亚组以及每个亚组的生物学合理性。此外，用于分层随机化的因素（例如年龄、性别或疾病阶段）在研究设计中已被暗示为亚组，即使它们没有在方案中明确说明。没有生物学合理假设支持的亚组更应谨慎对待。部分亚组分析为事后分析，有时称为“数据挖掘”或“钓鱼”。此类分析应主要用于生成假说以在其他试验中进行验证。</p>
+<ol start="2" type="1">
+<li>亚组分析应该进行多重比较的矫正。</li>
+</ol>
+<p>如果要对大量亚组进行显着性检验，假阳性结果的可能性会增加。因此，可以通过诸如Bonferroni校正或其他多种检验的矫正方法来完成。如果一项研究发现干预和对照之间的差异似乎集中在特定的亚组中，那么需要检索相同的结果是否出现在另一类似的试验中。</p>
+<ol start="3" type="1">
+<li>应该使用交互作用而不是采用组内估计效果。</li>
+</ol>
+<p>既往文献的共识强烈支持交互作用的方法，提供了亚组分类变量是否与治疗效应相关联的全局评估，并给出这些效应的点估计及其置信区间。相比之下，亚组内治疗效果的估计需要更多的假设检验，并且会夸大假阳性结果的概率。</p>
+<p>总之，亚组分析可能会出现较大的随机差异，其发现很容易被过度解释。观察到的不同亚组之间结果的差异并不意味着干预的效果是不均匀。若试验的主要效应没有显着性，研究者在报告重要的亚组发现时应特别保守。关于亚组分析的可信度，Wang 等（2007）在《新英格兰医学杂志》系统提出了上述原则（预先设定、交互作用检验、多重性校正等）；Sun 等（2010）进一步给出了评估亚组效应是否可信的系列标准，如该亚组假设是否事先提出、是否有交互作用检验支持、是否在独立研究中得到重复等，可作为解读亚组结果的实用清单。</p>
+</section>
+<section id="多中心临床研究" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="多中心临床研究"><span class="header-section-number">3.6</span> 多中心临床研究</h2>
+<p>涉及多中心的临床试验中评估治疗方法非常常见，主要是因为一个中心很少能招募足够数量的患者来完成试验。因此，对多中心临床试验进行统计分析要考虑中心效应，以便更好地了解总体平均治疗效果、治疗效果的变异性以及不同中心的效应。在多中心试验中，随机分组通常按中心分层，以实现每个中心接受每种治疗的平衡。</p>
+<p>可使用两种不同的统计模型分析多中心临床试验结果。首先，可使用一个简单的模型，不包括中心效应项，所有的变异性都被认为只来自于受试者，没有任何中心与中心之间的系统差异。第二，可使用一个更合适的模型，将单个中心内受试者的变异性与中心的变异性分开。第一个模型中没有中心效应，将高估平均治疗效果的变异性，因为它假定所有的变异性都是受试者群体的固有特征，这将导致置信区间过宽，统计效能下降。相反，包含中心效应的模型将正确认识到一些变异性是每个中心治疗人群的差异特征，这将减少单个中心内部受试者的变异性，从而增加估计精度。</p>
+<p>在估计治疗效果时，可以使用各种统计模型来考虑中心效应。最简单的方法是将中心视为固定效应。这种方法可用于线性模型、生存分析或逻辑回归，在每种情况下，都允许在一个中心内的治疗结果与不同中心的治疗结果之间有更大的相似性。</p>
+</section>
+<section id="附录新英格兰医学杂志的统计学规范" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="附录新英格兰医学杂志的统计学规范"><span class="header-section-number">3.7</span> 附录：新英格兰医学杂志的统计学规范</h2>
+<section id="所有研究" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="所有研究"><span class="header-section-number">3.7.1</span> 所有研究</h3>
+<ul>
+<li><p>所有论文的方法部分应说明该研究对于样本量和统计学功效的考虑，并简要说明主要结局和次要结局的分析方法。</p></li>
+<li><p>所有论文的方法部分应说明如何处理缺失数据。除非数据缺失很少，否则只分析具有完整信息的病例集一般不能作为主要分析，而应基于数据缺失机制，使用适当的方法插补。当数据随机缺失时，可采用多重填补法或逆概率加权法；当数据缺失非随机，基于模型的方法更适合。</p></li>
+<li><p>显著性检验中统计效应值、相关性或其它参数的点估计值都应附有相应的置信区间。置信区间应根据α进行校正。</p></li>
+<li><p>除非研究设计（如非劣效性临床试验）要求进行单侧检验，否则所有报告的 p 值都应是双侧检验。一般而言，大于0.01的 p 值应保留两位小数，0.01~0.001之间的 p 值应保留三位小数；小于0.001的 p 值应报告为p &lt; 0.001。除此之外，预先设定终止规则的临床试验所获得的 p 值，或全基因组关联研究所获得的 p 值，其报告精度可不受上述位数规则的约束。</p></li>
+<li><p>报告结果时，精确度不应超过科学意义和样本量所界定的精确度。例如，比值比一般应报告两位小数。</p></li>
+</ul>
+</section>
+<section id="临床试验" class="level3" data-number="3.7.2">
+<h3 data-number="3.7.2" class="anchored" data-anchor-id="临床试验"><span class="header-section-number">3.7.2</span> 临床试验</h3>
+<ul>
+<li><p>原始和最终试验方案及统计分析计划应在投稿时一并提交，并且需要提交对试验方案做出的修正列表，以说明修订日期和修订内容。</p></li>
+<li><p>主要结局的分析应与原始试验方案中预先设定的分析一致。试验方案中未列出的分析应在论文的方法部分说明理由。编辑可能要求作者补充提交试验方案中未包含的分析。</p></li>
+<li><p>比较两组或多组结局时，研究者应采用试验方案中设定的检验程序来控制总的一类误差。对于预先设定的探索性分析，研究者应采用研究方案中说明的一类错误的控制方法，例如Benjamini–Hochberg分析。（即 Benjamini–Hochberg 法，用于控制错误发现率；Benjamini 与 Hochberg，1995。）</p></li>
+<li><p>如果临床试验的试验方案中未设定多重性校正方法或一类错误控制方法，则对所有次要和探索性终点的报告应仅限于疗效的点估计值和95%置信区间。在这种情况下，方法部分应说明置信区间宽度未进行多重性校正，由此得出的推论可能无法重复。这些分析不应报告 p 值。</p></li>
+<li><p>在研究方案中预先设定了亚组分析的情况下，该分析应符合研究方案中描述的方法。如果研究团队认为对亚组进行事后分析具有重要意义，则应说明进行此项分析的理由，并在论文中清楚注明这属于事后分析。</p></li>
+<li><p>森林图常用于呈现所关注的各亚组中的疗效一致性。该图可有效显示各亚组的估计疗效，建议在论文中给出重要亚组的森林图。治疗与亚组之间交互作用的一系列p值可能存在多重性问题，用于推断的价值有限。因此，在大多数情况下，森林图中不应提供交互作用的 p 值。</p></li>
+<li><p>如果安全性结局（不是主要结局时）的显著性检验与特定治疗的估计值一起报告，则无需进行多重性校正。因为安全性终点包含的信息大于0.05的一类错误是可接受。</p></li>
+<li><p>研究中在报告风险差（Risk difference）或风险比（Risk ratio）之前应报告事件绝对数量或发生率，目的是向读者提供事件的实际发生率。应避免使用比值比（Odds ratio），因为在许多情况下可能高估相对危险度并且被错误解读。</p></li>
+<li><p>研究者应提供CONSORT格式的流程图，提交CONSORT清单中包含的所有相关信息。</p></li>
+</ul>
+</section>
+<section id="观察性研究" class="level3" data-number="3.7.3">
+<h3 data-number="3.7.3" class="anchored" data-anchor-id="观察性研究"><span class="header-section-number">3.7.3</span> 观察性研究</h3>
+<ul>
+<li><p>观察性研究结果的有效性取决于样本的选择、测定和未测定的混杂因素以及混杂因素的控制方法。观察性研究的方法部分应说明在研究设计和分析中如何处理这些问题。</p></li>
+<li><p>如果一项观察性研究包含了预先设定的统计分析方案，则投稿时应附上签署了姓名和日期的统计分析方案。</p></li>
+<li><p>如果观察性研究涉及多重检验，应采用预先设定的方法来控制一类错误。在未预先设定错误控制方法的观察性研究论文中，统计量应仅限于点估计值和95%置信区间。在这种情况下，方法部分应说明置信区间宽度未进行多重性校正，所得推断可能无法重复，且这些分析不应报告 p 值。</p></li>
+<li><p>方法部分应列出计划的分析方法，包括选择病例时的纳入标准和数据采样方法，适当的情况下可附上图表。说明待估计的关联或因果关系，以及做出该选择的理由。</p></li>
+<li><p>报告治疗效应的研究应说明潜在混杂因素和其他变量在不同治疗组间的分布。</p></li>
+<li><p>复杂模型最好在补充附录中加以说明。对于未测定的混杂因素所造成的偏倚，研究中应通过敏感性分析来讨论不同设定对上述偏倚的影响；如未进行此项分析，则必须讨论未测定的混杂因素所造成的潜在偏倚。</p></li>
+<li><p>研究者应在类似的但独立的一项或多项研究中重复研究结果，以评估稳健性。</p></li>
+</ul>
+</section>
+</section>
+<section id="参考文献" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="参考文献"><span class="header-section-number">3.8</span> 参考文献</h2>
+<ol type="1">
+<li><p>Lawrence F,&nbsp;Curt F,&nbsp;David D,&nbsp;David R,&nbsp;Christopher G. Fundamentals of Clinical Trials. Springer. 2015.</p></li>
+<li><p>Senn SJ, Lewis RJ. Treatment Effects in Multicenter Randomized Clinical Trials. JAMA. 2019 Mar 26;321(12):1211-1212.</p></li>
+<li><p>The New England Journal of Medicine.</p></li>
+<li><p>Hernán MA, Hernández-Díaz S. Beyond the intention-to-treat in comparative effectiveness research. Clinical Trials, 2012, 9(1):48-55.</p></li>
+<li><p>Montori VM, Guyatt GH. Intention-to-treat principle. CMAJ, 2001, 165(10):1339-1341.</p></li>
+<li><p>Schulz KF, Grimes DA. Multiplicity in randomised trials I: endpoints and treatments. Lancet, 2005, 365(9470):1591-1595.</p></li>
+<li><p>Pocock SJ. Group sequential methods in the design and analysis of clinical trials. Biometrika, 1977, 64(2):191-199.</p></li>
+<li><p>O’Brien PC, Fleming TR. A multiple testing procedure for clinical trials. Biometrics, 1979, 35(3):549-556.</p></li>
+<li><p>Peto R, Pike MC, Armitage P, et al.&nbsp;Design and analysis of randomized clinical trials requiring prolonged observation of each patient. I. Introduction and design. British Journal of Cancer, 1976, 34(6):585-612.</p></li>
+<li><p>DeMets DL, Lan KK. Interim analysis: the alpha spending function approach. Statistics in Medicine, 1994, 13(13-14):1341-1352.</p></li>
+<li><p>Wang R, Lagakos SW, Ware JH, et al.&nbsp;Statistics in medicine - reporting of subgroup analyses in clinical trials. New England Journal of Medicine, 2007, 357(21):2189-2194.</p></li>
+<li><p>Sun X, Briel M, Walter SD, et al.&nbsp;Is a subgroup effect believable? Updating criteria to evaluate the credibility of subgroup analyses. BMJ, 2010, 340:c117.</p></li>
+<li><p>Benjamini Y, Hochberg Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing. Journal of the Royal Statistical Society: Series B, 1995, 57(1):289-300.</p></li>
+</ol>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/02-rct.html" class="pagination-link" aria-label="随机对照研究">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">随机对照研究</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/04-protocol-consent.html" class="pagination-link" aria-label="随机对照研究方案与受试者知情同意的撰写">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">随机对照研究方案与受试者知情同意的撰写</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 随机对照研究中的统计学考虑</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 意向性分析与符合方案分析</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>随机对照研究通常采用的分析策略是意向性分析（Intention to treat analysis, ITT），即不论试验后续情况如何，当初所有参与随机分组的受试者均统统按照随机时的分组进行分析。与ITT分析相对应的是符合方案分析（Per-protocol analysis, PP），是对入组受试者按照实际遵循方案的情况进行分析。然而，对于ITT，往往存在三种认识误区。</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>首先，ITT得出的结果更倾向于无效吗？有一种误区认为如果干预的实际效应为无效，那么ITT应该比PP倾向于无效，这种认识是错误的。比如干预A和干预B的实际效应相同，理论上干预A和干预B的效应差应该为零。但在临床研究中由于干预A的副作用比较大，依从性比较差，导致疗效差。而干预B的副作用较小，依从性比较好，导致疗效好，按照这种情况得出的ITT结论会是干预B优于干预A。</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>第二种误区认为ITT更保守，这种认识也是错误的。假设干预A副作用较干预B大，干预A的受试者由于副作用比较大，依从性比较差，导致实际发生的副作用和干预B相似，那么ITT得出的结论会是干预A和干预B的副作用没有差别，但实际上干预A因为副作用比较大而更多地违背方案，这种结果不能称之为ITT更加保守。</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>第三种认识误区，认为ITT更反映真实世界，因为ITT的分析，考虑到了部分受试者依从性差的情况，而真实世界中总有部分患者依从性比较差。假设你是一位医生，一对夫妇想要了解某种避孕方法的有效性，那么，你会回答他们40%的受试者没有正确使用该方法情况下的ITT分析显示这个方法的有效性是多少；还是回答，如果正确使用该方法情况下的PP分析显示该方法的有效性是多少？我想大部分的医生回答的应该都是后者。</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>在随机对照研究当中，由于神奇的随机化，ITT分析可以直接比较两个治疗组之间的差别。然而，PP分析中不仅在随机化前存在两组各项指标的不一致，随机化后也会因为受试者接受的治疗在两组中产生很多不一致的情况（如，根据患者的情况进行的药物剂量调整，由于副作用产生的失访等）。在随机对照研究中进行PP分析，其方法与非随机对照研究一样，也需要纠正这些随机前和随机后的混杂因素。而在随机对照研究设计与方案撰写的时候，也需要预先明确随机化后搜集哪些与预后相关的指标，以及明确如何进行PP分析。</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>用第1章的因果语言来说，ITT 分析估计的是“被分配（指派）到某干预”的因果效应（指派效应），它回答的是政策层面的问题，且因随机化而可直接识别；符合方案分析估计的则是“实际按方案接受干预”的效应，由于依从与否往往受随机化后的预后因素影响，朴素的 PP 分析会引入选择偏倚，需要像观察性研究那样校正随机化后的混杂（如逆概率加权），相关方法将在后续章节展开（Hernán 与 Hernández-Díaz，2012）。</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## 违背方案</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>违背方案的两种常见情况包括：</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### 不符合入组条件</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>入组时违反方案规定，可能由于文书错误、实验室错误、错分类等原因。例如，在心肌梗死的多中心研究中，受试者因可能的急性心肌梗死入院，予干预组或安慰剂治疗。然而，心肌梗死的诊断是在监测了数天的心电图和血清酶变化后才确认的。部分受试者在初步诊断为心肌梗死的基础上参与了随机分配，后续的心肌酶谱监测却不支持最初的诊断。</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>更复杂的情况是，给予受试者的干预可能会影响或改变入组条件。例如，在上述心肌梗死的研究中，如果干预措施成功地限制了梗死面积，可能会影响心电图和血清酶水平，从而影响心肌梗死的诊断。而安慰剂组则不可能存在这种情况。对照组中不符合入组条件的参与者很容易被识别出来，而干预组中真正不符合入组条件的受试者必须与那些因干预效果而显得不符合的受试者区分开来。</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>鉴于此，随机对照研究设计时可遵从三种策略。策略一、诊断得到确认并仔细检查之前，不得入组。策略二、确需删除不符合入组标准的受试者，所依据的信息需基于入组前收集的数据，且决定人需保持结局与分组分配的盲法。策略三、允许不符合入组标准的受试者入组，但不允许退出，因为两组有同等的机会纳入不符合入组标准的受试者，但可能会因为不符合入组标准的受试者存在而减少结局事件的差异。</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### 依从性</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>不遵守方案是受试者退出分析的另一个原因。不依从的另一种形式是失访。不依从可能是由于干预组或对照组中的不良事件、兴趣或感知利益的丧失、潜在状况的变化或各种其他原因。不依从性对试验结果的影响是，与对照相比，干预的任何益处都将减少，从而使试验所需样本量大于计划。其次，如果某组中的不依从性比另一组更大，且不依从与结果相关，那么不依从受试者的退出可能会导致偏倚。最好的策略是设计试验时考虑将不依从性降至最小，然后使用ITT分析结果。</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>不依从性的定义也会对分析产生重大影响。临床研究实践中可以将依从性定义为受试者实际接受的干预与方案规定干预的匹配比例。在药物/安慰剂的临床试验中需要分别描述干预组与对照组的依从性，如果干预组的依从性低于对照组，则可能无法合理预期该疗法在临床实践中的广泛使用。即，干预可能是有效的，但如果大部分受试者不能忍受，则可能没有什么价值。</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## 多重比较</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>假设张三在玩猜硬币游戏，连猜五次后发现他次次都猜中。于是我们认为他在作弊，因为如果他没作弊的话，连续猜对五次的概率只有</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>$${0.5}^{5}\  \approx \ 0.03$$</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>然而当100个人同时玩猜硬币游戏，每个人猜五次，然后发现只有李四连猜五次都猜对了。那么，是不是能像前面一样，认为李四在猜硬币时作弊了呢？简单计算一下就可以发现，当100个人猜硬币时，出现一人或以上五次都猜对的概率为</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>$$1 - {(1 - 1/32)}^{100} = \ 0.958$$</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-multiplicity</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "演示：多重比较如何抬高假阳性概率"</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>p_one <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2</span><span class="sc">^</span><span class="dv">5</span>                 <span class="co"># 一个人连对 5 次</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>p_any <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> p_one)<span class="sc">^</span><span class="dv">100</span>     <span class="co"># 100 人中至少一人连对 5 次</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(单人 <span class="ot">=</span> p_one, <span class="st">`</span><span class="at">100人至少一人</span><span class="st">`</span> <span class="ot">=</span> p_any)</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>显然，这时我们就不能再说李四在作弊了。</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>统计学的假设检验基本原理是小概率原理，即认为小概率事件在一次试验中实际上不可能发生。但当同一研究进行多次假设检验时，不再符合小概率原理所说的“一次试验”。</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>1992年瑞典有研究者试图找出高压电线对健康的影响，他们收集了高压电线300米范围内所有住户的样本，在长达25年的时间内，对超过800种疾病一一检查其发生率与高压电线外住户的统计差异。他们发现幼年白血病的发病率是一般人的4倍，因此推动政府为此采取行动。此研究的问题就出在多重比较中，当比对超过800种疾病时，有一种以上的疾病因为随机效应而呈现发病率增加是非常可能的。在多重比较中需区分两类错误控制目标：一类是控制总体犯一类错误的概率（族系错误率，FWER），Bonferroni 法、Holm 法等属此类；另一类是控制错误发现率（FDR），即被拒绝的假设中假阳性所占的期望比例，Benjamini–Hochberg 法属此类，在大规模探索性检验中更不保守。随机对照试验中多重性问题的系统讨论可参考 Schulz 与 Grimes（2005）。</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>临床研究中需要考虑多重比较问题的情况有如下几种：</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### 存在多个主要疗效指标</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>临床研究中的多重比较问题通常是选择了多个主要结局。解决方法为选择一个最重要的结局为主要结局，其他的作为次要结局，用主要结局的结果来决定试验的结果；或者将几个指标构建成一个复合结局作为主要结局进行分析。如果确需采用多个主要结局，需要考虑多重性问题。</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>1）当要求多个指标同时有统计学意义，才认为试验有效，此时无需校正α。</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>2）只要有一个指标有效，即认为试验药物有效，此时需校正α；一般按重要性进行分配，重要的指标检验水准大一些，不重要的指标检验水准小一些，也可以等分，但总和不超过α。可采用简单的Bonferroni法矫正，</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>$$\text{矫正}\alpha\text{值} = 0.05/n$$</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>n为主要结局的数量。Bonferroni法非常简单，但缺点在于非常保守，尤其当n很大时，经过Bonferroni法矫正后总的一类错误可能会远远小于既定α。</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>3）按指标的重要性排序，进行序贯检验，即从最重要的指标开始，依次进行假设检验，当前一个假设检验拒绝原假设时，方可进行下一个指标的假设检验；如果前一个假设检验不拒绝原假设，则停止所有后续指标的检验，并由此推断后面的指标组间差异均无统计学意义。这种情况不需要校正α。由于假设检验的顺序将直接影响统计结果，因此，指标的检验顺序的确定需在方案中事先明确声明。揭盲后再确定或调整检验顺序的做法是绝对禁止的。</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### 多组间疗效指标比较</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>1）如果组间是剂量大小关系，则可以采用序贯检验。即按剂量组由高到低的顺序逐一与对照组比较，对多个假设进行检验。此时也不需要校正α。</span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>2）如果组间没有剂量大小关系，则需要校正α。例如试验组与安慰剂对照组、阳性对照组相互比较，常采用Bonferroni校正α至α/n，这里n是比较的次数。</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### 复合指标</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>1）复合指标是由不同的分指标加权合并而成（如，评分量表），或由不同的指标定义（如，主要不良心血管事件），当复合指标有统计学意义时，再对每个分指标进行假设检验，无需校正α；</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>2）无论复合指标是否有统计学意义，都对每个分指标进行假设检验，且只要有一个指标有统计学意义，即认为试验药物有效。此时需校正α。</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="fu">### 同一个主要疗效指标，比较的类型发生改变</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>这种情况常见于先将试验组和阳性对照组比较，进行非劣效检验。如果非劣效性成立，再进行优效性检验，此时不需要校正α。</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## 期中分析与α消耗</span></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>期中分析是临床试验正式完成前，根据事先制订的统计分析计划，对干预组和对照组间的有效性和安全性所进行的分析。由于期中分析的次数、方法及结果将对试验结果的解释产生影响，所有期中分析必须预先在试验方案中阐明。特殊情况下，期中分析未能在试验开始前确定，至少应在最终的统计分析前完善期中分析方案并修改试验方案。</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>期中分析一般有三个目的：</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="fu">### 及时监测临床试验的安全性</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>如果干预出现安全性问题，则提前终止试验。</span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="fu">### 尽早确认干预的有效性</span></span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>如果试验有效并达到预先设定的标准，可以提前因有效而终止；如果试验无效低于预先设定的标准，可以提前因无效而终止；避免后续研究费事费力费钱。</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### 样本量的重新估计</span></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>由于试验设计时先验信息有限，对干预组的有效性或安全性估计不尽准确，导致样本量的估计也不够准确，期中分析时可以重新估计样本量，计算后验概率，确保试验有足够的把握度。</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>绝大多数的期中分析是为了证明干预措施的有效性，此时则需要考虑控制假阳性率（I类错误率）。因为，每进行一次期中分析，即进行一次假设检验，根据上述多重检验的原则，会使假阳性或I类错误率增加。如果每一次期中分析时研究者都采用α=0.05的检验水准，那么最后的总体α 水平随着检验次数而升高。为了使研究的总体I类错误控制在检验水准α (0.05)，则必须校正每一次期中分析的检验水准。即，每一次期中分析都会消耗一定比例的α，期中分析越多，消耗的α越多，留给最终分析的α越少。</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>由于期中分析的结果会对后续试验的结果产生影响，因此，期中分析的日程、安排、α 消耗或分配等应当事先制订计划并在试验方案中阐明。各阶段检验水准、检验效能及样本量受到α消耗方法的影响，常用的α消耗方法有以下三种: Pocock法、O’Brien-Fleming法和Peto法。</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>Pocock较简易，进行一次期中分析和一次最终分析，共分析两次，为控制总检验水准为0.05，两次α均为0.029。其缺点是最后一次α远小于0.05。若期中分析未得到阳性结果，则最终研究不易得到阳性结果。</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>O’Brien-Fleming法，简称O-F 法，该法在期中分析时采用严格的标准，而随着试验的进行，信息逐渐累积，使结果变得可靠与稳定，此时α也随之放宽，最后一次分析的α较接近0.05。如果研究继续进行达到计划的样本，那么最终的分析如同没有期中分析一样。因此，用O-F 法来设计试验与传统试验很相似，而且当试验组被证明有很强的优势时可以提早终止试验。</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>Peto法与O-F法类似，期中分析时采用严格的标准，而最后一次的α更接近0.05。其易于理解、执行与描述。但由于要求早期终止的α很小（0.001），一般认为用Peto法早期终止研究比较困难。上述方法可统一在 α 消耗函数（alpha spending function）框架下理解：DeMets 与 Lan（1994）指出，只要预先设定 α 随信息量累积的消耗方式，便可灵活安排期中分析的时点与次数，而无需事先固定；Pocock（1977）与 O’Brien-Fleming（1979）则分别对应消耗较快与早期严格、消耗较慢的两类经典边界。</span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>**案例3.1**</span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>KEYNOTE-604是一项随机、双盲、Ⅲ期临床研究，符合条件的453例肺癌患者，按照1:1随机分配接受帕博利珠单抗或安慰剂治疗35个周期或至疾病进展。主要终点为无进展生存和总体生存。预先设定两次期中分析和一次最终分析，第一次期中分析的α为0.0024，第二次期中分析的α为0.0071，最终分析的α为0.012。</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>两次期中分析都没有得到阳性的结果。最终分析显示，帕博利珠单抗和安慰剂组中位总体生存率分别为10.8个月和9.7个月，在意向治疗人群中未达到显著性（危险比0.80；95% 置信区间0.64-0.98；p = 0.016）。虽然生存曲线最终呈现明显分开的趋势，0.016和0.012的微弱差距却造就了阴性结果。期中分析对α的消耗不容忽视，如果没有期中分析，OS就可以得到阳性的结果。之所以强调临床医生对于统计方法学的理解，是不希望一个临床上有显著差异的案例，由于统计设计/分析方法的失误而得到阴性结果，导致浪费大量的人力物力和时间。</span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="fu">## 亚组分析</span></span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>随机对照研究中常见的分析技术是根据基线特征对受试者进行分组，以评估不同亚组的患者对干预的反应是否不同。亚组分析可以支持或详细说明试验的总体效应，亦可对特定亚组提供探索性结果。然而，在解释亚组发现时必须小心谨慎，因为亚组分析的结果通常具有误导性。针对亚组分析的具体建议包括如下几点。</span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>亚组分析应该预先指定。</span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>由于在试验结束后通过对数据的持续探索几乎总是可以找到至少一个暗示性的亚组效应，建议在研究方案中预先指定需要分析的亚组以及每个亚组的生物学合理性。此外，用于分层随机化的因素（例如年龄、性别或疾病阶段）在研究设计中已被暗示为亚组，即使它们没有在方案中明确说明。没有生物学合理假设支持的亚组更应谨慎对待。部分亚组分析为事后分析，有时称为“数据挖掘”或“钓鱼”。此类分析应主要用于生成假说以在其他试验中进行验证。</span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>亚组分析应该进行多重比较的矫正。</span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>如果要对大量亚组进行显着性检验，假阳性结果的可能性会增加。因此，可以通过诸如Bonferroni校正或其他多种检验的矫正方法来完成。如果一项研究发现干预和对照之间的差异似乎集中在特定的亚组中，那么需要检索相同的结果是否出现在另一类似的试验中。</span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>应该使用交互作用而不是采用组内估计效果。</span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>既往文献的共识强烈支持交互作用的方法，提供了亚组分类变量是否与治疗效应相关联的全局评估，并给出这些效应的点估计及其置信区间。相比之下，亚组内治疗效果的估计需要更多的假设检验，并且会夸大假阳性结果的概率。</span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>总之，亚组分析可能会出现较大的随机差异，其发现很容易被过度解释。观察到的不同亚组之间结果的差异并不意味着干预的效果是不均匀。若试验的主要效应没有显着性，研究者在报告重要的亚组发现时应特别保守。关于亚组分析的可信度，Wang 等（2007）在《新英格兰医学杂志》系统提出了上述原则（预先设定、交互作用检验、多重性校正等）；Sun 等（2010）进一步给出了评估亚组效应是否可信的系列标准，如该亚组假设是否事先提出、是否有交互作用检验支持、是否在独立研究中得到重复等，可作为解读亚组结果的实用清单。</span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a><span class="fu">## 多中心临床研究</span></span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>涉及多中心的临床试验中评估治疗方法非常常见，主要是因为一个中心很少能招募足够数量的患者来完成试验。因此，对多中心临床试验进行统计分析要考虑中心效应，以便更好地了解总体平均治疗效果、治疗效果的变异性以及不同中心的效应。在多中心试验中，随机分组通常按中心分层，以实现每个中心接受每种治疗的平衡。</span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>可使用两种不同的统计模型分析多中心临床试验结果。首先，可使用一个简单的模型，不包括中心效应项，所有的变异性都被认为只来自于受试者，没有任何中心与中心之间的系统差异。第二，可使用一个更合适的模型，将单个中心内受试者的变异性与中心的变异性分开。第一个模型中没有中心效应，将高估平均治疗效果的变异性，因为它假定所有的变异性都是受试者群体的固有特征，这将导致置信区间过宽，统计效能下降。相反，包含中心效应的模型将正确认识到一些变异性是每个中心治疗人群的差异特征，这将减少单个中心内部受试者的变异性，从而增加估计精度。</span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>在估计治疗效果时，可以使用各种统计模型来考虑中心效应。最简单的方法是将中心视为固定效应。这种方法可用于线性模型、生存分析或逻辑回归，在每种情况下，都允许在一个中心内的治疗结果与不同中心的治疗结果之间有更大的相似性。</span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## 附录：新英格兰医学杂志的统计学规范</span></span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a><span class="fu">### 所有研究</span></span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>所有论文的方法部分应说明该研究对于样本量和统计学功效的考虑，并简要说明主要结局和次要结局的分析方法。</span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>所有论文的方法部分应说明如何处理缺失数据。除非数据缺失很少，否则只分析具有完整信息的病例集一般不能作为主要分析，而应基于数据缺失机制，使用适当的方法插补。当数据随机缺失时，可采用多重填补法或逆概率加权法；当数据缺失非随机，基于模型的方法更适合。</span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>显著性检验中统计效应值、相关性或其它参数的点估计值都应附有相应的置信区间。置信区间应根据α进行校正。</span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>除非研究设计（如非劣效性临床试验）要求进行单侧检验，否则所有报告的 p 值都应是双侧检验。一般而言，大于0.01的 p 值应保留两位小数，0.01\~0.001之间的 p 值应保留三位小数；小于0.001的 p 值应报告为p <span class="sc">\&lt;</span> 0.001。除此之外，预先设定终止规则的临床试验所获得的 p 值，或全基因组关联研究所获得的 p 值，其报告精度可不受上述位数规则的约束。</span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>报告结果时，精确度不应超过科学意义和样本量所界定的精确度。例如，比值比一般应报告两位小数。</span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a><span class="fu">### 临床试验</span></span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>原始和最终试验方案及统计分析计划应在投稿时一并提交，并且需要提交对试验方案做出的修正列表，以说明修订日期和修订内容。</span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>主要结局的分析应与原始试验方案中预先设定的分析一致。试验方案中未列出的分析应在论文的方法部分说明理由。编辑可能要求作者补充提交试验方案中未包含的分析。</span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>比较两组或多组结局时，研究者应采用试验方案中设定的检验程序来控制总的一类误差。对于预先设定的探索性分析，研究者应采用研究方案中说明的一类错误的控制方法，例如Benjamini–Hochberg分析。（即 Benjamini–Hochberg 法，用于控制错误发现率；Benjamini 与 Hochberg，1995。）</span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>如果临床试验的试验方案中未设定多重性校正方法或一类错误控制方法，则对所有次要和探索性终点的报告应仅限于疗效的点估计值和95%置信区间。在这种情况下，方法部分应说明置信区间宽度未进行多重性校正，由此得出的推论可能无法重复。这些分析不应报告 p 值。</span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>在研究方案中预先设定了亚组分析的情况下，该分析应符合研究方案中描述的方法。如果研究团队认为对亚组进行事后分析具有重要意义，则应说明进行此项分析的理由，并在论文中清楚注明这属于事后分析。</span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>森林图常用于呈现所关注的各亚组中的疗效一致性。该图可有效显示各亚组的估计疗效，建议在论文中给出重要亚组的森林图。治疗与亚组之间交互作用的一系列p值可能存在多重性问题，用于推断的价值有限。因此，在大多数情况下，森林图中不应提供交互作用的 p 值。</span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>如果安全性结局（不是主要结局时）的显著性检验与特定治疗的估计值一起报告，则无需进行多重性校正。因为安全性终点包含的信息大于0.05的一类错误是可接受。</span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>研究中在报告风险差（Risk difference）或风险比（Risk ratio）之前应报告事件绝对数量或发生率，目的是向读者提供事件的实际发生率。应避免使用比值比（Odds ratio），因为在许多情况下可能高估相对危险度并且被错误解读。</span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>研究者应提供CONSORT格式的流程图，提交CONSORT清单中包含的所有相关信息。</span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a><span class="fu">### 观察性研究</span></span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>观察性研究结果的有效性取决于样本的选择、测定和未测定的混杂因素以及混杂因素的控制方法。观察性研究的方法部分应说明在研究设计和分析中如何处理这些问题。</span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>如果一项观察性研究包含了预先设定的统计分析方案，则投稿时应附上签署了姓名和日期的统计分析方案。</span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>如果观察性研究涉及多重检验，应采用预先设定的方法来控制一类错误。在未预先设定错误控制方法的观察性研究论文中，统计量应仅限于点估计值和95%置信区间。在这种情况下，方法部分应说明置信区间宽度未进行多重性校正，所得推断可能无法重复，且这些分析不应报告 p 值。</span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>方法部分应列出计划的分析方法，包括选择病例时的纳入标准和数据采样方法，适当的情况下可附上图表。说明待估计的关联或因果关系，以及做出该选择的理由。</span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>报告治疗效应的研究应说明潜在混杂因素和其他变量在不同治疗组间的分布。</span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>复杂模型最好在补充附录中加以说明。对于未测定的混杂因素所造成的偏倚，研究中应通过敏感性分析来讨论不同设定对上述偏倚的影响；如未进行此项分析，则必须讨论未测定的混杂因素所造成的潜在偏倚。</span>
+<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>研究者应在类似的但独立的一项或多项研究中重复研究结果，以评估稳健性。</span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考文献</span></span>
+<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Lawrence F,&nbsp;Curt F,&nbsp;David D,&nbsp;David R,&nbsp;Christopher G. Fundamentals of Clinical Trials. Springer. 2015.</span>
+<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Senn SJ, Lewis RJ. Treatment Effects in Multicenter Randomized Clinical Trials. JAMA. 2019 Mar 26;321(12):1211-1212.</span>
+<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>The New England Journal of Medicine.</span>
+<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Hernán MA, Hernández-Díaz S. Beyond the intention-to-treat in comparative effectiveness research. Clinical Trials, 2012, 9(1):48-55.</span>
+<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Montori VM, Guyatt GH. Intention-to-treat principle. CMAJ, 2001, 165(10):1339-1341.</span>
+<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Schulz KF, Grimes DA. Multiplicity in randomised trials I: endpoints and treatments. Lancet, 2005, 365(9470):1591-1595.</span>
+<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Pocock SJ. Group sequential methods in the design and analysis of clinical trials. Biometrika, 1977, 64(2):191-199.</span>
+<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>O’Brien PC, Fleming TR. A multiple testing procedure for clinical trials. Biometrics, 1979, 35(3):549-556.</span>
+<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>Peto R, Pike MC, Armitage P, et al. Design and analysis of randomized clinical trials requiring prolonged observation of each patient. I. Introduction and design. British Journal of Cancer, 1976, 34(6):585-612.</span>
+<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>DeMets DL, Lan KK. Interim analysis: the alpha spending function approach. Statistics in Medicine, 1994, 13(13-14):1341-1352.</span>
+<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Wang R, Lagakos SW, Ware JH, et al. Statistics in medicine - reporting of subgroup analyses in clinical trials. New England Journal of Medicine, 2007, 357(21):2189-2194.</span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Sun X, Briel M, Walter SD, et al. Is a subgroup effect believable? Updating criteria to evaluate the credibility of subgroup analyses. BMJ, 2010, 340:c117.</span>
+<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>Benjamini Y, Hochberg Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing. Journal of the Royal Statistical Society: Series B, 1995, 57(1):289-300.</span>
+</code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>© 2026 乔霓丹 · 采用 CC BY 4.0 许可发布</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

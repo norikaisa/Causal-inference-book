@@ -1,0 +1,31 @@
+# Integrating Machine Learning into Causal Inference
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Fitting propensity scores with machine learning
+
+_To be added._
+
+## Doubly robust estimators
+
+_To be added._
+
+## Cross-validation in causal inference
+
+_To be added._
+
+## Causal forests
+
+_To be added._
+
+## Limitations
+
+_To be added._
+
+## Thinking causally in machine learning
+
+_To be added._
+

@@ -1,0 +1,39 @@
+# Principles and Methods of Meta-Analysis
+
+::: {.callout-note}
+## Drafting note
+Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
+:::
+
+## Formulating the research question
+
+_To be added._
+
+## Writing a meta-analysis protocol
+
+_To be added._
+
+## Searching the literature
+
+_To be added._
+
+## Study selection
+
+_To be added._
+
+## Quality assessment
+
+_To be added._
+
+## Data extraction
+
+_To be added._
+
+## Data analysis
+
+_To be added._
+
+## Reporting a meta-analysis
+
+_To be added._
+
