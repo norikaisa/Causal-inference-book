@@ -334,8 +334,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="前言" class="level1 unnumbered">
 <h1 class="unnumbered">前言</h1>
-<p>因果推断是研究事物之间因果关系的重要科学方法，其核心目标是揭示原因是否导致结果及其影响的大小。本书系统介绍当代临床医学研究中的因果推断方法，内容涵盖从随机对照试验，到基于倾向评分、工具变量、断点回归、时间序列分析等的真实世界研究，以及机器学习与人工智能驱动的因果推断技术。</p>
-<p>本书可作为医学统计学的进阶读本，适合医学生、临床研究者，以及统计学、人工智能等方向的研究者参考。</p>
+<p>因果推断（causal inference）是探究”原因是否产生结果、以及效应有多大”的科学方法体系。在医学研究中，几乎所有真正重要的问题都是因果问题：某一危险因素是否导致疾病？某种治疗能否改善患者的预后？某项公共卫生政策是否降低了人群的发病率？这些问题的答案直接决定临床决策与卫生政策，而它们都无法仅凭”相关性”来回答——正如本书反复强调的，相关并不意味着因果。随机对照试验（randomized controlled trial, RCT）被视为因果推断的金标准，但其代价高昂、周期漫长，且在许多情形下因伦理或可行性而无法开展。如何在非随机的真实世界数据中可靠地进行因果推断，已成为当代临床医学研究亟待解决的核心命题。</p>
+<p>近年来，以深度学习、大语言模型为代表的人工智能方法突飞猛进，在医学影像识别、疾病风险预测、文本与组学数据处理等任务上展现出惊人的能力。然而，人工智能的主流范式本质上是”预测”——从历史数据中学习输入与输出之间的统计关联，回答”会发生什么”。但临床医生真正需要回答的，往往是”如果我采取这一治疗，患者的结局会如何改变”这类干预性、反事实性的问题。一个预测准确的模型，未必能告诉我们改变某个变量会带来什么后果；在存在混杂与选择偏倚的数据中，纯预测模型甚至可能给出与真实因果效应方向相反的结论。因此，无论人工智能的预测能力多么强大，因果推断对于指导医学治疗与决策的意义都不可替代——二者解决的是根本不同层次的问题。可以说，预测告诉我们”病人会怎样”，而因果推断才能回答”我们该怎么做”。</p>
+<p>正因如此，人工智能与因果推断的交融，已成为方法学发展的重要方向，而这种结合首先体现在人工智能”为因果推断赋能”。传统因果推断方法在估计倾向评分、结果模型等”讨厌参数”（nuisance parameter）时，往往依赖研究者人工设定的参数模型，一旦模型设定错误便会引入偏倚；机器学习灵活的拟合能力恰好弥补了这一短板。双重稳健估计、双重/去偏机器学习（double/debiased machine learning）、目标最大似然估计（targeted maximum likelihood estimation, TMLE）等框架，将机器学习用于高维混杂因素的调整，同时保持因果效应估计的有效统计推断；因果森林（causal forest）等方法则把集成树模型用于刻画异质性治疗效应，回答”哪一类患者更可能从治疗中获益”。在序贯决策中，强化学习被用于学习随时间调整的动态治疗方案；在变量间关系未知时，基于条件约束与基于函数模型的因果发现算法借助机器学习，从数据中重构潜在的因果结构。新近的大语言模型也开始被用于文献证据合成、目标试验（target trial）方案的构建等环节。这些进展，使因果推断得以从低维、强假设的经典设定，走向高维、真实世界的复杂数据。</p>
+<p>反过来，因果推断也在深刻地推动人工智能的发展。当前以”曲线拟合”为核心的机器学习模型，普遍存在依赖虚假相关、在数据分布发生变化时性能骤降、难以解释、跨人群与跨场景迁移困难等问题，而这些问题的根源，往往在于模型只学到了关联而非因果机制。引入因果视角，有望让模型识别出稳定的、可迁移的因果特征，从而在分布外（out-of-distribution）泛化、稳健性、可解释性与算法公平性等方面取得突破：因果表征学习（causal representation learning）试图从原始数据中学习符合因果结构的表示，因果强化学习则帮助智能体在干预与反事实推理中做出更稳健的决策。Pearl 等学者提出的”因果之梯”——关联、干预、反事实三个层级——正是对这一愿景的凝练：要让人工智能从”看见”走向”行动”乃至”想象”，因果推断不可或缺。可以预见，因果推断与人工智能之间的双向促进，将成为下一阶段医学人工智能的重要引擎。</p>
+<p>基于上述背景，本书系统介绍当代临床医学研究中的因果推断方法，内容覆盖从传统随机对照试验，到基于因果图与结构因果模型、回归、倾向评分、工具变量、断点回归、时间序列分析等的真实世界研究，再到因果中介分析、异质性与个体因果效应、序贯决策、因果发现，以及机器学习与人工智能驱动的因果推断等前沿主题。本书力求理论与实践并重，结合临床案例与可复现的代码，帮助读者既理解方法背后的因果逻辑，又能在自己的研究中加以应用。</p>
+<p>本书可作为医学统计学的进阶读本，适合医学生、临床研究者，以及统计学、流行病学、人工智能等方向的研究者参考。作者此前曾出版《深度学习与医学大数据》（2020）与《医疗中的人工智能》（2024），本书在此基础上更进一步，专注于因果推断这一主题。</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -350,7 +354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <blockquote class="blockquote">
-<p>引用方式：乔霓丹. 临床医学研究中的因果推断. 在线版, 2026. （DOI 待补充）</p>
+<p>引用方式：乔霓丹. 临床医学研究中的因果推断. 在线版, 2026.（DOI 待补充）</p>
 </blockquote>
 
 
@@ -821,17 +825,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 前言 {.unnumbered}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>因果推断是研究事物之间因果关系的重要科学方法，其核心目标是揭示原因是否导致结果及其影响的大小。本书系统介绍当代临床医学研究中的因果推断方法，内容涵盖从随机对照试验，到基于倾向评分、工具变量、断点回归、时间序列分析等的真实世界研究，以及机器学习与人工智能驱动的因果推断技术。</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>因果推断（causal inference）是探究"原因是否产生结果、以及效应有多大"的科学方法体系。在医学研究中，几乎所有真正重要的问题都是因果问题：某一危险因素是否导致疾病？某种治疗能否改善患者的预后？某项公共卫生政策是否降低了人群的发病率？这些问题的答案直接决定临床决策与卫生政策，而它们都无法仅凭"相关性"来回答——正如本书反复强调的，相关并不意味着因果。随机对照试验（randomized controlled trial, RCT）被视为因果推断的金标准，但其代价高昂、周期漫长，且在许多情形下因伦理或可行性而无法开展。如何在非随机的真实世界数据中可靠地进行因果推断，已成为当代临床医学研究亟待解决的核心命题。</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>本书可作为医学统计学的进阶读本，适合医学生、临床研究者，以及统计学、人工智能等方向的研究者参考。</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>近年来，以深度学习、大语言模型为代表的人工智能方法突飞猛进，在医学影像识别、疾病风险预测、文本与组学数据处理等任务上展现出惊人的能力。然而，人工智能的主流范式本质上是"预测"——从历史数据中学习输入与输出之间的统计关联，回答"会发生什么"。但临床医生真正需要回答的，往往是"如果我采取这一治疗，患者的结局会如何改变"这类干预性、反事实性的问题。一个预测准确的模型，未必能告诉我们改变某个变量会带来什么后果；在存在混杂与选择偏倚的数据中，纯预测模型甚至可能给出与真实因果效应方向相反的结论。因此，无论人工智能的预测能力多么强大，因果推断对于指导医学治疗与决策的意义都不可替代——二者解决的是根本不同层次的问题。可以说，预测告诉我们"病人会怎样"，而因果推断才能回答"我们该怎么做"。</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 关于本在线版</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>本书提供<span class="co">[</span><span class="ot">中文</span><span class="co">](../zh/)</span>与<span class="co">[</span><span class="ot">English</span><span class="co">](../en/)</span>两个版本，免费在线发布。配套数据集见仓库 <span class="in">`data/`</span> 目录，代码示例随各章给出。</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>正因如此，人工智能与因果推断的交融，已成为方法学发展的重要方向，而这种结合首先体现在人工智能"为因果推断赋能"。传统因果推断方法在估计倾向评分、结果模型等"讨厌参数"（nuisance parameter）时，往往依赖研究者人工设定的参数模型，一旦模型设定错误便会引入偏倚；机器学习灵活的拟合能力恰好弥补了这一短板。双重稳健估计、双重/去偏机器学习（double/debiased machine learning）、目标最大似然估计（targeted maximum likelihood estimation, TMLE）等框架，将机器学习用于高维混杂因素的调整，同时保持因果效应估计的有效统计推断；因果森林（causal forest）等方法则把集成树模型用于刻画异质性治疗效应，回答"哪一类患者更可能从治疗中获益"。在序贯决策中，强化学习被用于学习随时间调整的动态治疗方案；在变量间关系未知时，基于条件约束与基于函数模型的因果发现算法借助机器学习，从数据中重构潜在的因果结构。新近的大语言模型也开始被用于文献证据合成、目标试验（target trial）方案的构建等环节。这些进展，使因果推断得以从低维、强假设的经典设定，走向高维、真实世界的复杂数据。</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>反过来，因果推断也在深刻地推动人工智能的发展。当前以"曲线拟合"为核心的机器学习模型，普遍存在依赖虚假相关、在数据分布发生变化时性能骤降、难以解释、跨人群与跨场景迁移困难等问题，而这些问题的根源，往往在于模型只学到了关联而非因果机制。引入因果视角，有望让模型识别出稳定的、可迁移的因果特征，从而在分布外（out-of-distribution）泛化、稳健性、可解释性与算法公平性等方面取得突破：因果表征学习（causal representation learning）试图从原始数据中学习符合因果结构的表示，因果强化学习则帮助智能体在干预与反事实推理中做出更稳健的决策。Pearl 等学者提出的"因果之梯"——关联、干预、反事实三个层级——正是对这一愿景的凝练：要让人工智能从"看见"走向"行动"乃至"想象"，因果推断不可或缺。可以预见，因果推断与人工智能之间的双向促进，将成为下一阶段医学人工智能的重要引擎。</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>基于上述背景，本书系统介绍当代临床医学研究中的因果推断方法，内容覆盖从传统随机对照试验，到基于因果图与结构因果模型、回归、倾向评分、工具变量、断点回归、时间序列分析等的真实世界研究，再到因果中介分析、异质性与个体因果效应、序贯决策、因果发现，以及机器学习与人工智能驱动的因果推断等前沿主题。本书力求理论与实践并重，结合临床案例与可复现的代码，帮助读者既理解方法背后的因果逻辑，又能在自己的研究中加以应用。</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 引用方式：乔霓丹. 临床医学研究中的因果推断. 在线版, 2026. （DOI 待补充）</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>本书可作为医学统计学的进阶读本，适合医学生、临床研究者，以及统计学、流行病学、人工智能等方向的研究者参考。作者此前曾出版《深度学习与医学大数据》（2020）与《医疗中的人工智能》（2024），本书在此基础上更进一步，专注于因果推断这一主题。</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 关于本在线版</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>本书提供<span class="co">[</span><span class="ot">中文</span><span class="co">](../zh/)</span>与<span class="co">[</span><span class="ot">English</span><span class="co">](../en/)</span>两个版本，免费在线发布。配套数据集见仓库 <span class="in">`data/`</span> 目录，代码示例随各章给出。</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 引用方式：乔霓丹. 临床医学研究中的因果推断. 在线版, 2026.（DOI 待补充）</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

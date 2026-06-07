@@ -293,11 +293,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">目录</h2>
    
   <ul>
-  <li><a href="#cox回归的等比例条件" id="toc-cox回归的等比例条件" class="nav-link active" data-scroll-target="#cox回归的等比例条件"><span class="header-section-number">5.1</span> Cox回归的等比例条件</a></li>
-  <li><a href="#非等比例情况下的cox回归" id="toc-非等比例情况下的cox回归" class="nav-link" data-scroll-target="#非等比例情况下的cox回归"><span class="header-section-number">5.2</span> 非等比例情况下的Cox回归</a></li>
-  <li><a href="#含时间依赖变量的cox回归" id="toc-含时间依赖变量的cox回归" class="nav-link" data-scroll-target="#含时间依赖变量的cox回归"><span class="header-section-number">5.3</span> 含时间依赖变量的Cox回归</a></li>
-  <li><a href="#竞争风险模型" id="toc-竞争风险模型" class="nav-link" data-scroll-target="#竞争风险模型"><span class="header-section-number">5.4</span> 竞争风险模型</a></li>
-  <li><a href="#风险比的局限性" id="toc-风险比的局限性" class="nav-link" data-scroll-target="#风险比的局限性"><span class="header-section-number">5.5</span> 风险比的局限性</a></li>
+  <li><a href="#cox回归的等比例条件" id="toc-cox回归的等比例条件" class="nav-link active" data-scroll-target="#cox回归的等比例条件"><span class="header-section-number">5.1</span> Cox回归的等比例条件</a>
+  <ul class="collapse">
+  <li><a href="#非等比例情况下的cox回归" id="toc-非等比例情况下的cox回归" class="nav-link" data-scroll-target="#非等比例情况下的cox回归"><span class="header-section-number">5.1.1</span> 非等比例情况下的Cox回归</a></li>
+  <li><a href="#加速失效时间模型accelerated-failure-time-modelaft" id="toc-加速失效时间模型accelerated-failure-time-modelaft" class="nav-link" data-scroll-target="#加速失效时间模型accelerated-failure-time-modelaft"><span class="header-section-number">5.1.2</span> 加速失效时间模型（accelerated failure-time model，AFT）</a></li>
+  <li><a href="#landmark分析" id="toc-landmark分析" class="nav-link" data-scroll-target="#landmark分析"><span class="header-section-number">5.1.3</span> Landmark分析</a></li>
+  </ul></li>
+  <li><a href="#含时间依赖变量的cox回归" id="toc-含时间依赖变量的cox回归" class="nav-link" data-scroll-target="#含时间依赖变量的cox回归"><span class="header-section-number">5.2</span> 含时间依赖变量的Cox回归</a></li>
+  <li><a href="#竞争风险模型competing-risk-model" id="toc-竞争风险模型competing-risk-model" class="nav-link" data-scroll-target="#竞争风险模型competing-risk-model"><span class="header-section-number">5.3</span> 竞争风险模型（Competing Risk Model）</a>
+  <ul class="collapse">
+  <li><a href="#累积风险函数cumulative-incidence-function-cif" id="toc-累积风险函数cumulative-incidence-function-cif" class="nav-link" data-scroll-target="#累积风险函数cumulative-incidence-function-cif"><span class="header-section-number">5.3.1</span> 累积风险函数（cumulative incidence function, CIF）</a></li>
+  <li><a href="#fine-gray模型" id="toc-fine-gray模型" class="nav-link" data-scroll-target="#fine-gray模型"><span class="header-section-number">5.3.2</span> Fine-Gray模型</a></li>
+  <li><a href="#原因别hazard模型" id="toc-原因别hazard模型" class="nav-link" data-scroll-target="#原因别hazard模型"><span class="header-section-number">5.3.3</span> 原因别Hazard模型</a></li>
+  </ul></li>
+  <li><a href="#危险比的局限性" id="toc-危险比的局限性" class="nav-link" data-scroll-target="#危险比的局限性"><span class="header-section-number">5.4</span> 危险比的局限性</a></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献"><span class="header-section-number">5.5</span> 参考文献</a></li>
   </ul>
 </nav>
     </div>
@@ -323,38 +333,1390 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">注记</span>编写说明
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>本章内容整理中。可将已校订的 Word 书稿（<code>乔Book/</code> 目录）正文迁移至此，公式用 <code>$...$</code> / <code>$$...$$</code>，图片放 <code>images/</code>，代码用 <code>{r} 或</code>{python} 代码块。</p>
-</div>
-</div>
+<p>生存分析是指对某给定事件发生的时间进行分析和推断，研究生存时间和结局与预后因子间的关系及其程度大小的方法，是一种处理删失数据的数据分析方法，也称生存率分析或存活率分析。</p>
+<p>根据不同研究的目的和资料类型，可以采用不同的生存分析方法，如：估计某一生存时间的生存率，如五年生存率，可用寿命表法；估计中位生存时间，可用寿命表法和Kaplan-Meier法；研究某因素不同水平的生存时间，可用Kaplan-Meier法；研究多种因素对生存时间的影响，可用Cox回归模型。寿命表法和Kaplan-Meier法较为简单，在此不再赘述。</p>
+<p>Cox 比例风险模型（Cox proportional-hazards model）简称Cox 模型，是英国统计学家Cox在1972年提出的一种半参数回归模型，可以用来预测一个或多个不同变量在某一时间对死亡率的影响。它同时适用于数值变量和类别变量，可以同时评估几种风险因素对生存时间的影响，检验特定因素如何影响特定时间点特定事件（例如，感染，死亡）的发生率，因此广泛应用于生物医学的统计和分析。Cox 比例风险模型由 Cox 于1972年提出，是一种半参数模型（Cox，1972）；而前述寿命表法与 Kaplan–Meier 法属于非参数方法，后者由 Kaplan 与 Meier 于1958年提出（Kaplan 与 Meier，1958）。</p>
 <section id="cox回归的等比例条件" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="cox回归的等比例条件"><span class="header-section-number">5.1</span> Cox回归的等比例条件</h2>
-<p><em>待补充。</em></p>
+<p>利用Cox回归模型进行生存分析时需要考虑的最重要的因素是等比例条件。等比例是指两组风险比例不随时间变化，即某因素对生存的影响在任何时间是相同的，不随时间的推进而变化。</p>
+<p><strong>案例5.1</strong></p>
+<p>这是一个骨髓移植案例，纳入了不同类型的白血病患者（表5.1），g是分组，1代表急性淋巴细胞性白血病，2代表低风险性的急性髓系白血病。对这些患者开展骨髓移植手术，T1是指骨髓移植手术以后的生存时间，单位是天。delta1是指患者的结局（1为死亡；0为存活）。所关注的临床问题是急性淋巴细胞性白血病和低风险的急性髓系白血病手术后死亡风险有无差别？（为简化案例，假设不存在混杂因素）</p>
+<p><strong>案例5.1数据表</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">g</th>
+<th style="text-align: left;">T1</th>
+<th style="text-align: left;">delta1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">107</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">269</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">350</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2569</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2506</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2409</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+</tr>
+</tbody>
+</table>
+<p>因为结局事件为生存事件，因此该临床问题可以用Cox模型建模。Stata中首先需要设置数据格式为生存数据，采用stset命令，后接生存时间t1，并指定发生临床事件为delta1=1。绘制Kaplan-Meier曲线可采用sts graph命令，分组绘制指定组别g。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 45%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.1</p>
+<p>. stset t1, failure(delta1==1)</p>
+<p>. sts graph, by(g)</p></td>
+</tr>
+</tbody>
+</table>
+<p>判断等比例条件有三种方法：一是观察两组间的Kaplan-Meier曲线是否相交叉，如果不交叉，那说明两组满足等比例条件。然而本例中红色曲线在手术后的短期内下降幅度较蓝色曲线大，说明手术后短期内低风险性的急性髓系白血病死亡风险大于急性淋巴细胞性白血病组。然而蓝色曲线在长期随访中出现显著下降。两组的Kaplan-Meier曲线相交叉，因此这两组不满足等比例条件。</p>
+<p><img src="images/ch5-image1.png"></p>
+<p><strong>代码5.1输出：两组Kaplan-Meier曲线</strong></p>
+<p>第二种方法绘制 Schoenfeld残差与时间的关系图，如果Schoenfeld残差与时间无明显的变化趋势，即残差与时间无关，则提示符合等比例风险假设。如下图中残差似乎有随着时间上升的趋势，提示可能不满足等比例风险假定。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 43%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.2</p>
+<p>. stcox g</p>
+<p>. estat phtest, rank plot(g)</p></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/ch5-image2.png"></p>
+<p><strong>代码5.2 输出：Schoenfeld残差与时间关系图</strong></p>
+<p>等比例条件的第三个检验方法是绘制某因素在不同状态下的二次对数生存曲线图 （即横坐标是时间的对数，纵坐标是生存函数的对数的对数），如果生存曲线大致平行，表明等比例风险成立，否则提示等比例不成立。如下图中两条曲线交叉，提示可能不满足等比例风险假定。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.3</p>
+<p>. stphplot, by(g)</p></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/ch5-image3.png"></p>
+<p><strong>代码5.3输出：二次对数生存曲线图</strong></p>
+<section id="非等比例情况下的cox回归" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="非等比例情况下的cox回归"><span class="header-section-number">5.1.1</span> 非等比例情况下的Cox回归</h3>
+<p>Cox回归模型中，如果数据中存在非等比例的情况，可采用以下三种策略开展生存分析。</p>
 </section>
-<section id="非等比例情况下的cox回归" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="非等比例情况下的cox回归"><span class="header-section-number">5.2</span> 非等比例情况下的Cox回归</h2>
-<p><em>待补充。</em></p>
+<section id="加速失效时间模型accelerated-failure-time-modelaft" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="加速失效时间模型accelerated-failure-time-modelaft"><span class="header-section-number">5.1.2</span> 加速失效时间模型（accelerated failure-time model，AFT）</h3>
+<p>主要研究干预对事件发生平均经历的时间的影响。直观上可以理解为比较两种干预结局事件发生的速度。其回归系数表示发生结局事件所需时间的比值，如果结局事件为死亡，回归系数即表示两组平均寿命的比值。</p>
+<p>指定生存数据模式后，采用streg命令进行回归分析，随机变量的分布可以选择指数分布、Weibull分布、伽马分布等等。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 61%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.4</p>
+<p>. stset t1, failure(delta1==1)</p>
+<p>. streg g, distribution(exponential) time</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>代码5.4输出</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Exponential AFT regression</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">No.&nbsp;of subjects = 92</td>
+<td>Number of obs</td>
+<td>=</td>
+<td><strong>92</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">No.&nbsp;of failures = 46</td>
+<td>LR chi2(1)</td>
+<td>=</td>
+<td><strong>8.47</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time at risk = 86,200</td>
+<td>Prob &gt; chi2</td>
+<td>=</td>
+<td><strong>0.0036</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Log likelihood = -135.20674</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td>Coefficient</td>
+<td>Std. Err.</td>
+<td>z</td>
+<td>P&gt;|z|</td>
+<td>[95% Conf. Interval]</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">g</td>
+<td><strong>.8714456</strong></td>
+<td><strong>.2948839</strong></td>
+<td><strong>2.96</strong></td>
+<td><strong>0.003</strong></td>
+<td><strong>.2934837</strong></td>
+<td><strong>1.449407</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">_cons</td>
+<td><strong>6.136548</strong></td>
+<td><strong>.4662524</strong></td>
+<td><strong>13.16</strong></td>
+<td><strong>0.000</strong></td>
+<td><strong>5.222711</strong></td>
+<td><strong>7.050386</strong></td>
+</tr>
+</tbody>
+</table>
+<p>g的系数为0.871，表示g=1组发生结局事件所需时间延长(1-0.871)%=12.9%。两组的失效曲线（横轴为时间，纵轴为终点事件发生的比例）也可以观察到g=0组发生结局事件的速度更快。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 47%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.5</p>
+<p>. stcurve, failure at( g=(0 1))</p></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/ch5-image4.png"></p>
+<p><strong>代码5.5输出：加速失效曲线图</strong></p>
+<ol start="2" type="1">
+<li>限制性平均生存时间（Restricted mean survival times, RMST）</li>
+</ol>
+<p>限制性平均生存时间为生存曲线在某个时间段内的曲线下面积（图5.1粉红色部分），即限制在某个时间段内的平均生存时间。平均生存时间越长，说明治疗的效果越好。限制性平均生存时间是不依赖于等比例风险假设的，其结果也比较直观，容易理解。但计算限制性平均生存时间需确定随访截止时间，但目前对于截止时间没有统一规定，由临床信息给定。</p>
+<p><img src="images/ch5-image5.png"></p>
+<p><strong>图5.1 分别将截止时间定为180天和730天时，两组的限制性平均生存时间</strong></p>
+<p>案例5.1中手术后短期内低风险性的急性髓系白血病死亡风险大于急性淋巴细胞性白血病组可能是由于手术后的急性反应。临床上，这个时间一般持续3个月到半年左右。因此可以将截止时间（tau）定义为180天，分别计算截止至180天时两组的平均生存时间。strmst2命令用于限制性平均生存时间分析，指定分组变量g和截止时间。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.6</p>
+<p>. strmst2 g, tau(180)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>代码5.6输出</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Restricted Mean Survival Time (RMST) by arm</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td>Estimate</td>
+<td>Std. Err.</td>
+<td>[95% Conf. Interval]</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">arm2</td>
+<td><strong>164.259</strong></td>
+<td><strong>5.735</strong></td>
+<td><strong>153.018</strong></td>
+<td><strong>175.501</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">arm1</td>
+<td><strong>166.211</strong></td>
+<td><strong>5.778</strong></td>
+<td><strong>154.886</strong></td>
+<td><strong>177.535</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Between-group contrast (arm 2 versus arm 1)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td>Estimate</td>
+<td>[95% Conf. Interval]</td>
+<td>P&gt;|z|</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RMST (arm2 - arm1)</td>
+<td><strong>-1.951</strong></td>
+<td><strong>-17.908</strong></td>
+<td><strong>14.005</strong></td>
+<td><strong>0.811</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">RMST (arm2 / arm1)</td>
+<td><strong>0.988</strong></td>
+<td><strong>0.897</strong></td>
+<td><strong>1.088</strong></td>
+<td><strong>0.811</strong></td>
+</tr>
+</tbody>
+</table>
+<p>180天时第一组的限制性平均生存时间是166天，第二组的限制性平均生存时间是164天，两组之间没有明显的差别（无论是差值还是比值），p值为0.811。如果我们想要比较两组的长期治疗效果，只需将截止时间定为更长的随访（如730天），可看到第一组的限制性平均生存时间是473，第二组的限制性平均生存时间为587，两组相比差值的p值为0.035，比值的p值为0.042。可以得出结论截止730天时，第一组患者的限制性平均生存时间比第二组短。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.7</p>
+<p>. strmst2 g, tau(730)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>代码5.7输出</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Restricted Mean Survival Time (RMST) by arm</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td>Estimate</td>
+<td>Std. Err.</td>
+<td>[95% Conf. Interval]</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">arm2</td>
+<td><strong>586.704</strong></td>
+<td><strong>32.427</strong></td>
+<td><strong>523.148</strong></td>
+<td><strong>650.260</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">arm1</td>
+<td><strong>473.868</strong></td>
+<td><strong>42.191</strong></td>
+<td><strong>391.176</strong></td>
+<td><strong>556.561</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Between-group contrast (arm 2 versus arm 1)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td>Estimate</td>
+<td>[95% Conf. Interval]</td>
+<td>P&gt;|z|</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RMST (arm2 - arm1)</td>
+<td><strong>112.835</strong></td>
+<td><strong>8.540</strong></td>
+<td><strong>217.130</strong></td>
+<td><strong>0.034</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">RMST (arm2 / arm1)</td>
+<td><strong>1.238</strong></td>
+<td><strong>1.008</strong></td>
+<td><strong>1.520</strong></td>
+<td><strong>0.042</strong></td>
+</tr>
+</tbody>
+</table>
+<p>然而，限制性平均生存时间分析的一个重要弊端在于截止时间点后收集的数据无法用于统计分析，造成了数据的浪费和统计效能下降。作为危险比的替代效应指标，限制性平均生存时间在存在非比例风险时尤为适用，其在随机试验设计与分析中的应用可参见 Royston 与 Parmar（2013）。</p>
 </section>
-<section id="含时间依赖变量的cox回归" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="含时间依赖变量的cox回归"><span class="header-section-number">5.3</span> 含时间依赖变量的Cox回归</h2>
-<p><em>待补充。</em></p>
+<section id="landmark分析" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="landmark分析"><span class="header-section-number">5.1.3</span> Landmark分析</h3>
+<p>除了限制性平均生存时间，存在非等比例情况下亦可以使用Landmark分析，其原理是把 Kaplan-Meier 曲线分成两段，前面一段和后面一段分别做Cox模型分析。Landmark分析考虑到两个干预组发生终点事件的时间分布不同。如果要比较某种疾病手术组和非手术组的生存率，因为手术组短期有相对较高的并发症率，导致短期生存率低于对照组，但一旦过了这个时期，手术组的生存率可能大于非手术组。Landmark 分析通过设定一个地标时间点、仅纳入在该时点仍存活的受试者，避免了用尚未发生的信息进行不当比较，其方法学可参见 Dafni（2011）。</p>
+<p>同样采用案例5.1，Kaplan-Meier 曲线可以看到第二组的长期预后较好，但在术后短期存在生存率的快速下降。因此，我们想要知道术后短期内两组的生存情况有何差别，术后长期的情况又是如何？</p>
+<p>Landmark 分析的步骤为基于临床经验选择Landmark时间，分别在Landmark时间前后进行Cox回归分析。在案例5.1中，急性反应一般发生于手术后180天，首先计算180天内两组的生存函数差别，需手工截断尚未发生生存事件的患者的生存时间至180天。结果提示两组生存函数无明显差别（p=0.373）。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 52%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.8</p>
+<p>. gen L1 = t1 if t1 &lt; 180</p>
+<p>. replace L1 = 180 if t1 &gt;= 180</p>
+<p>. gen deltaL1 = delta1 if t1 &lt; 180</p>
+<p>. replace deltaL1 = 0 if t1 &gt;= 180</p>
+<p>. stset L1, failure(deltaL1==1)</p>
+<p>. stcox g</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>代码5.8输出</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Cox regression with no ties</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">No.&nbsp;of subjects = 92</td>
+<td>Number of obs</td>
+<td>=</td>
+<td><strong>92</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">No.&nbsp;of failures = 15</td>
+<td>LR chi2(1)</td>
+<td>=</td>
+<td><strong>0.80</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time at risk = 15,186</td>
+<td>Prob &gt; chi2</td>
+<td>=</td>
+<td><strong>0.3723</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Log likelihood = -66.222312</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td>Haz.ratio</td>
+<td>Std. Err.</td>
+<td>z</td>
+<td>P&gt;|z|</td>
+<td>[95% Conf. Interval]</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">g</td>
+<td><strong>.630299</strong></td>
+<td><strong>.3263916</strong></td>
+<td><strong>-0.89</strong></td>
+<td><strong>0.373</strong></td>
+<td><strong>.2285066</strong></td>
+<td><strong>1.738579</strong></td>
+</tr>
+</tbody>
+</table>
+<p>然后计算手术180天后两组的生存函数差别，删除生存时间小于180天的受试者，从180天开始重新计算随访时间。结果提示手术180天后，急性淋巴细胞性白血病的生存率（蓝色曲线）较低风险性的急性髓系白血病生存率（红色曲线）低。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 81%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.9</p>
+<p>. gen L2 = t1 - 180</p>
+<p>. stset L2, failure(delta1==1)</p>
+<p>. stcox g if L2 &gt; 0</p>
+<p>. sts graph if L2 &gt; 0, by(g) risktable censored(single)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>代码5.9输出</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Cox regression with Breslow method for ties</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">No.&nbsp;of subjects = 77</td>
+<td>Number of obs</td>
+<td>=</td>
+<td><strong>77</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">No.&nbsp;of failures = 31</td>
+<td>LR chi2(1)</td>
+<td>=</td>
+<td><strong>4.24</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time at risk = 84,874</td>
+<td>Prob &gt; chi2</td>
+<td>=</td>
+<td><strong>0.0395</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Log likelihood = -121.57006</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td>Haz.ratio</td>
+<td>Std. Err.</td>
+<td>z</td>
+<td>P&gt;|z|</td>
+<td>[95% Conf. Interval]</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">g</td>
+<td><strong>.466382</strong></td>
+<td><strong>.1708153</strong></td>
+<td><strong>-2.08</strong></td>
+<td><strong>0.037</strong></td>
+<td><strong>.2275014</strong></td>
+<td><strong>0.9560918</strong></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/ch5-image6.png"></p>
+<p><strong>代码5.9输出：180天后两组Kaplan-Meier曲线</strong></p>
+<p>总结一下等比例条件满足与不满足情况下的Cox回归分析方法。等比例Cox分析是最常用的Cox分析方法，统计学假设是在不同时间点上，各个组之间的风险比例是相等的。而限制性生存时间分析和Landmark分析都不需要等比例假设，限制性生存时间分析方法指定截止时间，计算截止时间之前的两条生存曲线下的面积，通过比较面积来评估生存曲线差异。Landmark分析则是指定Landmark时间，比较Landmark时间前后的生存曲线差异（图5.2）。</p>
+<p><img src="images/ch5-image7.png"></p>
+<p><strong>图5.2</strong> <strong>生存分析除Cox模型外的几种选择</strong></p>
+<p>临床试验中对等比例进行事后分析，有时可以提供有用的见解。第一步是评估等比例假设是否合理。对等比例的正式统计测试有时是有用的，然而多数情况下，在样本量较小的研究中可能会错过临床上重要的偏离等比例的情况，而在样本量较大的研究中却可能会发现临床上不重要的偏离等比例的情况。因此，图形显示，包括Kaplan-Meier曲线和Schoenfeld 残差图可能更有用。</p>
+<p>当等比例假设不成立时，使用分段风险模型（类似landmark分析，将随访时间分为若干小段，分别计算小段中的危险比）可能是有用的。这种方法的一个局限性是事后选择不同的时间段，可能会夸大危险比随时间变化的实际差异。随访后期计算出的危险比只包括幸存者（删失了死亡的患者），所以不是真正的随机比较。</p>
+<p>另一个事后分析是探讨非等比例是否是由临床上不同的亚组造成的，这些病人的治疗效果是不同的。在这种情况下，亚组分析或分层的Cox模型可能是有用的。此外，在研究进行过程中，受试者脱离原本的分配治疗或交叉至另一组也可能导致非等比例，因为治疗组间随着时间的推移变得更加相似。这对非劣效性试验来说是一个特别的问题，因为治疗效果的稀释可能会导致非劣效性的错误声明。在这种情况下，使用符合方案分析方法，对不依从和交叉的受试者进行统计调整（即计算依从者中的平均因果效应）可能有助于恢复真实治疗效果。非劣效试验的另一个问题是，当非劣效边际是基于危险比的，但比例风险（PH）假设显然不成立。在这种情况下，非劣效边际可能变得不合适或难以解释，因此探索其他分析策略很重要。</p>
 </section>
-<section id="竞争风险模型" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="竞争风险模型"><span class="header-section-number">5.4</span> 竞争风险模型</h2>
-<p><em>待补充。</em></p>
 </section>
-<section id="风险比的局限性" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="风险比的局限性"><span class="header-section-number">5.5</span> 风险比的局限性</h2>
-<p><em>待补充。</em></p>
+<section id="含时间依赖变量的cox回归" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="含时间依赖变量的cox回归"><span class="header-section-number">5.2</span> 含时间依赖变量的Cox回归</h2>
+<p>常规的Cox回归只能研究基线指标与生存结局之间的关系。然而，很多情况下，基线变量可以随着时间变动而发生变动。如，研究吸烟与癌症的发生风险，吸烟状况可以是持续的也可以是不断变化的。基线吸烟后也可以戒烟，戒烟之后又可以再次复吸。同样在脓毒症患者中研究C反应蛋白与死亡率之间的关系，C反应蛋白这个指标也是会随着病情改变而改变的。</p>
+<p>这些研究不适用限制性生存时间分析分析或是Landmark分析，因为变量是随着时间变动的；亦或者没有明显的截止时间或者Landmark时间可以采用；又或者如果采用Landmark分析的话可能会导致很多受试者被剔除。</p>
+<p><strong>案例5.2</strong></p>
+<p>这是一个脓毒症患者中研究C反应蛋白与死亡率之间关系的案例。左表是100例脓毒症患者的临床指标，id表示受试者的唯一识别号；status表示结局事件是死亡或者严重并发症的复合结局事件；start和stop表示基线和结局事件发生的时间（单位为小时）；age表示年龄。右表是这些受试者入院后不同时间点的C反应蛋白值，以id标识唯一识别号；time表示C反应蛋白测定的时间；crp是C反应蛋白测定的值。</p>
+<p><strong>案例5.2数据表</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id</th>
+<th style="text-align: left;">status</th>
+<th style="text-align: left;">start</th>
+<th style="text-align: left;">stop</th>
+<th style="text-align: left;">age</th>
+<th></th>
+<th style="text-align: left;">id</th>
+<th style="text-align: left;">time</th>
+<th style="text-align: left;">crp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">48.1</td>
+<td style="text-align: left;">80.4</td>
+<td></td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">110.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">121.4</td>
+<td style="text-align: left;">86.1</td>
+<td></td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">189</td>
+<td style="text-align: left;">98.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">30.7</td>
+<td style="text-align: left;">72.4</td>
+<td></td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">218</td>
+<td style="text-align: left;">98.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">500</td>
+<td style="text-align: left;">92.0</td>
+<td></td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">230</td>
+<td style="text-align: left;">154.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">69.5</td>
+<td style="text-align: left;">77.1</td>
+<td></td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">91</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">233.1</td>
+<td style="text-align: left;">86.8</td>
+<td></td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">27</td>
+<td style="text-align: left;">160.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">156.3</td>
+<td style="text-align: left;">59.8</td>
+<td></td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">31</td>
+<td style="text-align: left;">38</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">257.6</td>
+<td style="text-align: left;">65.6</td>
+<td></td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">114</td>
+<td style="text-align: left;">123.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td></td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+</tr>
+</tbody>
+</table>
+<p>在进行数据分析前首先要通过数据格式转化，新建一个数据表，每一行代表每一个感兴趣变量的变化。第一个患者（ID=1）由于在终点事件时间窗内只有一次C反应蛋白的记录，因此在新数据表中只需记录这个患者的一条信息。然而第二个患者（ID=2），由于在终点事件的时间范围内存在很多C反应蛋白的测量值，因此要复制多份记录以存储不同时间的C反应蛋白变化。该患者第一次C反应蛋白的测量时间点为0，终点事件时间点为27（因为下一次C反应蛋白的测量时间点为27），此时尚未发生终点事件。该患者第二次C反应蛋白的测量时间点为27，终点事件时间点为31（因为下一次C反应蛋白的测量时间点为31），此时亦尚未发生终点事件。以此类推，该患者发生终点事件的时间点为121.4，因此新数据表中最后一次C反应蛋白的测量时间点为118（121.4之前的最后一次C反应蛋白测量）。</p>
+<p><strong>案例5.2数据表转化</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">id</th>
+<th style="text-align: left;">status</th>
+<th style="text-align: left;">start</th>
+<th style="text-align: left;">stop</th>
+<th style="text-align: left;">age</th>
+<th style="text-align: left;">tstart</th>
+<th style="text-align: left;">tstop</th>
+<th style="text-align: left;">endpt</th>
+<th style="text-align: left;">crp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">48.1</td>
+<td style="text-align: left;">80.4</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">48.1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">110.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">121.4</td>
+<td style="text-align: left;">86.1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">27</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">91</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">121.4</td>
+<td style="text-align: left;">86.1</td>
+<td style="text-align: left;">27</td>
+<td style="text-align: left;">31</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">160.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">121.4</td>
+<td style="text-align: left;">86.1</td>
+<td style="text-align: left;">31</td>
+<td style="text-align: left;">114</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">38</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">121.4</td>
+<td style="text-align: left;">86.1</td>
+<td style="text-align: left;">114</td>
+<td style="text-align: left;">116</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">123.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">121.4</td>
+<td style="text-align: left;">86.1</td>
+<td style="text-align: left;">116</td>
+<td style="text-align: left;">118</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">105</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">121.4</td>
+<td style="text-align: left;">86.1</td>
+<td style="text-align: left;">118</td>
+<td style="text-align: left;">121.4</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">108.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+</tr>
+</tbody>
+</table>
+<p>在重构的新数据中即可进行Cox回归分析，由于数据中有很多受试者被重复计算了多次，因此需要指定哪些受试者是重复的（采用cluster命令）。Cox回归模型p值是0.040，提示C反应蛋白与死亡或者严重并发症的复合结局事件相关。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.10</p>
+<p>. gen time = tstop - tstart</p>
+<p>. stset time, failure(endpt == 1)</p>
+<p>. stcox crp, cluster(id)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>代码5.10输出</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Cox regression with no ties</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">No.&nbsp;of subjects = 365</td>
+<td>Number of obs</td>
+<td>=</td>
+<td><strong>365</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">No.&nbsp;of failures = 67</td>
+<td>LR chi2(1)</td>
+<td>=</td>
+<td><strong>4.23</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time at risk = 24,688.6661</td>
+<td>Prob &gt; chi2</td>
+<td>=</td>
+<td><strong>0.0398</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Log pseudolikelihood = -328.58628</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td>Haz.ratio</td>
+<td>Std. Err.</td>
+<td>z</td>
+<td>P&gt;|z|</td>
+<td>[95% Conf. Interval]</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">crp</td>
+<td><strong>.9942597</strong></td>
+<td><strong>.0027837</strong></td>
+<td><strong>-2.06</strong></td>
+<td><strong>0.040</strong></td>
+<td><strong>.9888187</strong></td>
+<td><strong>0.9997306</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="竞争风险模型competing-risk-model" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="竞争风险模型competing-risk-model"><span class="header-section-number">5.3</span> 竞争风险模型（Competing Risk Model）</h2>
+<p>常规的生存结局事件只有两个，死亡或非死亡；复发或非复发。在真实世界中往往存在多个终点事件，称为竞争风险事件：研究中结局事件有多个，某些结局将阻止感兴趣事件的出现或影响其发生的概率，各结局事件形成竞争关系，互为竞争风险事件（图5.3）。如研究糖尿病患者的卒中风险，如果该患者死亡，则无法观察到卒中事件，故死亡是卒中事件的竞争风险。因此在进行Cox回归时需要考虑多种潜在结局的事件存在。</p>
+<p>处理竞争风险比较简单的方法即将多个竞争风险综合考虑。如研究糖尿病患者的卒中风险，死亡是卒中事件的竞争风险，可将结局事件定为卒中或死亡，计算糖尿病患者的无卒中生存概率。然而，实际临床过程需要区分不同事件的风险时可采取下面几种方法。竞争风险数据的系统处理——累积发生函数、Fine–Gray 部分分布模型与原因别风险模型之间的区别与选择——可参见 Fine 与 Gray（1999）、Putter 等（2007）以及 Austin 等（2016）。</p>
+<p><img src="images/ch5-image8.png"></p>
+<p><strong>图5.3竞争风险事件</strong></p>
+<p><strong>案例5.3</strong></p>
+<p>这是一个黑色素瘤案例，纳入了205例受试者，time指手术以后终点事件的生存时间；status 代表多个感兴趣的结局，1代表黑色素瘤所致的死亡，2代表删失，3代表其他原因所导致的死亡。此结局中黑色素瘤所致的死亡与其他原因所导致的死亡是相互竞争的，因为发生黑色素瘤所产生的死亡就不可能产生其他因素导致的死亡，产生其他因素导致的死亡就不会发生黑色素瘤所产生的死亡。</p>
+<p><strong>案例5.3数据表</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">time</th>
+<th style="text-align: left;">status</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: left;">ulcer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">30</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">35</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">99</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">185</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">204</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">210</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+</tr>
+</tbody>
+</table>
+<section id="累积风险函数cumulative-incidence-function-cif" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="累积风险函数cumulative-incidence-function-cif"><span class="header-section-number">5.3.1</span> 累积风险函数（cumulative incidence function, CIF）</h3>
+<p>累积风险函数模型描绘感兴趣的结局事件随时间变化率，且考虑了竞争事件的影响。这是一个非参数的模型，用于替代非竞争结局的生存曲线。累积风险模型假设事件每次发生有且仅有一种，具有期望属性，即各类别累积风险之和等于复合事件的累积风险。</p>
+<p>指定生存数据时分别指定结局事件为1和3，构建生存曲线时指定采用累积风险模型cif。下图表示黑色素瘤所致死亡以及其他原因所致死亡的累积发生曲线。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 44%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.11</p>
+<p>. stset time, fail(status==1)</p>
+<p>. stcurve, cif</p>
+<p>. stset time, fail(status==3)</p>
+<p>. stcurve, cif</p></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/ch5-image9.png"></p>
+<p><strong>代码5.11输出：竞争风险事件的累积风险生存曲线</strong></p>
+</section>
+<section id="fine-gray模型" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="fine-gray模型"><span class="header-section-number">5.3.2</span> Fine-Gray模型</h3>
+<p>Fine-Gray模型是一个半参数的比例风险模型，其定义是指在未发生感兴趣的结局事件的受试者中，感兴趣的结局事件随时间的变化率。可检验感兴趣的结局事件与干预变量的相关性。如我们想要检验有溃疡和没有溃疡的患者因黑色素瘤所致死亡的风险是否一致，即可调用stcrreg命令，结果提示p值&lt;0.001，故两组间存在明显差异。作为对照，有溃疡和没有溃疡的患者因其他因素所致死亡的风险一致。Fine-Gray模型采用部分分布比例风险回归，回归系数“SHR”代表部分分布比例风险比。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 55%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.12</p>
+<p>. stset time, fail(status == 1)</p>
+<p>. stcrreg ulcer, compete(status == 3)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>代码5.12输出</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 18%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Competing-risks regression</th>
+<th>No.&nbsp;of obs</th>
+<th>=</th>
+<th><strong>205</strong></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>No.&nbsp;of subjects</td>
+<td>=</td>
+<td><strong>205</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Failure event: status == 1</td>
+<td>No.&nbsp;failed</td>
+<td>=</td>
+<td><strong>57</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Competing event: status == 3</td>
+<td>No.&nbsp;competing</td>
+<td>=</td>
+<td><strong>14</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>No.&nbsp;censored</td>
+<td>=</td>
+<td><strong>134</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Wald chi2(1)</td>
+<td>=</td>
+<td><strong>23.91</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Log pseudolikelihood = -272.77498</td>
+<td>Prob &gt; chi2</td>
+<td>=</td>
+<td><strong>0.0000</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SHR</td>
+<td><p>Robust</p>
+<p>std. Err.</p></td>
+<td>z</td>
+<td>P&gt;|z|</td>
+<td>[95% Conf. Interval]</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>ulcer</td>
+<td><strong>4.111191</strong></td>
+<td><strong>1.18869</strong></td>
+<td><strong>4.89</strong></td>
+<td><strong>0.000</strong></td>
+<td><strong>2.332681</strong></td>
+<td><strong>7.245693</strong></td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 55%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.13</p>
+<p>. stset time, fail(status == 3)</p>
+<p>. stcrreg ulcer, compete(status == 1)</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>代码5.13输出</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 12%">
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 17%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Competing-risks regression</th>
+<th>No.&nbsp;of obs</th>
+<th>=</th>
+<th><strong>205</strong></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>No.&nbsp;of subjects</td>
+<td>=</td>
+<td><strong>205</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Failure event: status == 3</td>
+<td>No.&nbsp;failed</td>
+<td>=</td>
+<td><strong>14</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Competing event: status == 1</td>
+<td>No.&nbsp;competing</td>
+<td>=</td>
+<td><strong>57</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>No.&nbsp;censored</td>
+<td>=</td>
+<td><strong>134</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Wald chi2(1)</td>
+<td>=</td>
+<td><strong>0.10</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Log pseudolikelihood = -69.678895</td>
+<td>Prob &gt; chi2</td>
+<td>=</td>
+<td><strong>0.6729</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SHR</td>
+<td><p>Robust</p>
+<p>std. Err.</p></td>
+<td>z</td>
+<td>P&gt;|z|</td>
+<td>[95% Conf. Interval]</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>ulcer</td>
+<td><strong>1.254812</strong></td>
+<td><strong>0.6745782</strong></td>
+<td><strong>0.42</strong></td>
+<td><strong>0.673</strong></td>
+<td><strong>0.4375008</strong></td>
+<td><strong>3.598974</strong></td>
+</tr>
+</tbody>
+</table>
+<p>直观的将上述结果反映在累积风险模型上。有溃疡的患者因黑色素瘤所致死亡的累积风险较高，无溃疡患者的黑色素瘤所致死亡累积风险较低。然而当观察其他原因所致死亡时，有溃疡和无溃疡者结局事件无明显差别。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 59%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.14</p>
+<p>. stset time, fail(status==1)</p>
+<p>. stcrreg ulcer, compete(status==3)</p>
+<p>. stcurve, cif at1(ulcer=0) at2(ulcer=1)</p>
+<p>. stset time, fail(status==3)</p>
+<p>. stcrreg ulcer, compete(status==1)</p>
+<p>. stcurve, cif at1(ulcer=0) at2(ulcer=1)</p></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/ch5-image10.png"></p>
+<p><strong>代码5.14输出：竞争风险事件的分组累积风险生存曲线</strong></p>
+</section>
+<section id="原因别hazard模型" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="原因别hazard模型"><span class="header-section-number">5.3.3</span> 原因别Hazard模型</h3>
+<p>竞争结局另外一种比较简单的分析方法，称为原因别Hazard模型。此方法非常易于理解，把不感兴趣的结局事件做人工删失，删失后的新数据中进行Cox回归。</p>
+<p>结果与Fine-Gray模型结果一致，有溃疡和没有溃疡的患者因黑色素瘤所致死亡的风险不一致， p值&lt;0.001。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 61%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>代码5.15</p>
+<p>. generate status_cause = 2</p>
+<p>. replace status_cause = 1 if status == 1</p>
+<p>. stset time, fail(status_cause==1)</p>
+<p>. stcox ulcer</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>代码5.15输出</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Cox regression with no ties</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">No.&nbsp;of subjects = 205</td>
+<td>Number of obs</td>
+<td>=</td>
+<td><strong>205</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">No.&nbsp;of failures = 57</td>
+<td>LR chi2(1)</td>
+<td>=</td>
+<td><strong>28.44</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time at risk = 441,324</td>
+<td>Prob &gt; chi2</td>
+<td>=</td>
+<td><strong>0.0000</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Log pseudolikelihood = -268.98076</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td>Haz.ratio</td>
+<td>Std. Err.</td>
+<td>z</td>
+<td>P&gt;|z|</td>
+<td>[95% Conf. Interval]</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ulcer</td>
+<td><strong>4.35668</strong></td>
+<td><strong>1.286962</strong></td>
+<td><strong>4.98</strong></td>
+<td><strong>0.000</strong></td>
+<td><strong>2.441805</strong></td>
+<td><strong>7.77321</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="危险比的局限性" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="危险比的局限性"><span class="header-section-number">5.4</span> 危险比的局限性</h2>
+<p>估计生存结局的三种主要方法包括危险比（Hazard Ratio，HR），报告每个治疗组的中位生存期和时间点分析（如1年无进展生存率或总生存率）。HR与其他两种指标在以下方面存在差异。</p>
+<p>HR囊括了整个生存曲线中的所有信息，因此总结了整个随访时间内的治疗效果。相比之下，中位生存期仅关注不同干预组生存曲线上的一个点，而作为个体患者疾病控制的生存率指标过于简单。此外，HR提供了不同治疗组之间相对疗效的估计值。最后，可以计算校正和未校正的HR。未校正的HR根据单变量Cox比例风险模型计算，而校正的HR通常使用多变量Cox模型进行，即还包含需要校正的混杂因素，例如年龄、性别、疾病分期和体能状态。与之相对的是，根据生存曲线推导的中位生存期和特定时间点的生存概率往往未进行校正。</p>
+<p>然而，HR作为效应指标的局限性。</p>
+<p>首先，如果生存曲线严重违背等比例假设，则不适合诠释总体HR，因为HR随时间的变化非常显著。而等比例检验的效能比较低，有时明显违背等比例假设却无法通过等比例检验得出结论。</p>
+<p>第二、HR存在内在的选择偏倚，随访中如出现失访，而失访作为删失结局，且如删失与干预措施以及结局事件都相关，那就会出现选择偏倚。</p>
+<p>第三、HR是随着时间的变化而产生变化的，随访时间不同产生的HR是不一样的（案例5.1中180天和730天的HR不同），因此计算出的HR只是一个平均值。</p>
+<p>第四、HR是相对指标。HR具有统计学意义时，其是否具有临床意义有待评价。为此，临床医生需要结合绝对指标寻找具有一致临床意义的改善，例如特定时间点的生存概率和中位生存期。如对于不同类型的肿瘤，HR = 0.75可对应于中位生存期50天的改善（有临床意义），亦可对应约10天的改善（可能不具有临床意义）。</p>
+<p>最后，将HR推广至研究随访时间后发生的情况应非常谨慎。在缺乏后续信息的情况下，无法确定比例风险假设是否继续成立。不仅如此，后续治疗或姑息治疗也将严重影响患者的生存概率。上述局限性提示，危险比并不总能作为因果效应的恰当度量：由于风险集随时间因死亡而改变，即使在随机试验中，后期的危险比也可能因内在的选择效应而带有偏倚，这一问题被 Hernán（2010）形象地称为“危险比的危害”。因此在解读时应结合生存曲线、限制性平均生存时间与特定时点的绝对风险等指标综合判断。</p>
+</section>
+<section id="参考文献" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="参考文献"><span class="header-section-number">5.5</span> 参考文献</h2>
+<ol type="1">
+<li><p>Zhang Z, Reinikainen J, Adeleke KA, Pieterse ME, Groothuis-Oudshoorn CGM. Time-varying covariates and coefficients in Cox regression models. Ann Transl Med. 2018 Apr;6(7):121.</p></li>
+<li><p>Gregson J, Sharples L, Stone GW, Burman CF, Öhrn F, Pocock S. Nonproportional Hazards for Time-to-Event Outcomes in Clinical Trials: JACC Review Topic of&nbsp;the&nbsp;Week. J Am Coll Cardiol. 2019 Oct 22;74(16):2102-2112.</p></li>
+<li><p>Cox DR. Regression models and life-tables. Journal of the Royal Statistical Society: Series B, 1972, 34(2):187-220.</p></li>
+<li><p>Kaplan EL, Meier P. Nonparametric estimation from incomplete observations. Journal of the American Statistical Association, 1958, 53(282):457-481.</p></li>
+<li><p>Fine JP, Gray RJ. A proportional hazards model for the subdistribution of a competing risk. Journal of the American Statistical Association, 1999, 94(446):496-509.</p></li>
+<li><p>Putter H, Fiocco M, Geskus RB. Tutorial in biostatistics: competing risks and multi-state models. Statistics in Medicine, 2007, 26(11):2389-2430.</p></li>
+<li><p>Austin PC, Lee DS, Fine JP. Introduction to the analysis of survival data in the presence of competing risks. Circulation, 2016, 133(6):601-609.</p></li>
+<li><p>Royston P, Parmar MK. Restricted mean survival time: an alternative to the hazard ratio for the design and analysis of randomized trials with a time-to-event outcome. BMC Medical Research Methodology, 2013, 13:152.</p></li>
+<li><p>Dafni U. Landmark analysis at the 25-year landmark point. Circulation: Cardiovascular Quality and Outcomes, 2011, 4(3):363-371.</p></li>
+<li><p>Hernán MA. The hazards of hazard ratios. Epidemiology, 2010, 21(1):13-15.</p></li>
+</ol>
 
 
 <!-- -->
@@ -827,30 +2189,542 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 生存结局的临床研究</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## 编写说明</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>本章内容整理中。可将已校订的 Word 书稿（<span class="in">`乔Book/`</span> 目录）正文迁移至此，公式用 <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span>，图片放 <span class="in">`images/`</span>，代码用 ```{r} 或 ```{python} 代码块。</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cox回归的等比例条件</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## 非等比例情况下的Cox回归</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 含时间依赖变量的Cox回归</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 竞争风险模型</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## 风险比的局限性</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_待补充。_</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>生存分析是指对某给定事件发生的时间进行分析和推断，研究生存时间和结局与预后因子间的关系及其程度大小的方法，是一种处理删失数据的数据分析方法，也称生存率分析或存活率分析。</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>根据不同研究的目的和资料类型，可以采用不同的生存分析方法，如：估计某一生存时间的生存率，如五年生存率，可用寿命表法；估计中位生存时间，可用寿命表法和Kaplan-Meier法；研究某因素不同水平的生存时间，可用Kaplan-Meier法；研究多种因素对生存时间的影响，可用Cox回归模型。寿命表法和Kaplan-Meier法较为简单，在此不再赘述。</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Cox 比例风险模型（Cox proportional-hazards model）简称Cox 模型，是英国统计学家Cox在1972年提出的一种半参数回归模型，可以用来预测一个或多个不同变量在某一时间对死亡率的影响。它同时适用于数值变量和类别变量，可以同时评估几种风险因素对生存时间的影响，检验特定因素如何影响特定时间点特定事件（例如，感染，死亡）的发生率，因此广泛应用于生物医学的统计和分析。Cox 比例风险模型由 Cox 于1972年提出，是一种半参数模型（Cox，1972）；而前述寿命表法与 Kaplan–Meier 法属于非参数方法，后者由 Kaplan 与 Meier 于1958年提出（Kaplan 与 Meier，1958）。</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cox回归的等比例条件</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>利用Cox回归模型进行生存分析时需要考虑的最重要的因素是等比例条件。等比例是指两组风险比例不随时间变化，即某因素对生存的影响在任何时间是相同的，不随时间的推进而变化。</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>**案例5.1**</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>这是一个骨髓移植案例，纳入了不同类型的白血病患者（表5.1），g是分组，1代表急性淋巴细胞性白血病，2代表低风险性的急性髓系白血病。对这些患者开展骨髓移植手术，T1是指骨髓移植手术以后的生存时间，单位是天。delta1是指患者的结局（1为死亡；0为存活）。所关注的临床问题是急性淋巴细胞性白血病和低风险的急性髓系白血病手术后死亡风险有无差别？（为简化案例，假设不存在混杂因素）</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>**案例5.1数据表**</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> g   <span class="pp">|</span> T1   <span class="pp">|</span> delta1 <span class="pp">|</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|:----|:-----|:-------|</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> …   <span class="pp">|</span> …    <span class="pp">|</span> …      <span class="pp">|</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1   <span class="pp">|</span> 107  <span class="pp">|</span> 1      <span class="pp">|</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1   <span class="pp">|</span> 269  <span class="pp">|</span> 1      <span class="pp">|</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1   <span class="pp">|</span> 350  <span class="pp">|</span> 0      <span class="pp">|</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2   <span class="pp">|</span> 2569 <span class="pp">|</span> 0      <span class="pp">|</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2   <span class="pp">|</span> 2506 <span class="pp">|</span> 0      <span class="pp">|</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2   <span class="pp">|</span> 2409 <span class="pp">|</span> 0      <span class="pp">|</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> …   <span class="pp">|</span> …    <span class="pp">|</span> …      <span class="pp">|</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>因为结局事件为生存事件，因此该临床问题可以用Cox模型建模。Stata中首先需要设置数据格式为生存数据，采用stset命令，后接生存时间t1，并指定发生临床事件为delta1=1。绘制Kaplan-Meier曲线可采用sts graph命令，分组绘制指定组别g。</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>+--------------------------------+</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                <span class="pp">|</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>+================================+</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.1                        <span class="pp">|</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                <span class="pp">|</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stset t1, failure(delta1==1) <span class="pp">|</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                <span class="pp">|</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . sts graph, by(g)             <span class="pp">|</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>+--------------------------------+</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>判断等比例条件有三种方法：一是观察两组间的Kaplan-Meier曲线是否相交叉，如果不交叉，那说明两组满足等比例条件。然而本例中红色曲线在手术后的短期内下降幅度较蓝色曲线大，说明手术后短期内低风险性的急性髓系白血病死亡风险大于急性淋巴细胞性白血病组。然而蓝色曲线在长期随访中出现显著下降。两组的Kaplan-Meier曲线相交叉，因此这两组不满足等比例条件。</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image1.png)</span>{width="“5.768055555555556in”" height="“4.136805555555555in”"}</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>**代码5.1输出：两组Kaplan-Meier曲线**</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>第二种方法绘制 Schoenfeld残差与时间的关系图，如果Schoenfeld残差与时间无明显的变化趋势，即残差与时间无关，则提示符合等比例风险假设。如下图中残差似乎有随着时间上升的趋势，提示可能不满足等比例风险假定。</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>+------------------------------+</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                              <span class="pp">|</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>+==============================+</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.2                      <span class="pp">|</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                              <span class="pp">|</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcox g                    <span class="pp">|</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                              <span class="pp">|</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . estat phtest, rank plot(g) <span class="pp">|</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>+------------------------------+</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image2.png)</span>{width="“5.768055555555556in”" height="“4.097916666666666in”"}</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>**代码5.2 输出：Schoenfeld残差与时间关系图**</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>等比例条件的第三个检验方法是绘制某因素在不同状态下的二次对数生存曲线图 （即横坐标是时间的对数，纵坐标是生存函数的对数的对数），如果生存曲线大致平行，表明等比例风险成立，否则提示等比例不成立。如下图中两条曲线交叉，提示可能不满足等比例风险假定。</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>+-------------------+</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                   <span class="pp">|</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>+===================+</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.3           <span class="pp">|</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                   <span class="pp">|</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stphplot, by(g) <span class="pp">|</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>+-------------------+</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image3.png)</span>{width="“5.768055555555556in”" height="“4.136805555555555in”"}</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>**代码5.3输出：二次对数生存曲线图**</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="fu">### 非等比例情况下的Cox回归</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>Cox回归模型中，如果数据中存在非等比例的情况，可采用以下三种策略开展生存分析。</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="fu">### 加速失效时间模型（accelerated failure-time model，AFT）</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>主要研究干预对事件发生平均经历的时间的影响。直观上可以理解为比较两种干预结局事件发生的速度。其回归系数表示发生结局事件所需时间的比值，如果结局事件为死亡，回归系数即表示两组平均寿命的比值。</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>指定生存数据模式后，采用streg命令进行回归分析，随机变量的分布可以选择指数分布、Weibull分布、伽马分布等等。</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>+-------------------------------------------+</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                           <span class="pp">|</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>+===========================================+</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.4                                   <span class="pp">|</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                           <span class="pp">|</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stset t1, failure(delta1==1)            <span class="pp">|</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                           <span class="pp">|</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . streg g, distribution(exponential) time <span class="pp">|</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>+-------------------------------------------+</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>**代码5.4输出**</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Exponential AFT regression <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|----|----|----|----|----|----|</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No. of subjects = 92 <span class="pp">|</span> Number of obs <span class="pp">|</span> = <span class="pp">|</span> **92** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No. of failures = 46 <span class="pp">|</span> LR chi2(1) <span class="pp">|</span> = <span class="pp">|</span> **8.47** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Time at risk = 86,200 <span class="pp">|</span> Prob <span class="sc">\&gt;</span> chi2 <span class="pp">|</span> = <span class="pp">|</span> **0.0036** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Log likelihood = -135.20674 <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  <span class="pp">|</span> Coefficient <span class="pp">|</span> Std. Err. <span class="pp">|</span> z <span class="pp">|</span> P<span class="sc">\&gt;\|</span>z<span class="sc">\|</span> <span class="pp">|</span> <span class="sc">\[</span>95% Conf. Interval<span class="sc">\]</span> <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> g <span class="pp">|</span> **.8714456** | **.2948839** | **2.96** | **0.003** | **.2934837** | **1.449407** <span class="pp">|</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="sc">\_</span>cons <span class="pp">|</span> **6.136548** | **.4662524** | **13.16** | **0.000** | **5.222711** | **7.050386** <span class="pp">|</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>g的系数为0.871，表示g=1组发生结局事件所需时间延长(1-0.871)%=12.9%。两组的失效曲线（横轴为时间，纵轴为终点事件发生的比例）也可以观察到g=0组发生结局事件的速度更快。</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>+---------------------------------+</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                 <span class="pp">|</span></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>+=================================+</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.5                         <span class="pp">|</span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                 <span class="pp">|</span></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcurve, failure at( g=(0 1)) <span class="pp">|</span></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>+---------------------------------+</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image4.png)</span>{width="“5.768055555555556in”" height="“4.066666666666666in”"}</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>**代码5.5输出：加速失效曲线图**</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>限制性平均生存时间（Restricted mean survival times, RMST）</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>限制性平均生存时间为生存曲线在某个时间段内的曲线下面积（图5.1粉红色部分），即限制在某个时间段内的平均生存时间。平均生存时间越长，说明治疗的效果越好。限制性平均生存时间是不依赖于等比例风险假设的，其结果也比较直观，容易理解。但计算限制性平均生存时间需确定随访截止时间，但目前对于截止时间没有统一规定，由临床信息给定。</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image5.png)</span>{width="“5.768055555555556in”" height="“1.8402777777777777in”"}</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>**图5.1 分别将截止时间定为180天和730天时，两组的限制性平均生存时间**</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>案例5.1中手术后短期内低风险性的急性髓系白血病死亡风险大于急性淋巴细胞性白血病组可能是由于手术后的急性反应。临床上，这个时间一般持续3个月到半年左右。因此可以将截止时间（tau）定义为180天，分别计算截止至180天时两组的平均生存时间。strmst2命令用于限制性平均生存时间分析，指定分组变量g和截止时间。</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>+-----------------------+</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                       <span class="pp">|</span></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>+=======================+</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.6               <span class="pp">|</span></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                       <span class="pp">|</span></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . strmst2 g, tau(180) <span class="pp">|</span></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>+-----------------------+</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>**代码5.6输出**</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Restricted Mean Survival Time (RMST) by arm <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|----|----|----|----|</span></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  <span class="pp">|</span> Estimate <span class="pp">|</span> Std. Err. <span class="pp">|</span> <span class="sc">\[</span>95% Conf. Interval<span class="sc">\]</span> <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> arm2 <span class="pp">|</span> **164.259** | **5.735** | **153.018** | **175.501** <span class="pp">|</span></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> arm1 <span class="pp">|</span> **166.211** | **5.778** | **154.886** | **177.535** <span class="pp">|</span></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Between-group contrast (arm 2 versus arm 1) <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  <span class="pp">|</span> Estimate <span class="pp">|</span> <span class="sc">\[</span>95% Conf. Interval<span class="sc">\]</span> <span class="pp">|</span> P<span class="sc">\&gt;\|</span>z<span class="sc">\|</span> <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> RMST (arm2 - arm1) <span class="pp">|</span> **-1.951** | **-17.908** | **14.005** | **0.811** <span class="pp">|</span></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> RMST (arm2 / arm1) <span class="pp">|</span> **0.988** | **0.897** | **1.088** | **0.811** <span class="pp">|</span></span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>180天时第一组的限制性平均生存时间是166天，第二组的限制性平均生存时间是164天，两组之间没有明显的差别（无论是差值还是比值），p值为0.811。如果我们想要比较两组的长期治疗效果，只需将截止时间定为更长的随访（如730天），可看到第一组的限制性平均生存时间是473，第二组的限制性平均生存时间为587，两组相比差值的p值为0.035，比值的p值为0.042。可以得出结论截止730天时，第一组患者的限制性平均生存时间比第二组短。</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>+-----------------------+</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                       <span class="pp">|</span></span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>+=======================+</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.7               <span class="pp">|</span></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                       <span class="pp">|</span></span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . strmst2 g, tau(730) <span class="pp">|</span></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>+-----------------------+</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>**代码5.7输出**</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Restricted Mean Survival Time (RMST) by arm <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span></span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|----|----|----|----|</span></span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  <span class="pp">|</span> Estimate <span class="pp">|</span> Std. Err. <span class="pp">|</span> <span class="sc">\[</span>95% Conf. Interval<span class="sc">\]</span> <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> arm2 <span class="pp">|</span> **586.704** | **32.427** | **523.148** | **650.260** <span class="pp">|</span></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> arm1 <span class="pp">|</span> **473.868** | **42.191** | **391.176** | **556.561** <span class="pp">|</span></span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Between-group contrast (arm 2 versus arm 1) <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  <span class="pp">|</span> Estimate <span class="pp">|</span> <span class="sc">\[</span>95% Conf. Interval<span class="sc">\]</span> <span class="pp">|</span> P<span class="sc">\&gt;\|</span>z<span class="sc">\|</span> <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> RMST (arm2 - arm1) <span class="pp">|</span> **112.835** | **8.540** | **217.130** | **0.034** <span class="pp">|</span></span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> RMST (arm2 / arm1) <span class="pp">|</span> **1.238** | **1.008** | **1.520** | **0.042** <span class="pp">|</span></span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>然而，限制性平均生存时间分析的一个重要弊端在于截止时间点后收集的数据无法用于统计分析，造成了数据的浪费和统计效能下降。作为危险比的替代效应指标，限制性平均生存时间在存在非比例风险时尤为适用，其在随机试验设计与分析中的应用可参见 Royston 与 Parmar（2013）。</span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a><span class="fu">### Landmark分析</span></span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>除了限制性平均生存时间，存在非等比例情况下亦可以使用Landmark分析，其原理是把 Kaplan-Meier 曲线分成两段，前面一段和后面一段分别做Cox模型分析。Landmark分析考虑到两个干预组发生终点事件的时间分布不同。如果要比较某种疾病手术组和非手术组的生存率，因为手术组短期有相对较高的并发症率，导致短期生存率低于对照组，但一旦过了这个时期，手术组的生存率可能大于非手术组。Landmark 分析通过设定一个地标时间点、仅纳入在该时点仍存活的受试者，避免了用尚未发生的信息进行不当比较，其方法学可参见 Dafni（2011）。</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>同样采用案例5.1，Kaplan-Meier 曲线可以看到第二组的长期预后较好，但在术后短期存在生存率的快速下降。因此，我们想要知道术后短期内两组的生存情况有何差别，术后长期的情况又是如何？</span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>Landmark 分析的步骤为基于临床经验选择Landmark时间，分别在Landmark时间前后进行Cox回归分析。在案例5.1中，急性反应一般发生于手术后180天，首先计算180天内两组的生存函数差别，需手工截断尚未发生生存事件的患者的生存时间至180天。结果提示两组生存函数无明显差别（p=0.373）。</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>+-------------------------------------+</span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                     <span class="pp">|</span></span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>+=====================================+</span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.8                             <span class="pp">|</span></span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                     <span class="pp">|</span></span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . gen L1 = t1 if t1 <span class="sc">\&lt;</span> 180          <span class="pp">|</span></span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                     <span class="pp">|</span></span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . replace L1 = 180 if t1 <span class="sc">\&gt;</span>= 180    <span class="pp">|</span></span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                     <span class="pp">|</span></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . gen deltaL1 = delta1 if t1 <span class="sc">\&lt;</span> 180 <span class="pp">|</span></span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                     <span class="pp">|</span></span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . replace deltaL1 = 0 if t1 <span class="sc">\&gt;</span>= 180 <span class="pp">|</span></span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                     <span class="pp">|</span></span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stset L1, failure(deltaL1==1)     <span class="pp">|</span></span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                     <span class="pp">|</span></span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcox g                           <span class="pp">|</span></span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>+-------------------------------------+</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>**代码5.8输出**</span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Cox regression with no ties <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span></span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|----|----|----|----|----|----|</span></span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No. of subjects = 92 <span class="pp">|</span> Number of obs <span class="pp">|</span> = <span class="pp">|</span> **92** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No. of failures = 15 <span class="pp">|</span> LR chi2(1) <span class="pp">|</span> = <span class="pp">|</span> **0.80** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Time at risk = 15,186 <span class="pp">|</span> Prob <span class="sc">\&gt;</span> chi2 <span class="pp">|</span> = <span class="pp">|</span> **0.3723** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Log likelihood = -66.222312 <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  <span class="pp">|</span> Haz.ratio <span class="pp">|</span> Std. Err. <span class="pp">|</span> z <span class="pp">|</span> P<span class="sc">\&gt;\|</span>z<span class="sc">\|</span> <span class="pp">|</span> <span class="sc">\[</span>95% Conf. Interval<span class="sc">\]</span> <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> g <span class="pp">|</span> **.630299** | **.3263916** | **-0.89** | **0.373** | **.2285066** | **1.738579** <span class="pp">|</span></span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>然后计算手术180天后两组的生存函数差别，删除生存时间小于180天的受试者，从180天开始重新计算随访时间。结果提示手术180天后，急性淋巴细胞性白血病的生存率（蓝色曲线）较低风险性的急性髓系白血病生存率（红色曲线）低。</span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>+----------------------------------------------------------+</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                                          <span class="pp">|</span></span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>+==========================================================+</span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.9                                                  <span class="pp">|</span></span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                                          <span class="pp">|</span></span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . gen L2 = t1 - 180                                      <span class="pp">|</span></span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                                          <span class="pp">|</span></span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stset L2, failure(delta1==1)                           <span class="pp">|</span></span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                                          <span class="pp">|</span></span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcox g if L2 <span class="sc">\&gt;</span> 0                                     <span class="pp">|</span></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                                          <span class="pp">|</span></span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . sts graph if L2 <span class="sc">\&gt;</span> 0, by(g) risktable censored(single) <span class="pp">|</span></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>+----------------------------------------------------------+</span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>**代码5.9输出**</span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Cox regression with Breslow method for ties <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span></span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|----|----|----|----|----|----|</span></span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No. of subjects = 77 <span class="pp">|</span> Number of obs <span class="pp">|</span> = <span class="pp">|</span> **77** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No. of failures = 31 <span class="pp">|</span> LR chi2(1) <span class="pp">|</span> = <span class="pp">|</span> **4.24** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Time at risk = 84,874 <span class="pp">|</span> Prob <span class="sc">\&gt;</span> chi2 <span class="pp">|</span> = <span class="pp">|</span> **0.0395** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Log likelihood = -121.57006 <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  <span class="pp">|</span> Haz.ratio <span class="pp">|</span> Std. Err. <span class="pp">|</span> z <span class="pp">|</span> P<span class="sc">\&gt;\|</span>z<span class="sc">\|</span> <span class="pp">|</span> <span class="sc">\[</span>95% Conf. Interval<span class="sc">\]</span> <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> g <span class="pp">|</span> **.466382** | **.1708153** | **-2.08** | **0.037** | **.2275014** | **0.9560918** <span class="pp">|</span></span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image6.png)</span>{width="“5.768055555555556in”" height="“4.170833333333333in”"}</span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>**代码5.9输出：180天后两组Kaplan-Meier曲线**</span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>总结一下等比例条件满足与不满足情况下的Cox回归分析方法。等比例Cox分析是最常用的Cox分析方法，统计学假设是在不同时间点上，各个组之间的风险比例是相等的。而限制性生存时间分析和Landmark分析都不需要等比例假设，限制性生存时间分析方法指定截止时间，计算截止时间之前的两条生存曲线下的面积，通过比较面积来评估生存曲线差异。Landmark分析则是指定Landmark时间，比较Landmark时间前后的生存曲线差异（图5.2）。</span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image7.png)</span>{width="“4.37123687664042in”" height="“4.131783683289589in”"}</span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>**图5.2** **生存分析除Cox模型外的几种选择**</span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a>临床试验中对等比例进行事后分析，有时可以提供有用的见解。第一步是评估等比例假设是否合理。对等比例的正式统计测试有时是有用的，然而多数情况下，在样本量较小的研究中可能会错过临床上重要的偏离等比例的情况，而在样本量较大的研究中却可能会发现临床上不重要的偏离等比例的情况。因此，图形显示，包括Kaplan-Meier曲线和Schoenfeld 残差图可能更有用。</span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>当等比例假设不成立时，使用分段风险模型（类似landmark分析，将随访时间分为若干小段，分别计算小段中的危险比）可能是有用的。这种方法的一个局限性是事后选择不同的时间段，可能会夸大危险比随时间变化的实际差异。随访后期计算出的危险比只包括幸存者（删失了死亡的患者），所以不是真正的随机比较。</span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>另一个事后分析是探讨非等比例是否是由临床上不同的亚组造成的，这些病人的治疗效果是不同的。在这种情况下，亚组分析或分层的Cox模型可能是有用的。此外，在研究进行过程中，受试者脱离原本的分配治疗或交叉至另一组也可能导致非等比例，因为治疗组间随着时间的推移变得更加相似。这对非劣效性试验来说是一个特别的问题，因为治疗效果的稀释可能会导致非劣效性的错误声明。在这种情况下，使用符合方案分析方法，对不依从和交叉的受试者进行统计调整（即计算依从者中的平均因果效应）可能有助于恢复真实治疗效果。非劣效试验的另一个问题是，当非劣效边际是基于危险比的，但比例风险（PH）假设显然不成立。在这种情况下，非劣效边际可能变得不合适或难以解释，因此探索其他分析策略很重要。</span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a><span class="fu">## 含时间依赖变量的Cox回归</span></span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>常规的Cox回归只能研究基线指标与生存结局之间的关系。然而，很多情况下，基线变量可以随着时间变动而发生变动。如，研究吸烟与癌症的发生风险，吸烟状况可以是持续的也可以是不断变化的。基线吸烟后也可以戒烟，戒烟之后又可以再次复吸。同样在脓毒症患者中研究C反应蛋白与死亡率之间的关系，C反应蛋白这个指标也是会随着病情改变而改变的。</span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>这些研究不适用限制性生存时间分析分析或是Landmark分析，因为变量是随着时间变动的；亦或者没有明显的截止时间或者Landmark时间可以采用；又或者如果采用Landmark分析的话可能会导致很多受试者被剔除。</span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>**案例5.2**</span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>这是一个脓毒症患者中研究C反应蛋白与死亡率之间关系的案例。左表是100例脓毒症患者的临床指标，id表示受试者的唯一识别号；status表示结局事件是死亡或者严重并发症的复合结局事件；start和stop表示基线和结局事件发生的时间（单位为小时）；age表示年龄。右表是这些受试者入院后不同时间点的C反应蛋白值，以id标识唯一识别号；time表示C反应蛋白测定的时间；crp是C反应蛋白测定的值。</span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>**案例5.2数据表**</span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> id  <span class="pp">|</span> status <span class="pp">|</span> start <span class="pp">|</span> stop  <span class="pp">|</span> age  <span class="pp">|</span>     <span class="pp">|</span> id  <span class="pp">|</span> time <span class="pp">|</span> crp   <span class="pp">|</span></span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a><span class="pp">|:----|:-------|:------|:------|:-----|-----|:----|:-----|:------|</span></span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1   <span class="pp">|</span> 1      <span class="pp">|</span> 0     <span class="pp">|</span> 48.1  <span class="pp">|</span> 80.4 <span class="pp">|</span>     <span class="pp">|</span> 1   <span class="pp">|</span> 0    <span class="pp">|</span> 110.1 <span class="pp">|</span></span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2   <span class="pp">|</span> 0      <span class="pp">|</span> 0     <span class="pp">|</span> 121.4 <span class="pp">|</span> 86.1 <span class="pp">|</span>     <span class="pp">|</span> 1   <span class="pp">|</span> 189  <span class="pp">|</span> 98.9  <span class="pp">|</span></span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3   <span class="pp">|</span> 1      <span class="pp">|</span> 0     <span class="pp">|</span> 30.7  <span class="pp">|</span> 72.4 <span class="pp">|</span>     <span class="pp">|</span> 1   <span class="pp">|</span> 218  <span class="pp">|</span> 98.3  <span class="pp">|</span></span>
+<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4   <span class="pp">|</span> 0      <span class="pp">|</span> 0     <span class="pp">|</span> 500   <span class="pp">|</span> 92.0 <span class="pp">|</span>     <span class="pp">|</span> 1   <span class="pp">|</span> 230  <span class="pp">|</span> 154.7 <span class="pp">|</span></span>
+<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5   <span class="pp">|</span> 1      <span class="pp">|</span> 0     <span class="pp">|</span> 69.5  <span class="pp">|</span> 77.1 <span class="pp">|</span>     <span class="pp">|</span> 2   <span class="pp">|</span> 0    <span class="pp">|</span> 91    <span class="pp">|</span></span>
+<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 6   <span class="pp">|</span> 1      <span class="pp">|</span> 0     <span class="pp">|</span> 233.1 <span class="pp">|</span> 86.8 <span class="pp">|</span>     <span class="pp">|</span> 2   <span class="pp">|</span> 27   <span class="pp">|</span> 160.7 <span class="pp">|</span></span>
+<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 7   <span class="pp">|</span> 1      <span class="pp">|</span> 0     <span class="pp">|</span> 156.3 <span class="pp">|</span> 59.8 <span class="pp">|</span>     <span class="pp">|</span> 2   <span class="pp">|</span> 31   <span class="pp">|</span> 38    <span class="pp">|</span></span>
+<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 8   <span class="pp">|</span> 1      <span class="pp">|</span> 0     <span class="pp">|</span> 257.6 <span class="pp">|</span> 65.6 <span class="pp">|</span>     <span class="pp">|</span> 2   <span class="pp">|</span> 114  <span class="pp">|</span> 123.4 <span class="pp">|</span></span>
+<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> …   <span class="pp">|</span> …      <span class="pp">|</span> …     <span class="pp">|</span> …     <span class="pp">|</span> …    <span class="pp">|</span>     <span class="pp">|</span> …   <span class="pp">|</span> …    <span class="pp">|</span> …     <span class="pp">|</span></span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>在进行数据分析前首先要通过数据格式转化，新建一个数据表，每一行代表每一个感兴趣变量的变化。第一个患者（ID=1）由于在终点事件时间窗内只有一次C反应蛋白的记录，因此在新数据表中只需记录这个患者的一条信息。然而第二个患者（ID=2），由于在终点事件的时间范围内存在很多C反应蛋白的测量值，因此要复制多份记录以存储不同时间的C反应蛋白变化。该患者第一次C反应蛋白的测量时间点为0，终点事件时间点为27（因为下一次C反应蛋白的测量时间点为27），此时尚未发生终点事件。该患者第二次C反应蛋白的测量时间点为27，终点事件时间点为31（因为下一次C反应蛋白的测量时间点为31），此时亦尚未发生终点事件。以此类推，该患者发生终点事件的时间点为121.4，因此新数据表中最后一次C反应蛋白的测量时间点为118（121.4之前的最后一次C反应蛋白测量）。</span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a>**案例5.2数据表转化**</span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> id  <span class="pp">|</span> status <span class="pp">|</span> start <span class="pp">|</span> stop  <span class="pp">|</span> age  <span class="pp">|</span> tstart <span class="pp">|</span> tstop <span class="pp">|</span> endpt <span class="pp">|</span> crp   <span class="pp">|</span></span>
+<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a><span class="pp">|:----|:-------|:------|:------|:-----|:-------|:------|:------|:------|</span></span>
+<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1   <span class="pp">|</span> 1      <span class="pp">|</span> 0     <span class="pp">|</span> 48.1  <span class="pp">|</span> 80.4 <span class="pp">|</span> 0      <span class="pp">|</span> 48.1  <span class="pp">|</span> 1     <span class="pp">|</span> 110.1 <span class="pp">|</span></span>
+<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2   <span class="pp">|</span> 0      <span class="pp">|</span> 0     <span class="pp">|</span> 121.4 <span class="pp">|</span> 86.1 <span class="pp">|</span> 0      <span class="pp">|</span> 27    <span class="pp">|</span> 0     <span class="pp">|</span> 91    <span class="pp">|</span></span>
+<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2   <span class="pp">|</span> 0      <span class="pp">|</span> 0     <span class="pp">|</span> 121.4 <span class="pp">|</span> 86.1 <span class="pp">|</span> 27     <span class="pp">|</span> 31    <span class="pp">|</span> 0     <span class="pp">|</span> 160.7 <span class="pp">|</span></span>
+<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2   <span class="pp">|</span> 0      <span class="pp">|</span> 0     <span class="pp">|</span> 121.4 <span class="pp">|</span> 86.1 <span class="pp">|</span> 31     <span class="pp">|</span> 114   <span class="pp">|</span> 0     <span class="pp">|</span> 38    <span class="pp">|</span></span>
+<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2   <span class="pp">|</span> 0      <span class="pp">|</span> 0     <span class="pp">|</span> 121.4 <span class="pp">|</span> 86.1 <span class="pp">|</span> 114    <span class="pp">|</span> 116   <span class="pp">|</span> 0     <span class="pp">|</span> 123.4 <span class="pp">|</span></span>
+<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2   <span class="pp">|</span> 0      <span class="pp">|</span> 0     <span class="pp">|</span> 121.4 <span class="pp">|</span> 86.1 <span class="pp">|</span> 116    <span class="pp">|</span> 118   <span class="pp">|</span> 0     <span class="pp">|</span> 105   <span class="pp">|</span></span>
+<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2   <span class="pp">|</span> 0      <span class="pp">|</span> 0     <span class="pp">|</span> 121.4 <span class="pp">|</span> 86.1 <span class="pp">|</span> 118    <span class="pp">|</span> 121.4 <span class="pp">|</span> 0     <span class="pp">|</span> 108.6 <span class="pp">|</span></span>
+<span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> …   <span class="pp">|</span> …      <span class="pp">|</span> …     <span class="pp">|</span> …     <span class="pp">|</span> …    <span class="pp">|</span> …      <span class="pp">|</span> …     <span class="pp">|</span> …     <span class="pp">|</span> …     <span class="pp">|</span></span>
+<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a>在重构的新数据中即可进行Cox回归分析，由于数据中有很多受试者被重复计算了多次，因此需要指定哪些受试者是重复的（采用cluster命令）。Cox回归模型p值是0.040，提示C反应蛋白与死亡或者严重并发症的复合结局事件相关。</span>
+<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+</span>
+<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span></span>
+<span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a>+===================================+</span>
+<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.10                          <span class="pp">|</span></span>
+<span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span></span>
+<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . gen time = tstop - tstart       <span class="pp">|</span></span>
+<span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span></span>
+<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stset time, failure(endpt == 1) <span class="pp">|</span></span>
+<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span></span>
+<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcox crp, cluster(id)          <span class="pp">|</span></span>
+<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+</span>
+<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a>**代码5.10输出**</span>
+<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Cox regression with no ties <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span></span>
+<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|----|----|----|----|----|----|</span></span>
+<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No. of subjects = 365 <span class="pp">|</span> Number of obs <span class="pp">|</span> = <span class="pp">|</span> **365** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No. of failures = 67 <span class="pp">|</span> LR chi2(1) <span class="pp">|</span> = <span class="pp">|</span> **4.23** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Time at risk = 24,688.6661 <span class="pp">|</span> Prob <span class="sc">\&gt;</span> chi2 <span class="pp">|</span> = <span class="pp">|</span> **0.0398** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Log pseudolikelihood = -328.58628 <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  <span class="pp">|</span> Haz.ratio <span class="pp">|</span> Std. Err. <span class="pp">|</span> z <span class="pp">|</span> P<span class="sc">\&gt;\|</span>z<span class="sc">\|</span> <span class="pp">|</span> <span class="sc">\[</span>95% Conf. Interval<span class="sc">\]</span> <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> crp <span class="pp">|</span> **.9942597** | **.0027837** | **-2.06** | **0.040** | **.9888187** | **0.9997306** <span class="pp">|</span></span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a><span class="fu">## 竞争风险模型（Competing Risk Model）</span></span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>常规的生存结局事件只有两个，死亡或非死亡；复发或非复发。在真实世界中往往存在多个终点事件，称为竞争风险事件：研究中结局事件有多个，某些结局将阻止感兴趣事件的出现或影响其发生的概率，各结局事件形成竞争关系，互为竞争风险事件（图5.3）。如研究糖尿病患者的卒中风险，如果该患者死亡，则无法观察到卒中事件，故死亡是卒中事件的竞争风险。因此在进行Cox回归时需要考虑多种潜在结局的事件存在。</span>
+<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>处理竞争风险比较简单的方法即将多个竞争风险综合考虑。如研究糖尿病患者的卒中风险，死亡是卒中事件的竞争风险，可将结局事件定为卒中或死亡，计算糖尿病患者的无卒中生存概率。然而，实际临床过程需要区分不同事件的风险时可采取下面几种方法。竞争风险数据的系统处理——累积发生函数、Fine–Gray 部分分布模型与原因别风险模型之间的区别与选择——可参见 Fine 与 Gray（1999）、Putter 等（2007）以及 Austin 等（2016）。</span>
+<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image8.png)</span>{width="“5.768055555555556in”" height="“2.2694444444444444in”"}</span>
+<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a>**图5.3竞争风险事件**</span>
+<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a>**案例5.3**</span>
+<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a>这是一个黑色素瘤案例，纳入了205例受试者，time指手术以后终点事件的生存时间；status 代表多个感兴趣的结局，1代表黑色素瘤所致的死亡，2代表删失，3代表其他原因所导致的死亡。此结局中黑色素瘤所致的死亡与其他原因所导致的死亡是相互竞争的，因为发生黑色素瘤所产生的死亡就不可能产生其他因素导致的死亡，产生其他因素导致的死亡就不会发生黑色素瘤所产生的死亡。</span>
+<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a>**案例5.3数据表**</span>
+<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> time <span class="pp">|</span> status <span class="pp">|</span> sex <span class="pp">|</span> ulcer <span class="pp">|</span></span>
+<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a><span class="pp">|:-----|:-------|:----|:------|</span></span>
+<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10   <span class="pp">|</span> 3      <span class="pp">|</span> 1   <span class="pp">|</span> 1     <span class="pp">|</span></span>
+<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 30   <span class="pp">|</span> 3      <span class="pp">|</span> 1   <span class="pp">|</span> 0     <span class="pp">|</span></span>
+<span id="cb1-342"><a href="#cb1-342" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 35   <span class="pp">|</span> 2      <span class="pp">|</span> 1   <span class="pp">|</span> 0     <span class="pp">|</span></span>
+<span id="cb1-343"><a href="#cb1-343" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 99   <span class="pp">|</span> 3      <span class="pp">|</span> 0   <span class="pp">|</span> 0     <span class="pp">|</span></span>
+<span id="cb1-344"><a href="#cb1-344" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 185  <span class="pp">|</span> 1      <span class="pp">|</span> 1   <span class="pp">|</span> 1     <span class="pp">|</span></span>
+<span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 204  <span class="pp">|</span> 1      <span class="pp">|</span> 1   <span class="pp">|</span> 1     <span class="pp">|</span></span>
+<span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 210  <span class="pp">|</span> 1      <span class="pp">|</span> 1   <span class="pp">|</span> 1     <span class="pp">|</span></span>
+<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> …    <span class="pp">|</span> …      <span class="pp">|</span> …   <span class="pp">|</span> …     <span class="pp">|</span></span>
+<span id="cb1-348"><a href="#cb1-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a><span class="fu">### 累积风险函数（cumulative incidence function, CIF）</span></span>
+<span id="cb1-350"><a href="#cb1-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a>累积风险函数模型描绘感兴趣的结局事件随时间变化率，且考虑了竞争事件的影响。这是一个非参数的模型，用于替代非竞争结局的生存曲线。累积风险模型假设事件每次发生有且仅有一种，具有期望属性，即各类别累积风险之和等于复合事件的累积风险。</span>
+<span id="cb1-352"><a href="#cb1-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a>指定生存数据时分别指定结局事件为1和3，构建生存曲线时指定采用累积风险模型cif。下图表示黑色素瘤所致死亡以及其他原因所致死亡的累积发生曲线。</span>
+<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-355"><a href="#cb1-355" aria-hidden="true" tabindex="-1"></a>+-------------------------------+</span>
+<span id="cb1-356"><a href="#cb1-356" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                               <span class="pp">|</span></span>
+<span id="cb1-357"><a href="#cb1-357" aria-hidden="true" tabindex="-1"></a>+===============================+</span>
+<span id="cb1-358"><a href="#cb1-358" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.11                      <span class="pp">|</span></span>
+<span id="cb1-359"><a href="#cb1-359" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                               <span class="pp">|</span></span>
+<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stset time, fail(status==1) <span class="pp">|</span></span>
+<span id="cb1-361"><a href="#cb1-361" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                               <span class="pp">|</span></span>
+<span id="cb1-362"><a href="#cb1-362" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcurve, cif                <span class="pp">|</span></span>
+<span id="cb1-363"><a href="#cb1-363" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                               <span class="pp">|</span></span>
+<span id="cb1-364"><a href="#cb1-364" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stset time, fail(status==3) <span class="pp">|</span></span>
+<span id="cb1-365"><a href="#cb1-365" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                               <span class="pp">|</span></span>
+<span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcurve, cif                <span class="pp">|</span></span>
+<span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a>+-------------------------------+</span>
+<span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image9.png)</span>{width="“5.768055555555556in”" height="“2.3069444444444445in”"}</span>
+<span id="cb1-370"><a href="#cb1-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a>**代码5.11输出：竞争风险事件的累积风险生存曲线**</span>
+<span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-373"><a href="#cb1-373" aria-hidden="true" tabindex="-1"></a><span class="fu">### Fine-Gray模型</span></span>
+<span id="cb1-374"><a href="#cb1-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-375"><a href="#cb1-375" aria-hidden="true" tabindex="-1"></a>Fine-Gray模型是一个半参数的比例风险模型，其定义是指在未发生感兴趣的结局事件的受试者中，感兴趣的结局事件随时间的变化率。可检验感兴趣的结局事件与干预变量的相关性。如我们想要检验有溃疡和没有溃疡的患者因黑色素瘤所致死亡的风险是否一致，即可调用stcrreg命令，结果提示p值<span class="sc">\&lt;</span>0.001，故两组间存在明显差异。作为对照，有溃疡和没有溃疡的患者因其他因素所致死亡的风险一致。Fine-Gray模型采用部分分布比例风险回归，回归系数“SHR”代表部分分布比例风险比。</span>
+<span id="cb1-376"><a href="#cb1-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-377"><a href="#cb1-377" aria-hidden="true" tabindex="-1"></a>+---------------------------------------+</span>
+<span id="cb1-378"><a href="#cb1-378" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                       <span class="pp">|</span></span>
+<span id="cb1-379"><a href="#cb1-379" aria-hidden="true" tabindex="-1"></a>+=======================================+</span>
+<span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.12                              <span class="pp">|</span></span>
+<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                       <span class="pp">|</span></span>
+<span id="cb1-382"><a href="#cb1-382" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stset time, fail(status == 1)       <span class="pp">|</span></span>
+<span id="cb1-383"><a href="#cb1-383" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                       <span class="pp">|</span></span>
+<span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcrreg ulcer, compete(status == 3) <span class="pp">|</span></span>
+<span id="cb1-385"><a href="#cb1-385" aria-hidden="true" tabindex="-1"></a>+---------------------------------------+</span>
+<span id="cb1-386"><a href="#cb1-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-387"><a href="#cb1-387" aria-hidden="true" tabindex="-1"></a>**代码5.12输出**</span>
+<span id="cb1-388"><a href="#cb1-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-389"><a href="#cb1-389" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+-------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-390"><a href="#cb1-390" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Competing-risks regression        <span class="pp">|</span> No. of obs      <span class="pp">|</span> =           <span class="pp">|</span> **205**    <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-391"><a href="#cb1-391" aria-hidden="true" tabindex="-1"></a>+=================================<span class="al">==+=================+=============+============+===========+========================+==</span>============+</span>
+<span id="cb1-392"><a href="#cb1-392" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span> No. of subjects <span class="pp">|</span> =           <span class="pp">|</span> **205**    <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-393"><a href="#cb1-393" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+-------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-394"><a href="#cb1-394" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Failure event: status == 1        <span class="pp">|</span> No. failed      <span class="pp">|</span> =           <span class="pp">|</span> **57**     <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-395"><a href="#cb1-395" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+-------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-396"><a href="#cb1-396" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Competing event: status == 3      <span class="pp">|</span> No. competing   <span class="pp">|</span> =           <span class="pp">|</span> **14**     <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+-------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-398"><a href="#cb1-398" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span> No. censored    <span class="pp">|</span> =           <span class="pp">|</span> **134**    <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+-------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span> Wald chi2(1)    <span class="pp">|</span> =           <span class="pp">|</span> **23.91**  <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-401"><a href="#cb1-401" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+-------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-402"><a href="#cb1-402" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Log pseudolikelihood = -272.77498 <span class="pp">|</span> Prob <span class="sc">\&gt;</span> chi2    <span class="pp">|</span> =           <span class="pp">|</span> **0.0000** <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-403"><a href="#cb1-403" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+-------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-404"><a href="#cb1-404" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span> SHR             <span class="pp">|</span> Robust      <span class="pp">|</span> z          <span class="pp">|</span> P<span class="sc">\&gt;\|</span>z<span class="sc">\|</span>  <span class="pp">|</span> <span class="sc">\[</span>95% Conf. Interval<span class="sc">\]</span> <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-405"><a href="#cb1-405" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span>                 <span class="pp">|</span>             <span class="pp">|</span>            <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-406"><a href="#cb1-406" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span>                 <span class="pp">|</span> std. Err.   <span class="pp">|</span>            <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-407"><a href="#cb1-407" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+-------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-408"><a href="#cb1-408" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ulcer                             <span class="pp">|</span> **4.111191**    | **1.18869** | **4.89**   | **0.000** | **2.332681**           | **7.245693** <span class="pp">|</span></span>
+<span id="cb1-409"><a href="#cb1-409" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+-------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a>+---------------------------------------+</span>
+<span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                       <span class="pp">|</span></span>
+<span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a>+=======================================+</span>
+<span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.13                              <span class="pp">|</span></span>
+<span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                       <span class="pp">|</span></span>
+<span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stset time, fail(status == 3)       <span class="pp">|</span></span>
+<span id="cb1-417"><a href="#cb1-417" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                       <span class="pp">|</span></span>
+<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcrreg ulcer, compete(status == 1) <span class="pp">|</span></span>
+<span id="cb1-419"><a href="#cb1-419" aria-hidden="true" tabindex="-1"></a>+---------------------------------------+</span>
+<span id="cb1-420"><a href="#cb1-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-421"><a href="#cb1-421" aria-hidden="true" tabindex="-1"></a>**代码5.13输出**</span>
+<span id="cb1-422"><a href="#cb1-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-423"><a href="#cb1-423" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+---------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-424"><a href="#cb1-424" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Competing-risks regression        <span class="pp">|</span> No. of obs      <span class="pp">|</span> =             <span class="pp">|</span> **205**    <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-425"><a href="#cb1-425" aria-hidden="true" tabindex="-1"></a>+=================================<span class="al">==+=================+===============+============+===========+========================+==</span>============+</span>
+<span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span> No. of subjects <span class="pp">|</span> =             <span class="pp">|</span> **205**    <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+---------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Failure event: status == 3        <span class="pp">|</span> No. failed      <span class="pp">|</span> =             <span class="pp">|</span> **14**     <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+---------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-430"><a href="#cb1-430" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Competing event: status == 1      <span class="pp">|</span> No. competing   <span class="pp">|</span> =             <span class="pp">|</span> **57**     <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-431"><a href="#cb1-431" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+---------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-432"><a href="#cb1-432" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span> No. censored    <span class="pp">|</span> =             <span class="pp">|</span> **134**    <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-433"><a href="#cb1-433" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+---------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-434"><a href="#cb1-434" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span> Wald chi2(1)    <span class="pp">|</span> =             <span class="pp">|</span> **0.10**   <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-435"><a href="#cb1-435" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+---------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-436"><a href="#cb1-436" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Log pseudolikelihood = -69.678895 <span class="pp">|</span> Prob <span class="sc">\&gt;</span> chi2    <span class="pp">|</span> =             <span class="pp">|</span> **0.6729** <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-437"><a href="#cb1-437" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+---------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-438"><a href="#cb1-438" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span> SHR             <span class="pp">|</span> Robust        <span class="pp">|</span> z          <span class="pp">|</span> P<span class="sc">\&gt;\|</span>z<span class="sc">\|</span>  <span class="pp">|</span> <span class="sc">\[</span>95% Conf. Interval<span class="sc">\]</span> <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-439"><a href="#cb1-439" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span>                 <span class="pp">|</span>               <span class="pp">|</span>            <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-440"><a href="#cb1-440" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                   <span class="pp">|</span>                 <span class="pp">|</span> std. Err.     <span class="pp">|</span>            <span class="pp">|</span>           <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb1-441"><a href="#cb1-441" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+---------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-442"><a href="#cb1-442" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ulcer                             <span class="pp">|</span> **1.254812**    | **0.6745782** | **0.42**   | **0.673** | **0.4375008**          | **3.598974** <span class="pp">|</span></span>
+<span id="cb1-443"><a href="#cb1-443" aria-hidden="true" tabindex="-1"></a>+-----------------------------------+-----------------+---------------+------------+-----------+------------------------+--------------+</span>
+<span id="cb1-444"><a href="#cb1-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-445"><a href="#cb1-445" aria-hidden="true" tabindex="-1"></a>直观的将上述结果反映在累积风险模型上。有溃疡的患者因黑色素瘤所致死亡的累积风险较高，无溃疡患者的黑色素瘤所致死亡累积风险较低。然而当观察其他原因所致死亡时，有溃疡和无溃疡者结局事件无明显差别。</span>
+<span id="cb1-446"><a href="#cb1-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-447"><a href="#cb1-447" aria-hidden="true" tabindex="-1"></a>+------------------------------------------+</span>
+<span id="cb1-448"><a href="#cb1-448" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                          <span class="pp">|</span></span>
+<span id="cb1-449"><a href="#cb1-449" aria-hidden="true" tabindex="-1"></a>+==========================================+</span>
+<span id="cb1-450"><a href="#cb1-450" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.14                                 <span class="pp">|</span></span>
+<span id="cb1-451"><a href="#cb1-451" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                          <span class="pp">|</span></span>
+<span id="cb1-452"><a href="#cb1-452" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stset time, fail(status==1)            <span class="pp">|</span></span>
+<span id="cb1-453"><a href="#cb1-453" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                          <span class="pp">|</span></span>
+<span id="cb1-454"><a href="#cb1-454" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcrreg ulcer, compete(status==3)      <span class="pp">|</span></span>
+<span id="cb1-455"><a href="#cb1-455" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                          <span class="pp">|</span></span>
+<span id="cb1-456"><a href="#cb1-456" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcurve, cif at1(ulcer=0) at2(ulcer=1) <span class="pp">|</span></span>
+<span id="cb1-457"><a href="#cb1-457" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                          <span class="pp">|</span></span>
+<span id="cb1-458"><a href="#cb1-458" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stset time, fail(status==3)            <span class="pp">|</span></span>
+<span id="cb1-459"><a href="#cb1-459" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                          <span class="pp">|</span></span>
+<span id="cb1-460"><a href="#cb1-460" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcrreg ulcer, compete(status==1)      <span class="pp">|</span></span>
+<span id="cb1-461"><a href="#cb1-461" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                          <span class="pp">|</span></span>
+<span id="cb1-462"><a href="#cb1-462" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcurve, cif at1(ulcer=0) at2(ulcer=1) <span class="pp">|</span></span>
+<span id="cb1-463"><a href="#cb1-463" aria-hidden="true" tabindex="-1"></a>+------------------------------------------+</span>
+<span id="cb1-464"><a href="#cb1-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-465"><a href="#cb1-465" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image10.png)</span>{width="“5.768055555555556in”" height="“2.035416666666667in”"}</span>
+<span id="cb1-466"><a href="#cb1-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-467"><a href="#cb1-467" aria-hidden="true" tabindex="-1"></a>**代码5.14输出：竞争风险事件的分组累积风险生存曲线**</span>
+<span id="cb1-468"><a href="#cb1-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-469"><a href="#cb1-469" aria-hidden="true" tabindex="-1"></a><span class="fu">### 原因别Hazard模型</span></span>
+<span id="cb1-470"><a href="#cb1-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-471"><a href="#cb1-471" aria-hidden="true" tabindex="-1"></a>竞争结局另外一种比较简单的分析方法，称为原因别Hazard模型。此方法非常易于理解，把不感兴趣的结局事件做人工删失，删失后的新数据中进行Cox回归。</span>
+<span id="cb1-472"><a href="#cb1-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-473"><a href="#cb1-473" aria-hidden="true" tabindex="-1"></a>结果与Fine-Gray模型结果一致，有溃疡和没有溃疡的患者因黑色素瘤所致死亡的风险不一致， p值<span class="sc">\&lt;</span>0.001。</span>
+<span id="cb1-474"><a href="#cb1-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-475"><a href="#cb1-475" aria-hidden="true" tabindex="-1"></a>+-------------------------------------------+</span>
+<span id="cb1-476"><a href="#cb1-476" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                           <span class="pp">|</span></span>
+<span id="cb1-477"><a href="#cb1-477" aria-hidden="true" tabindex="-1"></a>+===========================================+</span>
+<span id="cb1-478"><a href="#cb1-478" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码5.15                                  <span class="pp">|</span></span>
+<span id="cb1-479"><a href="#cb1-479" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                           <span class="pp">|</span></span>
+<span id="cb1-480"><a href="#cb1-480" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . generate status_cause = 2               <span class="pp">|</span></span>
+<span id="cb1-481"><a href="#cb1-481" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                           <span class="pp">|</span></span>
+<span id="cb1-482"><a href="#cb1-482" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . replace status_cause = 1 if status == 1 <span class="pp">|</span></span>
+<span id="cb1-483"><a href="#cb1-483" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                           <span class="pp">|</span></span>
+<span id="cb1-484"><a href="#cb1-484" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stset time, fail(status_cause==1)       <span class="pp">|</span></span>
+<span id="cb1-485"><a href="#cb1-485" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                           <span class="pp">|</span></span>
+<span id="cb1-486"><a href="#cb1-486" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcox ulcer                             <span class="pp">|</span></span>
+<span id="cb1-487"><a href="#cb1-487" aria-hidden="true" tabindex="-1"></a>+-------------------------------------------+</span>
+<span id="cb1-488"><a href="#cb1-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-489"><a href="#cb1-489" aria-hidden="true" tabindex="-1"></a>**代码5.15输出**</span>
+<span id="cb1-490"><a href="#cb1-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-491"><a href="#cb1-491" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Cox regression with no ties <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span>   <span class="pp">|</span></span>
+<span id="cb1-492"><a href="#cb1-492" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|----|----|----|----|----|----|</span></span>
+<span id="cb1-493"><a href="#cb1-493" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No. of subjects = 205 <span class="pp">|</span> Number of obs <span class="pp">|</span> = <span class="pp">|</span> **205** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-494"><a href="#cb1-494" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> No. of failures = 57 <span class="pp">|</span> LR chi2(1) <span class="pp">|</span> = <span class="pp">|</span> **28.44** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-495"><a href="#cb1-495" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Time at risk = 441,324 <span class="pp">|</span> Prob <span class="sc">\&gt;</span> chi2 <span class="pp">|</span> = <span class="pp">|</span> **0.0000** <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-496"><a href="#cb1-496" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Log pseudolikelihood = -268.98076 <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-497"><a href="#cb1-497" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  <span class="pp">|</span> Haz.ratio <span class="pp">|</span> Std. Err. <span class="pp">|</span> z <span class="pp">|</span> P<span class="sc">\&gt;\|</span>z<span class="sc">\|</span> <span class="pp">|</span> <span class="sc">\[</span>95% Conf. Interval<span class="sc">\]</span> <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb1-498"><a href="#cb1-498" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ulcer <span class="pp">|</span> **4.35668** | **1.286962** | **4.98** | **0.000** | **2.441805** | **7.77321** <span class="pp">|</span></span>
+<span id="cb1-499"><a href="#cb1-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-500"><a href="#cb1-500" aria-hidden="true" tabindex="-1"></a><span class="fu">## 危险比的局限性</span></span>
+<span id="cb1-501"><a href="#cb1-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-502"><a href="#cb1-502" aria-hidden="true" tabindex="-1"></a>估计生存结局的三种主要方法包括危险比（Hazard Ratio，HR），报告每个治疗组的中位生存期和时间点分析（如1年无进展生存率或总生存率）。HR与其他两种指标在以下方面存在差异。</span>
+<span id="cb1-503"><a href="#cb1-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-504"><a href="#cb1-504" aria-hidden="true" tabindex="-1"></a>HR囊括了整个生存曲线中的所有信息，因此总结了整个随访时间内的治疗效果。相比之下，中位生存期仅关注不同干预组生存曲线上的一个点，而作为个体患者疾病控制的生存率指标过于简单。此外，HR提供了不同治疗组之间相对疗效的估计值。最后，可以计算校正和未校正的HR。未校正的HR根据单变量Cox比例风险模型计算，而校正的HR通常使用多变量Cox模型进行，即还包含需要校正的混杂因素，例如年龄、性别、疾病分期和体能状态。与之相对的是，根据生存曲线推导的中位生存期和特定时间点的生存概率往往未进行校正。</span>
+<span id="cb1-505"><a href="#cb1-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-506"><a href="#cb1-506" aria-hidden="true" tabindex="-1"></a>然而，HR作为效应指标的局限性。</span>
+<span id="cb1-507"><a href="#cb1-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-508"><a href="#cb1-508" aria-hidden="true" tabindex="-1"></a>首先，如果生存曲线严重违背等比例假设，则不适合诠释总体HR，因为HR随时间的变化非常显著。而等比例检验的效能比较低，有时明显违背等比例假设却无法通过等比例检验得出结论。</span>
+<span id="cb1-509"><a href="#cb1-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-510"><a href="#cb1-510" aria-hidden="true" tabindex="-1"></a>第二、HR存在内在的选择偏倚，随访中如出现失访，而失访作为删失结局，且如删失与干预措施以及结局事件都相关，那就会出现选择偏倚。</span>
+<span id="cb1-511"><a href="#cb1-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-512"><a href="#cb1-512" aria-hidden="true" tabindex="-1"></a>第三、HR是随着时间的变化而产生变化的，随访时间不同产生的HR是不一样的（案例5.1中180天和730天的HR不同），因此计算出的HR只是一个平均值。</span>
+<span id="cb1-513"><a href="#cb1-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-514"><a href="#cb1-514" aria-hidden="true" tabindex="-1"></a>第四、HR是相对指标。HR具有统计学意义时，其是否具有临床意义有待评价。为此，临床医生需要结合绝对指标寻找具有一致临床意义的改善，例如特定时间点的生存概率和中位生存期。如对于不同类型的肿瘤，HR = 0.75可对应于中位生存期50天的改善（有临床意义），亦可对应约10天的改善（可能不具有临床意义）。</span>
+<span id="cb1-515"><a href="#cb1-515" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-516"><a href="#cb1-516" aria-hidden="true" tabindex="-1"></a>最后，将HR推广至研究随访时间后发生的情况应非常谨慎。在缺乏后续信息的情况下，无法确定比例风险假设是否继续成立。不仅如此，后续治疗或姑息治疗也将严重影响患者的生存概率。上述局限性提示，危险比并不总能作为因果效应的恰当度量：由于风险集随时间因死亡而改变，即使在随机试验中，后期的危险比也可能因内在的选择效应而带有偏倚，这一问题被 Hernán（2010）形象地称为“危险比的危害”。因此在解读时应结合生存曲线、限制性平均生存时间与特定时点的绝对风险等指标综合判断。</span>
+<span id="cb1-517"><a href="#cb1-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-518"><a href="#cb1-518" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考文献</span></span>
+<span id="cb1-519"><a href="#cb1-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-520"><a href="#cb1-520" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Zhang Z, Reinikainen J, Adeleke KA, Pieterse ME, Groothuis-Oudshoorn CGM. Time-varying covariates and coefficients in Cox regression models. Ann Transl Med. 2018 Apr;6(7):121.</span>
+<span id="cb1-521"><a href="#cb1-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-522"><a href="#cb1-522" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Gregson J, Sharples L, Stone GW, Burman CF, Öhrn F, Pocock S. Nonproportional Hazards for Time-to-Event Outcomes in Clinical Trials: JACC Review Topic of&nbsp;the&nbsp;Week. J Am Coll Cardiol. 2019 Oct 22;74(16):2102-2112.</span>
+<span id="cb1-523"><a href="#cb1-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-524"><a href="#cb1-524" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Cox DR. Regression models and life-tables. Journal of the Royal Statistical Society: Series B, 1972, 34(2):187-220.</span>
+<span id="cb1-525"><a href="#cb1-525" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-526"><a href="#cb1-526" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Kaplan EL, Meier P. Nonparametric estimation from incomplete observations. Journal of the American Statistical Association, 1958, 53(282):457-481.</span>
+<span id="cb1-527"><a href="#cb1-527" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-528"><a href="#cb1-528" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Fine JP, Gray RJ. A proportional hazards model for the subdistribution of a competing risk. Journal of the American Statistical Association, 1999, 94(446):496-509.</span>
+<span id="cb1-529"><a href="#cb1-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-530"><a href="#cb1-530" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Putter H, Fiocco M, Geskus RB. Tutorial in biostatistics: competing risks and multi-state models. Statistics in Medicine, 2007, 26(11):2389-2430.</span>
+<span id="cb1-531"><a href="#cb1-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-532"><a href="#cb1-532" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Austin PC, Lee DS, Fine JP. Introduction to the analysis of survival data in the presence of competing risks. Circulation, 2016, 133(6):601-609.</span>
+<span id="cb1-533"><a href="#cb1-533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-534"><a href="#cb1-534" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>Royston P, Parmar MK. Restricted mean survival time: an alternative to the hazard ratio for the design and analysis of randomized trials with a time-to-event outcome. BMC Medical Research Methodology, 2013, 13:152.</span>
+<span id="cb1-535"><a href="#cb1-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-536"><a href="#cb1-536" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>Dafni U. Landmark analysis at the 25-year landmark point. Circulation: Cardiovascular Quality and Outcomes, 2011, 4(3):363-371.</span>
+<span id="cb1-537"><a href="#cb1-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-538"><a href="#cb1-538" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Hernán MA. The hazards of hazard ratios. Epidemiology, 2010, 21(1):13-15.</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
