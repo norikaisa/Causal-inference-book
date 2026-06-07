@@ -18,3 +18,8 @@ Causal Inference-EN/.quarto/
 Causal Inference-EN/_book/
 Causal Inference-EN/.Rproj.user/
 **/.DS_Store
+
+# Quarto 图片目录中的转换临时文件/源矢量图（不进仓库）
+Causal Inference/chapters/images/tmp*.png
+Causal Inference/chapters/images/*.pdf
+Causal Inference/chapters/images/*.emf
