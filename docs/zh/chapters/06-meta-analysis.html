@@ -867,7 +867,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>命令执行过程中，系统会自动的做出森林图，其中每一行代表一个研究，最后一行是汇总的比值比。灰色方框的大小代表样本量的多少，此图可以看出研究的样本量越大，其所占权重越大。</p>
-<p><img src="images/ch6-image1.png"></p>
+<p><img src="images/ch6-image1.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码6.1 输出森林图</strong></p>
 </section>
 <section id="异质性分析" class="level3" data-number="6.7.2">
@@ -1123,7 +1123,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch6-image2.png"></p>
+<p><img src="images/ch6-image2.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码6.3输出森林图：随机效应模型</strong></p>
 <p>虽然荟萃分析提示Beta受体阻滞剂能降低患者的卒中概率，但不同研究中存在异质性，因此需要探索异质性的来源。异质性探索的方法一般是采用分层分析，在各个亚组之间分别进行荟萃分析，metan后指定亚组type。在这个荟萃研究中，纳入研究的Beta受体阻断剂有很多类别，有Atenolol，非Atenolol和混用这三种类别。荟萃分析中可以采用分层分析分别探讨不用药物类别的荟萃效应。森林图分别显示了三种类别的荟萃分析结果，第一个亚组是Atenolol，I方是零，说明这个亚组中的均匀性较好。非Atenolol亚组中只有两个研究，异质性高。第三个亚组是混合组，I方和异质性检验均较高。因此可以得出结论，在Atenolol亚组中，beta受体阻滞剂能够明显降低患者卒中的概率，但在其他两个亚组中的效应可能还需要进一步的研究。</p>
 <table class="caption-top table">
@@ -1302,7 +1302,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch6-image3.png"></p>
+<p><img src="images/ch6-image3.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码6.4输出：亚组分析森林图</strong></p>
 </section>
 <section id="敏感性分析" class="level3" data-number="6.7.3">
@@ -1319,7 +1319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch6-image4.png"></p>
+<p><img src="images/ch6-image4.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码6.4输出：敏感性分析</strong></p>
 </section>
 <section id="发表偏倚" class="level3" data-number="6.7.4">
@@ -1336,7 +1336,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch6-image5.png"></p>
+<p><img src="images/ch6-image5.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码6.6发表偏倚漏斗图</strong></p>
 </section>
 <section id="荟萃回归" class="level3" data-number="6.7.5">
@@ -1353,7 +1353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch6-image6.png"></p>
+<p><img src="images/ch6-image6.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码6.7荟萃回归泡泡图</strong></p>
 <p><strong>案例6.2</strong></p>
 <p>案例6.1中结局事件为二变量，即死亡与非死亡，发生卒中与不发生卒中，临床研究中的结局事件亦可为连续变量。帕金森患者采用手术治疗刺激丘脑核团以降低患者的震颤评分，比较刺激手术与空白对照之后的震颤程度的改变。此研究结局事件为干预前后的震颤评分的改变，为连续变量。共纳入五项随机对照研究，每一行一个研究，Stinumber 是刺激手术的纳入例数，Stimean是刺激手术前后震颤评分改变的平均值，Stisd是刺激手术前后评分改变的标准差，Controlnumber Controlmean和Controlsd分别是空白对照组的纳入例数，震颤评分改变的平均值，震颤评分改变的标准差。</p>
@@ -1509,7 +1509,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch6-image7.png"></p>
+<p><img src="images/ch6-image7.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码6.8 输出森林图</strong></p>
 </section>
 </section>
@@ -2485,7 +2485,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>命令执行过程中，系统会自动的做出森林图，其中每一行代表一个研究，最后一行是汇总的比值比。灰色方框的大小代表样本量的多少，此图可以看出研究的样本量越大，其所占权重越大。</span>
 <span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image1.png)</span>{width="“5.768055555555556in”" height="“5.222222222222222in”"}</span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image1.png)</span>{width="100%"}</span>
 <span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>**代码6.1 输出森林图**</span>
 <span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a></span>
@@ -2576,7 +2576,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Overall, DL <span class="pp">|</span> **1.165** | **1.038** | **1.308** | **100.00** <span class="pp">|</span></span>
 <span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Test of overall effect = 1: z = 2.587 p = 0.010 <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
 <span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image2.png)</span>{width="“5.768055555555556in”" height="“5.216666666666667in”"}</span>
+<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image2.png)</span>{width="100%"}</span>
 <span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a>**代码6.3输出森林图：随机效应模型**</span>
 <span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a></span>
@@ -2644,7 +2644,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-378"><a href="#cb1-378" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Overall z = 2.587 p = 0.010                     <span class="pp">|</span>            <span class="pp">|</span>                        <span class="pp">|</span>           <span class="pp">|</span>            <span class="pp">|</span></span>
 <span id="cb1-379"><a href="#cb1-379" aria-hidden="true" tabindex="-1"></a>+-------------------------------------------------+------------+------------------------+-----------+------------+</span>
 <span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image3.png)</span>{width="“5.768055555555556in”" height="“5.560416666666667in”"}</span>
+<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image3.png)</span>{width="100%"}</span>
 <span id="cb1-382"><a href="#cb1-382" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-383"><a href="#cb1-383" aria-hidden="true" tabindex="-1"></a>**代码6.4输出：亚组分析森林图**</span>
 <span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a></span>
@@ -2660,7 +2660,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-394"><a href="#cb1-394" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . metaninf stroke_beta n_beta stroke_other n_other <span class="pp">|</span></span>
 <span id="cb1-395"><a href="#cb1-395" aria-hidden="true" tabindex="-1"></a>+----------------------------------------------------+</span>
 <span id="cb1-396"><a href="#cb1-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image4.png)</span>{width="“5.768055555555556in”" height="“3.854861111111111in”"}</span>
+<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image4.png)</span>{width="100%"}</span>
 <span id="cb1-398"><a href="#cb1-398" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a>**代码6.4输出：敏感性分析**</span>
 <span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a></span>
@@ -2676,7 +2676,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . metafunnel <span class="sc">\_</span>ES <span class="sc">\_</span>seES <span class="pp">|</span></span>
 <span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a>+--------------------------+</span>
 <span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image5.png)</span>{width="“5.768055555555556in”" height="“4.105555555555555in”"}</span>
+<span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image5.png)</span>{width="100%"}</span>
 <span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a>**代码6.6发表偏倚漏斗图**</span>
 <span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a></span>
@@ -2692,7 +2692,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . metareg <span class="sc">\_</span>ES n_beta, wsse(<span class="sc">\_</span>seES) graph <span class="pp">|</span></span>
 <span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a>+-------------------------------------------+</span>
 <span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image6.png)</span>{width="“5.768055555555556in”" height="“4.086805555555555in”"}</span>
+<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image6.png)</span>{width="100%"}</span>
 <span id="cb1-430"><a href="#cb1-430" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-431"><a href="#cb1-431" aria-hidden="true" tabindex="-1"></a>**代码6.7荟萃回归泡泡图**</span>
 <span id="cb1-432"><a href="#cb1-432" aria-hidden="true" tabindex="-1"></a></span>
@@ -2732,7 +2732,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-466"><a href="#cb1-466" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Overall, IV <span class="pp">|</span> **1.261** | **1.132** | **1.389** | **100.00** <span class="pp">|</span></span>
 <span id="cb1-467"><a href="#cb1-467" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Test of overall effect = 0: z = 19.284 p = 0.000 <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span>  <span class="pp">|</span></span>
 <span id="cb1-468"><a href="#cb1-468" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-469"><a href="#cb1-469" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image7.png)</span>{width="“5.768055555555556in”" height="“3.182638888888889in”"}</span>
+<span id="cb1-469"><a href="#cb1-469" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image7.png)</span>{width="100%"}</span>
 <span id="cb1-470"><a href="#cb1-470" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-471"><a href="#cb1-471" aria-hidden="true" tabindex="-1"></a>**代码6.8 输出森林图**</span>
 <span id="cb1-472"><a href="#cb1-472" aria-hidden="true" tabindex="-1"></a></span>

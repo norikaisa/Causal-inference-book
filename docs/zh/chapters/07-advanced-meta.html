@@ -455,7 +455,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch7-image1.png"></p>
+<p><img src="images/ch7-image1.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码7.1输出森林图，左为敏感性森林图，右为特异性森林图</strong></p>
 <p>敏感性和特异性的森林图，和常规荟萃分析中的森林图是类似的。</p>
 <table class="caption-top table">
@@ -539,14 +539,14 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch7-image2.png"></p>
+<p><img src="images/ch7-image2.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码7.3输出综合ROC曲线</strong></p>
 </section>
 <section id="网络荟萃分析" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="网络荟萃分析"><span class="header-section-number">7.2</span> 网络荟萃分析</h2>
 <p>本书上一章节介绍的荟萃研究关注两种干预措施之间的比较。临床实践中，往往对某一疾病有多种干预，如何比较多种干预措施的疗效？然而，绝大多数临床实验关注的都是两个干预措施之间的比较，如干预A和安慰剂，干预A和干预B。</p>
 <p>网络荟萃分析（network meta analysis, NMA），也被称为多重治疗荟萃分析或混合治疗比较，是一种将多项随机对照研究的证据结合在一起比较治疗方案的方法。在网状荟萃分析当中，需要引入两个概念，直接比较与间接比较（图7.1）。直接比较是指可以直接比较干预A和干预B（即，存在干预A和干预B比较的随机对照研究）。间接比较是存在干预C，有研究探索干预A和干预C的疗效差别，也有研究探索干预B和干预C的疗效差别，但没有研究直接比较干预A和干预B。此时，干预C可以作为纽带，将干预A和干预B连接起来，从而可以去间接的比较干预A和干预B。</p>
-<p><img src="images/ch7-image3.png"></p>
+<p><img src="images/ch7-image3.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>图7.1 直接比较和间接比较</strong></p>
 <p>对比传统荟萃分析，网络荟萃分析可以回答更多临床相关问题，可对所有相关的治疗方案进行更全局，更高效地分析。网络荟萃分析可利用所有可获得的证据，获得更精确的结论，对不同治疗方案进行排序，其证据等级相较传统荟萃分析更高。网络荟萃分析的报告应遵循 PRISMA 的网络荟萃分析扩展声明（PRISMA-NMA；Hutton 等，2015）。</p>
 <p>网络荟萃分析中一个最重要的统计假设是可传递性（transitivity）。其主要假设研究的人群和干预措施在网络荟萃分析纳入的所有研究中是同质的，或是有理论依据支持干预措施的形式虽然不一样，但实质相同。这种情况下可以认为这些研究中存在可传递性。可传递性是网络荟萃分析有效性的核心前提，应在分析前从临床与方法学上加以论证（Salanti，2012）。</p>
@@ -651,7 +651,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch7-image4.emf"></p>
+<p><img src="images/ch7-image4.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码7.4输出网络图</strong></p>
 </section>
 <section id="干预排序" class="level3" data-number="7.2.2">
@@ -670,7 +670,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch7-image5.emf"></p>
+<p><img src="images/ch7-image5.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码7.5输出累积排序曲线</strong></p>
 <p>此外，累积排序曲线下面积也可以通过数值的方式显示。下表展示了各种干预措施的曲线下面积，排序为第一的概率以及平均排序，其中mitoxantrone排序为第一的概率是57.2%，alemtuzimab排序为第一的概率是33.6%。因此我们可以得出结论，mitoxantrone在所有干预措施中排序是最高的，即为最佳的干预药物。需要强调的是，SUCRA 仅反映排序概率，并不直接说明治疗之间的差异是否具有临床意义，其计算与解读可参见 Salanti 等（2011）。</p>
 <p><strong>代码7.5输出</strong></p>
@@ -794,7 +794,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch7-image6.png"></p>
+<p><img src="images/ch7-image6.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码7.6输出联赛图</strong></p>
 </section>
 <section id="网络一致性" class="level3" data-number="7.2.3">
@@ -812,7 +812,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch7-image7.png"></p>
+<p><img src="images/ch7-image7.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码7.7输出直接证据与间接证据</strong></p>
 <p>节点分裂模型亦可以用于分析网络荟萃分析的一致性，计算两个干预直接比较得出的参数和间接比较得出的参数。对这两个参数进行联合估计，比较它们的差值，检验其真实差值是否为0。直接证据与间接证据的一致性检验（含节点分裂法）可参见 Dias 等（2010）。</p>
 <table class="caption-top table">
@@ -1108,7 +1108,7 @@ window.Quarto = {
 <p>﻿NeoProm是一个探索早产儿吸氧浓度和临床结局之间关系的研究，研究问题是高吸氧浓度是否增加早产儿死亡率。既往的研究多是观察性的，且根据这些研究的结局发生率计算出的样本量提示需要5000例早产儿才能检验出4%的死亡率差别。单个机构无法达到这一样本量，而多中心研究受限于各中心的协调，经费问题，无法很好的开展。</p>
 <p>PMA的第二步需要定义研究问题和纳入标准，并撰写研究方案。研究问题的定义按照PICO原则，需要再次强调的是，纳入标准的制定必须在研究结果发表之前。NeoProm研究中制定的受试者是出生后24小时之内的早产儿，干预组为是靶氧浓度为85-89%，对照组靶氧浓度较高（91-95%），结局事件是18到24个月龄的死亡和重大残疾的复合终点。</p>
 <p>第三步是研究的检索，来源为临床研究注册的网站，Pubmed上发表的研究方案等。通过联系这些正在开展的随机对照研究的负责人组成了项目协作组。NeoProm研究中，协作组检索到了5个正在开展的RCT，各个单位独自开展了这个问题的随机对照研究，分别在澳大利亚、新西兰、加拿大、英国和美国进行，预计纳入将近5000例早产儿。前瞻性荟萃分析开始的时候，这五个研究的结果均还未发表。其他数据库的检索，也没有发现额外的其他研究。</p>
-<p><img src="images/ch7-image8.png"></p>
+<p><img src="images/ch7-image8.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>图7.2前瞻性荟萃分析图解</strong></p>
 <p>第四步在PMA的开展过程中，还可以去协调各个子研究的计划，结局事件等。全部子研究的结果发表后，数据分析过程和常规的荟萃分析无区别。</p>
 <p><strong>案例7.4</strong></p>
@@ -1643,7 +1643,7 @@ window.Quarto = {
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . midas tp fp fn tn, id(author) ms(0.75) bfor(dss) <span class="pp">|</span></span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>+----------------------------------------------------+</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image1.png)</span>{width="“5.768055555555556in”" height="“4.4430555555555555in”"}</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image1.png)</span>{width="100%"}</span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>**代码7.1输出森林图，左为敏感性森林图，右为特异性森林图**</span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
@@ -1682,7 +1682,7 @@ window.Quarto = {
 <span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . midas tp fp fn tn, plot sroc(both) <span class="pp">|</span></span>
 <span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>+--------------------------------------+</span>
 <span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image2.png)</span>{width="“5.768055555555556in”" height="“5.7756944444444445in”"}</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image2.png)</span>{width="100%"}</span>
 <span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>**代码7.3输出综合ROC曲线**</span>
 <span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
@@ -1692,7 +1692,7 @@ window.Quarto = {
 <span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>网络荟萃分析（network meta analysis, NMA），也被称为多重治疗荟萃分析或混合治疗比较，是一种将多项随机对照研究的证据结合在一起比较治疗方案的方法。在网状荟萃分析当中，需要引入两个概念，直接比较与间接比较（图7.1）。直接比较是指可以直接比较干预A和干预B（即，存在干预A和干预B比较的随机对照研究）。间接比较是存在干预C，有研究探索干预A和干预C的疗效差别，也有研究探索干预B和干预C的疗效差别，但没有研究直接比较干预A和干预B。此时，干预C可以作为纽带，将干预A和干预B连接起来，从而可以去间接的比较干预A和干预B。</span>
 <span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image3.png)</span>{width="“4.5193799212598424in”" height="“1.9626060804899388in”"}</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image3.png)</span>{width="100%"}</span>
 <span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>**图7.1 直接比较和间接比较**</span>
 <span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
@@ -1733,7 +1733,7 @@ window.Quarto = {
 <span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . network map                                                            <span class="pp">|</span></span>
 <span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>+--------------------------------------------------------------------------+</span>
 <span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image4.emf)</span>{width="“5.6052285651793525in”" height="“4.676033464566929in”"}</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image4.png)</span>{width="100%"}</span>
 <span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>**代码7.4输出网络图**</span>
 <span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a></span>
@@ -1753,7 +1753,7 @@ window.Quarto = {
 <span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . sucra prob<span class="sc">\*</span>, rankograms labels (alemtuzimab avonex azathioprine betaseron copaxone dimethyl fingolimod ifn igg laquin laquinimod mitoxantrone natalizumab placebo rebif teriflunomide) <span class="pp">|</span></span>
 <span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
 <span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image5.emf)</span>{width="“5.768055555555556in”" height="“4.194444444444445in”"}</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image5.png)</span>{width="100%"}</span>
 <span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>**代码7.5输出累积排序曲线**</span>
 <span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a></span>
@@ -1790,7 +1790,7 @@ window.Quarto = {
 <span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . netleague, eform <span class="pp">|</span></span>
 <span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>+--------------------+</span>
 <span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image6.png)</span>{width="“5.768055555555556in”" height="“2.65625in”"}</span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image6.png)</span>{width="100%"}</span>
 <span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>**代码7.6输出联赛图**</span>
 <span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a></span>
@@ -1808,7 +1808,7 @@ window.Quarto = {
 <span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . network forest             <span class="pp">|</span></span>
 <span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>+------------------------------+</span>
 <span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image7.png)</span>{width="“5.768055555555556in”" height="“3.9895833333333335in”"}</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image7.png)</span>{width="100%"}</span>
 <span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>**代码7.7输出直接证据与间接证据**</span>
 <span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a></span>
@@ -1890,7 +1890,7 @@ window.Quarto = {
 <span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a>第三步是研究的检索，来源为临床研究注册的网站，Pubmed上发表的研究方案等。通过联系这些正在开展的随机对照研究的负责人组成了项目协作组。NeoProm研究中，协作组检索到了5个正在开展的RCT，各个单位独自开展了这个问题的随机对照研究，分别在澳大利亚、新西兰、加拿大、英国和美国进行，预计纳入将近5000例早产儿。前瞻性荟萃分析开始的时候，这五个研究的结果均还未发表。其他数据库的检索，也没有发现额外的其他研究。</span>
 <span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image8.png)</span>{width="“5.768055555555556in”" height="“1.8305555555555555in”"}</span>
+<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image8.png)</span>{width="100%"}</span>
 <span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a>**图7.2前瞻性荟萃分析图解**</span>
 <span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a></span>

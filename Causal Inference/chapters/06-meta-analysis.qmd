@@ -219,7 +219,7 @@ Meta分析（Meta-analysis），又称为荟萃分析，是用于比较和综合
 
 命令执行过程中，系统会自动的做出森林图，其中每一行代表一个研究，最后一行是汇总的比值比。灰色方框的大小代表样本量的多少，此图可以看出研究的样本量越大，其所占权重越大。
 
-![](images/ch6-image1.png){width="“5.768055555555556in”" height="“5.222222222222222in”"}
+![](images/ch6-image1.png){width="100%"}
 
 **代码6.1 输出森林图**
 
@@ -310,7 +310,7 @@ Meta分析（Meta-analysis），又称为荟萃分析，是用于比较和综合
 | Overall, DL | **1.165** | **1.038** | **1.308** | **100.00** |
 | Test of overall effect = 1: z = 2.587 p = 0.010 |  |  |  |  |
 
-![](images/ch6-image2.png){width="“5.768055555555556in”" height="“5.216666666666667in”"}
+![](images/ch6-image2.png){width="100%"}
 
 **代码6.3输出森林图：随机效应模型**
 
@@ -378,7 +378,7 @@ Meta分析（Meta-analysis），又称为荟萃分析，是用于比较和综合
 | Overall z = 2.587 p = 0.010                     |            |                        |           |            |
 +-------------------------------------------------+------------+------------------------+-----------+------------+
 
-![](images/ch6-image3.png){width="“5.768055555555556in”" height="“5.560416666666667in”"}
+![](images/ch6-image3.png){width="100%"}
 
 **代码6.4输出：亚组分析森林图**
 
@@ -394,7 +394,7 @@ Meta分析（Meta-analysis），又称为荟萃分析，是用于比较和综合
 | . metaninf stroke_beta n_beta stroke_other n_other |
 +----------------------------------------------------+
 
-![](images/ch6-image4.png){width="“5.768055555555556in”" height="“3.854861111111111in”"}
+![](images/ch6-image4.png){width="100%"}
 
 **代码6.4输出：敏感性分析**
 
@@ -410,7 +410,7 @@ Meta分析（Meta-analysis），又称为荟萃分析，是用于比较和综合
 | . metafunnel \_ES \_seES |
 +--------------------------+
 
-![](images/ch6-image5.png){width="“5.768055555555556in”" height="“4.105555555555555in”"}
+![](images/ch6-image5.png){width="100%"}
 
 **代码6.6发表偏倚漏斗图**
 
@@ -426,7 +426,7 @@ Meta分析（Meta-analysis），又称为荟萃分析，是用于比较和综合
 | . metareg \_ES n_beta, wsse(\_seES) graph |
 +-------------------------------------------+
 
-![](images/ch6-image6.png){width="“5.768055555555556in”" height="“4.086805555555555in”"}
+![](images/ch6-image6.png){width="100%"}
 
 **代码6.7荟萃回归泡泡图**
 
@@ -466,7 +466,7 @@ Meta分析（Meta-analysis），又称为荟萃分析，是用于比较和综合
 | Overall, IV | **1.261** | **1.132** | **1.389** | **100.00** |
 | Test of overall effect = 0: z = 19.284 p = 0.000 |  |  |  |  |
 
-![](images/ch6-image7.png){width="“5.768055555555556in”" height="“3.182638888888889in”"}
+![](images/ch6-image7.png){width="100%"}
 
 **代码6.8 输出森林图**
 

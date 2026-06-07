@@ -407,7 +407,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>判断等比例条件有三种方法：一是观察两组间的Kaplan-Meier曲线是否相交叉，如果不交叉，那说明两组满足等比例条件。然而本例中红色曲线在手术后的短期内下降幅度较蓝色曲线大，说明手术后短期内低风险性的急性髓系白血病死亡风险大于急性淋巴细胞性白血病组。然而蓝色曲线在长期随访中出现显著下降。两组的Kaplan-Meier曲线相交叉，因此这两组不满足等比例条件。</p>
-<p><img src="images/ch5-image1.png"></p>
+<p><img src="images/ch5-image1.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码5.1输出：两组Kaplan-Meier曲线</strong></p>
 <p>第二种方法绘制 Schoenfeld残差与时间的关系图，如果Schoenfeld残差与时间无明显的变化趋势，即残差与时间无关，则提示符合等比例风险假设。如下图中残差似乎有随着时间上升的趋势，提示可能不满足等比例风险假定。</p>
 <table class="caption-top table">
@@ -422,7 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch5-image2.png"></p>
+<p><img src="images/ch5-image2.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码5.2 输出：Schoenfeld残差与时间关系图</strong></p>
 <p>等比例条件的第三个检验方法是绘制某因素在不同状态下的二次对数生存曲线图 （即横坐标是时间的对数，纵坐标是生存函数的对数的对数），如果生存曲线大致平行，表明等比例风险成立，否则提示等比例不成立。如下图中两条曲线交叉，提示可能不满足等比例风险假定。</p>
 <table class="caption-top table">
@@ -436,7 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch5-image3.png"></p>
+<p><img src="images/ch5-image3.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码5.3输出：二次对数生存曲线图</strong></p>
 <section id="非等比例情况下的cox回归" class="level3" data-number="5.1.1">
 <h3 data-number="5.1.1" class="anchored" data-anchor-id="非等比例情况下的cox回归"><span class="header-section-number">5.1.1</span> 非等比例情况下的Cox回归</h3>
@@ -558,13 +558,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch5-image4.png"></p>
+<p><img src="images/ch5-image4.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码5.5输出：加速失效曲线图</strong></p>
 <ol start="2" type="1">
 <li>限制性平均生存时间（Restricted mean survival times, RMST）</li>
 </ol>
 <p>限制性平均生存时间为生存曲线在某个时间段内的曲线下面积（图5.1粉红色部分），即限制在某个时间段内的平均生存时间。平均生存时间越长，说明治疗的效果越好。限制性平均生存时间是不依赖于等比例风险假设的，其结果也比较直观，容易理解。但计算限制性平均生存时间需确定随访截止时间，但目前对于截止时间没有统一规定，由临床信息给定。</p>
-<p><img src="images/ch5-image5.png"></p>
+<p><img src="images/ch5-image5.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>图5.1 分别将截止时间定为180天和730天时，两组的限制性平均生存时间</strong></p>
 <p>案例5.1中手术后短期内低风险性的急性髓系白血病死亡风险大于急性淋巴细胞性白血病组可能是由于手术后的急性反应。临床上，这个时间一般持续3个月到半年左右。因此可以将截止时间（tau）定义为180天，分别计算截止至180天时两组的平均生存时间。strmst2命令用于限制性平均生存时间分析，指定分组变量g和截止时间。</p>
 <table class="caption-top table">
@@ -926,10 +926,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch5-image6.png"></p>
+<p><img src="images/ch5-image6.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码5.9输出：180天后两组Kaplan-Meier曲线</strong></p>
 <p>总结一下等比例条件满足与不满足情况下的Cox回归分析方法。等比例Cox分析是最常用的Cox分析方法，统计学假设是在不同时间点上，各个组之间的风险比例是相等的。而限制性生存时间分析和Landmark分析都不需要等比例假设，限制性生存时间分析方法指定截止时间，计算截止时间之前的两条生存曲线下的面积，通过比较面积来评估生存曲线差异。Landmark分析则是指定Landmark时间，比较Landmark时间前后的生存曲线差异（图5.2）。</p>
-<p><img src="images/ch5-image7.png"></p>
+<p><img src="images/ch5-image7.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>图5.2</strong> <strong>生存分析除Cox模型外的几种选择</strong></p>
 <p>临床试验中对等比例进行事后分析，有时可以提供有用的见解。第一步是评估等比例假设是否合理。对等比例的正式统计测试有时是有用的，然而多数情况下，在样本量较小的研究中可能会错过临床上重要的偏离等比例的情况，而在样本量较大的研究中却可能会发现临床上不重要的偏离等比例的情况。因此，图形显示，包括Kaplan-Meier曲线和Schoenfeld 残差图可能更有用。</p>
 <p>当等比例假设不成立时，使用分段风险模型（类似landmark分析，将随访时间分为若干小段，分别计算小段中的危险比）可能是有用的。这种方法的一个局限性是事后选择不同的时间段，可能会夸大危险比随时间变化的实际差异。随访后期计算出的危险比只包括幸存者（删失了死亡的患者），所以不是真正的随机比较。</p>
@@ -1264,7 +1264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.3" class="anchored" data-anchor-id="竞争风险模型competing-risk-model"><span class="header-section-number">5.3</span> 竞争风险模型（Competing Risk Model）</h2>
 <p>常规的生存结局事件只有两个，死亡或非死亡；复发或非复发。在真实世界中往往存在多个终点事件，称为竞争风险事件：研究中结局事件有多个，某些结局将阻止感兴趣事件的出现或影响其发生的概率，各结局事件形成竞争关系，互为竞争风险事件（图5.3）。如研究糖尿病患者的卒中风险，如果该患者死亡，则无法观察到卒中事件，故死亡是卒中事件的竞争风险。因此在进行Cox回归时需要考虑多种潜在结局的事件存在。</p>
 <p>处理竞争风险比较简单的方法即将多个竞争风险综合考虑。如研究糖尿病患者的卒中风险，死亡是卒中事件的竞争风险，可将结局事件定为卒中或死亡，计算糖尿病患者的无卒中生存概率。然而，实际临床过程需要区分不同事件的风险时可采取下面几种方法。竞争风险数据的系统处理——累积发生函数、Fine–Gray 部分分布模型与原因别风险模型之间的区别与选择——可参见 Fine 与 Gray（1999）、Putter 等（2007）以及 Austin 等（2016）。</p>
-<p><img src="images/ch5-image8.png"></p>
+<p><img src="images/ch5-image8.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>图5.3竞争风险事件</strong></p>
 <p><strong>案例5.3</strong></p>
 <p>这是一个黑色素瘤案例，纳入了205例受试者，time指手术以后终点事件的生存时间；status 代表多个感兴趣的结局，1代表黑色素瘤所致的死亡，2代表删失，3代表其他原因所导致的死亡。此结局中黑色素瘤所致的死亡与其他原因所导致的死亡是相互竞争的，因为发生黑色素瘤所产生的死亡就不可能产生其他因素导致的死亡，产生其他因素导致的死亡就不会发生黑色素瘤所产生的死亡。</p>
@@ -1347,7 +1347,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch5-image9.png"></p>
+<p><img src="images/ch5-image9.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码5.11输出：竞争风险事件的累积风险生存曲线</strong></p>
 </section>
 <section id="fine-gray模型" class="level3" data-number="5.3.2">
@@ -1590,7 +1590,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><img src="images/ch5-image10.png"></p>
+<p><img src="images/ch5-image10.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>代码5.14输出：竞争风险事件的分组累积风险生存曲线</strong></p>
 </section>
 <section id="原因别hazard模型" class="level3" data-number="5.3.3">
@@ -2230,7 +2230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>判断等比例条件有三种方法：一是观察两组间的Kaplan-Meier曲线是否相交叉，如果不交叉，那说明两组满足等比例条件。然而本例中红色曲线在手术后的短期内下降幅度较蓝色曲线大，说明手术后短期内低风险性的急性髓系白血病死亡风险大于急性淋巴细胞性白血病组。然而蓝色曲线在长期随访中出现显著下降。两组的Kaplan-Meier曲线相交叉，因此这两组不满足等比例条件。</span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image1.png)</span>{width="“5.768055555555556in”" height="“4.136805555555555in”"}</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image1.png)</span>{width="100%"}</span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>**代码5.1输出：两组Kaplan-Meier曲线**</span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
@@ -2246,7 +2246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . estat phtest, rank plot(g) <span class="pp">|</span></span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>+------------------------------+</span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image2.png)</span>{width="“5.768055555555556in”" height="“4.097916666666666in”"}</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image2.png)</span>{width="100%"}</span>
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>**代码5.2 输出：Schoenfeld残差与时间关系图**</span>
 <span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
@@ -2260,7 +2260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stphplot, by(g) <span class="pp">|</span></span>
 <span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>+-------------------+</span>
 <span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image3.png)</span>{width="“5.768055555555556in”" height="“4.136805555555555in”"}</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image3.png)</span>{width="100%"}</span>
 <span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>**代码5.3输出：二次对数生存曲线图**</span>
 <span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
@@ -2306,7 +2306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcurve, failure at( g=(0 1)) <span class="pp">|</span></span>
 <span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>+---------------------------------+</span>
 <span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image4.png)</span>{width="“5.768055555555556in”" height="“4.066666666666666in”"}</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image4.png)</span>{width="100%"}</span>
 <span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>**代码5.5输出：加速失效曲线图**</span>
 <span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
@@ -2314,7 +2314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>限制性平均生存时间为生存曲线在某个时间段内的曲线下面积（图5.1粉红色部分），即限制在某个时间段内的平均生存时间。平均生存时间越长，说明治疗的效果越好。限制性平均生存时间是不依赖于等比例风险假设的，其结果也比较直观，容易理解。但计算限制性平均生存时间需确定随访截止时间，但目前对于截止时间没有统一规定，由临床信息给定。</span>
 <span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image5.png)</span>{width="“5.768055555555556in”" height="“1.8402777777777777in”"}</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image5.png)</span>{width="100%"}</span>
 <span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>**图5.1 分别将截止时间定为180天和730天时，两组的限制性平均生存时间**</span>
 <span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a></span>
@@ -2428,13 +2428,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  <span class="pp">|</span> Haz.ratio <span class="pp">|</span> Std. Err. <span class="pp">|</span> z <span class="pp">|</span> P<span class="sc">\&gt;\|</span>z<span class="sc">\|</span> <span class="pp">|</span> <span class="sc">\[</span>95% Conf. Interval<span class="sc">\]</span> <span class="pp">|</span>  <span class="pp">|</span></span>
 <span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> g <span class="pp">|</span> **.466382** | **.1708153** | **-2.08** | **0.037** | **.2275014** | **0.9560918** <span class="pp">|</span></span>
 <span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image6.png)</span>{width="“5.768055555555556in”" height="“4.170833333333333in”"}</span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image6.png)</span>{width="100%"}</span>
 <span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>**代码5.9输出：180天后两组Kaplan-Meier曲线**</span>
 <span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>总结一下等比例条件满足与不满足情况下的Cox回归分析方法。等比例Cox分析是最常用的Cox分析方法，统计学假设是在不同时间点上，各个组之间的风险比例是相等的。而限制性生存时间分析和Landmark分析都不需要等比例假设，限制性生存时间分析方法指定截止时间，计算截止时间之前的两条生存曲线下的面积，通过比较面积来评估生存曲线差异。Landmark分析则是指定Landmark时间，比较Landmark时间前后的生存曲线差异（图5.2）。</span>
 <span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image7.png)</span>{width="“4.37123687664042in”" height="“4.131783683289589in”"}</span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image7.png)</span>{width="100%"}</span>
 <span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>**图5.2** **生存分析除Cox模型外的几种选择**</span>
 <span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a></span>
@@ -2514,7 +2514,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>处理竞争风险比较简单的方法即将多个竞争风险综合考虑。如研究糖尿病患者的卒中风险，死亡是卒中事件的竞争风险，可将结局事件定为卒中或死亡，计算糖尿病患者的无卒中生存概率。然而，实际临床过程需要区分不同事件的风险时可采取下面几种方法。竞争风险数据的系统处理——累积发生函数、Fine–Gray 部分分布模型与原因别风险模型之间的区别与选择——可参见 Fine 与 Gray（1999）、Putter 等（2007）以及 Austin 等（2016）。</span>
 <span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image8.png)</span>{width="“5.768055555555556in”" height="“2.2694444444444444in”"}</span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image8.png)</span>{width="100%"}</span>
 <span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a>**图5.3竞争风险事件**</span>
 <span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a></span>
@@ -2555,7 +2555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcurve, cif                <span class="pp">|</span></span>
 <span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a>+-------------------------------+</span>
 <span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image9.png)</span>{width="“5.768055555555556in”" height="“2.3069444444444445in”"}</span>
+<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image9.png)</span>{width="100%"}</span>
 <span id="cb1-370"><a href="#cb1-370" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a>**代码5.11输出：竞争风险事件的累积风险生存曲线**</span>
 <span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a></span>
@@ -2651,7 +2651,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-462"><a href="#cb1-462" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> . stcurve, cif at1(ulcer=0) at2(ulcer=1) <span class="pp">|</span></span>
 <span id="cb1-463"><a href="#cb1-463" aria-hidden="true" tabindex="-1"></a>+------------------------------------------+</span>
 <span id="cb1-464"><a href="#cb1-464" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-465"><a href="#cb1-465" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image10.png)</span>{width="“5.768055555555556in”" height="“2.035416666666667in”"}</span>
+<span id="cb1-465"><a href="#cb1-465" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch5-image10.png)</span>{width="100%"}</span>
 <span id="cb1-466"><a href="#cb1-466" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-467"><a href="#cb1-467" aria-hidden="true" tabindex="-1"></a>**代码5.14输出：竞争风险事件的分组累积风险生存曲线**</span>
 <span id="cb1-468"><a href="#cb1-468" aria-hidden="true" tabindex="-1"></a></span>
