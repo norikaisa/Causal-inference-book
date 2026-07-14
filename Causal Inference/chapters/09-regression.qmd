@@ -6,19 +6,15 @@
 
 将上一章所述因果结构模型进一步细化，考虑 $`f`$ 为线性函数，结局变量为连续变量，计算平均因果效应：
 
-**公式9.1**
+**公式 9.1　连续型结局的结果回归**
 
-``` math
-Y = \ f(X,\ U)
-```
-
-``` math
-Y = \ \beta_{0} + \ \beta_{1}*X + \ \beta_{2}*U
-```
-
-``` math
-{E\left( Y \middle| U \right) = Y}^{X = 1} - \ Y^{X = 0} = (\beta_{0} + \ \beta_{1}*1 + \ \beta_{2}*U) - (\beta_{0} + \ \beta_{1}*0 + \ \beta_{2}*U) = \ \beta_{1}
-```
+$$
+\begin{aligned}
+Y &= f(X, U) \\
+Y &= \beta_0 + \beta_1 X + \beta_2 U \\
+E\!\left(Y^{X=1}\mid U\right)-E\!\left(Y^{X=0}\mid U\right) &= \beta_1
+\end{aligned}
+$$
 
 通过拟合结果回归模型，可以通过普通最小二乘法估计模型的参数。结果回归通过估计治疗的因果效应来调整混杂因素的每一层。如果变量 $`\ U`$ 足以调整混杂（和选择偏倚）并且正确指定了该结构模型，则无需进一步需要调整。
 
@@ -26,41 +22,35 @@ Y = \ \beta_{0} + \ \beta_{1}*X + \ \beta_{2}*U
 
 当结局变量为分类变量（0或1）时，如果继续使用线性回归会导致$`\ Y\ `$的取值并不为0或1。逻辑回归（Logistic regression）使用一个函数来归一化$`\ Y\ `$值，使$`\ Y\ `$的取值在区间（0,1）内，这个函数称为Logistic函数。逻辑回归本质上是线性回归，为了计算方便，引入比值这个概念（Odds），函数公式如下
 
-**公式9.2**
+**公式 9.2　二分类结局的逻辑回归**
 
-``` math
-Y = f(X,\ U) = \ \frac{1}{1 + \ e^{- {(\beta}_{0} + \ \beta_{1}*X + \ \beta_{2}*U)}} = \frac{e^{{(\beta}_{0} + \ \beta_{1}*X + \ \beta_{2}*U)}}{1 + e^{{(\beta}_{0} + \ \beta_{1}*X + \ \beta_{2}*U)}}
-```
-
-``` math
-Odds\left( Y^{X = 1} \right) = \frac{Y^{X = 1}}{{(1 - Y}^{X = 1})} = \frac{\frac{e^{{(\beta}_{0} + \ \beta_{1} + \ \beta_{2}*U)}}{1 + e^{{(\beta}_{0} + \ \beta_{1} + \ \beta_{2}*U)}}}{\frac{1}{1 + e^{{(\beta}_{0} + \ \beta_{1} + \ \beta_{2}*U)}}} = e^{{(\beta}_{0} + \ \beta_{1} + \ \beta_{2}*U)}
-```
-
-``` math
-Odds\left( Y^{X = 0} \right) = e^{{(\beta}_{0} + \ \beta_{2}*U)}
-```
-
-``` math
-比值比(Odds\ Ratio) = \ \frac{Odds(Y^{X = 1})}{Odds\left( Y^{X = 0} \right)} = \ \frac{e^{{(\beta}_{0} + \ \beta_{1} + \ \beta_{2}*U)}}{e^{{(\beta}_{0} + \ \beta_{2}*U)}} = e^{\beta_{1}}
-```
+$$
+\begin{aligned}
+\Pr(Y=1\mid X,U) &= \operatorname{logit}^{-1}(\beta_0+\beta_1X+\beta_2U) \\
+&= \frac{\exp(\beta_0+\beta_1X+\beta_2U)}{1+\exp(\beta_0+\beta_1X+\beta_2U)} \\
+\operatorname{Odds}(Y^{X=1}) &= \exp(\beta_0+\beta_1+\beta_2U) \\
+\operatorname{Odds}(Y^{X=0}) &= \exp(\beta_0+\beta_2U) \\
+\operatorname{OR} &= \frac{\operatorname{Odds}(Y^{X=1})}{\operatorname{Odds}(Y^{X=0})}=\exp(\beta_1)
+\end{aligned}
+$$
 
 二分类变量的另一种因果效应描述方式是相对风险度（Risk ratio，RR），定义为干预组发生结局事件的比例与非干预组发生结局事件的比例之比。当疾病的发病率\<10%时，RR与OR很接近。当发病率增大时，两者的差别增大，OR会高估 RR（详见 Zhang 与 Yu，1998）。
 
-**公式9.3**
+**公式 9.3　相对风险**
 
-``` math
-相对风险度\left. （Risk\ ratio \right.） = \frac{Pr(Y^{X = 1})}{Pr(Y^{X = 0})}\
-```
+$$
+\operatorname{RR} = \frac{\Pr(Y^{X=1}=1)}{\Pr(Y^{X=0}=1)}
+$$
 
 3.  二分类结局变量Probit模型
 
 又称为概率单元回归，最简单的Probit模型就是指结局变量 Y 为二分类变量，事件发生的概率是依赖于干预变量，*f* 服从标准正态分布。当结局变量是分类变量时，逻辑回归和Probit回归没有本质的区别，一般情况下可以换用。区别在于采用的分布函数不同，前者假设随机变量服从逻辑概率分布，而后者假设随机变量服从正态分布。
 
-**公式9.4**
+**公式 9.4　二分类结局的 Probit 模型**
 
-``` math
-Y = f(X,\ U) = \ \int_{- \infty}^{\beta_{0} + \ \beta_{1}*X + \beta_{2}*U}{\varnothing(Z)dt}
-```
+$$
+\Pr(Y=1\mid X,U) = \Phi(\beta_0+\beta_1X+\beta_2U)
+$$
 
 回归系数一般情况下指的是干预变量每增加一个单位会导致结局事件发生的概率变化多少个单位，即概率密度函数的改变量，解释较逻辑回归麻烦。如果只有一个自变量 X，取值为 0 和 1 分别代表对照组和试验组，β<sub>0</sub> 代表就是对照组的概率单元值，β<sub>1</sub> 代表试验组与对照组的概率单元的差值。如果回归系数 β 为正，可解释为扣除其他因素的影响，该因素会使概率单元增加；如果为负值，则表示该因素会使概率单元减少。
 
@@ -88,17 +78,14 @@ Y = f(X,\ U) = \ \int_{- \infty}^{\beta_{0} + \ \beta_{1}*X + \beta_{2}*U}{\varn
 
 **图9.1因果图**
 
-+--------------------------------------+
-| 代码9.1                              |
-|                                      |
-| . gen Treatment = (t == "Endoscopy") |
-|                                      |
-| . gen Outcome = 1 if y == "Yes"      |
-|                                      |
-| . replace Outcome = 0 if y == "No"   |
-|                                      |
-| . logit Outcome Treatment k, or      |
-+======================================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.1"}
+```stata
+gen Treatment = (t == "Endoscopy")
+gen Outcome = 1 if y == "Yes"
+replace Outcome = 0 if y == "No"
+logit Outcome Treatment k, or
+```
+:::
 
 代码9.1输出
 
@@ -122,11 +109,11 @@ Y = f(X,\ U) = \ \int_{- \infty}^{\beta_{0} + \ \beta_{1}*X + \beta_{2}*U}{\varn
 
 当然上述问题也可以采用Probit模型回归，其回归系数的解释就比较麻烦。模型截距=0.756，侵袭性的系数为-0.550，因此，侵袭性为1度时显微镜组（对照组，基线状态）的概率单元为0.756-0.550=0.206，干预变量的系数表示内窥镜组与显微镜组的概率单元值差值，概率单元值增加（0.497），即内窥镜组可增加疾病缓解的概率，结果具有统计学意义（p=0.000）。侵袭性为1度时内窥镜组的概率单元为0.206+0.497=0.703。
 
-+------------------------------+
-| 代码9.2                      |
-|                              |
-| . probit Outcome Treatment k |
-+:=============================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.2"}
+```stata
+probit Outcome Treatment k
+```
+:::
 
 代码9.2
 
@@ -150,17 +137,17 @@ Y = f(X,\ U) = \ \int_{- \infty}^{\beta_{0} + \ \beta_{1}*X + \beta_{2}*U}{\varn
 
 在Excel中可分别通过计算NORM.S.DIST (0.206, TRUE) 和 NORM.S.DIST (0.703, TRUE) ，得出两者的累积分布函数值，分别为0.582和0.759。计算比值比为2.26，与逻辑回归接近。
 
-``` math
-OR = \ \frac{0.759\ /\ (1 - 0.759)}{0.582\ /\ (1 - 0.582)} = 2.26
-```
+$$
+\operatorname{OR}=\frac{0.759/(1-0.759)}{0.582/(1-0.582)}=2.26
+$$
 
 其次，如果比较两种方案（内窥镜手术和显微镜手术）的住院时长，因其为连续变量，可采用线性回归计算。同样，为了简化，假设调整 K 足以调整混杂。回归系数为-0.62，95%置信区间为-0.92至-0.32，p值0.000，表示内窥镜手术患者比显微镜手术患者平均住院时间少0.62天。
 
-+-----------------------+
-| 代码9.3               |
-|                       |
-| . reg los Treatment k |
-+:======================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.3"}
+```stata
+reg los Treatment k
+```
+:::
 
 **代码9.3输出**
 
@@ -196,13 +183,12 @@ OR = \ \frac{0.759\ /\ (1 - 0.759)}{0.582\ /\ (1 - 0.582)} = 2.26
 
 **图9.2 错误的阻断干预的子节点：中介变量**
 
-+-----------------------------------+
-| 代码9.4                           |
-|                                   |
-| . gen M = (extend == "GTR")       |
-|                                   |
-| . logit Outcome Treatment k M, or |
-+:==================================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.4"}
+```stata
+gen M = (extend == "GTR")
+logit Outcome Treatment k M, or
+```
+:::
 
 代码9.4输出
 
@@ -232,13 +218,12 @@ OR = \ \frac{0.759\ /\ (1 - 0.759)}{0.582\ /\ (1 - 0.582)} = 2.26
 
 **图9.3 错误的阻断干预的子节点：对撞变量**
 
-+------------------------------------------+
-| 代码9.5                                  |
-|                                          |
-| . replace Outcome = 1 if y == "Censored" |
-|                                          |
-| . logit Outcome Treatment k, or          |
-+==========================================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.5"}
+```stata
+replace Outcome = 1 if y == "Censored"
+logit Outcome Treatment k, or
+```
+:::
 
 代码9.5输出
 
@@ -266,17 +251,17 @@ OR = \ \frac{0.759\ /\ (1 - 0.759)}{0.582\ /\ (1 - 0.582)} = 2.26
 
 临床研究中的人群存在异质性，特定人群子集中的平均因果效应不一定与总体人群中的平均因果效应一致。不同生理情况的个体对治疗的敏感性不一。修饰效应的定义：当 T 与 Y 的平均因果效应在 V 的不同水平上存在差异时，即因子 V 改变了 T 与 Y 的关联强度， V 即为效应修饰因子。
 
-**公式9.5**
+**公式 9.5　效应修饰**
 
-``` math
-E\left\lbrack Y^{T = 1} - \ Y^{T = 0} \middle| V = 1 \right\rbrack \neq E\left\lbrack Y^{T = 1} - \ Y^{T = 0} \middle| V = 0 \right\rbrack
-```
+$$
+E\!\left(Y^{T=1}-Y^{T=0}\mid V=1\right) \ne E\!\left(Y^{T=1}-Y^{T=0}\mid V=0\right)
+$$
 
-或
+或在相对效应尺度上：
 
-``` math
-\frac{\Pr\left\lbrack Y^{T = 1} \middle| V = 1 \right\rbrack}{\Pr\left\lbrack Y^{T = 0} \middle| V = 1 \right\rbrack} \neq \frac{\Pr\left\lbrack Y^{T = 1} \middle| V = 0 \right\rbrack}{\Pr\left\lbrack Y^{T = 0} \middle| V = 0 \right\rbrack}
-```
+$$
+\frac{\Pr(Y^{T=1}=1\mid V=1)}{\Pr(Y^{T=0}=1\mid V=1)} \ne \frac{\Pr(Y^{T=1}=1\mid V=0)}{\Pr(Y^{T=0}=1\mid V=0)}
+$$
 
 分层分析是识别修饰效应的常用方法。在变量 V 的每个级别（层）中计算 T 对 Y 的因果效应。计算过程分两步：① 根据不同的 V 分层；② 每个层中矫正混杂因素 L。文献中为了避免潜在的混淆，一些作者更喜欢使用术语“效应的跨层异质性”，实际上和修饰效应是同一概念。
 
@@ -300,11 +285,11 @@ E\left\lbrack Y^{T = 1} - \ Y^{T = 0} \middle| V = 1 \right\rbrack \neq E\left\l
 
 分别在50岁及以下人群以及50岁以上人群中进行回归。
 
-+-----------------------------------------------+
-| 代码9.6                                       |
-|                                               |
-| . logit Outcome Treatment k if age \<= 50, or |
-+===============================================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.6"}
+```stata
+logit Outcome Treatment k if age \<= 50, or
+```
+:::
 
 代码9.6输出
 
@@ -328,11 +313,11 @@ E\left\lbrack Y^{T = 1} - \ Y^{T = 0} \middle| V = 1 \right\rbrack \neq E\left\l
 
 50岁以下人群中的比值比为2.46。
 
-+----------------------------------------------+
-| 代码9.7                                      |
-|                                              |
-| . logit Outcome Treatment k if age \> 50, or |
-+==============================================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.7"}
+```stata
+logit Outcome Treatment k if age \> 50, or
+```
+:::
 
 代码9.7输出
 
@@ -374,13 +359,12 @@ E\left\lbrack Y^{T = 1} - \ Y^{T = 0} \middle| V = 1 \right\rbrack \neq E\left\l
 
 案例9.1中计算手术、侵袭性以及年龄对生长激素达标的边际效应，利用margins命令，星号代表计算所有变量的边际效应
 
-+---------------------------------------+
-| 代码9.8                               |
-|                                       |
-| . logit Outcome Treatment i.k age, or |
-|                                       |
-| . margins, dydx(\*)                   |
-+=======================================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.8"}
+```stata
+logit Outcome Treatment i.k age, or
+margins, dydx(\*)
+```
+:::
 
 **代码9.8输出**
 
@@ -408,23 +392,22 @@ E\left\lbrack Y^{T = 1} - \ Y^{T = 0} \middle| V = 1 \right\rbrack \neq E\left\l
 
 平均边际效应提示保持其他变量不变，从显微镜组至内窥镜组内分泌缓解率平均增加16.0%；保持其他变量不变，侵袭性每增加一个级别内分泌缓解率平均减少17.5%。保持其他变量不变，年龄每增加十岁，内分泌缓解率平均增加3.1%。可以绘制平均边际值随侵袭性变化（分类变量）以及随年龄变化（连续变量）的曲线。
 
-+--------------------+
-| 代码9.9            |
-|                    |
-| . margins, dydx(k) |
-|                    |
-| . marginsplot      |
-+====================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.9"}
+```stata
+margins, dydx(k)
+marginsplot
+```
+:::
 
 ![](images/ch9-image4.png){width="5.76772in"}
 
 **代码9.9输出缓解率（纵轴）随侵袭性（横轴）变化**
 
-+---------------------------+
-| 代码9.10                  |
-|                           |
-| . marginscontplot age, ci |
-+:==========================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.10"}
+```stata
+marginscontplot age, ci
+```
+:::
 
 ![](images/ch9-image5.png){width="5.76772in"}
 
@@ -432,13 +415,12 @@ E\left\lbrack Y^{T = 1} - \ Y^{T = 0} \middle| V = 1 \right\rbrack \neq E\left\l
 
 本章第一节已知内窥镜干预能提高手术缓解率。然而，侵袭性亦会影响手术效果。因此，我们想探究侵袭性能否调节干预对手术缓解率的影响作用。于是，在回归模型中加入这两个变量的交乘项来检验修饰效应。
 
-+-------------------------------------------------------+
-| 代码9.11                                              |
-|                                                       |
-| . logit Outcome i.Treatment k i.Treatment#c.k age, or |
-|                                                       |
-| . margins k, dydx(i.Treatment) plot                   |
-+:======================================================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.11"}
+```stata
+logit Outcome i.Treatment k i.Treatment#c.k age, or
+margins k, dydx(i.Treatment) plot
+```
+:::
 
 代码9.11输出
 
@@ -466,11 +448,11 @@ E\left\lbrack Y^{T = 1} - \ Y^{T = 0} \middle| V = 1 \right\rbrack \neq E\left\l
 
 回归模型中，交乘项的系数p值大于0.05，提示统计学分析不提示侵袭性是手术效果的修饰效应。然而，应该注意到样本量与统计效能的问题。更加直观的方法是计算不同侵袭性级别肿瘤中的边际效应，可见级别为0-3的肿瘤中，边际效应均为正值，级别为4的肿瘤边际效应接近零，95%区间有重叠。
 
-+-----------------------------------------------+
-| 代码9.12                                      |
-|                                               |
-| . margins, dydx(Treatment) at(k=(0(1)4)) plot |
-+:==============================================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.12"}
+```stata
+margins, dydx(Treatment) at(k=(0(1)4)) plot
+```
+:::
 
 ![](images/ch9-image6.png){width="5.76806in"}
 
@@ -478,13 +460,12 @@ E\left\lbrack Y^{T = 1} - \ Y^{T = 0} \middle| V = 1 \right\rbrack \neq E\left\l
 
 上一节中50岁以下人群中的比值比为2.69，50岁以上人群中的比值比为1.59，直观上两者存在明显差异，因此年龄可能是手术方式对内分泌预后的修饰效应因子。同样采用交互项的方法统计检验年龄的修饰效应。虽然统计学检验未见年龄的修饰效应，但更直观的方法可以计算不同年龄段患者中的边际效应，可见随着年龄的增长，内窥镜组和显微镜组的差距越来越小。
 
-+---------------------------------------------------------+
-| 代码9.13                                                |
-|                                                         |
-| . logit Outcome i.Treatment k i.Treatment#c.age age, or |
-|                                                         |
-| . margins, dydx(Treatment) at(age=(15(5)80)) plot       |
-+=========================================================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.13"}
+```stata
+logit Outcome i.Treatment k i.Treatment#c.age age, or
+margins, dydx(Treatment) at(age=(15(5)80)) plot
+```
+:::
 
 代码9.13输出
 
@@ -520,11 +501,11 @@ E\left\lbrack Y^{T = 1} - \ Y^{T = 0} \middle| V = 1 \right\rbrack \neq E\left\l
 
 一般来说，如果同时给与个体两个或多个干预措施，观察到某个结果，我们将这两种或多种干预称为联合干预。两种治疗 T 和 T’ 之间存在交互作用的定义为，如果将 T’ 设为1的联合干预时 T 对 Y 的因果效应不同于将 T’ 设置为 0 的联合干预时 T 对 Y 的因果效应。即
 
-**公式9.6**
+**公式 9.6　交互作用**
 
-``` math
-\Pr\left\lbrack Y^{T = 1,\ T' = 1} = 1 \right\rbrack - \Pr\left\lbrack Y^{T = 0,\ T' = 1} = 1 \right\rbrack \neq \Pr\left\lbrack Y^{T = 1,\ T' = 0} = 1 \right\rbrack - \Pr\left\lbrack Y^{T = 0,\ T' = 0} = 1 \right\rbrack
-```
+$$
+\Pr(Y^{T=1,T'=1}=1)-\Pr(Y^{T=0,T'=1}=1) \ne \Pr(Y^{T=1,T'=0}=1)-\Pr(Y^{T=0,T'=0}=1)
+$$
 
 交互作用和修饰效应之间的区别在于修饰效应的概念着重 T 对 Y 的因果效应，而不是 V 对 Y 的因果效应。例如，年龄是手术效果的效应修饰因子，但从未提出年龄对手术效果的影响，并不认为年龄和手术方案是同等地位的变量，因为只有手术方案被认为是可以假设干预的变量。相反，交互作用的定义给予 T 和 T’ 两种干预方法同等的地位，交互的概念指两种处理 T 和 T’ 的联合因果效应。
 
@@ -550,21 +531,16 @@ E\left\lbrack Y^{T = 1} - \ Y^{T = 0} \middle| V = 1 \right\rbrack \neq E\left\l
 
 Treatment_interact为新建的四个级别的组合干预：经验丰富的术者行内镜手术（1）；经验一般的术者行内镜手术（2）；经验丰富的术者行显微镜手术（3）；以及经验一般的术者行显微镜手术（4）。
 
-+----------------------------------------------------------------------+
-| 代码9.14                                                             |
-|                                                                      |
-| . gen Treatment1 = (surgeon == "Experienced")                        |
-|                                                                      |
-| . gen Treatment_interact = 1 if Treatment == 1 & Treatment1 == 1     |
-|                                                                      |
-| . replace Treatment_interact = 2 if Treatment == 1 & Treatment1 == 0 |
-|                                                                      |
-| . replace Treatment_interact = 3 if Treatment == 0 & Treatment1 == 1 |
-|                                                                      |
-| . replace Treatment_interact = 4 if Treatment == 0 & Treatment1 == 0 |
-|                                                                      |
-| . logit Outcome i.Treatment_interact k, or                           |
-+======================================================================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.14"}
+```stata
+gen Treatment1 = (surgeon == "Experienced")
+gen Treatment_interact = 1 if Treatment == 1 & Treatment1 == 1
+replace Treatment_interact = 2 if Treatment == 1 & Treatment1 == 0
+replace Treatment_interact = 3 if Treatment == 0 & Treatment1 == 1
+replace Treatment_interact = 4 if Treatment == 0 & Treatment1 == 0
+logit Outcome i.Treatment_interact k, or
+```
+:::
 
 代码9.14输出
 
@@ -594,11 +570,11 @@ Treatment_interact为新建的四个级别的组合干预：经验丰富的术�
 
 经验丰富的术者行内镜手术（1）对比经验丰富的术者行显微镜手术（3）效果更好，结果比值比为0.315（p = 0.000）。也可以经验一般的术者行内镜手术为参考进行比较。
 
-+------------------------------------------------+
-| 代码9.15                                       |
-|                                                |
-| . logit Outcome ib(2).Treatment_interact k, or |
-+================================================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.15"}
+```stata
+logit Outcome ib(2).Treatment_interact k, or
+```
+:::
 
 代码9.15输出
 
@@ -626,7 +602,7 @@ Treatment_interact为新建的四个级别的组合干预：经验丰富的术�
 | \_cons                                | **13.09457**  | **3.191546** | **10.55**  |
 +---------------------------------------+---------------+--------------+------------+
 
-# 而经验一般的术者行内镜手术（2）对比经验一般的术者行显微镜手术（4）结果比值比为1.149（p
+而经验一般的术者行内镜手术（2）对比经验一般的术者行显微镜手术（4）结果比值比为1.149（p
 
 0.718），两者无明显差别。因此术者经验与手术方式存在交互作用，对于手术经验丰富的术者，内窥镜能显著提升缓解率；对于手术经验一般的术者，内窥镜和显微镜效果相当。
 
@@ -664,15 +640,13 @@ T 和 T’ 之间存在充分病因交互作用，如果同时给予 T 和 T’ 
 
 通过计算不同原因的边际值，表示这 9 个充分病因的因果饼图（图9.4），红色百分比代表各种原因下的边际缓解概率。
 
-+-------------------------------------------------------------------------+
-| 代码9.16                                                                |
-|                                                                         |
-| . gen surg_exp = (surgeon == "Experienced")                             |
-|                                                                         |
-| . logit Outcome i.Treatment i.surg_exp k age i.Treatment#i.surg_exp, or |
-|                                                                         |
-| . margins i.Treatment i.surg_exp i.Treatment#i.surg_exp                 |
-+:========================================================================+
+::: {.callout-note appearance="simple" icon="false" title="代码9.16"}
+```stata
+gen surg_exp = (surgeon == "Experienced")
+logit Outcome i.Treatment i.surg_exp k age i.Treatment#i.surg_exp, or
+margins i.Treatment i.surg_exp i.Treatment#i.surg_exp
+```
+:::
 
 **代码9.16输出**
 
