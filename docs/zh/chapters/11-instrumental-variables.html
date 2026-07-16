@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -208,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10-propensity-score.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">基于倾向评分的方法</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">基于倾向评分的因果推断方法</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -297,9 +326,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#工具变量法的实际应用" id="toc-工具变量法的实际应用" class="nav-link" data-scroll-target="#工具变量法的实际应用"><span class="header-section-number">11.2</span> 工具变量法的实际应用</a></li>
   <li><a href="#工具变量法的分析步骤" id="toc-工具变量法的分析步骤" class="nav-link" data-scroll-target="#工具变量法的分析步骤"><span class="header-section-number">11.3</span> 工具变量法的分析步骤</a></li>
   <li><a href="#工具变量法的统计学检验" id="toc-工具变量法的统计学检验" class="nav-link" data-scroll-target="#工具变量法的统计学检验"><span class="header-section-number">11.4</span> 工具变量法的统计学检验</a></li>
-  <li><a href="#工具变量的寻觅" id="toc-工具变量的寻觅" class="nav-link" data-scroll-target="#工具变量的寻觅"><span class="header-section-number">11.5</span> 工具变量的寻觅</a></li>
+  <li><a href="#工具变量的寻觅" id="toc-工具变量的寻觅" class="nav-link" data-scroll-target="#工具变量的寻觅"><span class="header-section-number">11.5</span> 工具变量的寻觅</a>
+  <ul class="collapse">
+  <li><a href="#来自群体的工具变量" id="toc-来自群体的工具变量" class="nav-link" data-scroll-target="#来自群体的工具变量"><span class="header-section-number">11.5.1</span> 来自群体的工具变量</a></li>
+  <li><a href="#来自自然界的工具变量" id="toc-来自自然界的工具变量" class="nav-link" data-scroll-target="#来自自然界的工具变量"><span class="header-section-number">11.5.2</span> 来自自然界的工具变量</a></li>
+  <li><a href="#来自生理现象的工具变量" id="toc-来自生理现象的工具变量" class="nav-link" data-scroll-target="#来自生理现象的工具变量"><span class="header-section-number">11.5.3</span> 来自生理现象的工具变量</a></li>
+  <li><a href="#来自社会空间的工具变量" id="toc-来自社会空间的工具变量" class="nav-link" data-scroll-target="#来自社会空间的工具变量"><span class="header-section-number">11.5.4</span> 来自社会空间的工具变量</a></li>
+  </ul></li>
   <li><a href="#工具变量的局限性" id="toc-工具变量的局限性" class="nav-link" data-scroll-target="#工具变量的局限性"><span class="header-section-number">11.6</span> 工具变量的局限性</a></li>
-  <li><a href="#孟德尔随机化" id="toc-孟德尔随机化" class="nav-link" data-scroll-target="#孟德尔随机化"><span class="header-section-number">11.7</span> 孟德尔随机化</a></li>
+  <li><a href="#孟德尔随机化" id="toc-孟德尔随机化" class="nav-link" data-scroll-target="#孟德尔随机化"><span class="header-section-number">11.7</span> 孟德尔随机化</a>
+  <ul class="collapse">
+  <li><a href="#案例11.1" id="toc-案例11.1" class="nav-link" data-scroll-target="#案例11.1"><span class="header-section-number">11.7.1</span> 案例11.1</a></li>
+  </ul></li>
+  <li><a href="#附录孟德尔随机化研究的关键评估清单" id="toc-附录孟德尔随机化研究的关键评估清单" class="nav-link" data-scroll-target="#附录孟德尔随机化研究的关键评估清单"><span class="header-section-number">11.8</span> 附录：孟德尔随机化研究的关键评估清单</a>
+  <ul class="collapse">
+  <li><a href="#孟德尔随机化的核心假设" id="toc-孟德尔随机化的核心假设" class="nav-link" data-scroll-target="#孟德尔随机化的核心假设"><span class="header-section-number">11.8.1</span> 孟德尔随机化的核心假设</a></li>
+  <li><a href="#方法报告" id="toc-方法报告" class="nav-link" data-scroll-target="#方法报告"><span class="header-section-number">11.8.2</span> 方法报告</a></li>
+  <li><a href="#数据展示" id="toc-数据展示" class="nav-link" data-scroll-target="#数据展示"><span class="header-section-number">11.8.3</span> 数据展示</a></li>
+  <li><a href="#解释" id="toc-解释" class="nav-link" data-scroll-target="#解释"><span class="header-section-number">11.8.4</span> 解释</a></li>
+  <li><a href="#临床意义" id="toc-临床意义" class="nav-link" data-scroll-target="#临床意义"><span class="header-section-number">11.8.5</span> 临床意义</a></li>
+  </ul></li>
+  <li><a href="#本章参考文献" id="toc-本章参考文献" class="nav-link" data-scroll-target="#本章参考文献"><span class="header-section-number">11.9</span> 本章参考文献</a></li>
   </ul>
 </nav>
     </div>
@@ -325,46 +372,539 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">注记</span>编写说明
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>本章内容整理中。可将已校订的 Word 书稿（<code>乔Book/</code> 目录）正文迁移至此，公式用 <code>$...$</code> / <code>$$...$$</code>，图片放 <code>images/</code>，代码用 <code>{r} 或</code>{python} 代码块。</p>
-</div>
-</div>
+<p>采用回归以及倾向性评分进行因果推断的最大局限性是存在未观察的混杂因素时，通过这两大类方法无法直接进行。 工具变量并不会自动消除未测量混杂；它把识别任务转化为对工具变量有效性的强假设。若这些假设不可信，IV 估计同样可能有偏。</p>
 <section id="工具变量法" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="工具变量法"><span class="header-section-number">11.1</span> 工具变量法</h2>
-<p><em>待补充。</em></p>
+<p>这时引入工具变量 Z，借此估计 X 到 Y 的因果关系。工具变量 Z 通过影响 X 而间接影响因变量 Y。如果工具变量 Z 和 X 密切相关，那么，只要工具变量 Z 有了变化，就必然会对 X 产生变化。如果 X 和 Y 之间真的存在因果关系，那么 Z 对 X 带来的冲击也就势必传递到 Y。这样，在一系列的假说之下，只要 Z 对 Y 的间接冲击能够被统计证明是显著的，我们就可以推断出 X 对 Y 有因果关系。利用对 Z 与 X 相关的估算，以及 Z 与 Y 相关的估算，就可以推导出 X 和 Y 之间真实关系的大小。 相关性本身只说明 Z 能预测 X，并不等于工具变量有效；因果解释还取决于独立性和排除限制。对于线性模型，单个有效工具变量的 Wald 比值可理解为 Z 对 Y 的效应除以 Z 对 X 的效应，但二者均需有足够精度。</p>
+<div class="text-center">
+<p><img src="images/ch11-image1.png" class="img-fluid" style="width:42.0%"></p>
+<p><strong>图11.1 工具变量法示意图</strong></p>
+</div>
+<p>然而，工具变量的成立需要满足三个统计学假设：</p>
+<ol type="1">
+<li>工具变量与干预是相关的，即 Z 和 X 相关；</li>
+<li>工具变量对结局的影响只能通过干预来实现，Z 到 Y 的影响只能通过 A 来实现的，而不能通过其他路径去实现；</li>
+<li>工具变量与结局没有共同的原因，即 Z 和 Y 之间没有混杂因素。 在二元工具变量和二元处理的常用解释下，若希望把结果解释为“依从者”的局部平均处理效应（LATE），还需加入单调性假设：不存在因工具变量取值改变而总是反向接受处理的个体。Hernán 与 Robins（2006）及 Baiocchi 等（2014）强调，这些假设多数不能由数据本身证明。</li>
+</ol>
+<p>在随机对照研究中，工具变量可以理解为随机分配。案例9.1假设为随机对照试验，Z 是随机分配为内窥镜组和显微镜组，X 为实际接受内窥镜手术和显微镜手术，Y 是手术后内分泌缓解。随机对照研究中的意向性分析所得意向性效应即是 Z 对 Y 的效应，随机分配后不管受试者是否依从所分配的方案，只考虑随机的结果。而符合方案分析得出的符合方案效应就是 X 到 Y 的效应，如果随机分配后的依从性是100%，则符合方案效应等于意向性效应。非随机对照研究中的因果效应取决于所采用的工具变量、识别假设与目标 estimand，不能直接等同于随机试验中的符合方案效应。</p>
+<div class="text-center">
+<p><img src="images/ch11-image2.png" class="img-fluid" style="width:42.0%"></p>
+<p><strong>图11.2 随机分配作为工具变量</strong></p>
+</div>
 </section>
 <section id="工具变量法的实际应用" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="工具变量法的实际应用"><span class="header-section-number">11.2</span> 工具变量法的实际应用</h2>
-<p><em>待补充。</em></p>
+<p>研究饮酒是否会导致冠脉综合症？X 是饮酒，Y 是冠脉综合症，U 是未观察到的一些混杂因素，比如说饮酒的人一般都会吸烟，吸烟会导致冠脉综合症。而饮酒本身无法进行随机分配。这时，可以引入工具变量 Z，表示与酒精代谢有关的基因型，如果患者携带酒精代谢差的基因型，一般来说饮酒量会比较少，如果能通过基因表型分析获取 Z 和 X 的关系，获取 Z 和 Y 的关系，就可以估算出 X 与 Y 的关系。 遗传工具变量还须特别讨论水平多效性、群体分层、亲代效应和选择偏倚；任一因素都可能产生 Z 到 Y 的非经由饮酒的路径，因此不能仅凭基因与饮酒相关就断言工具变量有效。</p>
+<div class="text-center">
+<p><img src="images/ch11-image3.png" class="img-fluid" style="width:42.0%"></p>
+<p><strong>图11.3 遗传变异作为候选工具变量</strong></p>
+</div>
+<p>研究HIV感染患者中使用不同的逆转录逆转录抗病毒的疗法，预防AIDS或者死亡的因果关系，利用年历时间作为工具变量。在不同时间窗内采纳的治疗方法不同，借此可以估算对结局的效应。然而，年历时间作为工具变量时，工具变量与结局变量之间可能存在一些混杂因素，如年历可能通过其他医学技术的革新导致死亡率的下降。 年历时间往往尤其容易违反排除限制：诊断技术、围手术期管理、病例构成和随访制度可能同时随时间改变。将其用作工具变量前，应预先画出因果图、说明每一条替代路径，并以敏感性分析检验结论对这些设定的依赖。</p>
+<div class="text-center">
+<p><img src="images/ch11-image4.png" class="img-fluid" style="width:48.0%"></p>
+<p><strong>图11.4 年历时间作为候选工具变量</strong></p>
+</div>
+<p>看电视过多是否会引发小儿自闭症？电视的普及与小儿自闭症发生率的攀升几乎同步。然而，有自闭倾向的儿童可能更经常看电视，而不喜欢户外活动或与人交往。使用降雨量作为电视观看时间的工具变量。即降雨越多的地区，人们待在室内的时间越长，故看电视时间也长；而降雨量很可能只通过看电视时间而影响被解释变量。 降雨量也未必天然有效：它可能通过户外活动、感染暴露、就医可及性或地区社会经济条件影响结局。所谓“自然工具”仍须针对研究场景逐项论证独立性和排除限制。</p>
+<div class="text-center">
+<p><img src="images/ch11-image5.png" class="img-fluid" style="width:42.0%"></p>
+<p><strong>图11.5 降雨量作为候选工具变量</strong></p>
+</div>
 </section>
 <section id="工具变量法的分析步骤" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="工具变量法的分析步骤"><span class="header-section-number">11.3</span> 工具变量法的分析步骤</h2>
-<p><em>待补充。</em></p>
+<p>通常采用两阶段的最小二乘法，首先将干预对工具变量做回归，获取干预的预测值，然后将结局对干预的预测值做第二次的回归，所得工具变量估计值为： 两阶段最小二乘的两个阶段应作为一个整体估计，不能把第一阶段的预测值当作普通已观测暴露后再使用常规第二阶段标准误；应采用 IV/2SLS 的联合估计与相应的稳健标准误。估计对象还应在分析前说明是总体效应、依从者效应还是其他局部效应。</p>
+<p><strong>公式 11.1　Z 为分类变量时的工具变量估计量</strong></p>
+<p><span class="math display">\[IV = \frac{E\left[Y \middle| Z = 1\right] - E\left[Y \middle| Z = 0\right]}{E\left[X \middle| Z = 1\right] - E\left[X \middle| Z = 0\right]}\]</span></p>
+<p>Z为分类变量，或：</p>
+<p><strong>公式 11.2　Z 为连续变量时的工具变量估计量</strong></p>
+<p><span class="math display">\[IV = \frac{\operatorname{Cov}(Y,Z)}{\operatorname{Cov}(X,Z)}\]</span></p>
+<p>Z为连续变量</p>
+<p>沿用案例9.1中的数据，2016年之前的手术方案大多为显微镜手术，而2016年之后则转变为内镜手术，因此手术的年历时间可能用作工具变量来估算手术方案对疾病缓解的影响。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">prop</span> Treatment <span class="kw">if</span> <span class="fu">year</span> &lt;= 2016</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">prop</span> Treatment <span class="kw">if</span> <span class="fu">year</span> &gt; 2016</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.1输出（2016年及以前）">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.1输出（2016年及以前）
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch11-image6.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.1输出（2017年及以后）">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.1输出（2017年及以后）
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch11-image7.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<p>2016年以前，显微镜手术的占比是80.6%，2016年之后，内窥镜手术的占比是74.1%。因此年历时间与接受何种手术方式存在相关性。</p>
+<p>因为感兴趣的结局变量为二分类变量，然而采用逻辑回归进行工具变量分析存在可加性问题。故结局为二分类变量常利用ivprobit命令（即Probit回归，参考第9章），通过两步骤预测替代法进行分类变量结局的工具变量回归。 二分类结局不存在唯一的“标准”IV 模型。ivprobit、两阶段残差纳入法和结构均值模型依赖不同的函数形式与可加性假设；报告时应明确所用模型、效应尺度、第一阶段结果及其识别假设，而不宜将任何一种软件命令视为自动有效。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> year_iv = (<span class="fu">year</span> &lt;= 2016)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ivprobit</span> Outcome (Treatment = year_iv)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.2输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.2输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch11-image8.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<p>模型截距-0.330，表示显微镜组的概率单元值，β1 = 0.597表示内窥镜组与显微镜组的概率单元值差值，内窥镜组的概率单元值为-0.330+0.597=0.267。分别计算累积分布函数值，后代入比值比计算公式得出OR为2.60。同样，此处利用年历时间作为工具变量，需要讨论年历时间可能通过其他医学技术的革新（影像检查的普及导致患者能早期诊断）导致手术效果的提升。 因此，本例的数值结果应理解为在年历时间工具变量及其排除限制可信时的模型估计，而不是对手术方式总体因果效应的无条件证明。</p>
+<p>此外，研究手术方式对住院时长的影响，亦可采用工具变量法，此时结局变量为连续变量，可采用两步骤最小二乘法回归。此时回归系数直接表示结局变量的变化幅度，即内窥镜组比显微镜组的住院时长少1.52天。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ivregress 2sls los (Treatment = year_iv)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.3输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.3输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch11-image9.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
 </section>
 <section id="工具变量法的统计学检验" class="level2" data-number="11.4">
 <h2 data-number="11.4" class="anchored" data-anchor-id="工具变量法的统计学检验"><span class="header-section-number">11.4</span> 工具变量法的统计学检验</h2>
-<p><em>待补充。</em></p>
+<p>工具变量的使用受到诸多因素限制，因此需要进行统计学检验与假设：</p>
+<ol type="1">
+<li><p>工具变量使用的第一个原则即工具变量与干预相关。工具变量与干预变量的相关性如很小存在弱工具变量问题，弱工具变量会导致因果推断稳定性差。检验弱工具变量的方法： 弱工具变量会使估计偏向常规回归并造成置信区间失真；应同时报告第一阶段效应、部分 R²、工具变量数量和弱工具诊断，而不只报告第二阶段 P 值。</p>
+<ol type="1">
+<li>第一阶段回归结果中工具变量的显著程度，是否与干预足够相关。</li>
+<li>第一阶段回归的F值，用来检验工具变量是否显著，如果此检验的F统计量大于10，则可拒绝弱工具变量的原假设（本例F统计量为29.5）。亦可采用Cragg-Donald Wald F统计量以及Kleibergen-Paaprk Wald F统计量（可通过Stata ivreg2实现）。 F&gt;10 是单一内生变量、同方差情形下常见的经验规则，并非普适阈值。在异方差、聚类或多个工具变量时，应优先报告 Kleibergen-Paap 统计量并参考适用的临界值；必要时采用 Anderson-Rubin 等对弱工具更稳健的检验与区间。</li>
+</ol></li>
+</ol>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ivreg2 los (Treatment = year_iv)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.4输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.4输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch11-image10.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li><p>工具变量对结局的影响只能够通过干预，此原则无法通过统计学检验证实，只能通过定性讨论确定，排除其他可能的原因。在案例中年历对疾病缓解的影响可能通过增加内窥镜手术的比例，亦可以通过手术技术的提高，医疗水平的上升等因素，需要分别讨论。研究者所要做的就是找出工具变量影响结局的所有其他可能途径，然后一一反驳。 排除限制可以被反驳，却不能被数据完全验证。除专家论证外，可报告工具变量与基线协变量的关联、阴性对照结局或暴露、以及针对直接效应的定量敏感性分析；这些检查只能增加或削弱可信度，不能证明假设成立。</p></li>
+<li><p>工具变量与结局没有共同的原因，如，可能存在一个L，既导致了年历时间也导致了疾病缓解。本质上也无法检验这个条件，因为可能存在未观察到的工具变量与结局的共同原因，也就无法检验。主要方法都是间接的探讨，主要有两种方法：一种是定性讨论，另一种是过度识别检验。 过度识别检验只有在工具变量数量多于内生变量时才可进行，且其不显著结果并不证明每一个工具变量有效；若多个工具变量具有相似的违反方式，检验仍可能缺乏识别力。</p></li>
+<li><p>此外，工具变量还需要同质性假设，即假设干预对结局的效应在所有的样本中是一致的，即内窥镜的优势在所有个体中是一致的。这个假设通常也是无法证实的，内窥镜的优势可能在侵袭性肿瘤中更大一些，即存在修正效应。在工具变量的研究中，也是无法估算的。 同质性并非所有 IV 分析的必要条件。若采用单调性，二元工具变量通常识别的是依从者中的 LATE；只有在额外的效应同质性或可外推性假设下，才可把该局部效应推广为全体人群的 ATE。</p></li>
+</ol>
 </section>
 <section id="工具变量的寻觅" class="level2" data-number="11.5">
 <h2 data-number="11.5" class="anchored" data-anchor-id="工具变量的寻觅"><span class="header-section-number">11.5</span> 工具变量的寻觅</h2>
-<p><em>待补充。</em></p>
+<p>合格的工具变量非常难以寻找。因此，前人对某一类工具变量的使用，在很大程度上对我们今后寻找工具变量能够带来重要启发甚至灵感：严密的逻辑和充分的想象力，是寻找到好的工具变量的必要条件 。</p>
+<section id="来自群体的工具变量" class="level3" data-number="11.5.1">
+<h3 data-number="11.5.1" class="anchored" data-anchor-id="来自群体的工具变量"><span class="header-section-number">11.5.1</span> 来自群体的工具变量</h3>
+<p>个体的干预结局，往往会受到所在集体的某个特征要素的影响。比如，一个人的成绩、收入、社会地位等等，会受到他所在的学校、班级、邻里的特征的影响。为解决这一内生性问题，经济学家和社会学家常常把州、县或大都会地区层面的集聚数据作为学校、班级和邻里等层面解释变量的工具变量。其理由是: 以都会为单位的失业率和贫困率必然和辖区内学校的贫困生比例有关，但又不直接影响学生的怀孕或辍学等行为。</p>
+</section>
+<section id="来自自然界的工具变量" class="level3" data-number="11.5.2">
+<h3 data-number="11.5.2" class="anchored" data-anchor-id="来自自然界的工具变量"><span class="header-section-number">11.5.2</span> 来自自然界的工具变量</h3>
+<p>河流、地震、降雨、自然灾害等自然现象在一定地域范围内具有高度的随机，因此可以被假设为与个人和群体的异质性无关，同时，它们又能够影响一些干预过程。例如本章开篇描述的降雨量作为看电视与自闭症的工具变量。</p>
+</section>
+<section id="来自生理现象的工具变量" class="level3" data-number="11.5.3">
+<h3 data-number="11.5.3" class="anchored" data-anchor-id="来自生理现象的工具变量"><span class="header-section-number">11.5.3</span> 来自生理现象的工具变量</h3>
+<p>人类的生老病死既是社会现象，也是生理上的自然现象。出生日期、季度、性别、基因改变等，虽仅仅是有机体的自然历程，但既具有随机性，又往往和特定的经济社会过程相关。饮酒基因型、脂质代谢基因型均可作为干预与冠状动脉综合征结局的工具变量。</p>
+</section>
+<section id="来自社会空间的工具变量" class="level3" data-number="11.5.4">
+<h3 data-number="11.5.4" class="anchored" data-anchor-id="来自社会空间的工具变量"><span class="header-section-number">11.5.4</span> 来自社会空间的工具变量</h3>
+<p>社会空间的载体，包括具象性的城市、乡村，和非具象性的市场空间等，和人类的行为与结果息息相关，但往往又在特定分析层面上具有独立性、随机性。假设有这样一项研究，一个城市有两家医院提供不同的紧急治疗，位于城市东部的医院专门从事内窥镜手术，西部的医院专门从事显微镜手术。有部分患者将根据家到医院的距离来选择医院，从而选择对应的治疗方法。假设到两家医院的相对距离会影响治疗方法的选择，但是对治疗结局没有直接影响，那么这个相对距离就可以作为工具变量。烟草价格作为研究戒烟与体重增加之间的工具变量。烟草价格高则戒烟概率高，可能会出现体重增加。而烟草价格本身显然和体重没有其他任何的因果逻辑联系。</p>
+</section>
 </section>
 <section id="工具变量的局限性" class="level2" data-number="11.6">
 <h2 data-number="11.6" class="anchored" data-anchor-id="工具变量的局限性"><span class="header-section-number">11.6</span> 工具变量的局限性</h2>
-<p><em>待补充。</em></p>
+<p>第一，找到好的工具变量非常之难。它难寻的原因，恰恰就是它的力量所在: 因为它必须永远置身模型之外。当我们一心关注模型本身之时，注意力自然只会放在模型之内。因此，只要我们变换思维的角度，开始习惯从模型之外寻找解决问题的武器，多从前人巧妙使用工具变量的实例里获得启发，我们就会发现，工具变量虽然难寻，但绝非了无痕迹。</p>
+<p>第二，工具变量对于模型不存在未观察的混杂因素无法用统计方法检验的。这一尴尬直接导致的结果就是: 不管熟悉还是不熟悉工具变量方法的读者，面对一篇工具变量分析的论文，其第一反应总是首先质疑其合法性。但凭心而论，和其他一些解决混杂因素的常用模型相比，工具变量分析承受了过多的挑刺和压力。当倾向值匹配模型假设一切偏误都来自可观察的变量，读者们往往能不假思索地接受这些武断的假设。</p>
+<p>第三，工具变量估计量往往因工具变量的选取而异，工具变量对样本的影响，往往是非均质的，所以工具变量估计量带有权重性的特征，即局部干预效应。案例中存在一部分患者无论什么年份都会接受内窥镜手术或显微镜手术（比如，某个医生只会一种手术方式），另一部分患者如果在不同年份去医院可能接受不同的手术方式。因此，从工具变量分析里得到的结论，往往只适用于后面那部分患者。不过，与其说这是工具变量方法的不足，倒不如说是一种优势，使样本变得更加具有目标性，结论也更有说服力。 报告时应说明依从者在临床上的含义及其与总体样本的差异；LATE 具有明确目标人群，但不应被不加说明地外推给从不接受或总是接受某种治疗的患者。</p>
+<p>第四，工具变量的使用看似难以举一反三，但哪怕是前人使用过的失败的工具变量，都可能具有借鉴和推广意义。案例中以2016年作为分界线，只在单个中心有效，而在其他中心情况就会大有不同。</p>
 </section>
 <section id="孟德尔随机化" class="level2" data-number="11.7">
 <h2 data-number="11.7" class="anchored" data-anchor-id="孟德尔随机化"><span class="header-section-number">11.7</span> 孟德尔随机化</h2>
-<p><em>待补充。</em></p>
+<p>孟德尔随机化（Mendelian randomization，MR）是在观察性数据中使用遗传变异来估计暴露和结局之间的因果关系。暴露可以是生物标志物、人体测量指标或任何其他可能影响结果的风险因素。通常情况下，结局是疾病。之所以称为随机化，是因为基因的形成过程是随机的，随机化的结果形成一种基因型和另一种基因型，从而产生不同的表型。</p>
+<p>孟德尔随机化也是一种工具变量法，同样需要满足工具变量的三个假设。基因型要与基因型的表达产物相关，即所感兴趣的干预、生物标志物或者其他风险因素；基因型对结局的影响只能通过此表达产物传递；基因型与结局之间，没有共同的原因。 对 MR 而言，第三项独立性假设还要求控制或评估祖源结构、遗传连锁和家系效应；排除限制则要求警惕横向多效性。垂直多效性若完全位于暴露的下游，通常不违反 IV 假设；横向多效性则会造成偏倚。</p>
+<section id="案例11.1" class="level3" data-number="11.7.1">
+<h3 data-number="11.7.1" class="anchored" data-anchor-id="案例11.1"><span class="header-section-number">11.7.1</span> 案例11.1</h3>
+<p>研究者感兴趣低密度脂蛋白（LDL）与冠脉综合症之间的关系，X 即 LDL，Y 为冠脉综合症，Z 为工具变量为引入的与 LDL 相关的基因型，如单核苷酸多态性（SNPs）。工具变量三个统计学假设中（图11.1），第一点可以被证实，只需计算基因型与LDL的相关性，而第二，第三点是不可证实的，需经过讨论。单个基因型的效应可能有很多，基因型对结局的影响，可能不通过所感兴趣的路径。单核苷酸多态性可以影响LDL的水平高低，亦或影响胆固醇水平高低。基因型与结局之间没有共同原因也无法证实。基因型可能和其他的基因位点形成遗传不平衡，导致多个基因形成遗传连锁，而其他基因型可能和结局相关；亦可能存在某个人群，该人群中基因型的某个等位基因出现高频突变，并且该人群中冠脉综合征发生风险比较低。</p>
+<div class="text-center">
+<p><img src="images/ch11-image11.png" class="img-fluid" style="width:100.0%"></p>
+<p><strong>图11.6 孟德尔随机化的假设</strong></p>
+</div>
+<p>孟德尔随机化的研究方法大致有两种：</p>
+<p><strong>独立样本MR：</strong>该方法利用单一研究样本，通过使用两阶段最小二乘法回归模型，定量估计暴露因素与结局之间的关联效应大小。由于该方法局限于单个样本，把握度较小，工具变量的选择也比较局限，容易受到潜在混杂因素的影响。</p>
+<p><strong>两样本MR：</strong>基因型与暴露、基因型与结局的关联研究人群来自相同人群的两个独立样本，要求两样本具有相似的年龄、性别和种族分布特征。因为样本量较大，该方法可以获得更大的把握度。两样本MR因为全球大量全基因组关联分析（GWAS）合作组的公共数据而被广泛使用。 两样本 MR 还应说明样本重叠程度、祖源可比性、暴露和结局 GWAS 的测量定义及选择机制。样本重叠在弱工具存在时可使两样本估计向观察性关联偏移。</p>
+<p>两样本MR的研究步骤分为四步：</p>
+<ol type="1">
+<li>在GWAS数据库（https://www.ebi.ac.uk/gwas/）中寻找与研究干预相关的SNPs，获得一系列的已经发表的文章以及文章中的SNPs数据，查询这些SNPs的p值来筛选对应的SNPs（&lt; 10-8），剔除有遗传不平衡的SNPs，记录回归系数和标准差。 常用的全基因组显著性起点是 P&lt;5×10⁻⁸；随后通常进行连锁不平衡剔除（clumping）、等位基因协调（harmonization）和工具强度评估。阈值与 LD 参数应预先报告，并结合所研究性状的遗传结构解释。</li>
+<li>在数据库中输入结局，查询上述筛选出的SNPs与结局变量的相关性（回归系数和标准差）。</li>
+<li>估算因果效应方法，一般采取逆方差加权法，中位数法和Egger法。 主分析应预先指定；加权中位数、MR-Egger、加权模式、异质性检验、留一法和 MR-PRESSO 等应作为对不同多效性假设的敏感性分析，而非只挑选产生显著结果的方法。</li>
+<li>由于往往暴露会与多个SNPs存在相关性，即存在多个工具变量，需要合并多个SNPs的估算。孟德尔随机化的整合效应图中，点和十字是每一个SNP作为工具变量估算的干预与结局的关系，拟合所有的SNP绘制出了一条斜线，其斜率就是LDL对冠脉综合症发生的风险。</li>
+</ol>
+<p><strong>案例11.1数据表</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">rsid</th>
+<th style="text-align: right;">ldlcbeta</th>
+<th style="text-align: right;">ldlcse</th>
+<th style="text-align: right;">ldlcp2</th>
+<th style="text-align: right;">acsbeta</th>
+<th style="text-align: right;">acsse</th>
+<th style="text-align: right;">acsp2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">rs1010167</td>
+<td style="text-align: right;">-0.025</td>
+<td style="text-align: right;">0.0039</td>
+<td style="text-align: right;">3.00E-10</td>
+<td style="text-align: right;">-0.028</td>
+<td style="text-align: right;">0.01897</td>
+<td style="text-align: right;">0.14</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">rs10102164</td>
+<td style="text-align: right;">0.032</td>
+<td style="text-align: right;">0.0045</td>
+<td style="text-align: right;">3.00E-12</td>
+<td style="text-align: right;">0.012</td>
+<td style="text-align: right;">0.01661</td>
+<td style="text-align: right;">0.47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">rs10401969</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0.0073</td>
+<td style="text-align: right;">2.00E-60</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.02958</td>
+<td style="text-align: right;">0.0002</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">rs10790162</td>
+<td style="text-align: right;">0.076</td>
+<td style="text-align: right;">0.0071</td>
+<td style="text-align: right;">3.00E-26</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.02735</td>
+<td style="text-align: right;">2.00E-06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">rs10832962</td>
+<td style="text-align: right;">0.032</td>
+<td style="text-align: right;">0.0040</td>
+<td style="text-align: right;">2.00E-15</td>
+<td style="text-align: right;">0.044</td>
+<td style="text-align: right;">0.01564</td>
+<td style="text-align: right;">0.0049</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">rs10903129</td>
+<td style="text-align: right;">-0.033</td>
+<td style="text-align: right;">0.0036</td>
+<td style="text-align: right;">4.00E-19</td>
+<td style="text-align: right;">-0.012</td>
+<td style="text-align: right;">0.01367</td>
+<td style="text-align: right;">0.38</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">…</td>
+<td style="text-align: right;">…</td>
+<td style="text-align: right;">…</td>
+<td style="text-align: right;">…</td>
+<td style="text-align: right;">…</td>
+<td style="text-align: right;">…</td>
+<td style="text-align: right;">…</td>
+</tr>
+</tbody>
+</table>
+<p>数据格式如上，每一行为一个工具变量（基因位点rsid标识），ldlcbeta、ldlcse、ldlcp2分别代表该基因位点与LDL的相关系数，标准差以及p值；而acsbeta、acsse、acsp2分别代表该基因位点与结局事件冠脉综合征的相关系数，标准差以及p值。这些数据来源于两个大型GWAS研究，即LDL的GWAS和冠脉综合征的GWAS研究。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mregger acsbeta ldlcbeta [aw=1/(acsse^2)], ivw <span class="kw">fe</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">lincom</span> ldlcbeta, <span class="kw">or</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.5输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.5输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch11-image12.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<p>结果表明采取逆方差加权法合并多个SNPs分析得出1个单位LDL的增加会导致冠脉综合征风险增加1.63倍。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.6">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mrmedian acsbeta acsse ldlcbeta ldlcse, weighted</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">lincom</span> beta, <span class="kw">or</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.6输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.6输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch11-image13.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.7">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.7
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mregger acsbeta ldlcbeta [aw=1/(acsse^2)]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">lincom</span> slope, <span class="kw">or</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.7输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.7输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch11-image14.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<p>几种方法得出的结论基本一致。亦可以绘制出整合效应图和森林图。整合效应图上每一个十字星代表一个SNP作为工具变量，拟合的直线及其95%置信区间的斜率即代表效应大小。森林图的解读与荟萃分析一致，每个SNP类似荟萃分析中的一项研究。 图形与各 SNP 的效应估计应同时报告置信区间、异质性指标和离群变异的处理规则；不同 MR 方法结果一致只能提供支持性证据，不能替代对工具变量假设的论证。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.8">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.8
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mreggerplot acsbeta acsse ldlcbeta ldlcse, gpci</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mrforest acsbeta acsse ldlcbeta ldlcse, ivid(rsid) models(4)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.8输出（整合效应图）">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.8输出（整合效应图）
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch11-image15.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码11.8输出（森林图）">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码11.8输出（森林图）
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch11-image16.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<p>虽然MR应用广泛，需了解其优势和局限性。 MR 研究的报告可参考 STROBE-MR 声明：明确因果问题和 estimand，描述数据来源、SNP 选择和协调、三项 IV 假设的依据、主分析与敏感性分析、数据/代码可得性及外推边界（Skrivankova 等，2021）。</p>
+<p>MR的优点是一个天然的随机化过程，没有反向的因果。当暴露与结果之间的关联不是由于暴露导致结果变化，而是由于结果导致暴露变化时，则发生反向因果关系。由于个体的基因型是在受孕时确定的，无法更改，因此不会存在因果关系与基因型相关联的反向因果关系，这也是孟德尔随机化的优势。</p>
+<p>在某些情况下，许多感兴趣的风险无法可靠地衡量，亦或无法通过随机化方法实现干预，如腰围，体重等。在这种情况下，可以将遗传变异用作暴露的代理，并且可以追溯这些风险与结果的关联。</p>
+<p>此外，工具变量估计值不会因暴露中的经典测量误差（包括个体内部差异）而衰减。这与观察性研究相反，在观察性研究中，暴露中的测量误差通常会导致回归系数朝着零值的方向衰减。</p>
+<p>当然MR也存在诸多缺点，难以找到合适的SNPs，需要大样本的GWAS研究；单个SNP是一个弱工具，因此需要很多SNPs集合构成一个综合因果估计；MR为工具变量方法，统计学假设中需要考虑第二第三原则违反情况下的因果推断，可以通过估计工具变量和各种特征之间的关系来分析讨论，虽然这些评估不能证明这两个假设的成立，但可以提供有关其合理性的证据；MR无法解释生物学机制，发育过程中的一些代偿可能会导致表型的改变，表型也可能是多样性的。 尤其应避免把 MR 结果称为“天然随机试验的证明”。MR 估计反映遗传预测的、通常是长期的暴露差异；它未必等同于在特定年龄、剂量和持续时间实施临床干预所产生的效果。</p>
+</section>
+</section>
+<section id="附录孟德尔随机化研究的关键评估清单" class="level2" data-number="11.8">
+<h2 data-number="11.8" class="anchored" data-anchor-id="附录孟德尔随机化研究的关键评估清单"><span class="header-section-number">11.8</span> 附录：孟德尔随机化研究的关键评估清单</h2>
+<section id="孟德尔随机化的核心假设" class="level3" data-number="11.8.1">
+<h3 data-number="11.8.1" class="anchored" data-anchor-id="孟德尔随机化的核心假设"><span class="header-section-number">11.8.1</span> 孟德尔随机化的核心假设</h3>
+<ul>
+<li>是否有足够的证据表明遗传变异与所关注的风险因素密切相关？</li>
+<li>遗传变异是否与潜在的混杂因素有关？是否介绍了这种关系？</li>
+<li>遗传变异是否有办法通过其他途径影响结果（横向多变性）？是否介绍了多种孟德尔随机化方法（如MR Egger、中位数和模式估计，或使用阴性对照人群），以更全面地调查这一问题？</li>
+</ul>
+</section>
+<section id="方法报告" class="level3" data-number="11.8.2">
+<h3 data-number="11.8.2" class="anchored" data-anchor-id="方法报告"><span class="header-section-number">11.8.2</span> 方法报告</h3>
+<ul>
+<li>暴露和结果的效应和其他等位基因的编码方向是否相同？</li>
+<li>两样本的研究：两个样本是否取自同一人群？</li>
+<li>两样本是否独立？</li>
+<li>分析是否只限于独立的工具变量（即删除了遗传连锁不平衡的SNPs）或分析是否允许工具变量之间的相关性？</li>
+</ul>
+</section>
+<section id="数据展示" class="level3" data-number="11.8.3">
+<h3 data-number="11.8.3" class="anchored" data-anchor-id="数据展示"><span class="header-section-number">11.8.3</span> 数据展示</h3>
+<ul>
+<li>是否将结果表述为遗传关联、工具变量估计，或两者都是？</li>
+<li>如果提供的是工具变量估计值，是否将其与传统的观察性估计值进行了比较？</li>
+<li>是否提供敏感性分析，如MR Egger、加权中位数和模式孟德尔随机化，或使用阴性对照人群？</li>
+<li>是否手动挑选哪些SNPs进入工具变量以解决多态性问题？如果是这样，其方法和理由是否清楚？</li>
+<li>是否在补充材料中提供了使用的数据（特别是在群体水平上进行的孟德尔随机化分析），以便研究人员复制他们的发现？</li>
+</ul>
+</section>
+<section id="解释" class="level3" data-number="11.8.4">
+<h3 data-number="11.8.4" class="anchored" data-anchor-id="解释"><span class="header-section-number">11.8.4</span> 解释</h3>
+<ul>
+<li>如果孟德尔随机化估计值与观察估计值相似，并提供了支持因果效应的证据，是否是由于单一研究中的弱工具偏倚或通过横向多态性的混杂造成的？</li>
+<li>如果孟德尔随机化估计值与观察性估计值不同，并提供了因果效应的少量证据，是否是由于使用了弱工具造成的偏差或由于多态性造成的负向混杂？</li>
+<li>孟德尔随机化提供了风险因素在群体一生中的影响估计，对特定年龄段的干预措施有同样大小的效果吗？</li>
+<li>孟德尔随机化估计的95%置信区间是否足够精确，因果效应是否临床意义的差异？</li>
+</ul>
+</section>
+<section id="临床意义" class="level3" data-number="11.8.5">
+<h3 data-number="11.8.5" class="anchored" data-anchor-id="临床意义"><span class="header-section-number">11.8.5</span> 临床意义</h3>
+<ul>
+<li>结果是否与其他形式的证据相互印证？能否像PCSK9抑制剂那样进行临床试验以提供明确的证据？</li>
+<li>如果随机临床试验不可行（如饮酒和心脏病风险的情况）或不可能在短期内进行（如降低BMI和心脏病风险的生活方式干预的情况），并且现有的证据来自多个孟德尔随机化研究和其他稳健的研究设计，趋向于一个类似的结果，并显示出关联的一致性，这些信息可以用来指导病人护理；例如，建议减肥以预防心脏病，或建议不要适度饮酒以预防心血管疾病。 在用于临床建议前，还应结合干预试验、机制研究、观察性研究和不同人群中的 MR 结果进行证据三角验证，并清楚区分遗传预测的终生暴露效应与可操作的短期干预效应。</li>
+</ul>
+</section>
+</section>
+<section id="本章参考文献" class="level2" data-number="11.9">
+<h2 data-number="11.9" class="anchored" data-anchor-id="本章参考文献"><span class="header-section-number">11.9</span> 本章参考文献</h2>
+<ol type="1">
+<li>Hernán MA, Robins JM. Instruments for causal inference: an epidemiologist’s dream? <em>Epidemiology</em>. 2006;17:360–372. <a href="https://pubmed.ncbi.nlm.nih.gov/16755261/">PMID: 16755261</a></li>
+<li>Baiocchi M, Cheng J, Small DS. Instrumental variable methods for causal inference. <em>Statistics in Medicine</em>. 2014;33:2297–2340. <a href="https://pubmed.ncbi.nlm.nih.gov/24599889/">PMID: 24599889</a></li>
+<li>Lousdal ML. An introduction to instrumental variable assumptions, validation and estimation. <em>Emerging Themes in Epidemiology</em>. 2018;15:1. <a href="https://pubmed.ncbi.nlm.nih.gov/29387137/">PMID: 29387137</a></li>
+<li>Garabedian LF, Chu P, Toh S, et al.&nbsp;Potential bias of instrumental variable analyses for observational comparative effectiveness research. <em>Annals of Internal Medicine</em>. 2014;161:131–138. <a href="https://pubmed.ncbi.nlm.nih.gov/25023252/">PMID: 25023252</a></li>
+<li>Bowden J, Davey Smith G, Burgess S. Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. <em>International Journal of Epidemiology</em>. 2015;44:512–525. <a href="https://pubmed.ncbi.nlm.nih.gov/26050253/">PMID: 26050253</a></li>
+<li>Bowden J, Davey Smith G, Haycock PC, Burgess S. Consistent estimation in Mendelian randomization with some invalid instruments using a weighted median estimator. <em>Genetic Epidemiology</em>. 2016;40:304–314. <a href="https://pubmed.ncbi.nlm.nih.gov/27061298/">PMID: 27061298</a></li>
+<li>Burgess S, Davey Smith G, Davies NM, et al.&nbsp;Guidelines for performing Mendelian randomization investigations. <em>Wellcome Open Research</em>. 2020;4:186. <a href="https://pubmed.ncbi.nlm.nih.gov/32760811/">PMID: 32760811</a></li>
+<li>Skrivankova VW, Richmond RC, Woolf BAR, et al.&nbsp;Strengthening the Reporting of Observational Studies in Epidemiology Using Mendelian Randomization: The STROBE-MR Statement. <em>JAMA</em>. 2021;326:1614–1621. <a href="https://pubmed.ncbi.nlm.nih.gov/34698778/">PMID: 34698778</a></li>
+</ol>
 
 
 <!-- -->
@@ -825,8 +1365,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/10-propensity-score.html" class="pagination-link" aria-label="基于倾向评分的方法">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">基于倾向评分的方法</span></span>
+      <a href="../chapters/10-propensity-score.html" class="pagination-link" aria-label="基于倾向评分的因果推断方法">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">基于倾向评分的因果推断方法</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -835,40 +1375,347 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 工具变量法</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## 编写说明</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>本章内容整理中。可将已校订的 Word 书稿（<span class="in">`乔Book/`</span> 目录）正文迁移至此，公式用 <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span>，图片放 <span class="in">`images/`</span>，代码用 ```{r} 或 ```{python} 代码块。</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工具变量法</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工具变量法的实际应用</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工具变量法的分析步骤</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工具变量法的统计学检验</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工具变量的寻觅</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工具变量的局限性</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## 孟德尔随机化</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>_待补充。_</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 工具变量法</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>采用回归以及倾向性评分进行因果推断的最大局限性是存在未观察的混杂因素时，通过这两大类方法无法直接进行。 工具变量并不会自动消除未测量混杂；它把识别任务转化为对工具变量有效性的强假设。若这些假设不可信，IV 估计同样可能有偏。</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工具变量法</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>这时引入工具变量 Z，借此估计 X 到 Y 的因果关系。工具变量 Z 通过影响 X 而间接影响因变量 Y。如果工具变量 Z 和 X 密切相关，那么，只要工具变量 Z 有了变化，就必然会对 X 产生变化。如果 X 和 Y 之间真的存在因果关系，那么 Z 对 X 带来的冲击也就势必传递到 Y。这样，在一系列的假说之下，只要 Z 对 Y 的间接冲击能够被统计证明是显著的，我们就可以推断出 X 对 Y 有因果关系。利用对 Z 与 X 相关的估算，以及 Z 与 Y 相关的估算，就可以推导出 X 和 Y 之间真实关系的大小。 相关性本身只说明 Z 能预测 X，并不等于工具变量有效；因果解释还取决于独立性和排除限制。对于线性模型，单个有效工具变量的 Wald 比值可理解为 Z 对 Y 的效应除以 Z 对 X 的效应，但二者均需有足够精度。</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image1.png)</span>{width="42%"}</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>**图11.1 工具变量法示意图**</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>然而，工具变量的成立需要满足三个统计学假设：</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>工具变量与干预是相关的，即 Z 和 X 相关；</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>工具变量对结局的影响只能通过干预来实现，Z 到 Y 的影响只能通过 A 来实现的，而不能通过其他路径去实现；</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>工具变量与结局没有共同的原因，即 Z 和 Y 之间没有混杂因素。 在二元工具变量和二元处理的常用解释下，若希望把结果解释为“依从者”的局部平均处理效应（LATE），还需加入单调性假设：不存在因工具变量取值改变而总是反向接受处理的个体。Hernán 与 Robins（2006）及 Baiocchi 等（2014）强调，这些假设多数不能由数据本身证明。</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>在随机对照研究中，工具变量可以理解为随机分配。案例9.1假设为随机对照试验，Z 是随机分配为内窥镜组和显微镜组，X 为实际接受内窥镜手术和显微镜手术，Y 是手术后内分泌缓解。随机对照研究中的意向性分析所得意向性效应即是 Z 对 Y 的效应，随机分配后不管受试者是否依从所分配的方案，只考虑随机的结果。而符合方案分析得出的符合方案效应就是 X 到 Y 的效应，如果随机分配后的依从性是100%，则符合方案效应等于意向性效应。非随机对照研究中的因果效应取决于所采用的工具变量、识别假设与目标 estimand，不能直接等同于随机试验中的符合方案效应。</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image2.png)</span>{width="42%"}</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>**图11.2 随机分配作为工具变量**</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工具变量法的实际应用</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>研究饮酒是否会导致冠脉综合症？X 是饮酒，Y 是冠脉综合症，U 是未观察到的一些混杂因素，比如说饮酒的人一般都会吸烟，吸烟会导致冠脉综合症。而饮酒本身无法进行随机分配。这时，可以引入工具变量 Z，表示与酒精代谢有关的基因型，如果患者携带酒精代谢差的基因型，一般来说饮酒量会比较少，如果能通过基因表型分析获取 Z 和 X 的关系，获取 Z 和 Y 的关系，就可以估算出 X 与 Y 的关系。 遗传工具变量还须特别讨论水平多效性、群体分层、亲代效应和选择偏倚；任一因素都可能产生 Z 到 Y 的非经由饮酒的路径，因此不能仅凭基因与饮酒相关就断言工具变量有效。</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image3.png)</span>{width="42%"}</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>**图11.3 遗传变异作为候选工具变量**</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>研究HIV感染患者中使用不同的逆转录逆转录抗病毒的疗法，预防AIDS或者死亡的因果关系，利用年历时间作为工具变量。在不同时间窗内采纳的治疗方法不同，借此可以估算对结局的效应。然而，年历时间作为工具变量时，工具变量与结局变量之间可能存在一些混杂因素，如年历可能通过其他医学技术的革新导致死亡率的下降。 年历时间往往尤其容易违反排除限制：诊断技术、围手术期管理、病例构成和随访制度可能同时随时间改变。将其用作工具变量前，应预先画出因果图、说明每一条替代路径，并以敏感性分析检验结论对这些设定的依赖。</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image4.png)</span>{width="48%"}</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>**图11.4 年历时间作为候选工具变量**</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>看电视过多是否会引发小儿自闭症？电视的普及与小儿自闭症发生率的攀升几乎同步。然而，有自闭倾向的儿童可能更经常看电视，而不喜欢户外活动或与人交往。使用降雨量作为电视观看时间的工具变量。即降雨越多的地区，人们待在室内的时间越长，故看电视时间也长；而降雨量很可能只通过看电视时间而影响被解释变量。 降雨量也未必天然有效：它可能通过户外活动、感染暴露、就医可及性或地区社会经济条件影响结局。所谓“自然工具”仍须针对研究场景逐项论证独立性和排除限制。</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image5.png)</span>{width="42%"}</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>**图11.5 降雨量作为候选工具变量**</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工具变量法的分析步骤</span></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>通常采用两阶段的最小二乘法，首先将干预对工具变量做回归，获取干预的预测值，然后将结局对干预的预测值做第二次的回归，所得工具变量估计值为： 两阶段最小二乘的两个阶段应作为一个整体估计，不能把第一阶段的预测值当作普通已观测暴露后再使用常规第二阶段标准误；应采用 IV/2SLS 的联合估计与相应的稳健标准误。估计对象还应在分析前说明是总体效应、依从者效应还是其他局部效应。</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>**公式 11.1　Z 为分类变量时的工具变量估计量**</span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>$$IV = \frac{E\left<span class="co">[</span><span class="ot">Y \middle| Z = 1\right</span><span class="co">]</span> - E\left<span class="co">[</span><span class="ot">Y \middle| Z = 0\right</span><span class="co">]</span>}{E\left<span class="co">[</span><span class="ot">X \middle| Z = 1\right</span><span class="co">]</span> - E\left<span class="co">[</span><span class="ot">X \middle| Z = 0\right</span><span class="co">]</span>}$$</span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>Z为分类变量，或：</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>**公式 11.2　Z 为连续变量时的工具变量估计量**</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>$$IV = \frac{\operatorname{Cov}(Y,Z)}{\operatorname{Cov}(X,Z)}$$</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>Z为连续变量</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>沿用案例9.1中的数据，2016年之前的手术方案大多为显微镜手术，而2016年之后则转变为内镜手术，因此手术的年历时间可能用作工具变量来估算手术方案对疾病缓解的影响。</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码11.1"}</span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a><span class="in">prop Treatment if year &lt;= 2016</span></span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a><span class="in">prop Treatment if year &gt; 2016</span></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码11.1输出（2016年及以前）"}</span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image6.png)</span>{width="100%"}</span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码11.1输出（2017年及以后）"}</span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image7.png)</span>{width="100%"}</span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a>2016年以前，显微镜手术的占比是80.6%，2016年之后，内窥镜手术的占比是74.1%。因此年历时间与接受何种手术方式存在相关性。</span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a>因为感兴趣的结局变量为二分类变量，然而采用逻辑回归进行工具变量分析存在可加性问题。故结局为二分类变量常利用ivprobit命令（即Probit回归，参考第9章），通过两步骤预测替代法进行分类变量结局的工具变量回归。 二分类结局不存在唯一的“标准”IV 模型。ivprobit、两阶段残差纳入法和结构均值模型依赖不同的函数形式与可加性假设；报告时应明确所用模型、效应尺度、第一阶段结果及其识别假设，而不宜将任何一种软件命令视为自动有效。</span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码11.2"}</span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a><span class="in">gen year_iv = (year &lt;= 2016)</span></span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a><span class="in">ivprobit Outcome (Treatment = year_iv)</span></span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码11.2输出"}</span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image8.png)</span>{width="100%"}</span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a>模型截距-0.330，表示显微镜组的概率单元值，β1 = 0.597表示内窥镜组与显微镜组的概率单元值差值，内窥镜组的概率单元值为-0.330+0.597=0.267。分别计算累积分布函数值，后代入比值比计算公式得出OR为2.60。同样，此处利用年历时间作为工具变量，需要讨论年历时间可能通过其他医学技术的革新（影像检查的普及导致患者能早期诊断）导致手术效果的提升。 因此，本例的数值结果应理解为在年历时间工具变量及其排除限制可信时的模型估计，而不是对手术方式总体因果效应的无条件证明。</span>
+<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a>此外，研究手术方式对住院时长的影响，亦可采用工具变量法，此时结局变量为连续变量，可采用两步骤最小二乘法回归。此时回归系数直接表示结局变量的变化幅度，即内窥镜组比显微镜组的住院时长少1.52天。</span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码11.3"}</span>
+<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a><span class="in">ivregress 2sls los (Treatment = year_iv)</span></span>
+<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码11.3输出"}</span>
+<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image9.png)</span>{width="100%"}</span>
+<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工具变量法的统计学检验</span></span>
+<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a>工具变量的使用受到诸多因素限制，因此需要进行统计学检验与假设：</span>
+<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>工具变量使用的第一个原则即工具变量与干预相关。工具变量与干预变量的相关性如很小存在弱工具变量问题，弱工具变量会导致因果推断稳定性差。检验弱工具变量的方法： 弱工具变量会使估计偏向常规回归并造成置信区间失真；应同时报告第一阶段效应、部分 R²、工具变量数量和弱工具诊断，而不只报告第二阶段 P 值。</span>
+<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a><span class="ss">    1.  </span>第一阶段回归结果中工具变量的显著程度，是否与干预足够相关。</span>
+<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a><span class="ss">    2.  </span>第一阶段回归的F值，用来检验工具变量是否显著，如果此检验的F统计量大于10，则可拒绝弱工具变量的原假设（本例F统计量为29.5）。亦可采用Cragg-Donald Wald F统计量以及Kleibergen-Paaprk Wald F统计量（可通过Stata ivreg2实现）。 F<span class="sc">\&gt;</span>10 是单一内生变量、同方差情形下常见的经验规则，并非普适阈值。在异方差、聚类或多个工具变量时，应优先报告 Kleibergen-Paap 统计量并参考适用的临界值；必要时采用 Anderson-Rubin 等对弱工具更稳健的检验与区间。</span>
+<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码11.4"}</span>
+<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a><span class="in">ivreg2 los (Treatment = year_iv)</span></span>
+<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码11.4输出"}</span>
+<span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image10.png)</span>{width="100%"}</span>
+<span id="cb9-143"><a href="#cb9-143" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-144"><a href="#cb9-144" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-145"><a href="#cb9-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-146"><a href="#cb9-146" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>工具变量对结局的影响只能够通过干预，此原则无法通过统计学检验证实，只能通过定性讨论确定，排除其他可能的原因。在案例中年历对疾病缓解的影响可能通过增加内窥镜手术的比例，亦可以通过手术技术的提高，医疗水平的上升等因素，需要分别讨论。研究者所要做的就是找出工具变量影响结局的所有其他可能途径，然后一一反驳。 排除限制可以被反驳，却不能被数据完全验证。除专家论证外，可报告工具变量与基线协变量的关联、阴性对照结局或暴露、以及针对直接效应的定量敏感性分析；这些检查只能增加或削弱可信度，不能证明假设成立。</span>
+<span id="cb9-147"><a href="#cb9-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-148"><a href="#cb9-148" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>工具变量与结局没有共同的原因，如，可能存在一个L，既导致了年历时间也导致了疾病缓解。本质上也无法检验这个条件，因为可能存在未观察到的工具变量与结局的共同原因，也就无法检验。主要方法都是间接的探讨，主要有两种方法：一种是定性讨论，另一种是过度识别检验。 过度识别检验只有在工具变量数量多于内生变量时才可进行，且其不显著结果并不证明每一个工具变量有效；若多个工具变量具有相似的违反方式，检验仍可能缺乏识别力。</span>
+<span id="cb9-149"><a href="#cb9-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-150"><a href="#cb9-150" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>此外，工具变量还需要同质性假设，即假设干预对结局的效应在所有的样本中是一致的，即内窥镜的优势在所有个体中是一致的。这个假设通常也是无法证实的，内窥镜的优势可能在侵袭性肿瘤中更大一些，即存在修正效应。在工具变量的研究中，也是无法估算的。 同质性并非所有 IV 分析的必要条件。若采用单调性，二元工具变量通常识别的是依从者中的 LATE；只有在额外的效应同质性或可外推性假设下，才可把该局部效应推广为全体人群的 ATE。</span>
+<span id="cb9-151"><a href="#cb9-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-152"><a href="#cb9-152" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工具变量的寻觅</span></span>
+<span id="cb9-153"><a href="#cb9-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a>合格的工具变量非常难以寻找。因此，前人对某一类工具变量的使用，在很大程度上对我们今后寻找工具变量能够带来重要启发甚至灵感：严密的逻辑和充分的想象力，是寻找到好的工具变量的必要条件 。</span>
+<span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-156"><a href="#cb9-156" aria-hidden="true" tabindex="-1"></a><span class="fu">### 来自群体的工具变量</span></span>
+<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-158"><a href="#cb9-158" aria-hidden="true" tabindex="-1"></a>个体的干预结局，往往会受到所在集体的某个特征要素的影响。比如，一个人的成绩、收入、社会地位等等，会受到他所在的学校、班级、邻里的特征的影响。为解决这一内生性问题，经济学家和社会学家常常把州、县或大都会地区层面的集聚数据作为学校、班级和邻里等层面解释变量的工具变量。其理由是: 以都会为单位的失业率和贫困率必然和辖区内学校的贫困生比例有关，但又不直接影响学生的怀孕或辍学等行为。</span>
+<span id="cb9-159"><a href="#cb9-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-160"><a href="#cb9-160" aria-hidden="true" tabindex="-1"></a><span class="fu">### 来自自然界的工具变量</span></span>
+<span id="cb9-161"><a href="#cb9-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-162"><a href="#cb9-162" aria-hidden="true" tabindex="-1"></a>河流、地震、降雨、自然灾害等自然现象在一定地域范围内具有高度的随机，因此可以被假设为与个人和群体的异质性无关，同时，它们又能够影响一些干预过程。例如本章开篇描述的降雨量作为看电视与自闭症的工具变量。</span>
+<span id="cb9-163"><a href="#cb9-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-164"><a href="#cb9-164" aria-hidden="true" tabindex="-1"></a><span class="fu">### 来自生理现象的工具变量</span></span>
+<span id="cb9-165"><a href="#cb9-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-166"><a href="#cb9-166" aria-hidden="true" tabindex="-1"></a>人类的生老病死既是社会现象，也是生理上的自然现象。出生日期、季度、性别、基因改变等，虽仅仅是有机体的自然历程，但既具有随机性，又往往和特定的经济社会过程相关。饮酒基因型、脂质代谢基因型均可作为干预与冠状动脉综合征结局的工具变量。</span>
+<span id="cb9-167"><a href="#cb9-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-168"><a href="#cb9-168" aria-hidden="true" tabindex="-1"></a><span class="fu">### 来自社会空间的工具变量</span></span>
+<span id="cb9-169"><a href="#cb9-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-170"><a href="#cb9-170" aria-hidden="true" tabindex="-1"></a>社会空间的载体，包括具象性的城市、乡村，和非具象性的市场空间等，和人类的行为与结果息息相关，但往往又在特定分析层面上具有独立性、随机性。假设有这样一项研究，一个城市有两家医院提供不同的紧急治疗，位于城市东部的医院专门从事内窥镜手术，西部的医院专门从事显微镜手术。有部分患者将根据家到医院的距离来选择医院，从而选择对应的治疗方法。假设到两家医院的相对距离会影响治疗方法的选择，但是对治疗结局没有直接影响，那么这个相对距离就可以作为工具变量。烟草价格作为研究戒烟与体重增加之间的工具变量。烟草价格高则戒烟概率高，可能会出现体重增加。而烟草价格本身显然和体重没有其他任何的因果逻辑联系。</span>
+<span id="cb9-171"><a href="#cb9-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-172"><a href="#cb9-172" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工具变量的局限性</span></span>
+<span id="cb9-173"><a href="#cb9-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-174"><a href="#cb9-174" aria-hidden="true" tabindex="-1"></a>第一，找到好的工具变量非常之难。它难寻的原因，恰恰就是它的力量所在: 因为它必须永远置身模型之外。当我们一心关注模型本身之时，注意力自然只会放在模型之内。因此，只要我们变换思维的角度，开始习惯从模型之外寻找解决问题的武器，多从前人巧妙使用工具变量的实例里获得启发，我们就会发现，工具变量虽然难寻，但绝非了无痕迹。</span>
+<span id="cb9-175"><a href="#cb9-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-176"><a href="#cb9-176" aria-hidden="true" tabindex="-1"></a>第二，工具变量对于模型不存在未观察的混杂因素无法用统计方法检验的。这一尴尬直接导致的结果就是: 不管熟悉还是不熟悉工具变量方法的读者，面对一篇工具变量分析的论文，其第一反应总是首先质疑其合法性。但凭心而论，和其他一些解决混杂因素的常用模型相比，工具变量分析承受了过多的挑刺和压力。当倾向值匹配模型假设一切偏误都来自可观察的变量，读者们往往能不假思索地接受这些武断的假设。</span>
+<span id="cb9-177"><a href="#cb9-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-178"><a href="#cb9-178" aria-hidden="true" tabindex="-1"></a>第三，工具变量估计量往往因工具变量的选取而异，工具变量对样本的影响，往往是非均质的，所以工具变量估计量带有权重性的特征，即局部干预效应。案例中存在一部分患者无论什么年份都会接受内窥镜手术或显微镜手术（比如，某个医生只会一种手术方式），另一部分患者如果在不同年份去医院可能接受不同的手术方式。因此，从工具变量分析里得到的结论，往往只适用于后面那部分患者。不过，与其说这是工具变量方法的不足，倒不如说是一种优势，使样本变得更加具有目标性，结论也更有说服力。 报告时应说明依从者在临床上的含义及其与总体样本的差异；LATE 具有明确目标人群，但不应被不加说明地外推给从不接受或总是接受某种治疗的患者。</span>
+<span id="cb9-179"><a href="#cb9-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-180"><a href="#cb9-180" aria-hidden="true" tabindex="-1"></a>第四，工具变量的使用看似难以举一反三，但哪怕是前人使用过的失败的工具变量，都可能具有借鉴和推广意义。案例中以2016年作为分界线，只在单个中心有效，而在其他中心情况就会大有不同。</span>
+<span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-182"><a href="#cb9-182" aria-hidden="true" tabindex="-1"></a><span class="fu">## 孟德尔随机化</span></span>
+<span id="cb9-183"><a href="#cb9-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-184"><a href="#cb9-184" aria-hidden="true" tabindex="-1"></a>孟德尔随机化（Mendelian randomization，MR）是在观察性数据中使用遗传变异来估计暴露和结局之间的因果关系。暴露可以是生物标志物、人体测量指标或任何其他可能影响结果的风险因素。通常情况下，结局是疾病。之所以称为随机化，是因为基因的形成过程是随机的，随机化的结果形成一种基因型和另一种基因型，从而产生不同的表型。</span>
+<span id="cb9-185"><a href="#cb9-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-186"><a href="#cb9-186" aria-hidden="true" tabindex="-1"></a>孟德尔随机化也是一种工具变量法，同样需要满足工具变量的三个假设。基因型要与基因型的表达产物相关，即所感兴趣的干预、生物标志物或者其他风险因素；基因型对结局的影响只能通过此表达产物传递；基因型与结局之间，没有共同的原因。 对 MR 而言，第三项独立性假设还要求控制或评估祖源结构、遗传连锁和家系效应；排除限制则要求警惕横向多效性。垂直多效性若完全位于暴露的下游，通常不违反 IV 假设；横向多效性则会造成偏倚。</span>
+<span id="cb9-187"><a href="#cb9-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-188"><a href="#cb9-188" aria-hidden="true" tabindex="-1"></a><span class="fu">### 案例11.1</span></span>
+<span id="cb9-189"><a href="#cb9-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-190"><a href="#cb9-190" aria-hidden="true" tabindex="-1"></a>研究者感兴趣低密度脂蛋白（LDL）与冠脉综合症之间的关系，X 即 LDL，Y 为冠脉综合症，Z 为工具变量为引入的与 LDL 相关的基因型，如单核苷酸多态性（SNPs）。工具变量三个统计学假设中（图11.1），第一点可以被证实，只需计算基因型与LDL的相关性，而第二，第三点是不可证实的，需经过讨论。单个基因型的效应可能有很多，基因型对结局的影响，可能不通过所感兴趣的路径。单核苷酸多态性可以影响LDL的水平高低，亦或影响胆固醇水平高低。基因型与结局之间没有共同原因也无法证实。基因型可能和其他的基因位点形成遗传不平衡，导致多个基因形成遗传连锁，而其他基因型可能和结局相关；亦可能存在某个人群，该人群中基因型的某个等位基因出现高频突变，并且该人群中冠脉综合征发生风险比较低。</span>
+<span id="cb9-191"><a href="#cb9-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-192"><a href="#cb9-192" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-193"><a href="#cb9-193" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image11.png)</span>{width="100%"}</span>
+<span id="cb9-194"><a href="#cb9-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-195"><a href="#cb9-195" aria-hidden="true" tabindex="-1"></a>**图11.6 孟德尔随机化的假设**</span>
+<span id="cb9-196"><a href="#cb9-196" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-197"><a href="#cb9-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-198"><a href="#cb9-198" aria-hidden="true" tabindex="-1"></a>孟德尔随机化的研究方法大致有两种：</span>
+<span id="cb9-199"><a href="#cb9-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-200"><a href="#cb9-200" aria-hidden="true" tabindex="-1"></a>**独立样本MR：**该方法利用单一研究样本，通过使用两阶段最小二乘法回归模型，定量估计暴露因素与结局之间的关联效应大小。由于该方法局限于单个样本，把握度较小，工具变量的选择也比较局限，容易受到潜在混杂因素的影响。</span>
+<span id="cb9-201"><a href="#cb9-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-202"><a href="#cb9-202" aria-hidden="true" tabindex="-1"></a>**两样本MR：**基因型与暴露、基因型与结局的关联研究人群来自相同人群的两个独立样本，要求两样本具有相似的年龄、性别和种族分布特征。因为样本量较大，该方法可以获得更大的把握度。两样本MR因为全球大量全基因组关联分析（GWAS）合作组的公共数据而被广泛使用。 两样本 MR 还应说明样本重叠程度、祖源可比性、暴露和结局 GWAS 的测量定义及选择机制。样本重叠在弱工具存在时可使两样本估计向观察性关联偏移。</span>
+<span id="cb9-203"><a href="#cb9-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-204"><a href="#cb9-204" aria-hidden="true" tabindex="-1"></a>两样本MR的研究步骤分为四步：</span>
+<span id="cb9-205"><a href="#cb9-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-206"><a href="#cb9-206" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>在GWAS数据库（https://www.ebi.ac.uk/gwas/）中寻找与研究干预相关的SNPs，获得一系列的已经发表的文章以及文章中的SNPs数据，查询这些SNPs的p值来筛选对应的SNPs（<span class="sc">\&lt;</span> 10-8），剔除有遗传不平衡的SNPs，记录回归系数和标准差。 常用的全基因组显著性起点是 P<span class="sc">\&lt;</span>5×10⁻⁸；随后通常进行连锁不平衡剔除（clumping）、等位基因协调（harmonization）和工具强度评估。阈值与 LD 参数应预先报告，并结合所研究性状的遗传结构解释。</span>
+<span id="cb9-207"><a href="#cb9-207" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>在数据库中输入结局，查询上述筛选出的SNPs与结局变量的相关性（回归系数和标准差）。</span>
+<span id="cb9-208"><a href="#cb9-208" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>估算因果效应方法，一般采取逆方差加权法，中位数法和Egger法。 主分析应预先指定；加权中位数、MR-Egger、加权模式、异质性检验、留一法和 MR-PRESSO 等应作为对不同多效性假设的敏感性分析，而非只挑选产生显著结果的方法。</span>
+<span id="cb9-209"><a href="#cb9-209" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>由于往往暴露会与多个SNPs存在相关性，即存在多个工具变量，需要合并多个SNPs的估算。孟德尔随机化的整合效应图中，点和十字是每一个SNP作为工具变量估算的干预与结局的关系，拟合所有的SNP绘制出了一条斜线，其斜率就是LDL对冠脉综合症发生的风险。</span>
+<span id="cb9-210"><a href="#cb9-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-211"><a href="#cb9-211" aria-hidden="true" tabindex="-1"></a>**案例11.1数据表**</span>
+<span id="cb9-212"><a href="#cb9-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-213"><a href="#cb9-213" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>    rsid    <span class="pp">|</span> ldlcbeta <span class="pp">|</span> ldlcse <span class="pp">|</span>   ldlcp2 <span class="pp">|</span> acsbeta <span class="pp">|</span>   acsse <span class="pp">|</span>    acsp2 <span class="pp">|</span></span>
+<span id="cb9-214"><a href="#cb9-214" aria-hidden="true" tabindex="-1"></a><span class="pp">|:----------:|---------:|-------:|---------:|--------:|--------:|---------:|</span></span>
+<span id="cb9-215"><a href="#cb9-215" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> rs1010167  <span class="pp">|</span>   -0.025 <span class="pp">|</span> 0.0039 <span class="pp">|</span> 3.00E-10 <span class="pp">|</span>  -0.028 <span class="pp">|</span> 0.01897 <span class="pp">|</span>     0.14 <span class="pp">|</span></span>
+<span id="cb9-216"><a href="#cb9-216" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> rs10102164 <span class="pp">|</span>    0.032 <span class="pp">|</span> 0.0045 <span class="pp">|</span> 3.00E-12 <span class="pp">|</span>   0.012 <span class="pp">|</span> 0.01661 <span class="pp">|</span>     0.47 <span class="pp">|</span></span>
+<span id="cb9-217"><a href="#cb9-217" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> rs10401969 <span class="pp">|</span>     0.12 <span class="pp">|</span> 0.0073 <span class="pp">|</span> 2.00E-60 <span class="pp">|</span>    0.11 <span class="pp">|</span> 0.02958 <span class="pp">|</span>   0.0002 <span class="pp">|</span></span>
+<span id="cb9-218"><a href="#cb9-218" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> rs10790162 <span class="pp">|</span>    0.076 <span class="pp">|</span> 0.0071 <span class="pp">|</span> 3.00E-26 <span class="pp">|</span>    0.13 <span class="pp">|</span> 0.02735 <span class="pp">|</span> 2.00E-06 <span class="pp">|</span></span>
+<span id="cb9-219"><a href="#cb9-219" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> rs10832962 <span class="pp">|</span>    0.032 <span class="pp">|</span> 0.0040 <span class="pp">|</span> 2.00E-15 <span class="pp">|</span>   0.044 <span class="pp">|</span> 0.01564 <span class="pp">|</span>   0.0049 <span class="pp">|</span></span>
+<span id="cb9-220"><a href="#cb9-220" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> rs10903129 <span class="pp">|</span>   -0.033 <span class="pp">|</span> 0.0036 <span class="pp">|</span> 4.00E-19 <span class="pp">|</span>  -0.012 <span class="pp">|</span> 0.01367 <span class="pp">|</span>     0.38 <span class="pp">|</span></span>
+<span id="cb9-221"><a href="#cb9-221" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>     …      <span class="pp">|</span>        … <span class="pp">|</span>      … <span class="pp">|</span>        … <span class="pp">|</span>       … <span class="pp">|</span>       … <span class="pp">|</span>        … <span class="pp">|</span></span>
+<span id="cb9-222"><a href="#cb9-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-223"><a href="#cb9-223" aria-hidden="true" tabindex="-1"></a>数据格式如上，每一行为一个工具变量（基因位点rsid标识），ldlcbeta、ldlcse、ldlcp2分别代表该基因位点与LDL的相关系数，标准差以及p值；而acsbeta、acsse、acsp2分别代表该基因位点与结局事件冠脉综合征的相关系数，标准差以及p值。这些数据来源于两个大型GWAS研究，即LDL的GWAS和冠脉综合征的GWAS研究。</span>
+<span id="cb9-224"><a href="#cb9-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-225"><a href="#cb9-225" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码11.5"}</span>
+<span id="cb9-226"><a href="#cb9-226" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb9-227"><a href="#cb9-227" aria-hidden="true" tabindex="-1"></a><span class="in">mregger acsbeta ldlcbeta [aw=1/(acsse^2)], ivw fe</span></span>
+<span id="cb9-228"><a href="#cb9-228" aria-hidden="true" tabindex="-1"></a><span class="in">lincom ldlcbeta, or</span></span>
+<span id="cb9-229"><a href="#cb9-229" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-230"><a href="#cb9-230" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-231"><a href="#cb9-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-232"><a href="#cb9-232" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码11.5输出"}</span>
+<span id="cb9-233"><a href="#cb9-233" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-234"><a href="#cb9-234" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image12.png)</span>{width="100%"}</span>
+<span id="cb9-235"><a href="#cb9-235" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-236"><a href="#cb9-236" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-237"><a href="#cb9-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-238"><a href="#cb9-238" aria-hidden="true" tabindex="-1"></a>结果表明采取逆方差加权法合并多个SNPs分析得出1个单位LDL的增加会导致冠脉综合征风险增加1.63倍。</span>
+<span id="cb9-239"><a href="#cb9-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-240"><a href="#cb9-240" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码11.6"}</span>
+<span id="cb9-241"><a href="#cb9-241" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb9-242"><a href="#cb9-242" aria-hidden="true" tabindex="-1"></a><span class="in">mrmedian acsbeta acsse ldlcbeta ldlcse, weighted</span></span>
+<span id="cb9-243"><a href="#cb9-243" aria-hidden="true" tabindex="-1"></a><span class="in">lincom beta, or</span></span>
+<span id="cb9-244"><a href="#cb9-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-245"><a href="#cb9-245" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-246"><a href="#cb9-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-247"><a href="#cb9-247" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码11.6输出"}</span>
+<span id="cb9-248"><a href="#cb9-248" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-249"><a href="#cb9-249" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image13.png)</span>{width="100%"}</span>
+<span id="cb9-250"><a href="#cb9-250" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-251"><a href="#cb9-251" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-252"><a href="#cb9-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-253"><a href="#cb9-253" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码11.7"}</span>
+<span id="cb9-254"><a href="#cb9-254" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb9-255"><a href="#cb9-255" aria-hidden="true" tabindex="-1"></a><span class="in">mregger acsbeta ldlcbeta [aw=1/(acsse^2)]</span></span>
+<span id="cb9-256"><a href="#cb9-256" aria-hidden="true" tabindex="-1"></a><span class="in">lincom slope, or</span></span>
+<span id="cb9-257"><a href="#cb9-257" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-258"><a href="#cb9-258" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-259"><a href="#cb9-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-260"><a href="#cb9-260" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码11.7输出"}</span>
+<span id="cb9-261"><a href="#cb9-261" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-262"><a href="#cb9-262" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image14.png)</span>{width="100%"}</span>
+<span id="cb9-263"><a href="#cb9-263" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-264"><a href="#cb9-264" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-265"><a href="#cb9-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-266"><a href="#cb9-266" aria-hidden="true" tabindex="-1"></a>几种方法得出的结论基本一致。亦可以绘制出整合效应图和森林图。整合效应图上每一个十字星代表一个SNP作为工具变量，拟合的直线及其95%置信区间的斜率即代表效应大小。森林图的解读与荟萃分析一致，每个SNP类似荟萃分析中的一项研究。 图形与各 SNP 的效应估计应同时报告置信区间、异质性指标和离群变异的处理规则；不同 MR 方法结果一致只能提供支持性证据，不能替代对工具变量假设的论证。</span>
+<span id="cb9-267"><a href="#cb9-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-268"><a href="#cb9-268" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码11.8"}</span>
+<span id="cb9-269"><a href="#cb9-269" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb9-270"><a href="#cb9-270" aria-hidden="true" tabindex="-1"></a><span class="in">mreggerplot acsbeta acsse ldlcbeta ldlcse, gpci</span></span>
+<span id="cb9-271"><a href="#cb9-271" aria-hidden="true" tabindex="-1"></a><span class="in">mrforest acsbeta acsse ldlcbeta ldlcse, ivid(rsid) models(4)</span></span>
+<span id="cb9-272"><a href="#cb9-272" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-273"><a href="#cb9-273" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-274"><a href="#cb9-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-275"><a href="#cb9-275" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码11.8输出（整合效应图）"}</span>
+<span id="cb9-276"><a href="#cb9-276" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-277"><a href="#cb9-277" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image15.png)</span>{width="100%"}</span>
+<span id="cb9-278"><a href="#cb9-278" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-279"><a href="#cb9-279" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-280"><a href="#cb9-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-281"><a href="#cb9-281" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码11.8输出（森林图）"}</span>
+<span id="cb9-282"><a href="#cb9-282" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb9-283"><a href="#cb9-283" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image16.png)</span>{width="100%"}</span>
+<span id="cb9-284"><a href="#cb9-284" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-285"><a href="#cb9-285" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb9-286"><a href="#cb9-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-287"><a href="#cb9-287" aria-hidden="true" tabindex="-1"></a>虽然MR应用广泛，需了解其优势和局限性。 MR 研究的报告可参考 STROBE-MR 声明：明确因果问题和 estimand，描述数据来源、SNP 选择和协调、三项 IV 假设的依据、主分析与敏感性分析、数据/代码可得性及外推边界（Skrivankova 等，2021）。</span>
+<span id="cb9-288"><a href="#cb9-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-289"><a href="#cb9-289" aria-hidden="true" tabindex="-1"></a>MR的优点是一个天然的随机化过程，没有反向的因果。当暴露与结果之间的关联不是由于暴露导致结果变化，而是由于结果导致暴露变化时，则发生反向因果关系。由于个体的基因型是在受孕时确定的，无法更改，因此不会存在因果关系与基因型相关联的反向因果关系，这也是孟德尔随机化的优势。</span>
+<span id="cb9-290"><a href="#cb9-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-291"><a href="#cb9-291" aria-hidden="true" tabindex="-1"></a>在某些情况下，许多感兴趣的风险无法可靠地衡量，亦或无法通过随机化方法实现干预，如腰围，体重等。在这种情况下，可以将遗传变异用作暴露的代理，并且可以追溯这些风险与结果的关联。</span>
+<span id="cb9-292"><a href="#cb9-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-293"><a href="#cb9-293" aria-hidden="true" tabindex="-1"></a>此外，工具变量估计值不会因暴露中的经典测量误差（包括个体内部差异）而衰减。这与观察性研究相反，在观察性研究中，暴露中的测量误差通常会导致回归系数朝着零值的方向衰减。</span>
+<span id="cb9-294"><a href="#cb9-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-295"><a href="#cb9-295" aria-hidden="true" tabindex="-1"></a>当然MR也存在诸多缺点，难以找到合适的SNPs，需要大样本的GWAS研究；单个SNP是一个弱工具，因此需要很多SNPs集合构成一个综合因果估计；MR为工具变量方法，统计学假设中需要考虑第二第三原则违反情况下的因果推断，可以通过估计工具变量和各种特征之间的关系来分析讨论，虽然这些评估不能证明这两个假设的成立，但可以提供有关其合理性的证据；MR无法解释生物学机制，发育过程中的一些代偿可能会导致表型的改变，表型也可能是多样性的。 尤其应避免把 MR 结果称为“天然随机试验的证明”。MR 估计反映遗传预测的、通常是长期的暴露差异；它未必等同于在特定年龄、剂量和持续时间实施临床干预所产生的效果。</span>
+<span id="cb9-296"><a href="#cb9-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-297"><a href="#cb9-297" aria-hidden="true" tabindex="-1"></a><span class="fu">## 附录：孟德尔随机化研究的关键评估清单</span></span>
+<span id="cb9-298"><a href="#cb9-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-299"><a href="#cb9-299" aria-hidden="true" tabindex="-1"></a><span class="fu">### 孟德尔随机化的核心假设</span></span>
+<span id="cb9-300"><a href="#cb9-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-301"><a href="#cb9-301" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>是否有足够的证据表明遗传变异与所关注的风险因素密切相关？</span>
+<span id="cb9-302"><a href="#cb9-302" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>遗传变异是否与潜在的混杂因素有关？是否介绍了这种关系？</span>
+<span id="cb9-303"><a href="#cb9-303" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>遗传变异是否有办法通过其他途径影响结果（横向多变性）？是否介绍了多种孟德尔随机化方法（如MR Egger、中位数和模式估计，或使用阴性对照人群），以更全面地调查这一问题？</span>
+<span id="cb9-304"><a href="#cb9-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-305"><a href="#cb9-305" aria-hidden="true" tabindex="-1"></a><span class="fu">### 方法报告</span></span>
+<span id="cb9-306"><a href="#cb9-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-307"><a href="#cb9-307" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>暴露和结果的效应和其他等位基因的编码方向是否相同？</span>
+<span id="cb9-308"><a href="#cb9-308" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>两样本的研究：两个样本是否取自同一人群？</span>
+<span id="cb9-309"><a href="#cb9-309" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>两样本是否独立？</span>
+<span id="cb9-310"><a href="#cb9-310" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>分析是否只限于独立的工具变量（即删除了遗传连锁不平衡的SNPs）或分析是否允许工具变量之间的相关性？</span>
+<span id="cb9-311"><a href="#cb9-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-312"><a href="#cb9-312" aria-hidden="true" tabindex="-1"></a><span class="fu">### 数据展示</span></span>
+<span id="cb9-313"><a href="#cb9-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-314"><a href="#cb9-314" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>是否将结果表述为遗传关联、工具变量估计，或两者都是？</span>
+<span id="cb9-315"><a href="#cb9-315" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>如果提供的是工具变量估计值，是否将其与传统的观察性估计值进行了比较？</span>
+<span id="cb9-316"><a href="#cb9-316" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>是否提供敏感性分析，如MR Egger、加权中位数和模式孟德尔随机化，或使用阴性对照人群？</span>
+<span id="cb9-317"><a href="#cb9-317" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>是否手动挑选哪些SNPs进入工具变量以解决多态性问题？如果是这样，其方法和理由是否清楚？</span>
+<span id="cb9-318"><a href="#cb9-318" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>是否在补充材料中提供了使用的数据（特别是在群体水平上进行的孟德尔随机化分析），以便研究人员复制他们的发现？</span>
+<span id="cb9-319"><a href="#cb9-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-320"><a href="#cb9-320" aria-hidden="true" tabindex="-1"></a><span class="fu">### 解释</span></span>
+<span id="cb9-321"><a href="#cb9-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-322"><a href="#cb9-322" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>如果孟德尔随机化估计值与观察估计值相似，并提供了支持因果效应的证据，是否是由于单一研究中的弱工具偏倚或通过横向多态性的混杂造成的？</span>
+<span id="cb9-323"><a href="#cb9-323" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>如果孟德尔随机化估计值与观察性估计值不同，并提供了因果效应的少量证据，是否是由于使用了弱工具造成的偏差或由于多态性造成的负向混杂？</span>
+<span id="cb9-324"><a href="#cb9-324" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>孟德尔随机化提供了风险因素在群体一生中的影响估计，对特定年龄段的干预措施有同样大小的效果吗？</span>
+<span id="cb9-325"><a href="#cb9-325" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>孟德尔随机化估计的95%置信区间是否足够精确，因果效应是否临床意义的差异？</span>
+<span id="cb9-326"><a href="#cb9-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-327"><a href="#cb9-327" aria-hidden="true" tabindex="-1"></a><span class="fu">### 临床意义</span></span>
+<span id="cb9-328"><a href="#cb9-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-329"><a href="#cb9-329" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>结果是否与其他形式的证据相互印证？能否像PCSK9抑制剂那样进行临床试验以提供明确的证据？</span>
+<span id="cb9-330"><a href="#cb9-330" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>如果随机临床试验不可行（如饮酒和心脏病风险的情况）或不可能在短期内进行（如降低BMI和心脏病风险的生活方式干预的情况），并且现有的证据来自多个孟德尔随机化研究和其他稳健的研究设计，趋向于一个类似的结果，并显示出关联的一致性，这些信息可以用来指导病人护理；例如，建议减肥以预防心脏病，或建议不要适度饮酒以预防心血管疾病。 在用于临床建议前，还应结合干预试验、机制研究、观察性研究和不同人群中的 MR 结果进行证据三角验证，并清楚区分遗传预测的终生暴露效应与可操作的短期干预效应。</span>
+<span id="cb9-331"><a href="#cb9-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-332"><a href="#cb9-332" aria-hidden="true" tabindex="-1"></a><span class="fu">## 本章参考文献</span></span>
+<span id="cb9-333"><a href="#cb9-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-334"><a href="#cb9-334" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Hernán MA, Robins JM. Instruments for causal inference: an epidemiologist's dream? *Epidemiology*. 2006;17:360–372. <span class="co">[</span><span class="ot">PMID: 16755261</span><span class="co">](https://pubmed.ncbi.nlm.nih.gov/16755261/)</span></span>
+<span id="cb9-335"><a href="#cb9-335" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Baiocchi M, Cheng J, Small DS. Instrumental variable methods for causal inference. *Statistics in Medicine*. 2014;33:2297–2340. <span class="co">[</span><span class="ot">PMID: 24599889</span><span class="co">](https://pubmed.ncbi.nlm.nih.gov/24599889/)</span></span>
+<span id="cb9-336"><a href="#cb9-336" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Lousdal ML. An introduction to instrumental variable assumptions, validation and estimation. *Emerging Themes in Epidemiology*. 2018;15:1. <span class="co">[</span><span class="ot">PMID: 29387137</span><span class="co">](https://pubmed.ncbi.nlm.nih.gov/29387137/)</span></span>
+<span id="cb9-337"><a href="#cb9-337" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Garabedian LF, Chu P, Toh S, et al. Potential bias of instrumental variable analyses for observational comparative effectiveness research. *Annals of Internal Medicine*. 2014;161:131–138. <span class="co">[</span><span class="ot">PMID: 25023252</span><span class="co">](https://pubmed.ncbi.nlm.nih.gov/25023252/)</span></span>
+<span id="cb9-338"><a href="#cb9-338" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Bowden J, Davey Smith G, Burgess S. Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. *International Journal of Epidemiology*. 2015;44:512–525. <span class="co">[</span><span class="ot">PMID: 26050253</span><span class="co">](https://pubmed.ncbi.nlm.nih.gov/26050253/)</span></span>
+<span id="cb9-339"><a href="#cb9-339" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Bowden J, Davey Smith G, Haycock PC, Burgess S. Consistent estimation in Mendelian randomization with some invalid instruments using a weighted median estimator. *Genetic Epidemiology*. 2016;40:304–314. <span class="co">[</span><span class="ot">PMID: 27061298</span><span class="co">](https://pubmed.ncbi.nlm.nih.gov/27061298/)</span></span>
+<span id="cb9-340"><a href="#cb9-340" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Burgess S, Davey Smith G, Davies NM, et al. Guidelines for performing Mendelian randomization investigations. *Wellcome Open Research*. 2020;4:186. <span class="co">[</span><span class="ot">PMID: 32760811</span><span class="co">](https://pubmed.ncbi.nlm.nih.gov/32760811/)</span></span>
+<span id="cb9-341"><a href="#cb9-341" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>Skrivankova VW, Richmond RC, Woolf BAR, et al. Strengthening the Reporting of Observational Studies in Epidemiology Using Mendelian Randomization: The STROBE-MR Statement. *JAMA*. 2021;326:1614–1621. <span class="co">[</span><span class="ot">PMID: 34698778</span><span class="co">](https://pubmed.ncbi.nlm.nih.gov/34698778/)</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; 基于倾向评分的方法 – 临床医学研究中的因果推断</title>
+<title>10&nbsp; 基于倾向评分的因果推断方法 – 临床医学研究中的因果推断</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -120,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/10-propensity-score.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">基于倾向评分的方法</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/10-propensity-score.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">基于倾向评分的因果推断方法</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
@@ -208,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10-propensity-score.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">基于倾向评分的方法</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">基于倾向评分的因果推断方法</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -293,12 +322,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">目录</h2>
    
   <ul>
-  <li><a href="#倾向得分" id="toc-倾向得分" class="nav-link active" data-scroll-target="#倾向得分"><span class="header-section-number">10.1</span> 倾向得分</a></li>
-  <li><a href="#直接将倾向评分加入到回归方程中" id="toc-直接将倾向评分加入到回归方程中" class="nav-link" data-scroll-target="#直接将倾向评分加入到回归方程中"><span class="header-section-number">10.2</span> 直接将倾向评分加入到回归方程中</a></li>
-  <li><a href="#利用倾向评分进行匹配" id="toc-利用倾向评分进行匹配" class="nav-link" data-scroll-target="#利用倾向评分进行匹配"><span class="header-section-number">10.3</span> 利用倾向评分进行匹配</a></li>
-  <li><a href="#利用倾向评分进行逆概率加权" id="toc-利用倾向评分进行逆概率加权" class="nav-link" data-scroll-target="#利用倾向评分进行逆概率加权"><span class="header-section-number">10.4</span> 利用倾向评分进行逆概率加权</a></li>
-  <li><a href="#其他加权方法" id="toc-其他加权方法" class="nav-link" data-scroll-target="#其他加权方法"><span class="header-section-number">10.5</span> 其他加权方法</a></li>
-  <li><a href="#以倾向评分为基础的各种方法的选择" id="toc-以倾向评分为基础的各种方法的选择" class="nav-link" data-scroll-target="#以倾向评分为基础的各种方法的选择"><span class="header-section-number">10.6</span> 以倾向评分为基础的各种方法的选择</a></li>
+  <li><a href="#倾向性评分propensity-score" id="toc-倾向性评分propensity-score" class="nav-link active" data-scroll-target="#倾向性评分propensity-score"><span class="header-section-number">10.1</span> 倾向性评分（Propensity Score）</a></li>
+  <li><a href="#直接将倾向评分加入到回归方程" id="toc-直接将倾向评分加入到回归方程" class="nav-link" data-scroll-target="#直接将倾向评分加入到回归方程"><span class="header-section-number">10.2</span> 直接将倾向评分加入到回归方程</a></li>
+  <li><a href="#利用倾向性评分进行匹配" id="toc-利用倾向性评分进行匹配" class="nav-link" data-scroll-target="#利用倾向性评分进行匹配"><span class="header-section-number">10.3</span> 利用倾向性评分进行匹配</a></li>
+  <li><a href="#利用倾向性评分进行逆概率加权inverse-probability-weighting-ipw" id="toc-利用倾向性评分进行逆概率加权inverse-probability-weighting-ipw" class="nav-link" data-scroll-target="#利用倾向性评分进行逆概率加权inverse-probability-weighting-ipw"><span class="header-section-number">10.4</span> 利用倾向性评分进行逆概率加权（inverse probability weighting, IPW）</a></li>
+  <li><a href="#其他加权方法" id="toc-其他加权方法" class="nav-link" data-scroll-target="#其他加权方法"><span class="header-section-number">10.5</span> 其他加权方法</a>
+  <ul class="collapse">
+  <li><a href="#重叠加权overlap-weighting" id="toc-重叠加权overlap-weighting" class="nav-link" data-scroll-target="#重叠加权overlap-weighting"><span class="header-section-number">10.5.1</span> 重叠加权（Overlap weighting）</a></li>
+  <li><a href="#匹配加权match-weighting" id="toc-匹配加权match-weighting" class="nav-link" data-scroll-target="#匹配加权match-weighting"><span class="header-section-number">10.5.2</span> 匹配加权（Match weighting）</a></li>
+  <li><a href="#精细分层加权fine-stratification-weighting" id="toc-精细分层加权fine-stratification-weighting" class="nav-link" data-scroll-target="#精细分层加权fine-stratification-weighting"><span class="header-section-number">10.5.3</span> 精细分层加权（Fine stratification weighting）</a></li>
+  <li><a href="#标准化死亡率加权standardized-mortality-ratio-weighting" id="toc-标准化死亡率加权standardized-mortality-ratio-weighting" class="nav-link" data-scroll-target="#标准化死亡率加权standardized-mortality-ratio-weighting"><span class="header-section-number">10.5.4</span> 标准化死亡率加权（Standardized mortality ratio weighting）</a></li>
+  </ul></li>
+  <li><a href="#以倾向评分为基础的各种方法的选择" id="toc-以倾向评分为基础的各种方法的选择" class="nav-link" data-scroll-target="#以倾向评分为基础的各种方法的选择"><span class="header-section-number">10.6</span> 以倾向评分为基础的各种方法的选择</a>
+  <ul class="collapse">
+  <li><a href="#正确规范倾向性评分模型" id="toc-正确规范倾向性评分模型" class="nav-link" data-scroll-target="#正确规范倾向性评分模型"><span class="header-section-number">10.6.1</span> 正确规范倾向性评分模型</a></li>
+  <li><a href="#评估暴露组和参照组之间的倾向性评分分布重叠情况" id="toc-评估暴露组和参照组之间的倾向性评分分布重叠情况" class="nav-link" data-scroll-target="#评估暴露组和参照组之间的倾向性评分分布重叠情况"><span class="header-section-number">10.6.2</span> 评估暴露组和参照组之间的倾向性评分分布重叠情况</a></li>
+  <li><a href="#推断目标的选择" id="toc-推断目标的选择" class="nav-link" data-scroll-target="#推断目标的选择"><span class="header-section-number">10.6.3</span> 推断目标的选择</a></li>
+  </ul></li>
+  <li><a href="#利用倾向性评分进行因果推断的局限性" id="toc-利用倾向性评分进行因果推断的局限性" class="nav-link" data-scroll-target="#利用倾向性评分进行因果推断的局限性"><span class="header-section-number">10.7</span> 利用倾向性评分进行因果推断的局限性</a></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献"><span class="header-section-number">10.8</span> 参考文献</a></li>
   </ul>
 </nav>
     </div>
@@ -307,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">基于倾向评分的方法</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">基于倾向评分的因果推断方法</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
 </div>
 
 
@@ -324,42 +366,491 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<p>在因果推断中，对于某个接受干预的个体，在对照组中找到与其各方面特征都一致的个体将其配对。对干预组中的其他个体采取同样的操作，在对照组中寻找相似的个体进行两两配对。如果能保证配对的两个组中个体的完全相似，那就可以在配对的个体中直接计算因果效应。简而言之，配对就是寻找对照组与干预组中相似的个体，在配对的个体中估计因果效应。配对过程大致上可以分为四个步骤：定义相似性，实施配对，检验配对效果，估计因果效应。配对优于回归之处在于：配对的时候研究者没有任何结局变量的信息，只有在完成配对以后才会用到结局变量，这样就保证了研究的科学性，避免了回归中的主观因素（即为了得到有意义的p值对纳入的控制变量反复多次调整）。这种“先设计、后分析”的做法有助于减少因查看结局后反复调整模型带来的主观性；但配对并不天然优于回归，仍须依赖协变量测量充分、模型设定合理和匹配后平衡可接受等条件。</p>
+<p>利用协变量（x1，x2，……，xk）进行配对，一般使用标准化欧式距离来测量两个样本之间的相似性。</p>
+<p><span class="math display">\[d(x_i,x_j)=\sqrt{\sum_{k=1}^{K}\frac{(x_{ki}-x_{kj})^2}{\sigma_k^2}}\]</span></p>
+<p>表示两个样本 和 之间的距离， 是某个变量的标准差。那么以样本的哪些特征来测量他们的距离呢？临床研究中样本的特征常常是多个维度的，包括年龄、性别、疾病严重程度、治疗史等等。维度太多带来了计算的复杂性，因此，如果能找到一个简单的变量，用于衡量样本与样本之间的距离，就能大大简化计算。</p>
+<section id="倾向性评分propensity-score" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="倾向性评分propensity-score"><span class="header-section-number">10.1</span> 倾向性评分（Propensity Score）</h2>
+<p>倾向性评分的含义是指接受某种干预的概率。在1:1分配的随机对照研究，每个个体接受该干预的概率都为50%，因此，每个个体的倾向性评分即为0.5，而非随机对照研究当中的倾向性评分需要去估计。估计的方程在考虑所有混杂因素的情况下接受某种干预的概率，即更严格地说，倾向评分是在给定处理前协变量 X 后接受处理的条件概率 e(X)=Pr(A=1|X)；它用于构造协变量分布可比的样本或加权伪总体，而不是直接估计因果效应。</p>
+<p><span class="math display">\[PS(x_i)=Pr[A=1\mid x_i]\]</span></p>
+<p>是这个样本的混杂因素。</p>
+<p>倾向性评分的估计一般采用回归方程，将干预变量对所有的混杂因素进行回归。然后得出干预的预测概率即为该干预的倾向性评分。也可以运用一些机器学习的方法来进行倾向性评分的估计。建模的首要目标不是提高对处理分配的预测准确性，而是使后续匹配或加权后的基线协变量达到平衡。协变量应在处理发生前测量，并结合临床知识与因果图选取；不应按单变量 P 值筛选，也不应纳入处理后的变量或碰撞因子。</p>
+<p>采用案例9.1的数据，估计接受内窥镜手术的概率，并显示倾向性评分的分布。红色区域为干预组，即为内窥镜组，蓝色区域为对照组，即显微镜组。红色组和蓝色组的倾向性评分都基本分布在0.3到0.6之间，两组的重叠性较高。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.1">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">注记</span>编写说明
+<span class="screen-reader-only">注记</span>代码10.1
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>本章内容整理中。可将已校订的 Word 书稿（<code>乔Book/</code> 目录）正文迁移至此，公式用 <code>$...$</code> / <code>$$...$$</code>，图片放 <code>images/</code>，代码用 <code>{r} 或</code>{python} 代码块。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>. psmatch2 Treatment <span class="kw">k</span> age, <span class="kw">logit</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>. psgraph, <span class="bn">bin</span>(40)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<section id="倾向得分" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="倾向得分"><span class="header-section-number">10.1</span> 倾向得分</h2>
-<p><em>待补充。</em></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.1输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.1输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch10-image1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div class="text-center">
+<p><img src="images/ch10-image2.png" class="img-fluid" style="width:85.0%"></p>
+</div>
+</div>
+</div>
+<p>倾向性评分提示肿瘤侵袭性越高（k），患者接受内窥镜治疗的概率越高。</p>
+<p>与之前讨论过的所有因果推断方法一样，使用倾向性评分法需要具备可交换性、重叠性和一致性等识别条件。如果阻断混杂因素后可消除后门路径，那么阻断PS 也可消除后门路径。因此，在协变量水平内，干预组与对照组的可交换性意味着倾向性评分水平内的可交换性。此外，利用倾向性评分来进行因果推断的一个重要的前提是需要考虑倾向性得分的重叠性。图10.1中左边的曲线中，灰色的区域两条曲线有相当一部分的受试者重合，然而在右边的曲线中，两组人群区分的比较开，两者之间的重叠性较差。因此在右边的数据中进行因果推断就比较困难。当然，倾向性评分只平衡了测量的协变量，这并不能防止未测量因素的残留混杂。随机化同时平衡了测量的和未测量的协变量，因此它是消除混杂的首选方法。因此，实施匹配或加权前后均应检查倾向评分的分布与各基线协变量的平衡；倾向评分重叠本身不能替代协变量平衡诊断。</p>
+<div class="text-center">
+<p><img src="images/ch10-image3.png" class="img-fluid" style="width:100.0%"></p>
+<p><strong>图10.1 重叠性较好与较差的倾向性评分</strong></p>
+</div>
+<p>利用倾向性评分来进行因果推断有三种方法。</p>
 </section>
-<section id="直接将倾向评分加入到回归方程中" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="直接将倾向评分加入到回归方程中"><span class="header-section-number">10.2</span> 直接将倾向评分加入到回归方程中</h2>
-<p><em>待补充。</em></p>
+<section id="直接将倾向评分加入到回归方程" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="直接将倾向评分加入到回归方程"><span class="header-section-number">10.2</span> 直接将倾向评分加入到回归方程</h2>
+<p>作为回归方程中的唯一协变量</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">reg</span> Outcome Treatment _pscore, <span class="kw">or</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.2输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.2输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch10-image4.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<p>回归结果提示内窥镜组显著增加内分泌缓解率，比值比为2.29，95%置信区间为1.62-3.22，p值0.000。此处报告的 OR 属于条件效应，未必等同于边际风险比或风险差；为便于临床解释，宜同时给出标准化后的绝对风险、风险差或风险比及其 95% 置信区间。</p>
 </section>
-<section id="利用倾向评分进行匹配" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="利用倾向评分进行匹配"><span class="header-section-number">10.3</span> 利用倾向评分进行匹配</h2>
-<p><em>待补充。</em></p>
+<section id="利用倾向性评分进行匹配" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="利用倾向性评分进行匹配"><span class="header-section-number">10.3</span> 利用倾向性评分进行匹配</h2>
+<p>将倾向评分相同的干预组和对照组之间进行配对，在配对的新样本当中进行因果推断。利用倾向评分进行匹配的原理如图10.2所示，黑色小人代表干预组，黄色小人代表对照组。其倾向性评分在x轴上表示，靠近0代表被分配到干预组的概率很小，靠近1代表分配到干预组的概率较大。倾向性评分匹配第一步从干预组中抽取一个个体，计算其倾向性评分，在对照组中寻找倾向性评分与其最近的黄色小人，将这两个小人形成一个配对。利用同样的方法重复操作，反复进行配对。最后在匹配好的样本中进行因果效应估计。此过程可能会剩下一些没有匹配到的患者，比如说靠近倾向性评分为0附近的黄色小人没有匹配到。</p>
+<div class="text-center">
+<p><img src="images/ch10-image5.png" class="img-fluid" style="width:100.0%"></p>
+<p><strong>图10.2 倾向性评分匹配原理</strong></p>
+</div>
+<p>实际的配对操作中可能会遇到四个问题：</p>
+<p>一对一或一对多配对：一对一即干预组中的样本在对照组中寻找一个距离最近的样本与其匹配。一对多即干预组中的样本在对照组中寻找多个距离最近的样本与其匹配。一般而言，一对一匹配样本相似性比较好，但可能导致匹配后的样本量不足；而一对多匹配样本相似性没有较好满足，但匹配后的样本量充足。实际情况中，如果原始数据中对照组的样本量与干预组差距很大，可以选择一对多匹配。</p>
+<p>如何定义距离最近？定义卡尺（caliper），允许两个样本进行匹配的最大距离。可以想象一下两个样本距离多近才能够匹配，如果卡尺太小，就会导致许多样本无法得到匹配，如卡尺定为0.001，即两样本相差0.001距离才能被匹配，就可能导致许多样本无法匹配。卡尺定太大，就会导致许多样本距离很大，也会被匹配到，可交换性得不到满足。实务中常以 logit(PS) 标准差的 0.2 作为 1:1 最近邻匹配的起始卡尺，并需结合匹配后协变量平衡、样本损失与临床可比性调整，而不应机械套用单一数值。</p>
+<p>对照组中的个体是否可以重复匹配？如果原始数据中对照组的样本量远远小于治疗组，为了不损失治疗组的样本量，可以重复匹配对照组。</p>
+<p>如果对照组中有多个样本与需要匹配的干预组样本距离一致如何操作？一对一匹配的前提下可以随机选择其中一个，也可以全部纳入，指定每个样本的权重，计算多个样本的加权平均值。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. psmatch2 Treatment <span class="kw">k</span> age, <span class="kw">logit</span> outcome(Outcome) n(1) cal(0.01) ties</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.3输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.3输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch10-image6.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. psmatch2 Treatment <span class="kw">k</span> age, <span class="kw">logit</span> outcome(Outcome) n(1) cal(0.001) ties</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.4输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.4输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch10-image7.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<p>卡尺定为0.01时只有3例患者无法匹配，而卡尺定为0.001时有75例无法匹配。需要指出的是匹配后的纳入样本往往和原始数据中的样本不同，因此基于匹配方法得到的因果效应估计也是针对匹配后的样本，称为干预组中的因果效应（Average treatment effect in the treated，ATT）。干预组中的缓解率为56.7%，对照组中的缓解率为37.6%，计算比值比为2.17。匹配会改变分析人群，故应明确此处估计的目标人群（通常为可匹配治疗者的 ATT），并报告未匹配者的数量与基线特征。</p>
+<p>配对分析后的检验如同随机对照临床研究一样需要给出配对后的干预组和对照组各个变量的分布情况，查看是否有变量存在不平衡。下表为输出，U 代表没有匹配的样本，M 代表匹配样本。侵袭度在没有匹配当的样本中，干预组是2.2，对照组为1.7， t检验的p值是0.000，代表两组之间有明显差别的。而在匹配的样本中干预组和对照组都为2.1，t检验的p值是1.000。匹配后的样本中，把侵袭性这样一个不均衡的指标给均衡了。同样倾向性评分方程中所有的指标在匹配以的样本中都均衡了。平衡诊断建议以每个协变量的绝对标准化均数差（absolute SMD）为主，常以 &lt;0.10 作为经验阈值；不应以 t 检验 P 值是否显著作为是否平衡的判据。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>. pstest <span class="kw">k</span> age, both <span class="kw">graph</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.5输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.5输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch10-image8.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
 </section>
-<section id="利用倾向评分进行逆概率加权" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="利用倾向评分进行逆概率加权"><span class="header-section-number">10.4</span> 利用倾向评分进行逆概率加权</h2>
-<p><em>待补充。</em></p>
+<section id="利用倾向性评分进行逆概率加权inverse-probability-weighting-ipw" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="利用倾向性评分进行逆概率加权inverse-probability-weighting-ipw"><span class="header-section-number">10.4</span> 利用倾向性评分进行逆概率加权（inverse probability weighting, IPW）</h2>
+<p>给某每一个受试者分配一个权重，通过这样的一个权重我们就可以构建一个假人群，在这个假人群当中我们可以通过统计学的方法来证明不存在混杂效应，然后进行因果推断（图10.3）。例如，一个干预组中的患者，根据倾向性评分模型，只有25%的概率为干预组，所以这个患者的权重为4。理由是他不仅代表自己，还代表4个“类似”他的人。对于对照组中的患者，若根据倾向性评分模型，有90%的概率为干预组，则这个患者的权重为10。理由是他只有10%的概率为对照组，他还代表10个“类似”他的人。</p>
+<div class="text-center">
+<p><img src="images/ch10-image9.png" class="img-fluid" style="width:100.0%"></p>
+<p><strong>图10.3 逆概率加权原理</strong></p>
+</div>
+<p>如果研究的问题只包含两种治疗方式（干预或对照），那么权重方程又可写成：</p>
+<p><span class="math display">\[w_{ki}^{T=1}=\frac{1}{Pr(T=1\mid k_i)},\qquad w_{ki}^{T=0}=\frac{1}{1-Pr(T=1\mid k_i)}\]</span></p>
+<p>计算权重后，将回归方程的权重指定为逆概率权重。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.6">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> ipweight = 1/_pscore <span class="kw">if</span> Treatment == 1</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> ipweight = 1/(1-_pscore) <span class="kw">if</span> Treatment == 0</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logistic</span> Outcome Treatment [<span class="kw">iweight</span> = ipweight], <span class="kw">vce</span>(<span class="kw">robust</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.6输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.6输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch10-image10.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<p>然而，如果说某个样本的倾向性评分很小，其权重就会变得很大，从而导致因果效应估计引入了一个不稳定的因素，从而得出的推断方差较大。因此实践中，比较常用的是稳定的权重，给逆概率乘一个分子，即干预的总体概率（干预组）或者对照的总体概率（对照组），得出稳定的逆概率：稳定权重可缓和、但不能完全消除极端权重带来的不稳定性。应报告权重分布与有效样本量，并预先说明是否进行截尾、修剪或敏感性分析。</p>
+<p><span class="math display">\[SW_{ki}^{T=1}=\frac{Pr(T=1)}{Pr(T=1\mid k_i)},\qquad SW_{ki}^{T=0}=\frac{1-Pr(T=1)}{1-Pr(T=1\mid k_i)}\]</span></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.7">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.7
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> s_ipweight = (1/_pscore)*0.4516 <span class="kw">if</span> Treatment == 1</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> s_ipweight = 1/(1-_pscore)*0.5484 <span class="kw">if</span> Treatment == 0</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logistic</span> Outcome Treatment [<span class="kw">iweight</span> = s_ipweight], <span class="kw">vce</span>(<span class="kw">robust</span>) <span class="kw">or</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.7输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.7输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch10-image11.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<p>通过标化的均数差值（standardized mean difference，SMD）评估加权前后两组间协变量的差值。加权前两组的病例数分别为338和405，加权后为371.4和371.6。对于肿瘤侵袭性，加权前两组的差值为0.415，加权后为-0.002。一般，加权后的SMD需要控制在0.10之内。加权后病例数是加权伪样本量，并不等同于有效样本量。除 SMD 外，宜同时查看权重分布、有效样本量和协变量分布图。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.8">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.8
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>. teffects ipw (Outcome) (Treatment <span class="kw">k</span> age, <span class="kw">logit</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>. tebalance <span class="kw">summarize</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.8输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.8输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch10-image12.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
 </section>
 <section id="其他加权方法" class="level2" data-number="10.5">
 <h2 data-number="10.5" class="anchored" data-anchor-id="其他加权方法"><span class="header-section-number">10.5</span> 其他加权方法</h2>
-<p><em>待补充。</em></p>
+<p>拟概率加权的问题是极端值影响结果，常规逆概率加权对治疗组的权重为1/PS，未治疗组为1/(1−PS)，使得某个样本的倾向性评分很小或者很大，其权重就会变得很大。虽然可用拟概率加权截尾方法（截掉加权后两边的极值，如第95百分位数对第99百分位数），但这种方法却不能保证截尾位置是否合适，且样本量也减少了。</p>
+<section id="重叠加权overlap-weighting" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="重叠加权overlap-weighting"><span class="header-section-number">10.5.1</span> 重叠加权（Overlap weighting）</h3>
+<p>重叠加权给予每个患者分配与该患者属于相反治疗组概率的权重，克服了这些限制。具体来说，接受治疗的患者以未接受治疗的概率【1−PS】为权重，而未接受治疗的患者以接受治疗的概率【PS】为权重。这些权值使得PS接近于1或者0的离群值不会像拟概率加权那样主导结果和降低精度。而那些人群特征在两种治疗方法中都兼容的患者则相对贡献更大，由此产生的目标人群模仿了实用性随机试验的特点。该方法的目标人群是两种治疗均具有合理可能性的重叠（临床均势）人群，而非整个入组人群；因此其效应应与所选 estimand 一并报告。</p>
+<p>这种加权方法在结构上可以产生治疗组和参照组之间的精确协变量平衡。然而，推断的目标是重叠人群中的平均治疗效应（ATO），它可能与整个研究人群中的ATT或ATE不同。强调在临床均势情况下对患者进行比较（不考虑肯定会采取干预或肯定会采取对照的情况），结果可见效应较前面几种方法有所下降。 效应估计的改变通常源于目标人群改变，不能简单解释为效应“下降”。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.9">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.9
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> o_weight = 1 - _pscore <span class="kw">if</span> Treatment == 1</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> o_weight = _pscore <span class="kw">if</span> Treatment == 0</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logistic</span> Outcome Treatment [<span class="kw">iweight</span> = o_weight], <span class="kw">vce</span>(<span class="kw">robust</span>) <span class="kw">or</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.9输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.9输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch10-image13.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="匹配加权match-weighting" class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="匹配加权match-weighting"><span class="header-section-number">10.5.2</span> 匹配加权（Match weighting）</h3>
+<p>这种方法是将接受干预或接受治疗的概率中较低的一个与实际接受治疗的预测概率之比对患者进行加权。匹配加权给予接受治疗的患者的权重为【Minimum(PS, 1 − PS) / PS】，而未接受治疗的患者以接受治疗的权重【Minimum(PS, 1 − PS) / (1 − PS)】。此方法排除了极端的权重，消除了权重截断的需要。当两个组群体大小相同，倾向性评分分布有很好的重叠时，推断的目标接近整个人口中的ATE；当两个组群体大小不均，但倾向性评分分布有很好的重叠时，推断的目标接近样本数较少群体中的ATT。在倾向性评分分布重叠度有限的情况下，这种方法的推断目标是在重叠子群体中进行治疗效果估计。匹配加权的估计目标取决于样本构成与倾向评分重叠的具体形态，报告时不宜仅以接近 ATE 或 ATT 代替对目标分布的描述。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.10">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.10
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> m_weighting = <span class="fu">min</span>(_pscore, 1-_pscore)/_pscore</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> m_weighting = <span class="fu">min</span>(_pscore, 1-_pscore)/(1-_pscore) <span class="kw">if</span> Treatment == 0</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span> Outcome Treatment [<span class="kw">iweight</span> = m_weighting], <span class="kw">vce</span>(<span class="kw">robust</span>) <span class="kw">or</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.10输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.10输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch10-image14.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="精细分层加权fine-stratification-weighting" class="level3" data-number="10.5.3">
+<h3 data-number="10.5.3" class="anchored" data-anchor-id="精细分层加权fine-stratification-weighting"><span class="header-section-number">10.5.3</span> 精细分层加权（Fine stratification weighting）</h3>
+<p>以平均治疗效果为目标的精细分层加权不直接使用倾向性评分来计算加权，而是用倾向性评分来创建精细分层。分层规则为固定的概率宽度（如0-0.02为分层1，0.02-0.04为分层2，以此类推）。没有干预患者或对照患者的分层被剔除后，根据剩余每个分层中的患者总数，计算出干预和对照组的权重。</p>
+<p>以治疗人群中的平均治疗效果为目标的精细分层与上述精细分层方法类似，倾向评分被用来创建精细分层，但治疗组的权重被设定为1，对照组患者根据其所致分层中的干预组患者数量进行重新加权。</p>
+</section>
+<section id="标准化死亡率加权standardized-mortality-ratio-weighting" class="level3" data-number="10.5.4">
+<h3 data-number="10.5.4" class="anchored" data-anchor-id="标准化死亡率加权standardized-mortality-ratio-weighting"><span class="header-section-number">10.5.4</span> 标准化死亡率加权（Standardized mortality ratio weighting）</h3>
+<p>这种方法是将接受治疗的病人的权重设置为1，并通过倾向性评分给予对照组患者的权重为【PS/（1-PS）】。与逆概率加权类似，标准化死亡率加权有可能受到极端权重的影响，因为倾向分数被直接用于计算权重。如果观察到大权重，可以考虑截断权重。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.11">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.11
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> smr_weighting = 1</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> smr_weighting = _pscore/(1-_pscore) <span class="kw">if</span> Treatment == 0</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span> Outcome Treatment [<span class="kw">iweight</span> = smr_weight], <span class="kw">vce</span>(<span class="kw">robust</span>) <span class="kw">or</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码10.11输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码10.11输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch10-image15.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="以倾向评分为基础的各种方法的选择" class="level2" data-number="10.6">
 <h2 data-number="10.6" class="anchored" data-anchor-id="以倾向评分为基础的各种方法的选择"><span class="header-section-number">10.6</span> 以倾向评分为基础的各种方法的选择</h2>
-<p><em>待补充。</em></p>
+<p>干预组样本倾向性评分在预先指定的范围内（卡尺）将其与固定数量的对照值相匹配，这通常是使用倾向性评分进行混杂调整的首选方法。然而，这种方法有一个重要的局限性，即可能放弃未匹配的样本。在倾向性评分匹配后，协变量的不平衡性可能会增加。匹配并非普遍首选；若旨在整个可比研究样本的 ATE 或希望尽量保留样本，可在重叠和稳定性良好的前提下考虑加权。方法应由目标 estimand、重叠程度、可接受的样本损失及平衡结果共同决定。</p>
+<p>对倾向性评分进行加权有几个优点。首先，与匹配不同，加权在分析中保留了大多数样本，因此，在估计治疗效果时可以提供更高的精度。其次，与倾向性评分的回归调整不同，加权很容易使治疗人群和参照人群之间的平衡得到透明的报告。最后，对倾向性评分的加权可以说是在分析中使用倾向性评分的最灵活的方法，有多种可用的变化，可以针对特定人群进行推断。除了使用逆概率治疗加权外，上述新的方法（包括倾向性评分精细分层加权、匹配加权和重叠加权）都可以克服传统加权方法的重要局限性。</p>
+<p>推断目标（estimand）是指估计的治疗效果所适用的患者人群。研究者在构思特定研究的推断目标时应考虑以下核心问题——用感兴趣的干预方法治疗研究中所有符合条件的患者是否可行？如果可行，那么推断的目标就可以定义为平均治疗效果（ATE）。如果不可行，即临床上不会给人群中符合条件的每一个人提供治疗，只有具有某些特征的、并实际接受干预的患者才是理想的干预对象，因此推断的目标可定义为治疗人群的平均治疗效果（ATT）。下表总结了每种加权方法的主要特点。</p>
+<p><strong>表10.1几种不同基于倾向性评分的加权方法</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">方法</th>
+<th style="text-align: left;">干预组</th>
+<th style="text-align: left;">对照组</th>
+<th style="text-align: left;">推断目标</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">逆概率加权</td>
+<td style="text-align: left;">1/PS</td>
+<td style="text-align: left;">1/(1-PS)</td>
+<td style="text-align: left;">ATE</td>
+<td style="text-align: left;">明确的推断目标，模拟了随机对照试验。然而，因为PS是直接用来创建权重，通常会出现极端的权重，可采用截尾解决极端权重。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">标准死亡率加权</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">PS/(1-PS)</td>
+<td style="text-align: left;">ATT</td>
+<td style="text-align: left;">加权是通过对照组的倾向性评分进行的，可以自然地扩展到有&gt;2个治疗组的情况。可能需要对权重进行修剪。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">重叠加权</td>
+<td style="text-align: left;">(1-PS)</td>
+<td style="text-align: left;">PS</td>
+<td style="text-align: left;">重叠人群中的ATE</td>
+<td style="text-align: left;">避免了极端权重。这种方法的目标人群可以被描述为重叠人群或具有合理临床均衡性人群中的治疗效果估计，而这些人群并不反映在常规护理中接受治疗的整个研究人群。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">匹配加权</td>
+<td style="text-align: left;">Min(PS, 1-PS) / PS</td>
+<td style="text-align: left;">Min(PS, 1-PS) / (1-PS)</td>
+<td style="text-align: left;">较小组别中的ATT</td>
+<td style="text-align: left;">避免了极端权重。可以自然地扩展到有两个以上治疗组的情况。当组别大小相同且PS分布有很好的重叠时，推断目标接近整个人群的ATE；当组别大小不均但PS分布有很好的重叠时，推断目标接近较小组别中的ATT。</td>
+</tr>
+</tbody>
+</table>
+<p>选择倾向性评分加权方法进行混杂调整时有若干考虑：</p>
+<section id="正确规范倾向性评分模型" class="level3" data-number="10.6.1">
+<h3 data-number="10.6.1" class="anchored" data-anchor-id="正确规范倾向性评分模型"><span class="header-section-number">10.6.1</span> 正确规范倾向性评分模型</h3>
+<p>在使用倾向性评分进行混杂调整的分析中，第一个关键步骤是避免倾向性评分模型的错误。由于研究者不可能知道治疗分配与所有协变量之间的真正结构性关联，因此，在从简单的逻辑回归模型中估计倾向性评分时，可能会出现模型的错误指定。可采用机器学习方法（参考）作为替代方法。 无论采用哪种方法构建倾向性评分模型，研究人员都应强调将结果风险因素纳入模型，并从模型中排除与结果无关但与治疗相关的强预测因素，以避免倾向性评分接近0或1。基于倾向分数分层的加权方法可能对倾向分数模型的错误指定更为稳健，因为它可以被概念化为倾向分数加权的半参数模型，只使用分数来创建分层，然后使用每个分层中的观察值计数来得出权重。倾向评分模型的优劣应由匹配或加权后的平衡判断，而非 c 统计量或预测精度。对于连续或非线性协变量，可考虑样条、交互项或灵活的机器学习模型，并保持模型选择与结局分析相对独立。</p>
+</section>
+<section id="评估暴露组和参照组之间的倾向性评分分布重叠情况" class="level3" data-number="10.6.2">
+<h3 data-number="10.6.2" class="anchored" data-anchor-id="评估暴露组和参照组之间的倾向性评分分布重叠情况"><span class="header-section-number">10.6.2</span> 评估暴露组和参照组之间的倾向性评分分布重叠情况</h3>
+<p>倾向性评分分布的高重叠度通常表明，在比较组之间的治疗选择中存在合理程度的临床等值。在考虑基于倾向评分的加权时，对非重叠区域进行修剪以确保限制在患者接受任何一种治疗的概率不为零的区域尤为重要。接近0或1的概率可能会导致较大的权重，从而过度影响分析，因为非典型情况下的患者肯定会接受这两种治疗中的一种。如果在修剪了非重叠区域后，丢失了很大一部分样本，这可能表明分布之间的重叠度不够。此外，由于不重叠而通过修剪排除观测值，会导致研究人群的构成发生重要变化，因此，可能会改变推断的目标。修剪阈值会改变目标人群，建议同时报告修剪规则、被排除人数与修剪前后的协变量分布，并通过不同合理阈值开展敏感性分析。</p>
+</section>
+<section id="推断目标的选择" class="level3" data-number="10.6.3">
+<h3 data-number="10.6.3" class="anchored" data-anchor-id="推断目标的选择"><span class="header-section-number">10.6.3</span> 推断目标的选择</h3>
+<p>由于基于倾向性评分的不同加权方法会导致针对不同人群的估计，研究者应密切关注他们的推断目标并选择相应的加权方法。人群平均治疗效应的目的是使治疗组和参照组的协变量分布相互类似，并与整个研究样本的分布类似。受治人群中的平均治疗效果ATT旨在使参考组中协变量的分布与治疗组中观察到的分布相似。具有临床均势子集的平均治疗效果，受倾向性评分分布重叠的影响很大，目标是总体人群中具有临床均势性子集的平均治疗效果（即排除了肯定会予以干预组或者肯定会予以对照组的患者，在这个子集中，临床上病人接受干预或对照有争议）</p>
+<p>某些加权方法很容易扩展到两个以上治疗组的情况，包括逆概率加权、匹配权重和标准死亡率加权。所有这些方法都涉及到在多元逻辑回归模型中为三个或更多的治疗产生倾向性分数。逆概率加权是根据实际接受治疗的倾向性的倒数来计算的，无需考虑治疗组的数量如何。对于三组或更多组的匹配权重，分子包括每个病人的所有可用倾向分数的最小值，分母包括实际接受治疗的倾向。对于标准死亡率加权，研究者可以通过将接受目标治疗的病人的权重设置为1，并将其他治疗组的权重计算为目标治疗的倾向与实际接受的治疗的倾向之比，来确定特定治疗组的ATT。</p>
+</section>
+</section>
+<section id="利用倾向性评分进行因果推断的局限性" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="利用倾向性评分进行因果推断的局限性"><span class="header-section-number">10.7</span> 利用倾向性评分进行因果推断的局限性</h2>
+<p>其局限性源于倾向性评分的方程，若估计错误会导致后续一系列的因果估计的错误。其次，存在未测量的混杂因素，利用倾向性评分也同样遗漏这些未测量的混杂因素，导致因果推断错误。第三、倾向性评分匹配需要考虑普适性问题，因为只有匹配的样本才能够被正确地估计因果效应，没有匹配的样本中的因果效应无法估计。未测量混杂无法由倾向评分修复，应结合领域知识、定量偏倚分析或 E-value 等敏感性分析讨论其潜在影响；外推到未匹配或缺乏重叠的人群时应谨慎。</p>
+</section>
+<section id="参考文献" class="level2" data-number="10.8">
+<h2 data-number="10.8" class="anchored" data-anchor-id="参考文献"><span class="header-section-number">10.8</span> 参考文献</h2>
+<ol type="1">
+<li>Rosenbaum PR, Rubin DB. The central role of the propensity score in observational studies for causal effects. <em>Biometrika</em>. 1983;70(1):41-55. doi:10.1093/biomet/70.1.41.</li>
+<li>Brookhart MA, Schneeweiss S, Rothman KJ, et al.&nbsp;Variable selection for propensity score models. <em>Am J Epidemiol</em>. 2006;163(12):1149-1156. doi:10.1093/aje/kwj149. PMID: 16624967.</li>
+<li>Austin PC. Balance diagnostics for comparing the distribution of baseline covariates between treatment groups in propensity-score matched samples. <em>Stat Med</em>. 2009;28(25):3083-3107. doi:10.1002/sim.3697. PMID: 19757444.</li>
+<li>Austin PC. Optimal caliper widths for propensity-score matching when estimating differences in means and differences in proportions in observational studies. <em>Pharm Stat</em>. 2011;10(2):150-161. doi:10.1002/pst.433. PMID: 20925139.</li>
+<li>Austin PC, Stuart EA. Moving towards best practice when using inverse probability of treatment weighting (IPTW) using the propensity score to estimate causal treatment effects in observational studies. <em>Stat Med</em>. 2015;34(28):3661-3679. doi:10.1002/sim.6607. PMID: 26238958.</li>
+<li>Deb S, Austin PC, Tu JV, et al.&nbsp;A review of propensity-score methods and their use in cardiovascular research. <em>Can J Cardiol</em>. 2016;32(2):259-265. doi:10.1016/j.cjca.2015.05.015. PMID: 26315351.</li>
+<li>Li F, Thomas LE, Li F. Addressing extreme propensity scores via the overlap weights. <em>Am J Epidemiol</em>. 2019;188(1):250-257. doi:10.1093/aje/kwy201. PMID: 30189042.</li>
+<li>Elze MC, Gregson J, Baber U, et al.&nbsp;Comparison of propensity score methods and covariate adjustment: evaluation in 4 cardiovascular studies. <em>J Am Coll Cardiol</em>. 2017;69(3):345-357. doi:10.1016/j.jacc.2016.10.060. PMID: 28104076.</li>
+<li>Garrido MM, Kelley AS, Paris J, et al.&nbsp;Methods for constructing and assessing propensity scores. <em>Health Serv Res</em>. 2014;49(5):1701-1720. doi:10.1111/1475-6773.12182. PMID: 24779867.</li>
+<li>VanderWeele TJ, Ding P. Sensitivity analysis in observational research: introducing the E-value. <em>Ann Intern Med</em>. 2017;167(4):268-274. doi:10.7326/M16-2607. PMID: 28693043.</li>
+</ol>
 
 
 <!-- -->
@@ -830,36 +1321,313 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 基于倾向评分的方法</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## 编写说明</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>本章内容整理中。可将已校订的 Word 书稿（<span class="in">`乔Book/`</span> 目录）正文迁移至此，公式用 <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span>，图片放 <span class="in">`images/`</span>，代码用 ```{r} 或 ```{python} 代码块。</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 倾向得分</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## 直接将倾向评分加入到回归方程中</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 利用倾向评分进行匹配</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 利用倾向评分进行逆概率加权</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## 其他加权方法</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## 以倾向评分为基础的各种方法的选择</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>_待补充。_</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 基于倾向评分的因果推断方法</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>在因果推断中，对于某个接受干预的个体，在对照组中找到与其各方面特征都一致的个体将其配对。对干预组中的其他个体采取同样的操作，在对照组中寻找相似的个体进行两两配对。如果能保证配对的两个组中个体的完全相似，那就可以在配对的个体中直接计算因果效应。简而言之，配对就是寻找对照组与干预组中相似的个体，在配对的个体中估计因果效应。配对过程大致上可以分为四个步骤：定义相似性，实施配对，检验配对效果，估计因果效应。配对优于回归之处在于：配对的时候研究者没有任何结局变量的信息，只有在完成配对以后才会用到结局变量，这样就保证了研究的科学性，避免了回归中的主观因素（即为了得到有意义的p值对纳入的控制变量反复多次调整）。这种“先设计、后分析”的做法有助于减少因查看结局后反复调整模型带来的主观性；但配对并不天然优于回归，仍须依赖协变量测量充分、模型设定合理和匹配后平衡可接受等条件。</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>利用协变量（x1，x2，……，xk）进行配对，一般使用标准化欧式距离来测量两个样本之间的相似性。</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>$$d(x_i,x_j)=\sqrt{\sum_{k=1}^{K}\frac{(x_{ki}-x_{kj})^2}{\sigma_k^2}}$$</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>表示两个样本 和 之间的距离， 是某个变量的标准差。那么以样本的哪些特征来测量他们的距离呢？临床研究中样本的特征常常是多个维度的，包括年龄、性别、疾病严重程度、治疗史等等。维度太多带来了计算的复杂性，因此，如果能找到一个简单的变量，用于衡量样本与样本之间的距离，就能大大简化计算。</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## 倾向性评分（Propensity Score）</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>倾向性评分的含义是指接受某种干预的概率。在1:1分配的随机对照研究，每个个体接受该干预的概率都为50%，因此，每个个体的倾向性评分即为0.5，而非随机对照研究当中的倾向性评分需要去估计。估计的方程在考虑所有混杂因素的情况下接受某种干预的概率，即更严格地说，倾向评分是在给定处理前协变量 X 后接受处理的条件概率 e(X)=Pr(A=1<span class="sc">\|</span>X)；它用于构造协变量分布可比的样本或加权伪总体，而不是直接估计因果效应。</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>$$PS(x_i)=Pr<span class="co">[</span><span class="ot">A=1\mid x_i</span><span class="co">]</span>$$</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>是这个样本的混杂因素。</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>倾向性评分的估计一般采用回归方程，将干预变量对所有的混杂因素进行回归。然后得出干预的预测概率即为该干预的倾向性评分。也可以运用一些机器学习的方法来进行倾向性评分的估计。建模的首要目标不是提高对处理分配的预测准确性，而是使后续匹配或加权后的基线协变量达到平衡。协变量应在处理发生前测量，并结合临床知识与因果图选取；不应按单变量 P 值筛选，也不应纳入处理后的变量或碰撞因子。</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>采用案例9.1的数据，估计接受内窥镜手术的概率，并显示倾向性评分的分布。红色区域为干预组，即为内窥镜组，蓝色区域为对照组，即显微镜组。红色组和蓝色组的倾向性评分都基本分布在0.3到0.6之间，两组的重叠性较高。</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码10.1"}</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="in">. psmatch2 Treatment k age, logit</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="in">. psgraph, bin(40)</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>::::: {.callout-note appearance="simple" icon="false" title="代码10.1输出"}</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image1.png)</span>{width="100%"}</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image2.png)</span>{width="85%"}</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>:::::</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>倾向性评分提示肿瘤侵袭性越高（k），患者接受内窥镜治疗的概率越高。</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>与之前讨论过的所有因果推断方法一样，使用倾向性评分法需要具备可交换性、重叠性和一致性等识别条件。如果阻断混杂因素后可消除后门路径，那么阻断PS 也可消除后门路径。因此，在协变量水平内，干预组与对照组的可交换性意味着倾向性评分水平内的可交换性。此外，利用倾向性评分来进行因果推断的一个重要的前提是需要考虑倾向性得分的重叠性。图10.1中左边的曲线中，灰色的区域两条曲线有相当一部分的受试者重合，然而在右边的曲线中，两组人群区分的比较开，两者之间的重叠性较差。因此在右边的数据中进行因果推断就比较困难。当然，倾向性评分只平衡了测量的协变量，这并不能防止未测量因素的残留混杂。随机化同时平衡了测量的和未测量的协变量，因此它是消除混杂的首选方法。因此，实施匹配或加权前后均应检查倾向评分的分布与各基线协变量的平衡；倾向评分重叠本身不能替代协变量平衡诊断。</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image3.png)</span>{width="100%"}</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>**图10.1 重叠性较好与较差的倾向性评分**</span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>利用倾向性评分来进行因果推断有三种方法。</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## 直接将倾向评分加入到回归方程</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>作为回归方程中的唯一协变量</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码10.2"}</span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a><span class="in">. reg Outcome Treatment _pscore, or</span></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码10.2输出"}</span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image4.png)</span>{width="100%"}</span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>回归结果提示内窥镜组显著增加内分泌缓解率，比值比为2.29，95%置信区间为1.62-3.22，p值0.000。此处报告的 OR 属于条件效应，未必等同于边际风险比或风险差；为便于临床解释，宜同时给出标准化后的绝对风险、风险差或风险比及其 95% 置信区间。</span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a><span class="fu">## 利用倾向性评分进行匹配</span></span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>将倾向评分相同的干预组和对照组之间进行配对，在配对的新样本当中进行因果推断。利用倾向评分进行匹配的原理如图10.2所示，黑色小人代表干预组，黄色小人代表对照组。其倾向性评分在x轴上表示，靠近0代表被分配到干预组的概率很小，靠近1代表分配到干预组的概率较大。倾向性评分匹配第一步从干预组中抽取一个个体，计算其倾向性评分，在对照组中寻找倾向性评分与其最近的黄色小人，将这两个小人形成一个配对。利用同样的方法重复操作，反复进行配对。最后在匹配好的样本中进行因果效应估计。此过程可能会剩下一些没有匹配到的患者，比如说靠近倾向性评分为0附近的黄色小人没有匹配到。</span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image5.png)</span>{width="100%"}</span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>**图10.2 倾向性评分匹配原理**</span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>实际的配对操作中可能会遇到四个问题：</span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>一对一或一对多配对：一对一即干预组中的样本在对照组中寻找一个距离最近的样本与其匹配。一对多即干预组中的样本在对照组中寻找多个距离最近的样本与其匹配。一般而言，一对一匹配样本相似性比较好，但可能导致匹配后的样本量不足；而一对多匹配样本相似性没有较好满足，但匹配后的样本量充足。实际情况中，如果原始数据中对照组的样本量与干预组差距很大，可以选择一对多匹配。</span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>如何定义距离最近？定义卡尺（caliper），允许两个样本进行匹配的最大距离。可以想象一下两个样本距离多近才能够匹配，如果卡尺太小，就会导致许多样本无法得到匹配，如卡尺定为0.001，即两样本相差0.001距离才能被匹配，就可能导致许多样本无法匹配。卡尺定太大，就会导致许多样本距离很大，也会被匹配到，可交换性得不到满足。实务中常以 logit(PS) 标准差的 0.2 作为 1:1 最近邻匹配的起始卡尺，并需结合匹配后协变量平衡、样本损失与临床可比性调整，而不应机械套用单一数值。</span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>对照组中的个体是否可以重复匹配？如果原始数据中对照组的样本量远远小于治疗组，为了不损失治疗组的样本量，可以重复匹配对照组。</span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>如果对照组中有多个样本与需要匹配的干预组样本距离一致如何操作？一对一匹配的前提下可以随机选择其中一个，也可以全部纳入，指定每个样本的权重，计算多个样本的加权平均值。</span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码10.3"}</span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a><span class="in">. psmatch2 Treatment k age, logit outcome(Outcome) n(1) cal(0.01) ties</span></span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码10.3输出"}</span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image6.png)</span>{width="100%"}</span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码10.4"}</span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a><span class="in">. psmatch2 Treatment k age, logit outcome(Outcome) n(1) cal(0.001) ties</span></span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码10.4输出"}</span>
+<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image7.png)</span>{width="100%"}</span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a>卡尺定为0.01时只有3例患者无法匹配，而卡尺定为0.001时有75例无法匹配。需要指出的是匹配后的纳入样本往往和原始数据中的样本不同，因此基于匹配方法得到的因果效应估计也是针对匹配后的样本，称为干预组中的因果效应（Average treatment effect in the treated，ATT）。干预组中的缓解率为56.7%，对照组中的缓解率为37.6%，计算比值比为2.17。匹配会改变分析人群，故应明确此处估计的目标人群（通常为可匹配治疗者的 ATT），并报告未匹配者的数量与基线特征。</span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>配对分析后的检验如同随机对照临床研究一样需要给出配对后的干预组和对照组各个变量的分布情况，查看是否有变量存在不平衡。下表为输出，U 代表没有匹配的样本，M 代表匹配样本。侵袭度在没有匹配当的样本中，干预组是2.2，对照组为1.7， t检验的p值是0.000，代表两组之间有明显差别的。而在匹配的样本中干预组和对照组都为2.1，t检验的p值是1.000。匹配后的样本中，把侵袭性这样一个不均衡的指标给均衡了。同样倾向性评分方程中所有的指标在匹配以的样本中都均衡了。平衡诊断建议以每个协变量的绝对标准化均数差（absolute SMD）为主，常以 <span class="sc">\&lt;</span>0.10 作为经验阈值；不应以 t 检验 P 值是否显著作为是否平衡的判据。</span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码10.5"}</span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a><span class="in">. pstest k age, both graph</span></span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码10.5输出"}</span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image8.png)</span>{width="100%"}</span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a><span class="fu">## 利用倾向性评分进行逆概率加权（inverse probability weighting, IPW）</span></span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a>给某每一个受试者分配一个权重，通过这样的一个权重我们就可以构建一个假人群，在这个假人群当中我们可以通过统计学的方法来证明不存在混杂效应，然后进行因果推断（图10.3）。例如，一个干预组中的患者，根据倾向性评分模型，只有25%的概率为干预组，所以这个患者的权重为4。理由是他不仅代表自己，还代表4个“类似”他的人。对于对照组中的患者，若根据倾向性评分模型，有90%的概率为干预组，则这个患者的权重为10。理由是他只有10%的概率为对照组，他还代表10个“类似”他的人。</span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image9.png)</span>{width="100%"}</span>
+<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a>**图10.3 逆概率加权原理**</span>
+<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a>如果研究的问题只包含两种治疗方式（干预或对照），那么权重方程又可写成：</span>
+<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a>$$w_{ki}^{T=1}=\frac{1}{Pr(T=1\mid k_i)},\qquad w_{ki}^{T=0}=\frac{1}{1-Pr(T=1\mid k_i)}$$</span>
+<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a>计算权重后，将回归方程的权重指定为逆概率权重。</span>
+<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码10.6"}</span>
+<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a><span class="in">. gen ipweight = 1/_pscore if Treatment == 1</span></span>
+<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a><span class="in">. replace ipweight = 1/(1-_pscore) if Treatment == 0</span></span>
+<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a><span class="in">. logistic Outcome Treatment [iweight = ipweight], vce(robust)</span></span>
+<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码10.6输出"}</span>
+<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image10.png)</span>{width="100%"}</span>
+<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a>然而，如果说某个样本的倾向性评分很小，其权重就会变得很大，从而导致因果效应估计引入了一个不稳定的因素，从而得出的推断方差较大。因此实践中，比较常用的是稳定的权重，给逆概率乘一个分子，即干预的总体概率（干预组）或者对照的总体概率（对照组），得出稳定的逆概率：稳定权重可缓和、但不能完全消除极端权重带来的不稳定性。应报告权重分布与有效样本量，并预先说明是否进行截尾、修剪或敏感性分析。</span>
+<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a>$$SW_{ki}^{T=1}=\frac{Pr(T=1)}{Pr(T=1\mid k_i)},\qquad SW_{ki}^{T=0}=\frac{1-Pr(T=1)}{1-Pr(T=1\mid k_i)}$$</span>
+<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码10.7"}</span>
+<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a><span class="in">. gen s_ipweight = (1/_pscore)*0.4516 if Treatment == 1</span></span>
+<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a><span class="in">. replace s_ipweight = 1/(1-_pscore)*0.5484 if Treatment == 0</span></span>
+<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a><span class="in">. logistic Outcome Treatment [iweight = s_ipweight], vce(robust) or</span></span>
+<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码10.7输出"}</span>
+<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image11.png)</span>{width="100%"}</span>
+<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb12-177"><a href="#cb12-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a>通过标化的均数差值（standardized mean difference，SMD）评估加权前后两组间协变量的差值。加权前两组的病例数分别为338和405，加权后为371.4和371.6。对于肿瘤侵袭性，加权前两组的差值为0.415，加权后为-0.002。一般，加权后的SMD需要控制在0.10之内。加权后病例数是加权伪样本量，并不等同于有效样本量。除 SMD 外，宜同时查看权重分布、有效样本量和协变量分布图。</span>
+<span id="cb12-179"><a href="#cb12-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码10.8"}</span>
+<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a><span class="in">. teffects ipw (Outcome) (Treatment k age, logit)</span></span>
+<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a><span class="in">. tebalance summarize</span></span>
+<span id="cb12-184"><a href="#cb12-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-185"><a href="#cb12-185" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码10.8输出"}</span>
+<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image12.png)</span>{width="100%"}</span>
+<span id="cb12-190"><a href="#cb12-190" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-193"><a href="#cb12-193" aria-hidden="true" tabindex="-1"></a><span class="fu">## 其他加权方法</span></span>
+<span id="cb12-194"><a href="#cb12-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-195"><a href="#cb12-195" aria-hidden="true" tabindex="-1"></a>拟概率加权的问题是极端值影响结果，常规逆概率加权对治疗组的权重为1/PS，未治疗组为1/(1−PS)，使得某个样本的倾向性评分很小或者很大，其权重就会变得很大。虽然可用拟概率加权截尾方法（截掉加权后两边的极值，如第95百分位数对第99百分位数），但这种方法却不能保证截尾位置是否合适，且样本量也减少了。</span>
+<span id="cb12-196"><a href="#cb12-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-197"><a href="#cb12-197" aria-hidden="true" tabindex="-1"></a><span class="fu">### 重叠加权（Overlap weighting）</span></span>
+<span id="cb12-198"><a href="#cb12-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-199"><a href="#cb12-199" aria-hidden="true" tabindex="-1"></a>重叠加权给予每个患者分配与该患者属于相反治疗组概率的权重，克服了这些限制。具体来说，接受治疗的患者以未接受治疗的概率【1−PS】为权重，而未接受治疗的患者以接受治疗的概率【PS】为权重。这些权值使得PS接近于1或者0的离群值不会像拟概率加权那样主导结果和降低精度。而那些人群特征在两种治疗方法中都兼容的患者则相对贡献更大，由此产生的目标人群模仿了实用性随机试验的特点。该方法的目标人群是两种治疗均具有合理可能性的重叠（临床均势）人群，而非整个入组人群；因此其效应应与所选 estimand 一并报告。</span>
+<span id="cb12-200"><a href="#cb12-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-201"><a href="#cb12-201" aria-hidden="true" tabindex="-1"></a>这种加权方法在结构上可以产生治疗组和参照组之间的精确协变量平衡。然而，推断的目标是重叠人群中的平均治疗效应（ATO），它可能与整个研究人群中的ATT或ATE不同。强调在临床均势情况下对患者进行比较（不考虑肯定会采取干预或肯定会采取对照的情况），结果可见效应较前面几种方法有所下降。 效应估计的改变通常源于目标人群改变，不能简单解释为效应“下降”。</span>
+<span id="cb12-202"><a href="#cb12-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-203"><a href="#cb12-203" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码10.9"}</span>
+<span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a><span class="in">. gen o_weight = 1 - _pscore if Treatment == 1</span></span>
+<span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a><span class="in">. replace o_weight = _pscore if Treatment == 0</span></span>
+<span id="cb12-207"><a href="#cb12-207" aria-hidden="true" tabindex="-1"></a><span class="in">. logistic Outcome Treatment [iweight = o_weight], vce(robust) or</span></span>
+<span id="cb12-208"><a href="#cb12-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-209"><a href="#cb12-209" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-210"><a href="#cb12-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-211"><a href="#cb12-211" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码10.9输出"}</span>
+<span id="cb12-212"><a href="#cb12-212" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-213"><a href="#cb12-213" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image13.png)</span>{width="100%"}</span>
+<span id="cb12-214"><a href="#cb12-214" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-215"><a href="#cb12-215" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb12-216"><a href="#cb12-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-217"><a href="#cb12-217" aria-hidden="true" tabindex="-1"></a><span class="fu">### 匹配加权（Match weighting）</span></span>
+<span id="cb12-218"><a href="#cb12-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-219"><a href="#cb12-219" aria-hidden="true" tabindex="-1"></a>这种方法是将接受干预或接受治疗的概率中较低的一个与实际接受治疗的预测概率之比对患者进行加权。匹配加权给予接受治疗的患者的权重为【Minimum(PS, 1 − PS) / PS】，而未接受治疗的患者以接受治疗的权重【Minimum(PS, 1 − PS) / (1 − PS)】。此方法排除了极端的权重，消除了权重截断的需要。当两个组群体大小相同，倾向性评分分布有很好的重叠时，推断的目标接近整个人口中的ATE；当两个组群体大小不均，但倾向性评分分布有很好的重叠时，推断的目标接近样本数较少群体中的ATT。在倾向性评分分布重叠度有限的情况下，这种方法的推断目标是在重叠子群体中进行治疗效果估计。匹配加权的估计目标取决于样本构成与倾向评分重叠的具体形态，报告时不宜仅以接近 ATE 或 ATT 代替对目标分布的描述。</span>
+<span id="cb12-220"><a href="#cb12-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-221"><a href="#cb12-221" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码10.10"}</span>
+<span id="cb12-222"><a href="#cb12-222" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb12-223"><a href="#cb12-223" aria-hidden="true" tabindex="-1"></a><span class="in">. gen m_weighting = min(_pscore, 1-_pscore)/_pscore</span></span>
+<span id="cb12-224"><a href="#cb12-224" aria-hidden="true" tabindex="-1"></a><span class="in">. replace m_weighting = min(_pscore, 1-_pscore)/(1-_pscore) if Treatment == 0</span></span>
+<span id="cb12-225"><a href="#cb12-225" aria-hidden="true" tabindex="-1"></a><span class="in">. logit Outcome Treatment [iweight = m_weighting], vce(robust) or</span></span>
+<span id="cb12-226"><a href="#cb12-226" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-227"><a href="#cb12-227" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-228"><a href="#cb12-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-229"><a href="#cb12-229" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码10.10输出"}</span>
+<span id="cb12-230"><a href="#cb12-230" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-231"><a href="#cb12-231" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image14.png)</span>{width="100%"}</span>
+<span id="cb12-232"><a href="#cb12-232" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-233"><a href="#cb12-233" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb12-234"><a href="#cb12-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-235"><a href="#cb12-235" aria-hidden="true" tabindex="-1"></a><span class="fu">### 精细分层加权（Fine stratification weighting）</span></span>
+<span id="cb12-236"><a href="#cb12-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-237"><a href="#cb12-237" aria-hidden="true" tabindex="-1"></a>以平均治疗效果为目标的精细分层加权不直接使用倾向性评分来计算加权，而是用倾向性评分来创建精细分层。分层规则为固定的概率宽度（如0-0.02为分层1，0.02-0.04为分层2，以此类推）。没有干预患者或对照患者的分层被剔除后，根据剩余每个分层中的患者总数，计算出干预和对照组的权重。</span>
+<span id="cb12-238"><a href="#cb12-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-239"><a href="#cb12-239" aria-hidden="true" tabindex="-1"></a>以治疗人群中的平均治疗效果为目标的精细分层与上述精细分层方法类似，倾向评分被用来创建精细分层，但治疗组的权重被设定为1，对照组患者根据其所致分层中的干预组患者数量进行重新加权。</span>
+<span id="cb12-240"><a href="#cb12-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-241"><a href="#cb12-241" aria-hidden="true" tabindex="-1"></a><span class="fu">### 标准化死亡率加权（Standardized mortality ratio weighting）</span></span>
+<span id="cb12-242"><a href="#cb12-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-243"><a href="#cb12-243" aria-hidden="true" tabindex="-1"></a>这种方法是将接受治疗的病人的权重设置为1，并通过倾向性评分给予对照组患者的权重为【PS/（1-PS）】。与逆概率加权类似，标准化死亡率加权有可能受到极端权重的影响，因为倾向分数被直接用于计算权重。如果观察到大权重，可以考虑截断权重。</span>
+<span id="cb12-244"><a href="#cb12-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-245"><a href="#cb12-245" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码10.11"}</span>
+<span id="cb12-246"><a href="#cb12-246" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb12-247"><a href="#cb12-247" aria-hidden="true" tabindex="-1"></a><span class="in">gen smr_weighting = 1</span></span>
+<span id="cb12-248"><a href="#cb12-248" aria-hidden="true" tabindex="-1"></a><span class="in">. replace smr_weighting = _pscore/(1-_pscore) if Treatment == 0</span></span>
+<span id="cb12-249"><a href="#cb12-249" aria-hidden="true" tabindex="-1"></a><span class="in">. logit Outcome Treatment [iweight = smr_weight], vce(robust) or</span></span>
+<span id="cb12-250"><a href="#cb12-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-251"><a href="#cb12-251" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-252"><a href="#cb12-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-253"><a href="#cb12-253" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码10.11输出"}</span>
+<span id="cb12-254"><a href="#cb12-254" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb12-255"><a href="#cb12-255" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image15.png)</span>{width="100%"}</span>
+<span id="cb12-256"><a href="#cb12-256" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-257"><a href="#cb12-257" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb12-258"><a href="#cb12-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-259"><a href="#cb12-259" aria-hidden="true" tabindex="-1"></a><span class="fu">## 以倾向评分为基础的各种方法的选择</span></span>
+<span id="cb12-260"><a href="#cb12-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-261"><a href="#cb12-261" aria-hidden="true" tabindex="-1"></a>干预组样本倾向性评分在预先指定的范围内（卡尺）将其与固定数量的对照值相匹配，这通常是使用倾向性评分进行混杂调整的首选方法。然而，这种方法有一个重要的局限性，即可能放弃未匹配的样本。在倾向性评分匹配后，协变量的不平衡性可能会增加。匹配并非普遍首选；若旨在整个可比研究样本的 ATE 或希望尽量保留样本，可在重叠和稳定性良好的前提下考虑加权。方法应由目标 estimand、重叠程度、可接受的样本损失及平衡结果共同决定。</span>
+<span id="cb12-262"><a href="#cb12-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-263"><a href="#cb12-263" aria-hidden="true" tabindex="-1"></a>对倾向性评分进行加权有几个优点。首先，与匹配不同，加权在分析中保留了大多数样本，因此，在估计治疗效果时可以提供更高的精度。其次，与倾向性评分的回归调整不同，加权很容易使治疗人群和参照人群之间的平衡得到透明的报告。最后，对倾向性评分的加权可以说是在分析中使用倾向性评分的最灵活的方法，有多种可用的变化，可以针对特定人群进行推断。除了使用逆概率治疗加权外，上述新的方法（包括倾向性评分精细分层加权、匹配加权和重叠加权）都可以克服传统加权方法的重要局限性。</span>
+<span id="cb12-264"><a href="#cb12-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-265"><a href="#cb12-265" aria-hidden="true" tabindex="-1"></a>推断目标（estimand）是指估计的治疗效果所适用的患者人群。研究者在构思特定研究的推断目标时应考虑以下核心问题——用感兴趣的干预方法治疗研究中所有符合条件的患者是否可行？如果可行，那么推断的目标就可以定义为平均治疗效果（ATE）。如果不可行，即临床上不会给人群中符合条件的每一个人提供治疗，只有具有某些特征的、并实际接受干预的患者才是理想的干预对象，因此推断的目标可定义为治疗人群的平均治疗效果（ATT）。下表总结了每种加权方法的主要特点。</span>
+<span id="cb12-266"><a href="#cb12-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-267"><a href="#cb12-267" aria-hidden="true" tabindex="-1"></a>**表10.1几种不同基于倾向性评分的加权方法**</span>
+<span id="cb12-268"><a href="#cb12-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-269"><a href="#cb12-269" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 方法 <span class="pp">|</span> 干预组 <span class="pp">|</span> 对照组 <span class="pp">|</span> 推断目标 <span class="pp">|</span> 说明 <span class="pp">|</span></span>
+<span id="cb12-270"><a href="#cb12-270" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|:---|:---|:---|:---|</span></span>
+<span id="cb12-271"><a href="#cb12-271" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 逆概率加权 <span class="pp">|</span> 1/PS <span class="pp">|</span> 1/(1-PS) <span class="pp">|</span> ATE <span class="pp">|</span> 明确的推断目标，模拟了随机对照试验。然而，因为PS是直接用来创建权重，通常会出现极端的权重，可采用截尾解决极端权重。 <span class="pp">|</span></span>
+<span id="cb12-272"><a href="#cb12-272" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 标准死亡率加权 <span class="pp">|</span> 1 <span class="pp">|</span> PS/(1-PS) <span class="pp">|</span> ATT <span class="pp">|</span> 加权是通过对照组的倾向性评分进行的，可以自然地扩展到有<span class="sc">\&gt;</span>2个治疗组的情况。可能需要对权重进行修剪。 <span class="pp">|</span></span>
+<span id="cb12-273"><a href="#cb12-273" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 重叠加权 <span class="pp">|</span> (1-PS) <span class="pp">|</span> PS <span class="pp">|</span> 重叠人群中的ATE <span class="pp">|</span> 避免了极端权重。这种方法的目标人群可以被描述为重叠人群或具有合理临床均衡性人群中的治疗效果估计，而这些人群并不反映在常规护理中接受治疗的整个研究人群。 <span class="pp">|</span></span>
+<span id="cb12-274"><a href="#cb12-274" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 匹配加权 <span class="pp">|</span> Min(PS, 1-PS) / PS <span class="pp">|</span> Min(PS, 1-PS) / (1-PS) <span class="pp">|</span> 较小组别中的ATT <span class="pp">|</span> 避免了极端权重。可以自然地扩展到有两个以上治疗组的情况。当组别大小相同且PS分布有很好的重叠时，推断目标接近整个人群的ATE；当组别大小不均但PS分布有很好的重叠时，推断目标接近较小组别中的ATT。 <span class="pp">|</span></span>
+<span id="cb12-275"><a href="#cb12-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-276"><a href="#cb12-276" aria-hidden="true" tabindex="-1"></a>选择倾向性评分加权方法进行混杂调整时有若干考虑：</span>
+<span id="cb12-277"><a href="#cb12-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-278"><a href="#cb12-278" aria-hidden="true" tabindex="-1"></a><span class="fu">### 正确规范倾向性评分模型</span></span>
+<span id="cb12-279"><a href="#cb12-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-280"><a href="#cb12-280" aria-hidden="true" tabindex="-1"></a>在使用倾向性评分进行混杂调整的分析中，第一个关键步骤是避免倾向性评分模型的错误。由于研究者不可能知道治疗分配与所有协变量之间的真正结构性关联，因此，在从简单的逻辑回归模型中估计倾向性评分时，可能会出现模型的错误指定。可采用机器学习方法（参考）作为替代方法。 无论采用哪种方法构建倾向性评分模型，研究人员都应强调将结果风险因素纳入模型，并从模型中排除与结果无关但与治疗相关的强预测因素，以避免倾向性评分接近0或1。基于倾向分数分层的加权方法可能对倾向分数模型的错误指定更为稳健，因为它可以被概念化为倾向分数加权的半参数模型，只使用分数来创建分层，然后使用每个分层中的观察值计数来得出权重。倾向评分模型的优劣应由匹配或加权后的平衡判断，而非 c 统计量或预测精度。对于连续或非线性协变量，可考虑样条、交互项或灵活的机器学习模型，并保持模型选择与结局分析相对独立。</span>
+<span id="cb12-281"><a href="#cb12-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-282"><a href="#cb12-282" aria-hidden="true" tabindex="-1"></a><span class="fu">### 评估暴露组和参照组之间的倾向性评分分布重叠情况</span></span>
+<span id="cb12-283"><a href="#cb12-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-284"><a href="#cb12-284" aria-hidden="true" tabindex="-1"></a>倾向性评分分布的高重叠度通常表明，在比较组之间的治疗选择中存在合理程度的临床等值。在考虑基于倾向评分的加权时，对非重叠区域进行修剪以确保限制在患者接受任何一种治疗的概率不为零的区域尤为重要。接近0或1的概率可能会导致较大的权重，从而过度影响分析，因为非典型情况下的患者肯定会接受这两种治疗中的一种。如果在修剪了非重叠区域后，丢失了很大一部分样本，这可能表明分布之间的重叠度不够。此外，由于不重叠而通过修剪排除观测值，会导致研究人群的构成发生重要变化，因此，可能会改变推断的目标。修剪阈值会改变目标人群，建议同时报告修剪规则、被排除人数与修剪前后的协变量分布，并通过不同合理阈值开展敏感性分析。</span>
+<span id="cb12-285"><a href="#cb12-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-286"><a href="#cb12-286" aria-hidden="true" tabindex="-1"></a><span class="fu">### 推断目标的选择</span></span>
+<span id="cb12-287"><a href="#cb12-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-288"><a href="#cb12-288" aria-hidden="true" tabindex="-1"></a>由于基于倾向性评分的不同加权方法会导致针对不同人群的估计，研究者应密切关注他们的推断目标并选择相应的加权方法。人群平均治疗效应的目的是使治疗组和参照组的协变量分布相互类似，并与整个研究样本的分布类似。受治人群中的平均治疗效果ATT旨在使参考组中协变量的分布与治疗组中观察到的分布相似。具有临床均势子集的平均治疗效果，受倾向性评分分布重叠的影响很大，目标是总体人群中具有临床均势性子集的平均治疗效果（即排除了肯定会予以干预组或者肯定会予以对照组的患者，在这个子集中，临床上病人接受干预或对照有争议）</span>
+<span id="cb12-289"><a href="#cb12-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-290"><a href="#cb12-290" aria-hidden="true" tabindex="-1"></a>某些加权方法很容易扩展到两个以上治疗组的情况，包括逆概率加权、匹配权重和标准死亡率加权。所有这些方法都涉及到在多元逻辑回归模型中为三个或更多的治疗产生倾向性分数。逆概率加权是根据实际接受治疗的倾向性的倒数来计算的，无需考虑治疗组的数量如何。对于三组或更多组的匹配权重，分子包括每个病人的所有可用倾向分数的最小值，分母包括实际接受治疗的倾向。对于标准死亡率加权，研究者可以通过将接受目标治疗的病人的权重设置为1，并将其他治疗组的权重计算为目标治疗的倾向与实际接受的治疗的倾向之比，来确定特定治疗组的ATT。</span>
+<span id="cb12-291"><a href="#cb12-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-292"><a href="#cb12-292" aria-hidden="true" tabindex="-1"></a><span class="fu">## 利用倾向性评分进行因果推断的局限性</span></span>
+<span id="cb12-293"><a href="#cb12-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-294"><a href="#cb12-294" aria-hidden="true" tabindex="-1"></a>其局限性源于倾向性评分的方程，若估计错误会导致后续一系列的因果估计的错误。其次，存在未测量的混杂因素，利用倾向性评分也同样遗漏这些未测量的混杂因素，导致因果推断错误。第三、倾向性评分匹配需要考虑普适性问题，因为只有匹配的样本才能够被正确地估计因果效应，没有匹配的样本中的因果效应无法估计。未测量混杂无法由倾向评分修复，应结合领域知识、定量偏倚分析或 E-value 等敏感性分析讨论其潜在影响；外推到未匹配或缺乏重叠的人群时应谨慎。</span>
+<span id="cb12-295"><a href="#cb12-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-296"><a href="#cb12-296" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考文献</span></span>
+<span id="cb12-297"><a href="#cb12-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-298"><a href="#cb12-298" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Rosenbaum PR, Rubin DB. The central role of the propensity score in observational studies for causal effects. *Biometrika*. 1983;70(1):41-55. doi:10.1093/biomet/70.1.41.</span>
+<span id="cb12-299"><a href="#cb12-299" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Brookhart MA, Schneeweiss S, Rothman KJ, et al. Variable selection for propensity score models. *Am J Epidemiol*. 2006;163(12):1149-1156. doi:10.1093/aje/kwj149. PMID: 16624967.</span>
+<span id="cb12-300"><a href="#cb12-300" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Austin PC. Balance diagnostics for comparing the distribution of baseline covariates between treatment groups in propensity-score matched samples. *Stat Med*. 2009;28(25):3083-3107. doi:10.1002/sim.3697. PMID: 19757444.</span>
+<span id="cb12-301"><a href="#cb12-301" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Austin PC. Optimal caliper widths for propensity-score matching when estimating differences in means and differences in proportions in observational studies. *Pharm Stat*. 2011;10(2):150-161. doi:10.1002/pst.433. PMID: 20925139.</span>
+<span id="cb12-302"><a href="#cb12-302" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Austin PC, Stuart EA. Moving towards best practice when using inverse probability of treatment weighting (IPTW) using the propensity score to estimate causal treatment effects in observational studies. *Stat Med*. 2015;34(28):3661-3679. doi:10.1002/sim.6607. PMID: 26238958.</span>
+<span id="cb12-303"><a href="#cb12-303" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Deb S, Austin PC, Tu JV, et al. A review of propensity-score methods and their use in cardiovascular research. *Can J Cardiol*. 2016;32(2):259-265. doi:10.1016/j.cjca.2015.05.015. PMID: 26315351.</span>
+<span id="cb12-304"><a href="#cb12-304" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Li F, Thomas LE, Li F. Addressing extreme propensity scores via the overlap weights. *Am J Epidemiol*. 2019;188(1):250-257. doi:10.1093/aje/kwy201. PMID: 30189042.</span>
+<span id="cb12-305"><a href="#cb12-305" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>Elze MC, Gregson J, Baber U, et al. Comparison of propensity score methods and covariate adjustment: evaluation in 4 cardiovascular studies. *J Am Coll Cardiol*. 2017;69(3):345-357. doi:10.1016/j.jacc.2016.10.060. PMID: 28104076.</span>
+<span id="cb12-306"><a href="#cb12-306" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>Garrido MM, Kelley AS, Paris J, et al. Methods for constructing and assessing propensity scores. *Health Serv Res*. 2014;49(5):1701-1720. doi:10.1111/1475-6773.12182. PMID: 24779867.</span>
+<span id="cb12-307"><a href="#cb12-307" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>VanderWeele TJ, Ding P. Sensitivity analysis in observational research: introducing the E-value. *Ann Intern Med*. 2017;167(4):268-274. doi:10.7326/M16-2607. PMID: 28693043.</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
