@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>12&nbsp; 断点回归 – 临床医学研究中的因果推断</title>
+<title>12&nbsp; 断点回归法 – 临床医学研究中的因果推断</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/12-regression-discontinuity.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/12-regression-discontinuity.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归法</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
@@ -220,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12-regression-discontinuity.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归法</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -294,10 +294,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#精确断点与模糊断点" id="toc-精确断点与模糊断点" class="nav-link active" data-scroll-target="#精确断点与模糊断点"><span class="header-section-number">12.1</span> 精确断点与模糊断点</a></li>
-  <li><a href="#控制变量断点的识别" id="toc-控制变量断点的识别" class="nav-link" data-scroll-target="#控制变量断点的识别"><span class="header-section-number">12.2</span> 控制变量断点的识别</a></li>
-  <li><a href="#断点回归估计方法" id="toc-断点回归估计方法" class="nav-link" data-scroll-target="#断点回归估计方法"><span class="header-section-number">12.3</span> 断点回归估计方法</a></li>
-  <li><a href="#断点有效性检验" id="toc-断点有效性检验" class="nav-link" data-scroll-target="#断点有效性检验"><span class="header-section-number">12.4</span> 断点有效性检验</a></li>
+  <li><a href="#控制变量断点的识别" id="toc-控制变量断点的识别" class="nav-link" data-scroll-target="#控制变量断点的识别"><span class="header-section-number">12.2</span> 控制变量断点的识别</a>
+  <ul class="collapse">
+  <li><a href="#案例12.1" id="toc-案例12.1" class="nav-link" data-scroll-target="#案例12.1"><span class="header-section-number">12.2.1</span> 案例12.1</a></li>
+  </ul></li>
+  <li><a href="#断点回归估计方法" id="toc-断点回归估计方法" class="nav-link" data-scroll-target="#断点回归估计方法"><span class="header-section-number">12.3</span> 断点回归估计方法</a>
+  <ul class="collapse">
+  <li><a href="#带宽选择" id="toc-带宽选择" class="nav-link" data-scroll-target="#带宽选择"><span class="header-section-number">12.3.1</span> 带宽选择</a></li>
+  <li><a href="#局部线性回归法" id="toc-局部线性回归法" class="nav-link" data-scroll-target="#局部线性回归法"><span class="header-section-number">12.3.2</span> 局部线性回归法</a></li>
+  <li><a href="#局部多项式回归法" id="toc-局部多项式回归法" class="nav-link" data-scroll-target="#局部多项式回归法"><span class="header-section-number">12.3.3</span> 局部多项式回归法</a></li>
+  </ul></li>
+  <li><a href="#断点有效性检验" id="toc-断点有效性检验" class="nav-link" data-scroll-target="#断点有效性检验"><span class="header-section-number">12.4</span> 断点有效性检验</a>
+  <ul class="collapse">
+  <li><a href="#局部平滑性检验" id="toc-局部平滑性检验" class="nav-link" data-scroll-target="#局部平滑性检验"><span class="header-section-number">12.4.1</span> 局部平滑性检验</a></li>
+  <li><a href="#干预变量不受人为控制的检验" id="toc-干预变量不受人为控制的检验" class="nav-link" data-scroll-target="#干预变量不受人为控制的检验"><span class="header-section-number">12.4.2</span> 干预变量不受人为控制的检验</a></li>
+  <li><a href="#断点稳健性检验" id="toc-断点稳健性检验" class="nav-link" data-scroll-target="#断点稳健性检验"><span class="header-section-number">12.4.3</span> 断点稳健性检验</a></li>
+  <li><a href="#带宽长度的稳健性检验" id="toc-带宽长度的稳健性检验" class="nav-link" data-scroll-target="#带宽长度的稳健性检验"><span class="header-section-number">12.4.4</span> 带宽长度的稳健性检验</a></li>
+  </ul></li>
   <li><a href="#断点回归的应用" id="toc-断点回归的应用" class="nav-link" data-scroll-target="#断点回归的应用"><span class="header-section-number">12.5</span> 断点回归的应用</a></li>
+  <li><a href="#本章参考文献" id="toc-本章参考文献" class="nav-link" data-scroll-target="#本章参考文献"><span class="header-section-number">12.6</span> 本章参考文献</a></li>
   </ul>
 </nav>
     </div>
@@ -306,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归法</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
 </div>
 
 
@@ -323,38 +338,434 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">注记</span>编写说明
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>本章内容整理中。可将已校订的 Word 书稿（<code>乔Book/</code> 目录）正文迁移至此，公式用 <code>$...$</code> / <code>$$...$$</code>，图片放 <code>images/</code>，代码用 <code>{r} 或</code>{python} 代码块。</p>
-</div>
-</div>
+<p>断点回归（Regression discontinuity，RD）的设计思想是存在一个连续变量（控制变量）, 该变量能决定个体在某一临界点两侧接受干预的概率, 由于处理分配（精确断点）或处理概率（模糊断点）在该临界点处出现不连续跳跃, 因此个体针对干预的取值落入该临界点任意一侧是随机发生的, 即不存在人为操控使得个体落入某一侧的概率更大, 则在临界值附近构成了一个准自然实验。 更准确地说，RD 的识别依赖于：在没有处理的反事实下，潜在结局及预处理协变量随运行变量在临界点处平滑变化，并且个体不能精确操纵运行变量跨越阈值；它并不要求阈值两侧的处理本身“连续”。</p>
 <section id="精确断点与模糊断点" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="精确断点与模糊断点"><span class="header-section-number">12.1</span> 精确断点与模糊断点</h2>
-<p><em>待补充。</em></p>
+<ol type="1">
+<li>精确断点是指临界点左右接受不同干预措施的概率为 0 或 1</li>
+</ol>
+<p>如果研究考上大学与否与工资收入的关系。假设上大学与否完全取决于高考成绩是否超过500分（图12.1灰色虚线），对于高考成绩为500分左右（495-505范围内）的考生，可以认为他们在各方面（包括可观测变量和不可观测变量）都没有系统差异。可以认为他们是否上大学只是由于“上帝之手”随机抽样的结果，考上大学的学生进入干预组（蓝色圆圈），而落榜的学生进入控制组（红色圆圈）。由此，由于存在假定的随机分组，故可估计在500分附近的平均效应（工资收入差异）。由于此效应只适用于部分学生或样本，故称为断点处的局部平均处理效应（local treatment effect at the cutoff）；在模糊断点的工具变量解释下，该局部效应通常才称为依从者局部平均处理效应（LATE）。</p>
+<div class="text-center">
+<p><img src="images/ch12-image1.png" class="img-fluid" style="width:65.0%"></p>
+<p><strong>图12.1 精确断点示意图</strong></p>
+</div>
+<ol start="2" type="1">
+<li>模糊断点是指临界点左右接受不同干预措施的概率处于0-1之间</li>
+</ol>
+<p>模糊断点的特征是，在断点处，个体得到处理的概率从a跳跃到b，其中0&lt;a&lt;b&lt;1。当个体控制变量的值大于临界值时，个体接受B干预为主。当其小于临界值时，个体接受A干预为主，在临界值附近的结局差异可以较好地反映不同干预对结果的影响。</p>
+<p>此图显示控制变量为横轴，灰色虚线为临界点，左侧绝大部分的受试者都是采用了A干预（红色圆圈），灰色虚线右侧绝大部分的患者采用了B干预（蓝色圆圈）。实际上高考成绩上线并不能完全保证上大学，能否上大学还取决于填报志愿，甚至有些上线考生放弃上大学的机会；而即使成绩未上线，但也可能因某种特长而得到加分，从而得到上大学的机会。上大学的概率确实在分数线的位置上有一个不连续的跳跃。</p>
+<div class="text-center">
+<p><img src="images/ch12-image2.png" class="img-fluid" style="width:65.0%"></p>
+<p><strong>图12.2 模糊断点示意图</strong></p>
+</div>
+<p>断点回归在对平均处理效应做出估计前，需要对一些关键假设做出检验：</p>
+<ol type="1">
+<li>检验干预变量在断点c处是否存在跳跃（可通过绘图确认）；</li>
+<li>检验干预变量和结局变量在断点以外的其他点不存在跳跃；</li>
+<li>检验影响结果变量的其他变量在断点处不存在跳跃；</li>
+<li>检验干预变量在断点处的概率密度函数是连续的，也就是在断点附近，个体不能操控干预的取值，个体落入断点的左侧或右侧是随机发生的；</li>
+<li>检验平均处理效应不等于0。</li>
+</ol>
+<p>这些图形与检验可支持设计假设，却不能单独证明因果识别；还必须排除在同一阈值处同时改变的政策、服务可及性或测量规则。医学应用指南建议同时报告运行变量的分布、处理第一阶段、协变量连续性、带宽选择和稳健偏倚校正推断（Cattaneo、Keele 与 Titiunik，2023；Calonico 等，2024）。</p>
 </section>
 <section id="控制变量断点的识别" class="level2" data-number="12.2">
 <h2 data-number="12.2" class="anchored" data-anchor-id="控制变量断点的识别"><span class="header-section-number">12.2</span> 控制变量断点的识别</h2>
-<p><em>待补充。</em></p>
+<section id="案例12.1" class="level3" data-number="12.2.1">
+<h3 data-number="12.2.1" class="anchored" data-anchor-id="案例12.1"><span class="header-section-number">12.2.1</span> 案例12.1</h3>
+<p>我们想要了解输血治疗能否降低重症监护室患者死亡率，因为接受输血治疗的患者往往有严重的基础疾病，其本身死亡率可能比未输血患者高。然而这些潜在的混杂因素可能有部分未观察（如基础疾病状况）。我们选取重症监护室数据库来说明如何使用断点回归检验关心的临床问题。数据集中记录了患者的年龄（age）、性别（male_gender，1为男性、0为女性）、入院时的血红蛋白值（hb_first_adm）、是否输血（transfused_icu，1为输血、0为未输血）以及是否死亡（hospital_mortality，1为死亡、0为未死亡）。 在本例中，hb_first_adm 是运行变量，7 g/dL 是候选阈值；实际输血并非由阈值完全决定，因此应按模糊断点设计处理，并先验证阈值处的输血概率是否存在足够大的跳跃。</p>
+<p><strong>案例12.1数据集</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 19%">
+<col style="width: 20%">
+<col style="width: 23%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">age</th>
+<th style="text-align: center;">male_gender</th>
+<th style="text-align: center;">hb_first_adm</th>
+<th style="text-align: center;">transfused_icu</th>
+<th style="text-align: center;">hospital_mortality</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">59</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">86</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">11.8</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">10.5</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">75</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">12.9</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">88</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">12.1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">10.8</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+</tr>
+</tbody>
+</table>
+<p>如果单纯比较输血与未输血患者的死亡率可以看到输血患者的死亡率为9.3%，而未输血患者的死亡率为14.0%，卡方检验两者有明显差别。因此两者之间存在相关性。 这一粗略比较不能说明输血降低死亡率：输血与否由病情、出血、治疗时机等共同决定，且两组的血红蛋白分布明显不同；RD 的比较应限制在阈值附近，并以运行变量为横轴而非将全样本直接分组。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">tabulate</span> transfused_icu hospital_mortality, <span class="fu">chi2</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.1输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.1输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch12-image3.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<p>再来比较一下输血与未输血患者的血红蛋白，输血患者的血红蛋白平均值为8.90，而未输血患者的血红蛋白平均值为12.06，t检验两者有明显差别。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ttest</span> hb_first_adm, <span class="kw">by</span>(transfused_icu)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.2输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.2输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch12-image4.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<p>因此，基线血红蛋白值可作为运行变量（赋值变量）。可以利用线性拟合方法，对控制变量临界点左右分别拟合，通过观察两侧拟合线的的差异来推测跳跃现象是否发生。下图中分别列出了利用线性拟合、二阶多项式拟合图和三阶多项式拟合图的结果，临界点选择7、8或9（临床实践中输血的指征各异，但一般情况下血红蛋白低于7可以输血）观察不同参数对跳跃的影响。 图形可用于探索第一阶段，但不宜据肉眼选择“三阶多项式效果最佳”。现代 RD 分析通常以局部线性估计为主、局部二次项用于偏倚校正，并以数据驱动的带宽与稳健偏倚校正置信区间作主要推断。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rdplot transfused_icu hb_first_adm, c(7) <span class="kw">p</span>(1)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rdplot transfused_icu hb_first_adm, c(7) <span class="kw">p</span>(2)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>rdplot transfused_icu hb_first_adm, c(7) <span class="kw">p</span>(3)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>rdplot transfused_icu hb_first_adm, c(8) <span class="kw">p</span>(1)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>rdplot transfused_icu hb_first_adm, c(8) <span class="kw">p</span>(2)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>rdplot transfused_icu hb_first_adm, c(8) <span class="kw">p</span>(3)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>rdplot transfused_icu hb_first_adm, c(9) <span class="kw">p</span>(1)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>rdplot transfused_icu hb_first_adm, c(9) <span class="kw">p</span>(2)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>rdplot transfused_icu hb_first_adm, c(9) <span class="kw">p</span>(3)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.3输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.3输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><code>c(7) p(1)</code></th>
+<th style="text-align: center;"><code>c(7) p(2)</code></th>
+<th style="text-align: center;"><code>c(7) p(3)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img src="images/ch12-image5.png" class="img-fluid" style="width:100.0%"></td>
+<td style="text-align: center;"><img src="images/ch12-image6.png" class="img-fluid" style="width:100.0%"></td>
+<td style="text-align: center;"><img src="images/ch12-image7.png" class="img-fluid" style="width:100.0%"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>c(8) p(1)</code></td>
+<td style="text-align: center;"><code>c(8) p(2)</code></td>
+<td style="text-align: center;"><code>c(8) p(3)</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><img src="images/ch12-image8.png" class="img-fluid" style="width:100.0%"></td>
+<td style="text-align: center;"><img src="images/ch12-image9.png" class="img-fluid" style="width:100.0%"></td>
+<td style="text-align: center;"><img src="images/ch12-image10.png" class="img-fluid" style="width:100.0%"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>c(9) p(1)</code></td>
+<td style="text-align: center;"><code>c(9) p(2)</code></td>
+<td style="text-align: center;"><code>c(9) p(3)</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><img src="images/ch12-image11.png" class="img-fluid" style="width:100.0%"></td>
+<td style="text-align: center;"><img src="images/ch12-image9.png" class="img-fluid" style="width:100.0%"></td>
+<td style="text-align: center;"><img src="images/ch12-image12.png" class="img-fluid" style="width:100.0%"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>从上图可以看出，控制变量的临界点选择7时跳跃最为明显，采用三阶多项式拟合效果最佳。在断点的左侧，输血的概率比较高（大于40%），而在切点的右侧，小于30%的受试者会接受输血治疗。这也和临床实践一致，输血干预措施是根据血红蛋白的高低来决定的，血红蛋白高于7时输血概率很低；但如果血红蛋白小于7，输血的概率相对来说会很高。</p>
+</section>
 </section>
 <section id="断点回归估计方法" class="level2" data-number="12.3">
 <h2 data-number="12.3" class="anchored" data-anchor-id="断点回归估计方法"><span class="header-section-number">12.3</span> 断点回归估计方法</h2>
-<p><em>待补充。</em></p>
+<section id="带宽选择" class="level3" data-number="12.3.1">
+<h3 data-number="12.3.1" class="anchored" data-anchor-id="带宽选择"><span class="header-section-number">12.3.1</span> 带宽选择</h3>
+<p>带宽是指控制变量临界点左右两边的取值区间。带宽越大，则意味着有越多的样本被纳入检验中，参数估计更准确，但也意味着样本随机性要求越难满足，混杂问题可能更严重。另一方面，如果带宽选择很小，则可能不存在混杂问题，但由于样本量较小，估算其准确性降低。</p>
+<p>在实践中，根据均方误差（MSE）或覆盖误差（CER）最小化选择带宽，可以使用 rdbwselect 考察。前五个结果均为均方误差最优的带宽，mserd 表示在断点两侧使用长度相同的带宽，mestwo 表示在断点两侧使用长度不同的带宽，msesum 表示最小化回归系数之和的均方误差带宽，msecomb1 是最小化 mserd 和 msesum 的带宽，msecomb2 取 msetwo、mserd 和 msesum 的中位数。其余结果的解释与上述内容相同，只不过选取准则从均方误差变成覆盖误差。 带宽应针对主要结局与拟采用的局部多项式估计器选择；若研究的是模糊 RD 的治疗效应，还应同时报告处理概率跳跃的强度及其不确定性，而不应只依据某一张输出表选择最有利的规格。</p>
+<p>若在断点两侧使用长度相同的带宽1.189（cerrd），表示断点左侧的边界为7-1.189=5.811，断点右侧的边界为7+1.189=8.189。即选择血红蛋白5.811-8.189范围内的样本进行因果推断。 该区间仅说明某一带宽规则下用于局部估计的邻域，不是临床效应适用范围的硬边界；报告时应给出所用带宽、核函数、左右两侧有效样本量，以及常规和偏倚校正后的置信区间。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rdbwselect transfused_icu hb_first_adm, c(7) kernel(triangular) <span class="kw">p</span>(3) <span class="ot">all</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.4输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.4输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch12-image13.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="局部线性回归法" class="level3" data-number="12.3.2">
+<h3 data-number="12.3.2" class="anchored" data-anchor-id="局部线性回归法"><span class="header-section-number">12.3.2</span> 局部线性回归法</h3>
+<p>使用局部线性回归法，是假定在断点邻域中的处理效应为线性，通过在左右两侧邻域分别进行线性回归并比较两侧回归系数差异来进行识别。局部回归检验的一个重要环节在于带宽的选择，可采用上述带宽选择结果。 对模糊断点，局部线性估计的目标是阈值处结局跳跃与输血概率跳跃之比，而不是将血红蛋白本身当作干预效应；若第一阶段很弱，该比值估计会不稳定。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rd hospital_mortality transfused_icu hb_first_adm, z0(7) bw(1.189)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.5输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.5输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch12-image14.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<p>该命令不仅给出了指定带宽，还同时给出了带宽取指定带宽50%（0.59）和200%（2.38）的回归结果。观察结果可发现，50%、100%和200%带宽下回归系数也较为接近，分别为-0.028，-0.020和-0.059，均无统计学意义。可知断点回归结果对带宽选择并不敏感，这也表明回归结果是稳健的，200%带宽下的95%置信区间最窄。因此可以得到结论在所选带宽与模型下，未见输血对院内死亡率存在明确的局部因果效应；估计精度仍须结合置信区间判断。</p>
+</section>
+<section id="局部多项式回归法" class="level3" data-number="12.3.3">
+<h3 data-number="12.3.3" class="anchored" data-anchor-id="局部多项式回归法"><span class="header-section-number">12.3.3</span> 局部多项式回归法</h3>
+<p>线性假设可能会错误估计了断点左右的回归系数，可以采取非线性拟合的办法进行弥补，即使用局部多项式断点回归方法。对于局部多项式断点回归，关键问题在于阶数的选择。可以利用上述图形观察不同多项式的拟合效果选择。 不建议以全局高阶多项式替代局部估计。实践中常以局部线性（p=1）点估计、局部二次（q=2）偏倚校正及 rdrobust 的稳健偏倚校正推断为默认报告，并说明核函数、带宽和有效样本量。</p>
+<p>结果提示回归系数为-0.157，无统计学意义，可以得到结论在所选带宽与模型下，未见输血对院内死亡率存在明确的局部因果效应；估计精度仍须结合置信区间判断。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.6">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>rdrobust hospital_mortality hb_first_adm, <span class="co">///</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    fuzzy(transfused_icu) c(7) <span class="kw">p</span>(3) bwselect(cerrd)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.6输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.6输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch12-image15.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="断点有效性检验" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="断点有效性检验"><span class="header-section-number">12.4</span> 断点有效性检验</h2>
-<p><em>待补充。</em></p>
+<section id="局部平滑性检验" class="level3" data-number="12.4.1">
+<h3 data-number="12.4.1" class="anchored" data-anchor-id="局部平滑性检验"><span class="header-section-number">12.4.1</span> 局部平滑性检验</h3>
+<p>断点回归的一个重要统计学假设是除了干预变量和结果变量，所有其它变量在断点附近都不应该存在跳跃现象。在检验方法上，可以将其他协变量作为安慰剂使用断点回归方法进行检验，利用图形直接观察是否在给定的控制变量临界点周围存在跳跃。 协变量检验应预先列出并报告效应量与置信区间；“未显著”不等于协变量必然连续。更核心的识别假设是未观测潜在结局在阈值处连续，因此协变量平衡只能提供间接支持。</p>
+</section>
+<section id="干预变量不受人为控制的检验" class="level3" data-number="12.4.2">
+<h3 data-number="12.4.2" class="anchored" data-anchor-id="干预变量不受人为控制的检验"><span class="header-section-number">12.4.2</span> 干预变量不受人为控制的检验</h3>
+<p>其思路在于，断点附近样本的数量应该相近才符合随机性。其潜在假定是，如果没有精确操纵控制变量的能力，那么略高于断点的观测值个数应当与略低于断点的观测值非常接近，换句话说，当控制变量没有受到精确的操纵时，控制变量的密度函数应当是连续的。当然这个检验在本案例中没有临床意义，因为血红蛋白的值是检验科自动化产生的，不存在人为干预因素。 不过，自动化检测并不能自动排除选择性检测、标本采集时间或数据记录规则在阈值附近改变；若运行变量离散、存在四舍五入或堆积，密度检验的解释也需要更谨慎。</p>
+<p>统计上可以用 rddensity 命令来检验断点两侧样本密度是否相近。回归的 p 值为 0.534，不能拒绝断点附近两测样本量大致相等的假设，可知控制变量不受人为控制的假设满足。图形上亦可看出断点附近样本的数量没有明显差异（密度分布函数基本连续）。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.7">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.7
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rddensity hb_first_adm, c(7) <span class="kw">p</span>(3) <span class="kw">h</span>(2.3) pl plot_range() plot_n(100 100)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.7输出（密度检验）">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.7输出（密度检验）
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch12-image16.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码12.7输出（密度图）">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码12.7输出（密度图）
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch12-image17.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="断点稳健性检验" class="level3" data-number="12.4.3">
+<h3 data-number="12.4.3" class="anchored" data-anchor-id="断点稳健性检验"><span class="header-section-number">12.4.3</span> 断点稳健性检验</h3>
+<p>断点回归若提示干预变量与结局变量有明显相关性，则应该进行稳健性分析或敏感性分析。其思路在于选择一个或多个不同于断点的值作为安慰剂断点。若真实断点处的估计与安慰剂断点处不同，可为设计假设提供支持；安慰剂结果不能单独证明断点的真实性。可以分别取真实断点两侧20%、40%、60%和80%样本分位数处作为断点。</p>
+<p>由于越接近断点的样本，越有动机去人为操控，可以删除最接近断点的样本（如，删除断点附近5%，10%，15%，25%和30%的样本），来观察回归是否显著。说明即使存在人为操控，断点效应仍旧存在。 来观察估计对断点邻域的依赖。此类“甜甜圈（donut）RD”分析应预先说明剔除宽度；结果相似可增强稳健性，但不能证明不存在操纵，也不能用显著性与否作为唯一判断标准。</p>
+</section>
+<section id="带宽长度的稳健性检验" class="level3" data-number="12.4.4">
+<h3 data-number="12.4.4" class="anchored" data-anchor-id="带宽长度的稳健性检验"><span class="header-section-number">12.4.4</span> 带宽长度的稳健性检验</h3>
+<p>当我们的主要目的是解释点估计结果时，带宽选择的变动最好基于 MSE 最优带宽的小范围变动。与之对应的是，如果我们更加关注结果的推断，则带宽的选择应当围绕 CER 最优带宽进行。带宽长度亦会显著影响回归结果，一个稳健的结果要求对带宽长度不敏感。可以手动设置带宽为最优带宽的25%-400%倍，观察回归结果是否仍旧显著。 敏感性分析应比较点估计和置信区间，而非仅比较 P 值；带宽和多项式阶数的范围应依据方法学理由预先限定，避免在多种规格中事后挑选结果。</p>
+</section>
 </section>
 <section id="断点回归的应用" class="level2" data-number="12.5">
 <h2 data-number="12.5" class="anchored" data-anchor-id="断点回归的应用"><span class="header-section-number">12.5</span> 断点回归的应用</h2>
-<p><em>待补充。</em></p>
+<p>本节介绍医疗保健领域断点回归研究的案例，以说明使用断点回归研究的问题广泛性。总体而言，这些研究也显示了控制变量的多样性。 近年的医学方法学综述强调：临床指南阈值、检验值、年龄及政策资格线都可能提供 RD 机会，但只有在阈值规则确实改变治疗或暴露、且无其他同步跳跃时，才适合用于因果推断（Venkataramani、Bor 与 Jena，2016；Cattaneo 等，2023）。</p>
+<p>在临床医学中，基于治疗目标或临界点的治疗决策无处不在。尽管如此，很少有已发表的研究使用断点回归来评估临床问题。Bor等人通过研究早期抗逆转录病毒治疗对HIV携带者的死亡率和免疫恢复的作用，显示了断点回归的作用。他们利用CD4细胞数低于200个/mm<sup>3</sup>时开始治疗的政策来设计模糊的断点回归，发现CD4细胞数略低于这个阈值的人的死亡危险比CD4细胞数略高于这个阈值的人低35%。基于连续测量的生物标志物的临床阈值规则是断点回归的特别有力的应用，因为阈值周围的治疗分配实际上是由随机测量误差驱动的（正如本章中的案例）。与此一致，Bor等人表明，略高于和略低于阈值的患者在基线特征方面是相同的。同样，为了估计使用他汀类药物对低密度脂蛋白胆固醇水平的影响，Geneletti等人利用了10年心血管事件风险作为控制变量，比较那些低于或高于标准风险计算器20%的患者在他汀类药物处方上的差异。他们发现低于或高于标准风险的患者确实存在他汀类药物处方上的差异，且此差异与患者的预后相关。 阈值附近的测量误差本身不是 RD 有效性的充分理由；仍需论证患者、临床医生或机构不能精确排序到阈值的一侧，并检查同时发生的诊疗变化。</p>
+<p>为了研究新生儿重症监护对婴儿死亡率的影响，Almond等人将出生时体重小于1500克的婴儿指定为极低出生体重，这些患儿根据指南建议需要接受临床监护管理。Almond等人发现，略低于这一临界值的婴儿更有可能接受新生儿重症监护，而且与略高于临界值的婴儿相比，1岁前死亡的可能性要低18%。他们得出结论新生儿重症监护与其死亡率有因果关系。Bharadwaj等人用同样的分界线来评估新生儿重症监护对儿童期以后的认知发展和学习成绩的影响。</p>
+<p>创造性的断点回归方法也被应用于预防医学和公共卫生。如，Smith等人探讨了HPV疫苗对宫颈发育不良和外生殖器疣的影响。由于疫苗引入的时间以及年龄资格准则，作者将特定的出生季度设为控制变量，上半年出生的接触疫苗的机会增加，并发现宫颈发育不良和外生殖器疣在断点周围有明显跳跃。该研究提供了对HPV疫苗接种实际效果的人口水平的洞察。Callaghan研究了酒精对年轻成年人死亡率的影响，研究了高于和低于法定饮酒年龄的死亡率。地理边界在断点回归研究中也被利用。Chen等利用中国的数据估计了空气污染对健康的影响。作者利用了一项国家政策所产生的污染变化，该政策为居住在淮河以北的人提供免费的煤基冬季取暖。他们发现淮河以北的环境污染水平明显高于淮河以南，并估计由于污染的结果，淮河以北的人的预期寿命要低5.5年。一些研究已经应用断点回归来评估健康保险对结果的影响。De La Mata研究了略高于和略低于美国Medicaid收入资格门槛的家庭的儿童健康结果。</p>
+<p>断点回归方法最重要的局限性为普适性。断点回归可视为“局部随机试验”，通过考察协变量在断点两侧的分布是否有差异来检验随机性，但断点回归仅推断在断点处的因果关系，不能推广到其他样本值，故外部有效性受局限。本章案例中的因果效应是基于血红蛋白5.811-8.189范围内的样本做出的，这些样本数量有限，无法代表整个群体。此外，临界点的选择是人为的，根据临床知识决定，其本身也具有争议。断点回归可以认为是一种特殊的工具变量法，即利用了“是否大于断点”在局部满足无混杂因素、可作为工具变量这一特点，运用两步回归方法最终去评估干预实施效果。 更严格地说，模糊 RD 可在额外的排除限制、单调性等条件下表述为以“是否跨越阈值”为工具变量的局部 Wald 估计；精确 RD 则直接估计阈值处的处理效应，并不需要两阶段回归。两类设计的结论都主要适用于临界点附近的人群。</p>
+</section>
+<section id="本章参考文献" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="本章参考文献"><span class="header-section-number">12.6</span> 本章参考文献</h2>
+<ol type="1">
+<li>Venkataramani AS, Bor J, Jena AB. Regression discontinuity designs in healthcare research. <em>BMJ</em>. 2016;352:i1216. <a href="https://pubmed.ncbi.nlm.nih.gov/26977086/">PMID: 26977086</a></li>
+<li>Cattaneo MD, Keele L, Titiunik R. A guide to regression discontinuity designs in medical applications. <em>Statistics in Medicine</em>. 2023;42:4785–4805. <a href="https://pubmed.ncbi.nlm.nih.gov/37528626/">PMID: 37528626</a></li>
+<li>Calonico S, Jawadekar N, Kezios K, et al.&nbsp;Regression discontinuity design studies: a guide for health researchers. <em>BMJ</em>. 2024;384:e072254. <a href="https://www.bmj.com/content/384/bmj-2022-072254">BMJ</a></li>
+<li>Moscoe E, Bor J, Bärnighausen T. Regression discontinuity designs are underutilized in medicine, epidemiology, and public health: a review of current and best practice. <em>Journal of Clinical Epidemiology</em>. 2015;68:122–133. <a href="https://pubmed.ncbi.nlm.nih.gov/25579639/">PMID: 25579639</a></li>
+<li>Imbens GW, Lemieux T. Regression discontinuity designs: a guide to practice. <em>Journal of Econometrics</em>. 2008;142:615–635. <a href="https://www.nber.org/papers/t0337">NBER</a></li>
+</ol>
 
 
 <!-- -->
@@ -825,32 +1236,238 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 断点回归</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## 编写说明</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>本章内容整理中。可将已校订的 Word 书稿（<span class="in">`乔Book/`</span> 目录）正文迁移至此，公式用 <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span>，图片放 <span class="in">`images/`</span>，代码用 ```{r} 或 ```{python} 代码块。</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 精确断点与模糊断点</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## 控制变量断点的识别</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 断点回归估计方法</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 断点有效性检验</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## 断点回归的应用</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_待补充。_</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 断点回归法</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>断点回归（Regression discontinuity，RD）的设计思想是存在一个连续变量（控制变量）, 该变量能决定个体在某一临界点两侧接受干预的概率, 由于处理分配（精确断点）或处理概率（模糊断点）在该临界点处出现不连续跳跃, 因此个体针对干预的取值落入该临界点任意一侧是随机发生的, 即不存在人为操控使得个体落入某一侧的概率更大, 则在临界值附近构成了一个准自然实验。 更准确地说，RD 的识别依赖于：在没有处理的反事实下，潜在结局及预处理协变量随运行变量在临界点处平滑变化，并且个体不能精确操纵运行变量跨越阈值；它并不要求阈值两侧的处理本身“连续”。</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## 精确断点与模糊断点</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>精确断点是指临界点左右接受不同干预措施的概率为 0 或 1</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>如果研究考上大学与否与工资收入的关系。假设上大学与否完全取决于高考成绩是否超过500分（图12.1灰色虚线），对于高考成绩为500分左右（495-505范围内）的考生，可以认为他们在各方面（包括可观测变量和不可观测变量）都没有系统差异。可以认为他们是否上大学只是由于“上帝之手”随机抽样的结果，考上大学的学生进入干预组（蓝色圆圈），而落榜的学生进入控制组（红色圆圈）。由此，由于存在假定的随机分组，故可估计在500分附近的平均效应（工资收入差异）。由于此效应只适用于部分学生或样本，故称为断点处的局部平均处理效应（local treatment effect at the cutoff）；在模糊断点的工具变量解释下，该局部效应通常才称为依从者局部平均处理效应（LATE）。</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image1.png)</span>{width="65%"}</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>**图12.1 精确断点示意图**</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>模糊断点是指临界点左右接受不同干预措施的概率处于0-1之间</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>模糊断点的特征是，在断点处，个体得到处理的概率从a跳跃到b，其中0<span class="sc">\&lt;</span>a<span class="sc">\&lt;</span>b<span class="sc">\&lt;</span>1。当个体控制变量的值大于临界值时，个体接受B干预为主。当其小于临界值时，个体接受A干预为主，在临界值附近的结局差异可以较好地反映不同干预对结果的影响。</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>此图显示控制变量为横轴，灰色虚线为临界点，左侧绝大部分的受试者都是采用了A干预（红色圆圈），灰色虚线右侧绝大部分的患者采用了B干预（蓝色圆圈）。实际上高考成绩上线并不能完全保证上大学，能否上大学还取决于填报志愿，甚至有些上线考生放弃上大学的机会；而即使成绩未上线，但也可能因某种特长而得到加分，从而得到上大学的机会。上大学的概率确实在分数线的位置上有一个不连续的跳跃。</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image2.png)</span>{width="65%"}</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>**图12.2 模糊断点示意图**</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>断点回归在对平均处理效应做出估计前，需要对一些关键假设做出检验：</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>检验干预变量在断点c处是否存在跳跃（可通过绘图确认）；</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>检验干预变量和结局变量在断点以外的其他点不存在跳跃；</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>检验影响结果变量的其他变量在断点处不存在跳跃；</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>检验干预变量在断点处的概率密度函数是连续的，也就是在断点附近，个体不能操控干预的取值，个体落入断点的左侧或右侧是随机发生的；</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>检验平均处理效应不等于0。</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>这些图形与检验可支持设计假设，却不能单独证明因果识别；还必须排除在同一阈值处同时改变的政策、服务可及性或测量规则。医学应用指南建议同时报告运行变量的分布、处理第一阶段、协变量连续性、带宽选择和稳健偏倚校正推断（Cattaneo、Keele 与 Titiunik，2023；Calonico 等，2024）。</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## 控制变量断点的识别</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### 案例12.1</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>我们想要了解输血治疗能否降低重症监护室患者死亡率，因为接受输血治疗的患者往往有严重的基础疾病，其本身死亡率可能比未输血患者高。然而这些潜在的混杂因素可能有部分未观察（如基础疾病状况）。我们选取重症监护室数据库来说明如何使用断点回归检验关心的临床问题。数据集中记录了患者的年龄（age）、性别（male_gender，1为男性、0为女性）、入院时的血红蛋白值（hb_first_adm）、是否输血（transfused_icu，1为输血、0为未输血）以及是否死亡（hospital_mortality，1为死亡、0为未死亡）。 在本例中，hb_first_adm 是运行变量，7 g/dL 是候选阈值；实际输血并非由阈值完全决定，因此应按模糊断点设计处理，并先验证阈值处的输血概率是否存在足够大的跳跃。</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>**案例12.1数据集**</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> age <span class="pp">|</span> male_gender <span class="pp">|</span> hb_first_adm <span class="pp">|</span> transfused_icu <span class="pp">|</span> hospital_mortality <span class="pp">|</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:-----------:|:------------:|:--------------:|:------------------:|</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 59  <span class="pp">|</span>      1      <span class="pp">|</span>      14      <span class="pp">|</span>       0        <span class="pp">|</span>         0          <span class="pp">|</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 86  <span class="pp">|</span>      1      <span class="pp">|</span>     11.8     <span class="pp">|</span>       0        <span class="pp">|</span>         0          <span class="pp">|</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 78  <span class="pp">|</span>      1      <span class="pp">|</span>     10.5     <span class="pp">|</span>       0        <span class="pp">|</span>         0          <span class="pp">|</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 75  <span class="pp">|</span>      0      <span class="pp">|</span>     12.9     <span class="pp">|</span>       0        <span class="pp">|</span>         0          <span class="pp">|</span></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 88  <span class="pp">|</span>      0      <span class="pp">|</span>     12.1     <span class="pp">|</span>       0        <span class="pp">|</span>         0          <span class="pp">|</span></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 53  <span class="pp">|</span>      0      <span class="pp">|</span>     10.8     <span class="pp">|</span>       0        <span class="pp">|</span>         0          <span class="pp">|</span></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  …  <span class="pp">|</span>      …      <span class="pp">|</span>      …       <span class="pp">|</span>       …        <span class="pp">|</span>         …          <span class="pp">|</span></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>如果单纯比较输血与未输血患者的死亡率可以看到输血患者的死亡率为9.3%，而未输血患者的死亡率为14.0%，卡方检验两者有明显差别。因此两者之间存在相关性。 这一粗略比较不能说明输血降低死亡率：输血与否由病情、出血、治疗时机等共同决定，且两组的血红蛋白分布明显不同；RD 的比较应限制在阈值附近，并以运行变量为横轴而非将全样本直接分组。</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码12.1"}</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a><span class="in">tabulate transfused_icu hospital_mortality, chi2</span></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码12.1输出"}</span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image3.png)</span>{width="100%"}</span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a>再来比较一下输血与未输血患者的血红蛋白，输血患者的血红蛋白平均值为8.90，而未输血患者的血红蛋白平均值为12.06，t检验两者有明显差别。</span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码12.2"}</span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a><span class="in">ttest hb_first_adm, by(transfused_icu)</span></span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码12.2输出"}</span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image4.png)</span>{width="100%"}</span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>因此，基线血红蛋白值可作为运行变量（赋值变量）。可以利用线性拟合方法，对控制变量临界点左右分别拟合，通过观察两侧拟合线的的差异来推测跳跃现象是否发生。下图中分别列出了利用线性拟合、二阶多项式拟合图和三阶多项式拟合图的结果，临界点选择7、8或9（临床实践中输血的指征各异，但一般情况下血红蛋白低于7可以输血）观察不同参数对跳跃的影响。 图形可用于探索第一阶段，但不宜据肉眼选择“三阶多项式效果最佳”。现代 RD 分析通常以局部线性估计为主、局部二次项用于偏倚校正，并以数据驱动的带宽与稳健偏倚校正置信区间作主要推断。</span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码12.3"}</span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a><span class="in">rdplot transfused_icu hb_first_adm, c(7) p(1)</span></span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a><span class="in">rdplot transfused_icu hb_first_adm, c(7) p(2)</span></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a><span class="in">rdplot transfused_icu hb_first_adm, c(7) p(3)</span></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a><span class="in">rdplot transfused_icu hb_first_adm, c(8) p(1)</span></span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a><span class="in">rdplot transfused_icu hb_first_adm, c(8) p(2)</span></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a><span class="in">rdplot transfused_icu hb_first_adm, c(8) p(3)</span></span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a><span class="in">rdplot transfused_icu hb_first_adm, c(9) p(1)</span></span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a><span class="in">rdplot transfused_icu hb_first_adm, c(9) p(2)</span></span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a><span class="in">rdplot transfused_icu hb_first_adm, c(9) p(3)</span></span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码12.3输出"}</span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`c(7) p(1)`</span> <span class="pp">|</span> <span class="in">`c(7) p(2)`</span> <span class="pp">|</span> <span class="in">`c(7) p(3)`</span> <span class="pp">|</span></span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--:<span class="pp">|</span>:--:<span class="pp">|</span>:--:<span class="pp">|</span></span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="al">![](images/ch12-image5.png)</span>{width="100%"} <span class="pp">|</span> <span class="al">![](images/ch12-image6.png)</span>{width="100%"} <span class="pp">|</span> <span class="al">![](images/ch12-image7.png)</span>{width="100%"} <span class="pp">|</span></span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`c(8) p(1)`</span> <span class="pp">|</span> <span class="in">`c(8) p(2)`</span> <span class="pp">|</span> <span class="in">`c(8) p(3)`</span> <span class="pp">|</span></span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="al">![](images/ch12-image8.png)</span>{width="100%"} <span class="pp">|</span> <span class="al">![](images/ch12-image9.png)</span>{width="100%"} <span class="pp">|</span> <span class="al">![](images/ch12-image10.png)</span>{width="100%"} <span class="pp">|</span></span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`c(9) p(1)`</span> <span class="pp">|</span> <span class="in">`c(9) p(2)`</span> <span class="pp">|</span> <span class="in">`c(9) p(3)`</span> <span class="pp">|</span></span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="al">![](images/ch12-image11.png)</span>{width="100%"} <span class="pp">|</span> <span class="al">![](images/ch12-image9.png)</span>{width="100%"} <span class="pp">|</span> <span class="al">![](images/ch12-image12.png)</span>{width="100%"} <span class="pp">|</span></span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a>从上图可以看出，控制变量的临界点选择7时跳跃最为明显，采用三阶多项式拟合效果最佳。在断点的左侧，输血的概率比较高（大于40%），而在切点的右侧，小于30%的受试者会接受输血治疗。这也和临床实践一致，输血干预措施是根据血红蛋白的高低来决定的，血红蛋白高于7时输血概率很低；但如果血红蛋白小于7，输血的概率相对来说会很高。</span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## 断点回归估计方法</span></span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a><span class="fu">### 带宽选择</span></span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a>带宽是指控制变量临界点左右两边的取值区间。带宽越大，则意味着有越多的样本被纳入检验中，参数估计更准确，但也意味着样本随机性要求越难满足，混杂问题可能更严重。另一方面，如果带宽选择很小，则可能不存在混杂问题，但由于样本量较小，估算其准确性降低。</span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a>在实践中，根据均方误差（MSE）或覆盖误差（CER）最小化选择带宽，可以使用 rdbwselect 考察。前五个结果均为均方误差最优的带宽，mserd 表示在断点两侧使用长度相同的带宽，mestwo 表示在断点两侧使用长度不同的带宽，msesum 表示最小化回归系数之和的均方误差带宽，msecomb1 是最小化 mserd 和 msesum 的带宽，msecomb2 取 msetwo、mserd 和 msesum 的中位数。其余结果的解释与上述内容相同，只不过选取准则从均方误差变成覆盖误差。 带宽应针对主要结局与拟采用的局部多项式估计器选择；若研究的是模糊 RD 的治疗效应，还应同时报告处理概率跳跃的强度及其不确定性，而不应只依据某一张输出表选择最有利的规格。</span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a>若在断点两侧使用长度相同的带宽1.189（cerrd），表示断点左侧的边界为7-1.189=5.811，断点右侧的边界为7+1.189=8.189。即选择血红蛋白5.811-8.189范围内的样本进行因果推断。 该区间仅说明某一带宽规则下用于局部估计的邻域，不是临床效应适用范围的硬边界；报告时应给出所用带宽、核函数、左右两侧有效样本量，以及常规和偏倚校正后的置信区间。</span>
+<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码12.4"}</span>
+<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a><span class="in">rdbwselect transfused_icu hb_first_adm, c(7) kernel(triangular) p(3) all</span></span>
+<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码12.4输出"}</span>
+<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-133"><a href="#cb8-133" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image13.png)</span>{width="100%"}</span>
+<span id="cb8-134"><a href="#cb8-134" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-135"><a href="#cb8-135" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-137"><a href="#cb8-137" aria-hidden="true" tabindex="-1"></a><span class="fu">### 局部线性回归法</span></span>
+<span id="cb8-138"><a href="#cb8-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-139"><a href="#cb8-139" aria-hidden="true" tabindex="-1"></a>使用局部线性回归法，是假定在断点邻域中的处理效应为线性，通过在左右两侧邻域分别进行线性回归并比较两侧回归系数差异来进行识别。局部回归检验的一个重要环节在于带宽的选择，可采用上述带宽选择结果。 对模糊断点，局部线性估计的目标是阈值处结局跳跃与输血概率跳跃之比，而不是将血红蛋白本身当作干预效应；若第一阶段很弱，该比值估计会不稳定。</span>
+<span id="cb8-140"><a href="#cb8-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-141"><a href="#cb8-141" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码12.5"}</span>
+<span id="cb8-142"><a href="#cb8-142" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-143"><a href="#cb8-143" aria-hidden="true" tabindex="-1"></a><span class="in">rd hospital_mortality transfused_icu hb_first_adm, z0(7) bw(1.189)</span></span>
+<span id="cb8-144"><a href="#cb8-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-145"><a href="#cb8-145" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-146"><a href="#cb8-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-147"><a href="#cb8-147" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码12.5输出"}</span>
+<span id="cb8-148"><a href="#cb8-148" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-149"><a href="#cb8-149" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image14.png)</span>{width="100%"}</span>
+<span id="cb8-150"><a href="#cb8-150" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-151"><a href="#cb8-151" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-152"><a href="#cb8-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-153"><a href="#cb8-153" aria-hidden="true" tabindex="-1"></a>该命令不仅给出了指定带宽，还同时给出了带宽取指定带宽50%（0.59）和200%（2.38）的回归结果。观察结果可发现，50%、100%和200%带宽下回归系数也较为接近，分别为-0.028，-0.020和-0.059，均无统计学意义。可知断点回归结果对带宽选择并不敏感，这也表明回归结果是稳健的，200%带宽下的95%置信区间最窄。因此可以得到结论在所选带宽与模型下，未见输血对院内死亡率存在明确的局部因果效应；估计精度仍须结合置信区间判断。</span>
+<span id="cb8-154"><a href="#cb8-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-155"><a href="#cb8-155" aria-hidden="true" tabindex="-1"></a><span class="fu">### 局部多项式回归法</span></span>
+<span id="cb8-156"><a href="#cb8-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-157"><a href="#cb8-157" aria-hidden="true" tabindex="-1"></a>线性假设可能会错误估计了断点左右的回归系数，可以采取非线性拟合的办法进行弥补，即使用局部多项式断点回归方法。对于局部多项式断点回归，关键问题在于阶数的选择。可以利用上述图形观察不同多项式的拟合效果选择。 不建议以全局高阶多项式替代局部估计。实践中常以局部线性（p=1）点估计、局部二次（q=2）偏倚校正及 rdrobust 的稳健偏倚校正推断为默认报告，并说明核函数、带宽和有效样本量。</span>
+<span id="cb8-158"><a href="#cb8-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-159"><a href="#cb8-159" aria-hidden="true" tabindex="-1"></a>结果提示回归系数为-0.157，无统计学意义，可以得到结论在所选带宽与模型下，未见输血对院内死亡率存在明确的局部因果效应；估计精度仍须结合置信区间判断。</span>
+<span id="cb8-160"><a href="#cb8-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-161"><a href="#cb8-161" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码12.6"}</span>
+<span id="cb8-162"><a href="#cb8-162" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-163"><a href="#cb8-163" aria-hidden="true" tabindex="-1"></a><span class="in">rdrobust hospital_mortality hb_first_adm, ///</span></span>
+<span id="cb8-164"><a href="#cb8-164" aria-hidden="true" tabindex="-1"></a><span class="in">    fuzzy(transfused_icu) c(7) p(3) bwselect(cerrd)</span></span>
+<span id="cb8-165"><a href="#cb8-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-166"><a href="#cb8-166" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-167"><a href="#cb8-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-168"><a href="#cb8-168" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码12.6输出"}</span>
+<span id="cb8-169"><a href="#cb8-169" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-170"><a href="#cb8-170" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image15.png)</span>{width="100%"}</span>
+<span id="cb8-171"><a href="#cb8-171" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-172"><a href="#cb8-172" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-173"><a href="#cb8-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-174"><a href="#cb8-174" aria-hidden="true" tabindex="-1"></a><span class="fu">## 断点有效性检验</span></span>
+<span id="cb8-175"><a href="#cb8-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-176"><a href="#cb8-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### 局部平滑性检验</span></span>
+<span id="cb8-177"><a href="#cb8-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-178"><a href="#cb8-178" aria-hidden="true" tabindex="-1"></a>断点回归的一个重要统计学假设是除了干预变量和结果变量，所有其它变量在断点附近都不应该存在跳跃现象。在检验方法上，可以将其他协变量作为安慰剂使用断点回归方法进行检验，利用图形直接观察是否在给定的控制变量临界点周围存在跳跃。 协变量检验应预先列出并报告效应量与置信区间；“未显著”不等于协变量必然连续。更核心的识别假设是未观测潜在结局在阈值处连续，因此协变量平衡只能提供间接支持。</span>
+<span id="cb8-179"><a href="#cb8-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-180"><a href="#cb8-180" aria-hidden="true" tabindex="-1"></a><span class="fu">### 干预变量不受人为控制的检验</span></span>
+<span id="cb8-181"><a href="#cb8-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-182"><a href="#cb8-182" aria-hidden="true" tabindex="-1"></a>其思路在于，断点附近样本的数量应该相近才符合随机性。其潜在假定是，如果没有精确操纵控制变量的能力，那么略高于断点的观测值个数应当与略低于断点的观测值非常接近，换句话说，当控制变量没有受到精确的操纵时，控制变量的密度函数应当是连续的。当然这个检验在本案例中没有临床意义，因为血红蛋白的值是检验科自动化产生的，不存在人为干预因素。 不过，自动化检测并不能自动排除选择性检测、标本采集时间或数据记录规则在阈值附近改变；若运行变量离散、存在四舍五入或堆积，密度检验的解释也需要更谨慎。</span>
+<span id="cb8-183"><a href="#cb8-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-184"><a href="#cb8-184" aria-hidden="true" tabindex="-1"></a>统计上可以用 rddensity 命令来检验断点两侧样本密度是否相近。回归的 p 值为 0.534，不能拒绝断点附近两测样本量大致相等的假设，可知控制变量不受人为控制的假设满足。图形上亦可看出断点附近样本的数量没有明显差异（密度分布函数基本连续）。</span>
+<span id="cb8-185"><a href="#cb8-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-186"><a href="#cb8-186" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码12.7"}</span>
+<span id="cb8-187"><a href="#cb8-187" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-188"><a href="#cb8-188" aria-hidden="true" tabindex="-1"></a><span class="in">rddensity hb_first_adm, c(7) p(3) h(2.3) pl plot_range() plot_n(100 100)</span></span>
+<span id="cb8-189"><a href="#cb8-189" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-190"><a href="#cb8-190" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-191"><a href="#cb8-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-192"><a href="#cb8-192" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码12.7输出（密度检验）"}</span>
+<span id="cb8-193"><a href="#cb8-193" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-194"><a href="#cb8-194" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image16.png)</span>{width="100%"}</span>
+<span id="cb8-195"><a href="#cb8-195" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-196"><a href="#cb8-196" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-197"><a href="#cb8-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-198"><a href="#cb8-198" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码12.7输出（密度图）"}</span>
+<span id="cb8-199"><a href="#cb8-199" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-200"><a href="#cb8-200" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image17.png)</span>{width="100%"}</span>
+<span id="cb8-201"><a href="#cb8-201" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-202"><a href="#cb8-202" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-203"><a href="#cb8-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-204"><a href="#cb8-204" aria-hidden="true" tabindex="-1"></a><span class="fu">### 断点稳健性检验</span></span>
+<span id="cb8-205"><a href="#cb8-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-206"><a href="#cb8-206" aria-hidden="true" tabindex="-1"></a>断点回归若提示干预变量与结局变量有明显相关性，则应该进行稳健性分析或敏感性分析。其思路在于选择一个或多个不同于断点的值作为安慰剂断点。若真实断点处的估计与安慰剂断点处不同，可为设计假设提供支持；安慰剂结果不能单独证明断点的真实性。可以分别取真实断点两侧20%、40%、60%和80%样本分位数处作为断点。</span>
+<span id="cb8-207"><a href="#cb8-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-208"><a href="#cb8-208" aria-hidden="true" tabindex="-1"></a>由于越接近断点的样本，越有动机去人为操控，可以删除最接近断点的样本（如，删除断点附近5%，10%，15%，25%和30%的样本），来观察回归是否显著。说明即使存在人为操控，断点效应仍旧存在。 来观察估计对断点邻域的依赖。此类“甜甜圈（donut）RD”分析应预先说明剔除宽度；结果相似可增强稳健性，但不能证明不存在操纵，也不能用显著性与否作为唯一判断标准。</span>
+<span id="cb8-209"><a href="#cb8-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-210"><a href="#cb8-210" aria-hidden="true" tabindex="-1"></a><span class="fu">### 带宽长度的稳健性检验</span></span>
+<span id="cb8-211"><a href="#cb8-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-212"><a href="#cb8-212" aria-hidden="true" tabindex="-1"></a>当我们的主要目的是解释点估计结果时，带宽选择的变动最好基于 MSE 最优带宽的小范围变动。与之对应的是，如果我们更加关注结果的推断，则带宽的选择应当围绕 CER 最优带宽进行。带宽长度亦会显著影响回归结果，一个稳健的结果要求对带宽长度不敏感。可以手动设置带宽为最优带宽的25%-400%倍，观察回归结果是否仍旧显著。 敏感性分析应比较点估计和置信区间，而非仅比较 P 值；带宽和多项式阶数的范围应依据方法学理由预先限定，避免在多种规格中事后挑选结果。</span>
+<span id="cb8-213"><a href="#cb8-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-214"><a href="#cb8-214" aria-hidden="true" tabindex="-1"></a><span class="fu">## 断点回归的应用</span></span>
+<span id="cb8-215"><a href="#cb8-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-216"><a href="#cb8-216" aria-hidden="true" tabindex="-1"></a>本节介绍医疗保健领域断点回归研究的案例，以说明使用断点回归研究的问题广泛性。总体而言，这些研究也显示了控制变量的多样性。 近年的医学方法学综述强调：临床指南阈值、检验值、年龄及政策资格线都可能提供 RD 机会，但只有在阈值规则确实改变治疗或暴露、且无其他同步跳跃时，才适合用于因果推断（Venkataramani、Bor 与 Jena，2016；Cattaneo 等，2023）。</span>
+<span id="cb8-217"><a href="#cb8-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-218"><a href="#cb8-218" aria-hidden="true" tabindex="-1"></a>在临床医学中，基于治疗目标或临界点的治疗决策无处不在。尽管如此，很少有已发表的研究使用断点回归来评估临床问题。Bor等人通过研究早期抗逆转录病毒治疗对HIV携带者的死亡率和免疫恢复的作用，显示了断点回归的作用。他们利用CD4细胞数低于200个/mm<span class="dt">&lt;</span><span class="kw">sup</span><span class="dt">&gt;</span>3<span class="dt">&lt;/</span><span class="kw">sup</span><span class="dt">&gt;</span>时开始治疗的政策来设计模糊的断点回归，发现CD4细胞数略低于这个阈值的人的死亡危险比CD4细胞数略高于这个阈值的人低35%。基于连续测量的生物标志物的临床阈值规则是断点回归的特别有力的应用，因为阈值周围的治疗分配实际上是由随机测量误差驱动的（正如本章中的案例）。与此一致，Bor等人表明，略高于和略低于阈值的患者在基线特征方面是相同的。同样，为了估计使用他汀类药物对低密度脂蛋白胆固醇水平的影响，Geneletti等人利用了10年心血管事件风险作为控制变量，比较那些低于或高于标准风险计算器20%的患者在他汀类药物处方上的差异。他们发现低于或高于标准风险的患者确实存在他汀类药物处方上的差异，且此差异与患者的预后相关。 阈值附近的测量误差本身不是 RD 有效性的充分理由；仍需论证患者、临床医生或机构不能精确排序到阈值的一侧，并检查同时发生的诊疗变化。</span>
+<span id="cb8-219"><a href="#cb8-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-220"><a href="#cb8-220" aria-hidden="true" tabindex="-1"></a>为了研究新生儿重症监护对婴儿死亡率的影响，Almond等人将出生时体重小于1500克的婴儿指定为极低出生体重，这些患儿根据指南建议需要接受临床监护管理。Almond等人发现，略低于这一临界值的婴儿更有可能接受新生儿重症监护，而且与略高于临界值的婴儿相比，1岁前死亡的可能性要低18%。他们得出结论新生儿重症监护与其死亡率有因果关系。Bharadwaj等人用同样的分界线来评估新生儿重症监护对儿童期以后的认知发展和学习成绩的影响。</span>
+<span id="cb8-221"><a href="#cb8-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-222"><a href="#cb8-222" aria-hidden="true" tabindex="-1"></a>创造性的断点回归方法也被应用于预防医学和公共卫生。如，Smith等人探讨了HPV疫苗对宫颈发育不良和外生殖器疣的影响。由于疫苗引入的时间以及年龄资格准则，作者将特定的出生季度设为控制变量，上半年出生的接触疫苗的机会增加，并发现宫颈发育不良和外生殖器疣在断点周围有明显跳跃。该研究提供了对HPV疫苗接种实际效果的人口水平的洞察。Callaghan研究了酒精对年轻成年人死亡率的影响，研究了高于和低于法定饮酒年龄的死亡率。地理边界在断点回归研究中也被利用。Chen等利用中国的数据估计了空气污染对健康的影响。作者利用了一项国家政策所产生的污染变化，该政策为居住在淮河以北的人提供免费的煤基冬季取暖。他们发现淮河以北的环境污染水平明显高于淮河以南，并估计由于污染的结果，淮河以北的人的预期寿命要低5.5年。一些研究已经应用断点回归来评估健康保险对结果的影响。De La Mata研究了略高于和略低于美国Medicaid收入资格门槛的家庭的儿童健康结果。</span>
+<span id="cb8-223"><a href="#cb8-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-224"><a href="#cb8-224" aria-hidden="true" tabindex="-1"></a>断点回归方法最重要的局限性为普适性。断点回归可视为“局部随机试验”，通过考察协变量在断点两侧的分布是否有差异来检验随机性，但断点回归仅推断在断点处的因果关系，不能推广到其他样本值，故外部有效性受局限。本章案例中的因果效应是基于血红蛋白5.811-8.189范围内的样本做出的，这些样本数量有限，无法代表整个群体。此外，临界点的选择是人为的，根据临床知识决定，其本身也具有争议。断点回归可以认为是一种特殊的工具变量法，即利用了“是否大于断点”在局部满足无混杂因素、可作为工具变量这一特点，运用两步回归方法最终去评估干预实施效果。 更严格地说，模糊 RD 可在额外的排除限制、单调性等条件下表述为以“是否跨越阈值”为工具变量的局部 Wald 估计；精确 RD 则直接估计阈值处的处理效应，并不需要两阶段回归。两类设计的结论都主要适用于临界点附近的人群。</span>
+<span id="cb8-225"><a href="#cb8-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-226"><a href="#cb8-226" aria-hidden="true" tabindex="-1"></a><span class="fu">## 本章参考文献</span></span>
+<span id="cb8-227"><a href="#cb8-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-228"><a href="#cb8-228" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Venkataramani AS, Bor J, Jena AB. Regression discontinuity designs in healthcare research. *BMJ*. 2016;352:i1216. <span class="co">[</span><span class="ot">PMID: 26977086</span><span class="co">](https://pubmed.ncbi.nlm.nih.gov/26977086/)</span></span>
+<span id="cb8-229"><a href="#cb8-229" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Cattaneo MD, Keele L, Titiunik R. A guide to regression discontinuity designs in medical applications. *Statistics in Medicine*. 2023;42:4785–4805. <span class="co">[</span><span class="ot">PMID: 37528626</span><span class="co">](https://pubmed.ncbi.nlm.nih.gov/37528626/)</span></span>
+<span id="cb8-230"><a href="#cb8-230" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Calonico S, Jawadekar N, Kezios K, et al. Regression discontinuity design studies: a guide for health researchers. *BMJ*. 2024;384:e072254. <span class="co">[</span><span class="ot">BMJ</span><span class="co">](https://www.bmj.com/content/384/bmj-2022-072254)</span></span>
+<span id="cb8-231"><a href="#cb8-231" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Moscoe E, Bor J, Bärnighausen T. Regression discontinuity designs are underutilized in medicine, epidemiology, and public health: a review of current and best practice. *Journal of Clinical Epidemiology*. 2015;68:122–133. <span class="co">[</span><span class="ot">PMID: 25579639</span><span class="co">](https://pubmed.ncbi.nlm.nih.gov/25579639/)</span></span>
+<span id="cb8-232"><a href="#cb8-232" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Imbens GW, Lemieux T. Regression discontinuity designs: a guide to practice. *Journal of Econometrics*. 2008;142:615–635. <span class="co">[</span><span class="ot">NBER</span><span class="co">](https://www.nber.org/papers/t0337)</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
