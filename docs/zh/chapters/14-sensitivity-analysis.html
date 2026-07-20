@@ -58,7 +58,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -220,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12-regression-discontinuity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归法</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -293,9 +312,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">目录</h2>
    
   <ul>
-  <li><a href="#观察性研究的敏感性分析" id="toc-观察性研究的敏感性分析" class="nav-link active" data-scroll-target="#观察性研究的敏感性分析"><span class="header-section-number">14.1</span> 观察性研究的敏感性分析</a></li>
-  <li><a href="#未测量混杂因素" id="toc-未测量混杂因素" class="nav-link" data-scroll-target="#未测量混杂因素"><span class="header-section-number">14.2</span> 未测量混杂因素</a></li>
-  <li><a href="#阴性对照法" id="toc-阴性对照法" class="nav-link" data-scroll-target="#阴性对照法"><span class="header-section-number">14.3</span> 阴性对照法</a></li>
+  <li><a href="#观察性研究的敏感性分析" id="toc-观察性研究的敏感性分析" class="nav-link active" data-scroll-target="#观察性研究的敏感性分析"><span class="header-section-number">14.1</span> 观察性研究的敏感性分析</a>
+  <ul class="collapse">
+  <li><a href="#干预的定义" id="toc-干预的定义" class="nav-link" data-scroll-target="#干预的定义"><span class="header-section-number">14.1.1</span> 干预的定义</a></li>
+  <li><a href="#结局的定义" id="toc-结局的定义" class="nav-link" data-scroll-target="#结局的定义"><span class="header-section-number">14.1.2</span> 结局的定义</a></li>
+  <li><a href="#数据的来源" id="toc-数据的来源" class="nav-link" data-scroll-target="#数据的来源"><span class="header-section-number">14.1.3</span> 数据的来源</a></li>
+  <li><a href="#协变量的定义" id="toc-协变量的定义" class="nav-link" data-scroll-target="#协变量的定义"><span class="header-section-number">14.1.4</span> 协变量的定义</a></li>
+  <li><a href="#分析方法" id="toc-分析方法" class="nav-link" data-scroll-target="#分析方法"><span class="header-section-number">14.1.5</span> 分析方法</a></li>
+  </ul></li>
+  <li><a href="#未测量混杂因素" id="toc-未测量混杂因素" class="nav-link" data-scroll-target="#未测量混杂因素"><span class="header-section-number">14.2</span> 未测量混杂因素</a>
+  <ul class="collapse">
+  <li><a href="#边界因子法e值" id="toc-边界因子法e值" class="nav-link" data-scroll-target="#边界因子法e值"><span class="header-section-number">14.2.1</span> 边界因子法（E值）</a></li>
+  <li><a href="#混杂函数法" id="toc-混杂函数法" class="nav-link" data-scroll-target="#混杂函数法"><span class="header-section-number">14.2.2</span> 混杂函数法</a></li>
+  <li><a href="#混淆百分比" id="toc-混淆百分比" class="nav-link" data-scroll-target="#混淆百分比"><span class="header-section-number">14.2.3</span> 混淆百分比</a></li>
+  </ul></li>
+  <li><a href="#阴性对照法" id="toc-阴性对照法" class="nav-link" data-scroll-target="#阴性对照法"><span class="header-section-number">14.3</span> 阴性对照法</a>
+  <ul class="collapse">
+  <li><a href="#阴性干预" id="toc-阴性干预" class="nav-link" data-scroll-target="#阴性干预"><span class="header-section-number">14.3.1</span> 阴性干预</a></li>
+  <li><a href="#阴性时期" id="toc-阴性时期" class="nav-link" data-scroll-target="#阴性时期"><span class="header-section-number">14.3.2</span> 阴性时期</a></li>
+  <li><a href="#阴性结局" id="toc-阴性结局" class="nav-link" data-scroll-target="#阴性结局"><span class="header-section-number">14.3.3</span> 阴性结局</a></li>
+  </ul></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献">参考文献</a></li>
   </ul>
 </nav>
     </div>
@@ -321,30 +358,451 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">注记</span>编写说明
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>本章内容整理中。可将已校订的 Word 书稿（<code>乔Book/</code> 目录）正文迁移至此，公式用 <code>$...$</code> / <code>$$...$$</code>，图片放 <code>images/</code>，代码用 <code>{r} 或</code>{python} 代码块。</p>
-</div>
-</div>
+<p>使用观察数据进行评估时的一个基本问题，混杂因素可能会被误认为是处理效应。因此，研究人员在进行分析时，可运用上述多种设计与统计方法减轻已测量混杂。然而，在观察性研究中，不太可能获得所有潜在混杂变量的数据。因此，应开展针对关键假设的敏感性分析，以评估未测量的混杂因素与处理分配之间，以及与结果之间的关系有多强，从而解释观察到的处理效应的稳健性。</p>
+<p>敏感性分析应在方案中预先说明其目的、主要估计目标、将改变的定义或参数范围，以及哪些结果将被视为支持或削弱主要结论；它不是在多种分析中挑选最有利结果的过程。<span class="citation" data-cites="greenland1996">(<a href="../references.html#ref-greenland1996" role="doc-biblioref">Greenland 1996年</a>)</span></p>
 <section id="观察性研究的敏感性分析" class="level2" data-number="14.1">
 <h2 data-number="14.1" class="anchored" data-anchor-id="观察性研究的敏感性分析"><span class="header-section-number">14.1</span> 观察性研究的敏感性分析</h2>
-<p><em>待补充。</em></p>
+<section id="干预的定义" class="level3" data-number="14.1.1">
+<h3 data-number="14.1.1" class="anchored" data-anchor-id="干预的定义"><span class="header-section-number">14.1.1</span> 干预的定义</h3>
+<p>多数观察性研究根据干预与否分为干预组和非干预组进行比较；但如果干预是可以量化的，比如某个指标的水平，或者用药的剂量等，可以根据不同的干预水平/剂量分组，比较组间结局发生率的关系，是否存在剂量依赖关系（剂量越高，疗效越好）。</p>
+<p>剂量或连续暴露的敏感性分析宜预先设定有临床意义的阈值，并同时以连续形式（例如限制性立方样条）检验非线性；任意分组可能丢失信息并制造阈值效应。</p>
+</section>
+<section id="结局的定义" class="level3" data-number="14.1.2">
+<h3 data-number="14.1.2" class="anchored" data-anchor-id="结局的定义"><span class="header-section-number">14.1.2</span> 结局的定义</h3>
+<p>敏感性分析可以通过改变研究结局的定义来看研究结果的稳健性。比如肿瘤的发生，可以通过病历中的诊断，可以通过病理的结果，还可以通过影像学的结果等等。案例9.1中内分泌缓解的定义可以通过生长激素指标判断，亦可以通过胰岛素样生长因素判断，如果这两种判断方法得出的结论一致，则可增加研究的稳健性。</p>
+<p>替代结局定义应尽量基于预先验证的算法，并报告诊断窗口、测量误差和各定义下事件数；结论一致支持稳健性，但不能排除两种定义共享的系统性偏倚。</p>
+</section>
+<section id="数据的来源" class="level3" data-number="14.1.3">
+<h3 data-number="14.1.3" class="anchored" data-anchor-id="数据的来源"><span class="header-section-number">14.1.3</span> 数据的来源</h3>
+<p>目前大规模的观察性研究大多基于已有的注册登记库数据开展，甚至有些研究会通过整合多个这样数据库进行分析，这时，数据的来源可以作为敏感性分析的一个切入口，可以既在不同的亚群中进行数据分析，也进行综合分析，查看研究结果的敏感性。</p>
+<p>除重复分析外，还应比较各数据源的纳入标准、时间零点、变量编码、缺失模式与随访方式；数据源不同并不自动意味着偏倚更小。</p>
+</section>
+<section id="协变量的定义" class="level3" data-number="14.1.4">
+<h3 data-number="14.1.4" class="anchored" data-anchor-id="协变量的定义"><span class="header-section-number">14.1.4</span> 协变量的定义</h3>
+<p>尤其那些连续分布的协变量（如年龄），通常研究者会将其以连续分布变量的形式纳入多因素分析模型中，但其实这些变量与结局之间不一定是线性关系，这时如果把这些协变量划分成不同的层（如年龄层），再放入多因素分析模型中进行分析，来查看研究结果的敏感性。</p>
+<p>对连续协变量，优先比较合理的非线性函数（如样条）与线性设定；仅把变量切成若干层通常不能充分检验模型设定，并可能降低统计效率。</p>
+</section>
+<section id="分析方法" class="level3" data-number="14.1.5">
+<h3 data-number="14.1.5" class="anchored" data-anchor-id="分析方法"><span class="header-section-number">14.1.5</span> 分析方法</h3>
+<p>可采用多种控制混杂因素的方法，包括回归，倾向性评分配对，逆概率加权。若可获得工具变量，还可使用工具变量方法。存在时间因素可选择中断时间序列方法。如果数据存在缺失，亦可采用多种缺失数据插补方法以检验缺失数据对结果的敏感性。</p>
+<p>这些分析应围绕同一因果问题和预先规定的估计目标进行；不同方法得到相近结果可增强可信度，但不能单独证明不存在残余混杂、选择偏倚或模型错设。</p>
+</section>
 </section>
 <section id="未测量混杂因素" class="level2" data-number="14.2">
 <h2 data-number="14.2" class="anchored" data-anchor-id="未测量混杂因素"><span class="header-section-number">14.2</span> 未测量混杂因素</h2>
-<p><em>待补充。</em></p>
+<p>观察性研究中存在未测量混杂因素时，回归、倾向性评分配对和逆概率加权等方法不能在不增加额外假设或信息的情况下识别无偏的因果效应。这时深入探索的思路是：未测量混杂是否能全部或部分解释研究中观察到的干预因素的效应。即当未测量混杂因素达到何种强度时，之前的结果才不可信？若这种要求显然过于苛刻，则说明之前的结果大致可信。</p>
+<p>这里的“苛刻”必须与现实中可能存在的混杂强度比较，而不能仅依据统计量数值作出结论；定量偏倚分析应明确其偏倚参数、方向与情景范围。Ding和VanderWeele（2016）提出了在较少分布假设下构造未测量混杂界限的框架。<span class="citation" data-cites="ding2016">(<a href="../references.html#ref-ding2016" role="doc-biblioref">Ding 和 VanderWeele 2016年</a>)</span></p>
+<section id="边界因子法e值" class="level3" data-number="14.2.1">
+<h3 data-number="14.2.1" class="anchored" data-anchor-id="边界因子法e值"><span class="header-section-number">14.2.1</span> 边界因子法（E值）</h3>
+<p>E值用于量化：在给定已调整协变量后，一个未测量混杂因素须同时与处理和结局具有多强的关联，才可能将观察到的相对效应完全解释为无效应。E值针对相对风险尺度；对非罕见结局的比值比或风险比以外的效应尺度，应说明所采用的尺度转换及其假设。研究者不必预先指定某一个具体混杂因素，但应结合临床和流行病学知识判断如此强度的混杂是否可信。</p>
+<p>采用案例9.1中回归结果估计E值。由于E值得估计采用相对危险度，因此需根据结局变量发生频率进行调整，案例9.1结局变量发生频率介于15%和85%之间，因此指定为common（非小概率结局变量）。</p>
+<p>报告时应同时给出点估计及最接近无效应的置信区间界限的E值；后者通常更能反映统计不确定性。VanderWeele和Ding（2017）强调，大E值表示需要较强的未测量混杂来完全解释关联，而非对因果效应的证明。<span class="citation" data-cites="vanderweele2017">(<a href="../references.html#ref-vanderweele2017" role="doc-biblioref">VanderWeele 和 Ding 2017年</a>)</span></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码14.1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码14.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>. evalue <span class="kw">or</span> 2.3, lcl(1.6) ucl(3.3) common</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码14.1输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码14.1输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">指标</th>
+<th style="text-align: right;">值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">E-value（点估计）</td>
+<td style="text-align: right;"><strong>2.402</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">E-value（置信区间）</td>
+<td style="text-align: right;"><strong>1.844</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>该 E 值可解释为：观察到的比值比2.3可以通过与处理和结果相关的未测量的混杂因素来解释，其比值比为2.4倍，与干预相当。因此，这些基于E值的因果关系证据看起来一般，因为需要相当的混杂因素来将观察到的关联降低至无效应，或使置信区间中最接近无效应的界限移动到无效应值。</p>
+<p>如同任何一种统计学方法都有其局限性一样，E值方法也存在其局限性。E值与研究结果相对风险度值的大小是密切相关的，当相对风险度较小时，E值也较小。不能因为相对风险度较小，同时E值也较小就认为研究结果可能是错误的，也不能因为获得了较大的E值就认为结果一定是稳健的。E值是基于相对风险尺度的界限指标，表示未测量混杂因素与处理、结局的关联都至少达到某一强度时才足以将估计解释为无效应；它不要求这两种关联恰好相同。E值仅仅提供了一种敏感性分析结果，不能替代观察性研究所必须的，严谨的科研设计，其在评价过程中只能起一定的辅助作用。</p>
+<p>E值不是对实际混杂大小的估计，也不能处理测量误差、选择偏倚或错误的时间顺序；解释时应说明研究中最可能的未测量混杂因素及其可实现的强度。</p>
+</section>
+<section id="混杂函数法" class="level3" data-number="14.2.2">
+<h3 data-number="14.2.2" class="anchored" data-anchor-id="混杂函数法"><span class="header-section-number">14.2.2</span> 混杂函数法</h3>
+<p>混杂函数法是一套用于线性回归模型中敏感性分析的工具，来探索未观察到的混杂因素，这套工具不需要假设治疗分配机制的功能形式，也不需要假设未观察到的混杂因素的分布，可以自然地处理多个混杂因素，可能以非线性方式发挥作用，利用专家知识来约束敏感性参数，并且可以通过仅使用标准回归结果来轻松计算。</p>
+<p>该方法引入了两个适合于常规报告的新的敏感性措施。稳健性值描述了以改变研究结论的未观察到的混杂因素与治疗和结果之间需要有的最小关联强度。干预对结局的偏R方解释了所有未观察到的混杂因素与治疗的关联程度。该方法提供图形工具来阐述有问题的混杂因素，检查点估计和t值的敏感性，以及极端情况。</p>
+<p>仍然采用案例9.1的数据，检验未观察混杂因素的影响。</p>
+<p>需要注意，sensemakr的标准实现对应线性回归及其偏R方参数化；若Outcome为二分类变量，这里的解读依赖于线性概率模型近似，不应直接外推至逻辑回归的比值比。Cinelli和Hazlett（2020）的框架应与所拟合模型及效应尺度一致。<span class="citation" data-cites="cinelli2020">(<a href="../references.html#ref-cinelli2020" role="doc-biblioref">Cinelli 和 Hazlett 2020年</a>)</span></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码14.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码14.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. sensemakr Outcome Treatment <span class="kw">k</span> age, treat(Treatment) benchmark(<span class="kw">k</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码14.2输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码14.2输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">参数</th>
+<th style="text-align: right;">值</th>
+<th style="text-align: left;">参数</th>
+<th style="text-align: right;">值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DOF</td>
+<td style="text-align: right;"><strong>739</strong></td>
+<td style="text-align: left;">q</td>
+<td style="text-align: right;"><strong>1.00</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">alpha</td>
+<td style="text-align: right;"><strong>0.05</strong></td>
+<td style="text-align: left;">reduce</td>
+<td style="text-align: right;"><strong>TRUE</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">H0</td>
+<td style="text-align: right;"><strong>0</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Treatment</th>
+<th style="text-align: right;">Coef.</th>
+<th style="text-align: right;">S.E.</th>
+<th style="text-align: right;">t(H0)</th>
+<th style="text-align: right;">R2yd.x</th>
+<th style="text-align: right;">RV_q</th>
+<th style="text-align: right;">RV_qa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Treatment</td>
+<td style="text-align: right;"><strong>0.1589</strong></td>
+<td style="text-align: right;"><strong>0.0335</strong></td>
+<td style="text-align: right;"><strong>4.7437</strong></td>
+<td style="text-align: right;"><strong>0.0296</strong></td>
+<td style="text-align: right;"><strong>0.1599</strong></td>
+<td style="text-align: right;"><strong>0.0971</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>R2yd.x表示在已调整协变量后，干预与结局之间的偏R方，即干预可解释的结局剩余变异比例；它不是未测量混杂因素本身的强度。评估未测量混杂时，关键在于该混杂因素与干预、结局各自的偏R方及其联合情景，而不是把0.0296直接解释为混杂因素需要解释的固定比例。</p>
+<p>RV_q表示使得干预变量的估计系数恰好为零的稳健性值。此处等于0.1599，意味着未测量混杂因素需要最少同时解释15.99%的干预变量与结局变量的剩余方差，才能彻底去除之前观察到的干预变量引起的效应。</p>
+<p>这一稳健性值是在所指定线性模型、已调整协变量和对称强度设定下的界限；它不说明现实中不存在更复杂的多重混杂结构。</p>
+<p>RV_qa使得估计系数不再在95%水平上显著的稳健性值。此处等于0.0971，意味着未测量混杂因素需要最少同时解释9.71%的干预变量与结局变量的剩余方差，才能使得95%置信区间下限为零。</p>
+<p>然而，上述指标不够直观，并且很难论证为什么未测量混杂因素确实能够达到上述要求，并以此说明模型的稳健性。为此引入对比变量（本案例中加入侵袭性），尝试论证当未测量混杂因素强度只要小于对比变量时，之前的估计结果是有效的。</p>
+<p>基准变量比较只是帮助校准情景：未测量混杂弱于侵袭性并不能保证估计有效，因为其与处理和结局的联合关联结构可能不同。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码14.3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码14.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. sensemakr Outcome Treatment <span class="kw">k</span> age, treat(Treatment)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>&gt; benchmark(<span class="kw">k</span>) contourplot</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch14-image1.png" class="img-fluid" style="width:92.0%"></p>
+<p><strong>代码14.3输出：未测量混杂强度的等高线图</strong></p>
+</div>
+<p>随着混杂函数值的增大（等同于1倍侵袭性的混杂因素、等同于2倍侵袭性的混杂因素、等同于3倍侵袭性的混杂因素），效应值逐渐减少，理论上是合理的。因为未测量到的未知混杂越多，混杂函数校正的效应值就越小。假设不存在未测量的混杂，治疗的绝对风险差为0.159（图中左下角）。红线代表治疗的绝对风险差归为0。加入等同于1倍侵袭性的混杂因素时治疗的绝对风险差降为0.06、加入等同于2倍和3倍侵袭性的混杂因素时绝对风险差为负。可以观察加入与侵袭性强度1.5倍左右的混杂因素可使得原估计系数由正转负。</p>
+<p>该图展示的是预设偏R方情景下的模型推演，而不是对某个真实未测量混杂因素存在或效应大小的直接估计；应同时报告每个情景的参数设定。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码14.4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码14.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. sensemakr Outcome Treatment <span class="kw">k</span> age, treat(Treatment)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>&gt; benchmark(<span class="kw">k</span>) extremeplot</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch14-image2.png" class="img-fluid" style="width:92.0%"></p>
+<p><strong>代码14.4输出：未测量混杂的最坏情况图</strong></p>
+</div>
+<p>最坏情况图：三条数值线分别指当未测量混杂因素解释剩余方差的 100%、75%和50%的情况。横轴的小黑点分别指未测量混杂因素是侵袭性1-3倍强度的情况。图中可以看到，即使是最坏情况（未测量混杂因素解释剩余方差的100%，图中实线），未测量混杂因素都需要大致与侵袭性强度等同才能推翻之前结论。</p>
+</section>
+<section id="混淆百分比" class="level3" data-number="14.2.3">
+<h3 data-number="14.2.3" class="anchored" data-anchor-id="混淆百分比"><span class="header-section-number">14.2.3</span> 混淆百分比</h3>
+<p>混淆百分比评价估计中使因果推断无效的偏差比例。通过量化使估计结果达到预先指定无效应阈值所需的偏倚程度或替代样本比例。如样本中多少病例的效应为0才能逆转总体因果效应。案例9.1中如果需要逆转总体因果效应，58.85%（437个）的样本必须用效果为0的样本来代替。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码14.5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码14.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>. konfound Treatment, non_li(1)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码14.5输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码14.5输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">输出项目</th>
+<th style="text-align: left;">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">使推论无效所需的偏倚比例</td>
+<td style="text-align: left;"><strong>58.85%</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">需要替代的病例数</td>
+<td style="text-align: left;"><strong>437</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">非线性模型提示</td>
+<td style="text-align: left;">建议采用平均偏效应计算，并在选项中使用 <code>non_li(1)</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">可选的标准误估计</td>
+<td style="text-align: left;">可考虑 bootstrap 方法</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">遗漏变量与结局的相关性阈值</td>
+<td style="text-align: left;"><strong>0.330</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">遗漏变量与感兴趣预测变量的相关性阈值</td>
+<td style="text-align: left;"><strong>0.330</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">相应遗漏变量影响（Frank 2000 定义）</td>
+<td style="text-align: left;"><strong>0.330 × 0.330 = 0.1087</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>konfound命令还可来计算未观察的混杂因素可能使因果推断回归系数失效的影响，计算未观察的混杂因素对干预变量以及结局变量的影响，以此来判断因果推断的有效性。案例9.1中一个未观察的混杂因素必须与结果有0.330的相关性，同时与感兴趣的干预因素有0.330的相关性，才能使推论无效。</p>
+<p>这类阈值依赖于所用模型、样本量和预设无效应界限，应作为稳健性描述而不是对未测量混杂的检验结果。</p>
+</section>
 </section>
 <section id="阴性对照法" class="level2" data-number="14.3">
 <h2 data-number="14.3" class="anchored" data-anchor-id="阴性对照法"><span class="header-section-number">14.3</span> 阴性对照法</h2>
-<p><em>待补充。</em></p>
+<p>在进行队列研究时，通过额外设置合适的阴性对照，即形成了阴性对照法（negative control methods，NCM）。阴性对照的定义是：不参与拟研究的因果假设，但具有与研究假设相同的潜在人群对照。阴性对照可分为3种：阴性干预、阴性时期和阴性结局。</p>
+<p>更常用的分类是阴性暴露（或阴性干预）和阴性结局；阴性时期可视为安慰剂时间窗。合格的阴性对照应与研究问题共享相关偏倚结构，但不应存在研究处理到阴性结局、或阴性暴露到研究结局的真实因果路径。Lipsitch等（2010）指出，阴性对照选择本身依赖强烈且不可完全检验的领域知识。<span class="citation" data-cites="lipsitch2010">(<a href="../references.html#ref-lipsitch2010" role="doc-biblioref">Lipsitch 等 2010年</a>)</span></p>
+<section id="阴性干预" class="level3" data-number="14.3.1">
+<h3 data-number="14.3.1" class="anchored" data-anchor-id="阴性干预"><span class="header-section-number">14.3.1</span> 阴性干预</h3>
+<p>阴性干预对照法即阴性干预和结局在理论上为零效应，同时设置阴性干预和待研究干预，可以检验干预和结局之间的内部有效性是否受到偏倚的影响。如Surén等在孕期母亲补充叶酸与儿童自闭症风险的关系研究中，把其他维生素补充（不含叶酸）者作为阴性干预对照组。<span class="citation" data-cites="suren2013">(<a href="../references.html#ref-suren2013" role="doc-biblioref">Surén 等 2013年</a>)</span> Ruckart等研究孕妇饮用化学物污染水与新生儿神经管畸形和口唇裂疾病风险的相关性，发现神经管及口唇发育在早中期已发育完成，妊娠晚期孕妇的污水暴露可作为阴性干预。案例9.1中未观察的混杂因素是年历所致的技术进步是否是导致手术效果增加的原因。此时可采用2016年之后的显微镜手术作为阴性干预对照组，与2016年之前的显微镜手术比较。若两者没有明显差别，说明年历所致技术进步在改善预后方面作用不大。结果提示2016年之后的显微镜手术并不能显著增加手术效果，提示年历所致的技术进步作为未观察的混杂因素可能与手术效果增加无关，客观上反应了之前结果的稳健性。</p>
+<p>这一结果只能说明该阴性对照未发现与年历相关的偏倚信号；若显微镜病例的构成、术者或随访方式亦随年份改变，阴性干预的假设仍可能不成立。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码14.6">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码14.6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logistic</span> Outcome calendar <span class="kw">k</span> <span class="kw">if</span> Treatment == 0, <span class="kw">or</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码14.6输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码14.6输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Logistic regression</th>
+<th style="text-align: left;">Number of obs</th>
+<th style="text-align: center;">=</th>
+<th style="text-align: right;"><strong>405</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Log likelihood</td>
+<td style="text-align: left;"><strong>-238.42607</strong></td>
+<td style="text-align: center;">LR chi2(2)</td>
+<td style="text-align: right;"><strong>79.59</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;">Prob &gt; chi2</td>
+<td style="text-align: right;"><strong>0.0000</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;">Pseudo R2</td>
+<td style="text-align: right;"><strong>0.1430</strong></td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Outcome</th>
+<th style="text-align: right;">Odds ratio</th>
+<th style="text-align: right;">Std. err.</th>
+<th style="text-align: right;">z</th>
+<th style="text-align: right;">P&gt;|z|</th>
+<th style="text-align: left;">95% conf. interval</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">calendar</td>
+<td style="text-align: right;"><strong>1.421627</strong></td>
+<td style="text-align: right;"><strong>.3359399</strong></td>
+<td style="text-align: right;"><strong>1.49</strong></td>
+<td style="text-align: right;"><strong>0.137</strong></td>
+<td style="text-align: left;"><strong>.8946248, 2.259072</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">k</td>
+<td style="text-align: right;"><strong>.4379935</strong></td>
+<td style="text-align: right;"><strong>.0455046</strong></td>
+<td style="text-align: right;"><strong>-7.95</strong></td>
+<td style="text-align: right;"><strong>0.000</strong></td>
+<td style="text-align: left;"><strong>.3573004, .5369104</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">_cons</td>
+<td style="text-align: right;"><strong>2.758148</strong></td>
+<td style="text-align: right;"><strong>.5677786</strong></td>
+<td style="text-align: right;"><strong>4.93</strong></td>
+<td style="text-align: right;"><strong>0.000</strong></td>
+<td style="text-align: left;"><strong>1.84244, 4.128969</strong></td>
+</tr>
+</tbody>
+</table>
+<p>注：<code>_cons</code> 估计基线优势（baseline odds）。</p>
+</div>
+</div>
+</section>
+<section id="阴性时期" class="level3" data-number="14.3.2">
+<h3 data-number="14.3.2" class="anchored" data-anchor-id="阴性时期"><span class="header-section-number">14.3.2</span> 阴性时期</h3>
+<p>对于某些慢性干预，从干预到结局，必须有相应的时间或时期，才能保证干预有足够的时间导致结局产生。采用不同时期，研究干预-结局间的关系，不同时期这二者之间的关联若不同，将提示着偏倚存在的可能。如老年人群流感疫苗接种对死亡风险的影响研究中，将流感流行前期或夏季作为阴性对照时期（因在此时期流感尚未开始流行或一般无较大规模传播）。此时期研究接种流感疫苗与死亡或住院风险的关系，如果出现死亡或住院风险下降，则并非因接种流感疫苗而产生的效果，提示混杂因素存在。再例如急性心肌梗死的强化治疗是否能降低长期死亡率研究中，用治疗后的短期死亡情况（如第1天）做阴性对照。</p>
+</section>
+<section id="阴性结局" class="level3" data-number="14.3.3">
+<h3 data-number="14.3.3" class="anchored" data-anchor-id="阴性结局"><span class="header-section-number">14.3.3</span> 阴性结局</h3>
+<p>阴性结局又称为伪终点（falsification end points），设置阴性结局对照，通过干预与阴性结局对照间是否为零关联，判断感兴趣的干预对照的内部有效性是否受偏倚的影响。如肺炎球菌疫苗有效性评价中，Broome等将研究人群的结局分为3组：疫苗型感染组，发生疫苗所覆盖血清型的肺炎球菌感染；非疫苗型感染组，发生非疫苗所覆盖血清型的肺炎球菌感染；健康人群：未接种疫苗所致肺炎球菌感染。阴性结局要求疫苗接种与非疫苗型感染组的风险无关。</p>
+<p>阴性对照也有其局限性，阴性对照设立基于因果关联的先验知识，即不参与因果假设和相同的偏倚结构。因此，实际研究中单纯采用统计检验等来探测混杂及其他偏倚是否存在，来进行因果关联估计的做法，值得商榷。阴性对照不能证实不存在偏倚；阴性对照不出现关联，也不意味着感兴趣的因果关系无偏，亦有可能有残存或未测量混杂因素无法控制而相互抵消的情形。阴性对照出现关联，可能是阴性对照两变量间存在着效应修饰，这并不意味着真正因果关联有偏倚。</p>
+<p>也可能是阴性对照的“零效应”或共同偏倚结构假设不成立。因此，阴性对照应与因果图、时间顺序和临床机制一并论证；阳性信号提示需要进一步调查，阴性信号则只能有限地增加可信度。<span class="citation" data-cites="devries2023">(<a href="../references.html#ref-devries2023" role="doc-biblioref">Penning de Vries 和 Groenwold 2023年</a>)</span></p>
+</section>
+</section>
+<section id="参考文献" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="参考文献">参考文献</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-cinelli2020" class="csl-entry" role="listitem">
+Cinelli, Carlos, 和 Chad Hazlett. 2020年. <span>《Making Sense of Sensitivity: Extending Omitted Variable Bias》</span>. <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 82 (1): 39～67. <a href="https://doi.org/10.1111/rssb.12348">https://doi.org/10.1111/rssb.12348</a>.
+</div>
+<div id="ref-ding2016" class="csl-entry" role="listitem">
+Ding, Peng, 和 Tyler J. VanderWeele. 2016年. <span>《Sensitivity Analysis Without Assumptions》</span>. <em>Epidemiology</em> 27 (3): 368～77. <a href="https://doi.org/10.1097/EDE.0000000000000457">https://doi.org/10.1097/EDE.0000000000000457</a>.
+</div>
+<div id="ref-greenland1996" class="csl-entry" role="listitem">
+Greenland, Sander. 1996年. <span>《Basic methods for sensitivity analysis of biases》</span>. <em>International Journal of Epidemiology</em> 25 (6): 1107～16. <a href="https://doi.org/10.1093/ije/25.6.1107">https://doi.org/10.1093/ije/25.6.1107</a>.
+</div>
+<div id="ref-lipsitch2010" class="csl-entry" role="listitem">
+Lipsitch, Marc, Eric Tchetgen Tchetgen, 和 Ted Cohen. 2010年. <span>《Negative controls: a tool for detecting confounding and bias in observational studies》</span>. <em>Epidemiology</em> 21 (3): 383～88. <a href="https://doi.org/10.1097/EDE.0b013e3181d61eeb">https://doi.org/10.1097/EDE.0b013e3181d61eeb</a>.
+</div>
+<div id="ref-devries2023" class="csl-entry" role="listitem">
+Penning de Vries, Bas B. L., 和 Rolf H. H. Groenwold. 2023年. <span>《Negative controls: Concepts and caveats》</span>. <em>Statistical Methods in Medical Research</em> 32 (8): 1576～87. <a href="https://doi.org/10.1177/09622802231181230">https://doi.org/10.1177/09622802231181230</a>.
+</div>
+<div id="ref-suren2013" class="csl-entry" role="listitem">
+Surén, Pål, Christine Roth, Michaeline Bresnahan, 等. 2013年. <span>《Association Between Maternal Use of Folic Acid Supplements and Risk of Autism Spectrum Disorders in Children》</span>. <em>JAMA</em> 309 (6): 570～77. <a href="https://doi.org/10.1001/jama.2012.155925">https://doi.org/10.1001/jama.2012.155925</a>.
+</div>
+<div id="ref-vanderweele2017" class="csl-entry" role="listitem">
+VanderWeele, Tyler J., 和 Peng Ding. 2017年. <span>《Sensitivity analysis in observational research: Introducing the <span>E</span>-value》</span>. <em>Annals of Internal Medicine</em> 167 (4): 268～74. <a href="https://doi.org/10.7326/M16-2607">https://doi.org/10.7326/M16-2607</a>.
+</div>
+</div>
 
 
 <!-- -->
@@ -815,24 +1273,227 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 观察性研究的敏感性分析</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## 编写说明</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>本章内容整理中。可将已校订的 Word 书稿（<span class="in">`乔Book/`</span> 目录）正文迁移至此，公式用 <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span>，图片放 <span class="in">`images/`</span>，代码用 ```{r} 或 ```{python} 代码块。</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 观察性研究的敏感性分析</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## 未测量混杂因素</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 阴性对照法</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_待补充。_</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 观察性研究的敏感性分析</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>使用观察数据进行评估时的一个基本问题，混杂因素可能会被误认为是处理效应。因此，研究人员在进行分析时，可运用上述多种设计与统计方法减轻已测量混杂。然而，在观察性研究中，不太可能获得所有潜在混杂变量的数据。因此，应开展针对关键假设的敏感性分析，以评估未测量的混杂因素与处理分配之间，以及与结果之间的关系有多强，从而解释观察到的处理效应的稳健性。</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>敏感性分析应在方案中预先说明其目的、主要估计目标、将改变的定义或参数范围，以及哪些结果将被视为支持或削弱主要结论；它不是在多种分析中挑选最有利结果的过程。<span class="co">[</span><span class="ot">@greenland1996</span><span class="co">]</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 观察性研究的敏感性分析</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">### 干预的定义</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>多数观察性研究根据干预与否分为干预组和非干预组进行比较；但如果干预是可以量化的，比如某个指标的水平，或者用药的剂量等，可以根据不同的干预水平/剂量分组，比较组间结局发生率的关系，是否存在剂量依赖关系（剂量越高，疗效越好）。</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>剂量或连续暴露的敏感性分析宜预先设定有临床意义的阈值，并同时以连续形式（例如限制性立方样条）检验非线性；任意分组可能丢失信息并制造阈值效应。</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### 结局的定义</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>敏感性分析可以通过改变研究结局的定义来看研究结果的稳健性。比如肿瘤的发生，可以通过病历中的诊断，可以通过病理的结果，还可以通过影像学的结果等等。案例9.1中内分泌缓解的定义可以通过生长激素指标判断，亦可以通过胰岛素样生长因素判断，如果这两种判断方法得出的结论一致，则可增加研究的稳健性。</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>替代结局定义应尽量基于预先验证的算法，并报告诊断窗口、测量误差和各定义下事件数；结论一致支持稳健性，但不能排除两种定义共享的系统性偏倚。</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### 数据的来源</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>目前大规模的观察性研究大多基于已有的注册登记库数据开展，甚至有些研究会通过整合多个这样数据库进行分析，这时，数据的来源可以作为敏感性分析的一个切入口，可以既在不同的亚群中进行数据分析，也进行综合分析，查看研究结果的敏感性。</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>除重复分析外，还应比较各数据源的纳入标准、时间零点、变量编码、缺失模式与随访方式；数据源不同并不自动意味着偏倚更小。</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="fu">### 协变量的定义</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>尤其那些连续分布的协变量（如年龄），通常研究者会将其以连续分布变量的形式纳入多因素分析模型中，但其实这些变量与结局之间不一定是线性关系，这时如果把这些协变量划分成不同的层（如年龄层），再放入多因素分析模型中进行分析，来查看研究结果的敏感性。</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>对连续协变量，优先比较合理的非线性函数（如样条）与线性设定；仅把变量切成若干层通常不能充分检验模型设定，并可能降低统计效率。</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="fu">### 分析方法</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>可采用多种控制混杂因素的方法，包括回归，倾向性评分配对，逆概率加权。若可获得工具变量，还可使用工具变量方法。存在时间因素可选择中断时间序列方法。如果数据存在缺失，亦可采用多种缺失数据插补方法以检验缺失数据对结果的敏感性。</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>这些分析应围绕同一因果问题和预先规定的估计目标进行；不同方法得到相近结果可增强可信度，但不能单独证明不存在残余混杂、选择偏倚或模型错设。</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## 未测量混杂因素</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>观察性研究中存在未测量混杂因素时，回归、倾向性评分配对和逆概率加权等方法不能在不增加额外假设或信息的情况下识别无偏的因果效应。这时深入探索的思路是：未测量混杂是否能全部或部分解释研究中观察到的干预因素的效应。即当未测量混杂因素达到何种强度时，之前的结果才不可信？若这种要求显然过于苛刻，则说明之前的结果大致可信。</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>这里的“苛刻”必须与现实中可能存在的混杂强度比较，而不能仅依据统计量数值作出结论；定量偏倚分析应明确其偏倚参数、方向与情景范围。Ding和VanderWeele（2016）提出了在较少分布假设下构造未测量混杂界限的框架。<span class="co">[</span><span class="ot">@ding2016</span><span class="co">]</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="fu">### 边界因子法（E值）</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>E值用于量化：在给定已调整协变量后，一个未测量混杂因素须同时与处理和结局具有多强的关联，才可能将观察到的相对效应完全解释为无效应。E值针对相对风险尺度；对非罕见结局的比值比或风险比以外的效应尺度，应说明所采用的尺度转换及其假设。研究者不必预先指定某一个具体混杂因素，但应结合临床和流行病学知识判断如此强度的混杂是否可信。</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>采用案例9.1中回归结果估计E值。由于E值得估计采用相对危险度，因此需根据结局变量发生频率进行调整，案例9.1结局变量发生频率介于15%和85%之间，因此指定为common（非小概率结局变量）。</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>报告时应同时给出点估计及最接近无效应的置信区间界限的E值；后者通常更能反映统计不确定性。VanderWeele和Ding（2017）强调，大E值表示需要较强的未测量混杂来完全解释关联，而非对因果效应的证明。<span class="co">[</span><span class="ot">@vanderweele2017</span><span class="co">]</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码14.1"}</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="in">. evalue or 2.3, lcl(1.6) ucl(3.3) common</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码14.1输出"}</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 指标                <span class="pp">|</span>        值 <span class="pp">|</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|:--------------------|----------:|</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> E-value（点估计）   <span class="pp">|</span> **2.402** <span class="pp">|</span></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> E-value（置信区间） <span class="pp">|</span> **1.844** <span class="pp">|</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>该 E 值可解释为：观察到的比值比2.3可以通过与处理和结果相关的未测量的混杂因素来解释，其比值比为2.4倍，与干预相当。因此，这些基于E值的因果关系证据看起来一般，因为需要相当的混杂因素来将观察到的关联降低至无效应，或使置信区间中最接近无效应的界限移动到无效应值。</span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>如同任何一种统计学方法都有其局限性一样，E值方法也存在其局限性。E值与研究结果相对风险度值的大小是密切相关的，当相对风险度较小时，E值也较小。不能因为相对风险度较小，同时E值也较小就认为研究结果可能是错误的，也不能因为获得了较大的E值就认为结果一定是稳健的。E值是基于相对风险尺度的界限指标，表示未测量混杂因素与处理、结局的关联都至少达到某一强度时才足以将估计解释为无效应；它不要求这两种关联恰好相同。E值仅仅提供了一种敏感性分析结果，不能替代观察性研究所必须的，严谨的科研设计，其在评价过程中只能起一定的辅助作用。</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>E值不是对实际混杂大小的估计，也不能处理测量误差、选择偏倚或错误的时间顺序；解释时应说明研究中最可能的未测量混杂因素及其可实现的强度。</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="fu">### 混杂函数法</span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>混杂函数法是一套用于线性回归模型中敏感性分析的工具，来探索未观察到的混杂因素，这套工具不需要假设治疗分配机制的功能形式，也不需要假设未观察到的混杂因素的分布，可以自然地处理多个混杂因素，可能以非线性方式发挥作用，利用专家知识来约束敏感性参数，并且可以通过仅使用标准回归结果来轻松计算。</span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>该方法引入了两个适合于常规报告的新的敏感性措施。稳健性值描述了以改变研究结论的未观察到的混杂因素与治疗和结果之间需要有的最小关联强度。干预对结局的偏R方解释了所有未观察到的混杂因素与治疗的关联程度。该方法提供图形工具来阐述有问题的混杂因素，检查点估计和t值的敏感性，以及极端情况。</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>仍然采用案例9.1的数据，检验未观察混杂因素的影响。</span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>需要注意，sensemakr的标准实现对应线性回归及其偏R方参数化；若Outcome为二分类变量，这里的解读依赖于线性概率模型近似，不应直接外推至逻辑回归的比值比。Cinelli和Hazlett（2020）的框架应与所拟合模型及效应尺度一致。<span class="co">[</span><span class="ot">@cinelli2020</span><span class="co">]</span></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码14.2"}</span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="in">. sensemakr Outcome Treatment k age, treat(Treatment) benchmark(k)</span></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码14.2输出"}</span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 参数  <span class="pp">|</span>       值 <span class="pp">|</span> 参数   <span class="pp">|</span>       值 <span class="pp">|</span></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|:------|---------:|:-------|---------:|</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> DOF   <span class="pp">|</span>  **739** | q      | **1.00** <span class="pp">|</span></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> alpha <span class="pp">|</span> **0.05** | reduce | **TRUE** <span class="pp">|</span></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> H0    <span class="pp">|</span>    **0** <span class="pp">|</span>        <span class="pp">|</span>          <span class="pp">|</span></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Treatment <span class="pp">|</span>      Coef. <span class="pp">|</span>       S.E. <span class="pp">|</span>      t(H0) <span class="pp">|</span>     R2yd.x <span class="pp">|</span>       RV_q <span class="pp">|</span>      RV_qa <span class="pp">|</span></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="pp">|:----------|-----------:|-----------:|-----------:|-----------:|-----------:|-----------:|</span></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Treatment <span class="pp">|</span> **0.1589** | **0.0335** | **4.7437** | **0.0296** | **0.1599** | **0.0971** <span class="pp">|</span></span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>R2yd.x表示在已调整协变量后，干预与结局之间的偏R方，即干预可解释的结局剩余变异比例；它不是未测量混杂因素本身的强度。评估未测量混杂时，关键在于该混杂因素与干预、结局各自的偏R方及其联合情景，而不是把0.0296直接解释为混杂因素需要解释的固定比例。</span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>RV_q表示使得干预变量的估计系数恰好为零的稳健性值。此处等于0.1599，意味着未测量混杂因素需要最少同时解释15.99%的干预变量与结局变量的剩余方差，才能彻底去除之前观察到的干预变量引起的效应。</span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>这一稳健性值是在所指定线性模型、已调整协变量和对称强度设定下的界限；它不说明现实中不存在更复杂的多重混杂结构。</span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>RV_qa使得估计系数不再在95%水平上显著的稳健性值。此处等于0.0971，意味着未测量混杂因素需要最少同时解释9.71%的干预变量与结局变量的剩余方差，才能使得95%置信区间下限为零。</span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>然而，上述指标不够直观，并且很难论证为什么未测量混杂因素确实能够达到上述要求，并以此说明模型的稳健性。为此引入对比变量（本案例中加入侵袭性），尝试论证当未测量混杂因素强度只要小于对比变量时，之前的估计结果是有效的。</span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>基准变量比较只是帮助校准情景：未测量混杂弱于侵袭性并不能保证估计有效，因为其与处理和结局的联合关联结构可能不同。</span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码14.3"}</span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a><span class="in">. sensemakr Outcome Treatment k age, treat(Treatment)</span></span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="in">&gt; benchmark(k) contourplot</span></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch14-image1.png)</span>{width="92%"}</span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a>**代码14.3输出：未测量混杂强度的等高线图**</span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>随着混杂函数值的增大（等同于1倍侵袭性的混杂因素、等同于2倍侵袭性的混杂因素、等同于3倍侵袭性的混杂因素），效应值逐渐减少，理论上是合理的。因为未测量到的未知混杂越多，混杂函数校正的效应值就越小。假设不存在未测量的混杂，治疗的绝对风险差为0.159（图中左下角）。红线代表治疗的绝对风险差归为0。加入等同于1倍侵袭性的混杂因素时治疗的绝对风险差降为0.06、加入等同于2倍和3倍侵袭性的混杂因素时绝对风险差为负。可以观察加入与侵袭性强度1.5倍左右的混杂因素可使得原估计系数由正转负。</span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>该图展示的是预设偏R方情景下的模型推演，而不是对某个真实未测量混杂因素存在或效应大小的直接估计；应同时报告每个情景的参数设定。</span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码14.4"}</span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a><span class="in">. sensemakr Outcome Treatment k age, treat(Treatment)</span></span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a><span class="in">&gt; benchmark(k) extremeplot</span></span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch14-image2.png)</span>{width="92%"}</span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a>**代码14.4输出：未测量混杂的最坏情况图**</span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a>最坏情况图：三条数值线分别指当未测量混杂因素解释剩余方差的 100%、75%和50%的情况。横轴的小黑点分别指未测量混杂因素是侵袭性1-3倍强度的情况。图中可以看到，即使是最坏情况（未测量混杂因素解释剩余方差的100%，图中实线），未测量混杂因素都需要大致与侵袭性强度等同才能推翻之前结论。</span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a><span class="fu">### 混淆百分比</span></span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a>混淆百分比评价估计中使因果推断无效的偏差比例。通过量化使估计结果达到预先指定无效应阈值所需的偏倚程度或替代样本比例。如样本中多少病例的效应为0才能逆转总体因果效应。案例9.1中如果需要逆转总体因果效应，58.85%（437个）的样本必须用效果为0的样本来代替。</span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码14.5"}</span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a><span class="in">. konfound Treatment, non_li(1)</span></span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码14.5输出"}</span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 输出项目 <span class="pp">|</span> 结果 <span class="pp">|</span></span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|:---|</span></span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 使推论无效所需的偏倚比例 <span class="pp">|</span> **58.85%** <span class="pp">|</span></span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 需要替代的病例数 <span class="pp">|</span> **437** <span class="pp">|</span></span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 非线性模型提示 <span class="pp">|</span> 建议采用平均偏效应计算，并在选项中使用 <span class="in">`non_li(1)`</span> <span class="pp">|</span></span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 可选的标准误估计 <span class="pp">|</span> 可考虑 bootstrap 方法 <span class="pp">|</span></span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 遗漏变量与结局的相关性阈值 <span class="pp">|</span> **0.330** <span class="pp">|</span></span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 遗漏变量与感兴趣预测变量的相关性阈值 <span class="pp">|</span> **0.330** <span class="pp">|</span></span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 相应遗漏变量影响（Frank 2000 定义） <span class="pp">|</span> **0.330 × 0.330 = 0.1087** <span class="pp">|</span></span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a>konfound命令还可来计算未观察的混杂因素可能使因果推断回归系数失效的影响，计算未观察的混杂因素对干预变量以及结局变量的影响，以此来判断因果推断的有效性。案例9.1中一个未观察的混杂因素必须与结果有0.330的相关性，同时与感兴趣的干预因素有0.330的相关性，才能使推论无效。</span>
+<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a>这类阈值依赖于所用模型、样本量和预设无效应界限，应作为稳健性描述而不是对未测量混杂的检验结果。</span>
+<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a><span class="fu">## 阴性对照法</span></span>
+<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a>在进行队列研究时，通过额外设置合适的阴性对照，即形成了阴性对照法（negative control methods，NCM）。阴性对照的定义是：不参与拟研究的因果假设，但具有与研究假设相同的潜在人群对照。阴性对照可分为3种：阴性干预、阴性时期和阴性结局。</span>
+<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a>更常用的分类是阴性暴露（或阴性干预）和阴性结局；阴性时期可视为安慰剂时间窗。合格的阴性对照应与研究问题共享相关偏倚结构，但不应存在研究处理到阴性结局、或阴性暴露到研究结局的真实因果路径。Lipsitch等（2010）指出，阴性对照选择本身依赖强烈且不可完全检验的领域知识。<span class="co">[</span><span class="ot">@lipsitch2010</span><span class="co">]</span></span>
+<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a><span class="fu">### 阴性干预</span></span>
+<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a>阴性干预对照法即阴性干预和结局在理论上为零效应，同时设置阴性干预和待研究干预，可以检验干预和结局之间的内部有效性是否受到偏倚的影响。如Surén等在孕期母亲补充叶酸与儿童自闭症风险的关系研究中，把其他维生素补充（不含叶酸）者作为阴性干预对照组。<span class="co">[</span><span class="ot">@suren2013</span><span class="co">]</span> Ruckart等研究孕妇饮用化学物污染水与新生儿神经管畸形和口唇裂疾病风险的相关性，发现神经管及口唇发育在早中期已发育完成，妊娠晚期孕妇的污水暴露可作为阴性干预。案例9.1中未观察的混杂因素是年历所致的技术进步是否是导致手术效果增加的原因。此时可采用2016年之后的显微镜手术作为阴性干预对照组，与2016年之前的显微镜手术比较。若两者没有明显差别，说明年历所致技术进步在改善预后方面作用不大。结果提示2016年之后的显微镜手术并不能显著增加手术效果，提示年历所致的技术进步作为未观察的混杂因素可能与手术效果增加无关，客观上反应了之前结果的稳健性。</span>
+<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a>这一结果只能说明该阴性对照未发现与年历相关的偏倚信号；若显微镜病例的构成、术者或随访方式亦随年份改变，阴性干预的假设仍可能不成立。</span>
+<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码14.6"}</span>
+<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a><span class="in">. logistic Outcome calendar k if Treatment == 0, or</span></span>
+<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码14.6输出"}</span>
+<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Logistic regression <span class="pp">|</span> Number of obs  <span class="pp">|</span>      =       <span class="pp">|</span>    **405** <span class="pp">|</span></span>
+<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a><span class="pp">|:--------------------|:---------------|:------------:|-----------:|</span></span>
+<span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Log likelihood      <span class="pp">|</span> **-238.42607** |  LR chi2(2)  |  **79.59** <span class="pp">|</span></span>
+<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                     <span class="pp">|</span>                <span class="pp">|</span> Prob <span class="sc">\&gt;</span> chi2 <span class="pp">|</span> **0.0000** <span class="pp">|</span></span>
+<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                     <span class="pp">|</span>                <span class="pp">|</span>  Pseudo R2   <span class="pp">|</span> **0.1430** <span class="pp">|</span></span>
+<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Outcome  <span class="pp">|</span>   Odds ratio <span class="pp">|</span>    Std. err. <span class="pp">|</span>         z <span class="pp">|</span>  P<span class="sc">\&gt;\|</span>z<span class="sc">\|</span> <span class="pp">|</span> 95% conf. interval     <span class="pp">|</span></span>
+<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---------|-------------:|-------------:|----------:|----------:|:-----------------------|</span></span>
+<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> calendar <span class="pp">|</span> **1.421627** | **.3359399** |  **1.49** | **0.137** | **.8946248, 2.259072** <span class="pp">|</span></span>
+<span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> k        <span class="pp">|</span> **.4379935** | **.0455046** | **-7.95** | **0.000** | **.3573004, .5369104** <span class="pp">|</span></span>
+<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="sc">\_</span>cons   <span class="pp">|</span> **2.758148** | **.5677786** |  **4.93** | **0.000** | **1.84244, 4.128969**  <span class="pp">|</span></span>
+<span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a>注：<span class="in">`_cons`</span> 估计基线优势（baseline odds）。</span>
+<span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a><span class="fu">### 阴性时期</span></span>
+<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a>对于某些慢性干预，从干预到结局，必须有相应的时间或时期，才能保证干预有足够的时间导致结局产生。采用不同时期，研究干预-结局间的关系，不同时期这二者之间的关联若不同，将提示着偏倚存在的可能。如老年人群流感疫苗接种对死亡风险的影响研究中，将流感流行前期或夏季作为阴性对照时期（因在此时期流感尚未开始流行或一般无较大规模传播）。此时期研究接种流感疫苗与死亡或住院风险的关系，如果出现死亡或住院风险下降，则并非因接种流感疫苗而产生的效果，提示混杂因素存在。再例如急性心肌梗死的强化治疗是否能降低长期死亡率研究中，用治疗后的短期死亡情况（如第1天）做阴性对照。</span>
+<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-210"><a href="#cb7-210" aria-hidden="true" tabindex="-1"></a><span class="fu">### 阴性结局</span></span>
+<span id="cb7-211"><a href="#cb7-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-212"><a href="#cb7-212" aria-hidden="true" tabindex="-1"></a>阴性结局又称为伪终点（falsification end points），设置阴性结局对照，通过干预与阴性结局对照间是否为零关联，判断感兴趣的干预对照的内部有效性是否受偏倚的影响。如肺炎球菌疫苗有效性评价中，Broome等将研究人群的结局分为3组：疫苗型感染组，发生疫苗所覆盖血清型的肺炎球菌感染；非疫苗型感染组，发生非疫苗所覆盖血清型的肺炎球菌感染；健康人群：未接种疫苗所致肺炎球菌感染。阴性结局要求疫苗接种与非疫苗型感染组的风险无关。</span>
+<span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a>阴性对照也有其局限性，阴性对照设立基于因果关联的先验知识，即不参与因果假设和相同的偏倚结构。因此，实际研究中单纯采用统计检验等来探测混杂及其他偏倚是否存在，来进行因果关联估计的做法，值得商榷。阴性对照不能证实不存在偏倚；阴性对照不出现关联，也不意味着感兴趣的因果关系无偏，亦有可能有残存或未测量混杂因素无法控制而相互抵消的情形。阴性对照出现关联，可能是阴性对照两变量间存在着效应修饰，这并不意味着真正因果关联有偏倚。</span>
+<span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a>也可能是阴性对照的“零效应”或共同偏倚结构假设不成立。因此，阴性对照应与因果图、时间顺序和临床机制一并论证；阳性信号提示需要进一步调查，阴性信号则只能有限地增加可信度。<span class="co">[</span><span class="ot">@devries2023</span><span class="co">]</span></span>
+<span id="cb7-217"><a href="#cb7-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考文献 {.unnumbered}</span></span>
+<span id="cb7-219"><a href="#cb7-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-220"><a href="#cb7-220" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
+<span id="cb7-221"><a href="#cb7-221" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

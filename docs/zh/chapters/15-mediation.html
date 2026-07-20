@@ -58,7 +58,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -108,6 +127,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -220,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12-regression-discontinuity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归法</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -294,11 +342,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#传统中介分析" id="toc-传统中介分析" class="nav-link active" data-scroll-target="#传统中介分析"><span class="header-section-number">15.1</span> 传统中介分析</a></li>
-  <li><a href="#因果中介效应的定义" id="toc-因果中介效应的定义" class="nav-link" data-scroll-target="#因果中介效应的定义"><span class="header-section-number">15.2</span> 因果中介效应的定义</a></li>
+  <li><a href="#因果中介效应定义" id="toc-因果中介效应定义" class="nav-link" data-scroll-target="#因果中介效应定义"><span class="header-section-number">15.2</span> 因果中介效应定义</a></li>
   <li><a href="#因果中介效应的统计学假设" id="toc-因果中介效应的统计学假设" class="nav-link" data-scroll-target="#因果中介效应的统计学假设"><span class="header-section-number">15.3</span> 因果中介效应的统计学假设</a></li>
-  <li><a href="#中介效应的估计" id="toc-中介效应的估计" class="nav-link" data-scroll-target="#中介效应的估计"><span class="header-section-number">15.4</span> 中介效应的估计</a></li>
+  <li><a href="#中介效应的估计" id="toc-中介效应的估计" class="nav-link" data-scroll-target="#中介效应的估计"><span class="header-section-number">15.4</span> 中介效应的估计</a>
+  <ul class="collapse">
+  <li><a href="#逐步回归法" id="toc-逐步回归法" class="nav-link" data-scroll-target="#逐步回归法"><span class="header-section-number">15.4.1</span> 逐步回归法</a></li>
+  <li><a href="#结构方程法" id="toc-结构方程法" class="nav-link" data-scroll-target="#结构方程法"><span class="header-section-number">15.4.2</span> 结构方程法</a></li>
+  <li><a href="#ldecomp" id="toc-ldecomp" class="nav-link" data-scroll-target="#ldecomp"><span class="header-section-number">15.4.3</span> ldecomp</a></li>
+  <li><a href="#khb方法" id="toc-khb方法" class="nav-link" data-scroll-target="#khb方法"><span class="header-section-number">15.4.4</span> KHB方法</a></li>
+  <li><a href="#paramed" id="toc-paramed" class="nav-link" data-scroll-target="#paramed"><span class="header-section-number">15.4.5</span> paramed</a></li>
+  <li><a href="#medeff" id="toc-medeff" class="nav-link" data-scroll-target="#medeff"><span class="header-section-number">15.4.6</span> medeff</a></li>
+  </ul></li>
   <li><a href="#中介效应报告推荐" id="toc-中介效应报告推荐" class="nav-link" data-scroll-target="#中介效应报告推荐"><span class="header-section-number">15.5</span> 中介效应报告推荐</a></li>
   <li><a href="#中介分析局限性" id="toc-中介分析局限性" class="nav-link" data-scroll-target="#中介分析局限性"><span class="header-section-number">15.6</span> 中介分析局限性</a></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献">参考文献</a></li>
   </ul>
 </nav>
     </div>
@@ -324,42 +381,405 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">注记</span>编写说明
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>本章内容整理中。可将已校订的 Word 书稿（<code>乔Book/</code> 目录）正文迁移至此，公式用 <code>$...$</code> / <code>$$...$$</code>，图片放 <code>images/</code>，代码用 <code>{r} 或</code>{python} 代码块。</p>
-</div>
-</div>
+<p>健康和医疗干预的效果通常被认为是通过特定的生物或社会心理机制发挥作用。可能的机制可以用中介分析来评估。例如，尽管问题解决教育对抑郁症的有效性已得到证实，但中介这一效果的心理机制却不为人知。Silverste等对他们的随机试验进行了有计划的中介分析，以了解问题解决教育减少抑郁症状的机制，对中介机制的了解可能有助于创造更高效或有效的问题解决教育干预措施。</p>
 <section id="传统中介分析" class="level2" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="传统中介分析"><span class="header-section-number">15.1</span> 传统中介分析</h2>
-<p><em>待补充。</em></p>
+<p>传统的中介分析是基于对下图所示的路径的估计。左图代表无中介因素下的干预-结果效应。右图表示有中介因素下的效应，虚线代表干预-中介-结果效应，实线路径代表直接干预-结果效应。</p>
+<div class="text-center">
+<p><img src="images/ch15-image1.png" style="width:3.72868in;height:1.384in"></p>
+</div>
+<p>通过回归方程可直观的理解中介分析。没有中介效应时，T 的效应直接作用到 Y，对 Y 的效应是直接效应，用方程表示为</p>
+<p><span class="math display">\[Y = \ \beta_{0} + \beta_{1}*T\]</span></p>
+<p>当中介变量和结局变量都是连续的，以上路径是用以下线性回归公式估计的。其中，<span class="math inline">\(\beta_{1}^{‘}\)</span> 代表直接效应，<span class="math inline">\(\beta_{2}^{’}\)</span> 和 <span class="math inline">\(\theta_{1}^{‘}\)</span> 的积就代表间接效应。中介效应的相对大小可以用中介比例来评估，它代表了间接效应估计值相对于总效应估计值的大小。若在上述因果图中包含混杂因素，应该始终将混杂因素纳入公式，所以在基于观察数据进行中介分析时，应始终考虑混杂因素。 在线性、无干预—中介交互且相关混杂已充分控制的特殊条件下，系数乘积法和系数差异法可对应同一效应分解；离开这些条件时，回归系数本身不应自动解释为自然直接或间接效应。</p>
+<p><span class="math display">\[Y = \ \beta_{0}^{‘} + \beta_{1}^{‘}*\ T + \beta_{2}^{’}*M\]</span></p>
+<p><span class="math display">\[M = \ \theta_{0}^{‘} + \theta_{1}^{‘}*\ T\]</span></p>
+<p>中介分析是基于干预、中介因素和结局的时间优先性假设，即假设干预的变化先于中介因素的变化，而中介因素的变化又先于结局的变化。可以通过在模型中加入交互项（即干预*协变量或中介因素*协变量），并随后估计不同效应修饰因子的直接和间接效应来考虑效应修饰因子。可以通过在所有估计的回归方程中加入混杂变量，对测量的混杂因素调整效果估计。</p>
+<p>然而，当使用传统的中介分析来估计具有非连续中介变量和结局变量的效果时，就会出现模糊不清的情况。例如，当基于非线性回归模型（如逻辑回归或Cox比例风险模型）的系数时，系数乘积法和系数差异法提供了不同的间接效应估计。</p>
 </section>
-<section id="因果中介效应的定义" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="因果中介效应的定义"><span class="header-section-number">15.2</span> 因果中介效应的定义</h2>
-<p><em>待补充。</em></p>
+<section id="因果中介效应定义" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="因果中介效应定义"><span class="header-section-number">15.2</span> 因果中介效应定义</h2>
+<p>因果中介分析澄清了传统中介分析中出现的模糊之处，基于反事实框架，并将因果效应定义与因果效应估计区分开来。因果效应定义的一个优点是它们是非参数性的，因此可以应用于任何类型的中介模型，以得出因果效应估计值。这包括具有干预中介交互作用的模型和具有非连续中介变量或非连续结果变量的模型。 自然直接效应与自然间接效应涉及”同一个体在不同干预情形下本会出现的中介值”，属于交叉世界反事实量；其因果解释依赖较强且不可由数据完全检验的假设。</p>
+<p>当因果效应被运用到中介模型时，结局的平均潜在结果可基于不同的中介取值以及不同的干预取值来定义和估计。也就是说，E[Y(T, M)] 表示将个体固定在预定的中介值M时，在T组中观察到的个体的结局，对于中介变量和干预变量都为二分类的情况，两者皆可取0或1。因此，因果直接效应、间接效应和总效应被定义为两种潜在结果之间的差异，具体如下： 以下定义同时区分以对照组中介分布为参照的自然直接效应和以干预组中介分布为参照的总体直接效应；报告时应写明所选参照值及效应尺度，而不宜把不同定义混用。</p>
+<p>① 总体间接效应（TIE，total indirect effect），表示干预组中 T 通过 M 对 Y 的影响：</p>
+<p><span class="math display">\[TIE = \ E\left\lbrack Y\left( 1,M(1) \right) \right\rbrack - E\left\lbrack Y\left( 1,M(0) \right) \right\rbrack\ \]</span></p>
+<p>② 自然间接效应（NIE，natural indirect effect），表示对照组中 T 通过 M 对 Y 的影响：</p>
+<p><span class="math display">\[NIE = \ E\left\lbrack Y\left( 0,M(1) \right) \right\rbrack - E\left\lbrack Y\left( 0,M(0) \right) \right\rbrack\ \]</span></p>
+<p>③ 总体直接效应（TDE，total direct effect），表示个体的中介变量被固定在1时，T 对 Y 的效应；</p>
+<p><span class="math display">\[TDE = \ E\left\lbrack Y\left( 1,M(1) \right) \right\rbrack - E\left\lbrack Y\left( 0,M(1) \right) \right\rbrack\ \]</span></p>
+<p>④ 自然直接效应（NDE，natural direct effect），表示个体的中介变量被固定在0时，T 对 Y 的效应；</p>
+<p><span class="math display">\[NDE = \ E\left\lbrack Y\left( 1,M(0) \right) \right\rbrack - E\left\lbrack Y\left( 0,M(0) \right) \right\rbrack\ \]</span></p>
+<p>⑤ 控制直接效应（CDE，controlled direct effect），表示个体的中介变量被控制时，T 对 Y 的效应，是将个体的干预值从0改为1，同时保持中介值不变的直接效应；</p>
+<p><span class="math display">\[CDE = \ E\left\lbrack Y(1,M) \right\rbrack - E\left\lbrack Y(0,M) \right\rbrack\ \]</span></p>
+<p>⑥ 总效应（TE，total effect），表示不考虑中介效应时，T 对 Y 的效应。</p>
+<p><span class="math display">\[TE = \ E\left\lbrack Y(T = 1) \right\rbrack - E\left\lbrack Y(T = 0) \right\rbrack = TIE + NDE = NIE + TDE\ \]</span></p>
+<p>对于线性模型，交互效应为0时，</p>
+<p><span class="math inline">\(NDE = TDE\)</span>，</p>
+<p><span class="math inline">\(NIE = TIE\)</span>。</p>
+<p>对于结局变量为二元变量：</p>
+<p>自然直接效应（NDE，natural direct effect）定义为：</p>
+<p><span class="math display">\[{OR}^{NDE} = \frac{P(Y_{1,M = 0} = 1)/P(Y_{1,M = 0} = 0)}{P(Y_{0,M = 0} = 1)/P(Y_{0,M = 0} = 0)}\]</span></p>
+<p>自然间接效应（NIE，natural indirect effect）定义为：</p>
+<p><span class="math display">\[{OR}^{NIE} = \frac{P(Y_{1,M = 1} = 1)/P(Y_{1,M = 1} = 0)}{P(Y_{1,M = 0} = 1)/P(Y_{1,M = 0} = 0)}\]</span></p>
+<p>总效应：</p>
+<p><span class="math display">\[{OR}^{TE} = {OR}^{NDE}*{OR}^{NIE}\]</span></p>
 </section>
 <section id="因果中介效应的统计学假设" class="level2" data-number="15.3">
 <h2 data-number="15.3" class="anchored" data-anchor-id="因果中介效应的统计学假设"><span class="header-section-number">15.3</span> 因果中介效应的统计学假设</h2>
-<p><em>待补充。</em></p>
+<p>﻿为了确保NDE、TDE、NIE和TIE在人群平均水平上有因果解释，需要有以下四个假设。</p>
+<ol type="1">
+<li><p>干预与结局间没有未测量的混杂。</p></li>
+<li><p>中介与结局间没有未经测量的混杂。</p></li>
+<li><p>干预与中介间没有未经测量的混杂。</p></li>
+<li><p>存在多个中介效应时，中介结局效应不会通过其他中介因素产生混杂。</p></li>
+</ol>
+<p>假设4也被称为跨世界的独立假设。在实践中，这通常是一个很强的假设，例如，经常会有干预结局中的多个中介因素。当存在多个中介因素时，必须考虑到所有这些中介因素，因为它们可能是相关的，即违反第四个无混杂假设。对于CDE来说，只有假设1和2必须成立，而对于TE来说，只有假设1必须成立。 此外，还需要一致性、可交换性与正值性；对自然效应，尤其要排除受干预影响的中介—结局混杂。若存在这类干预后混杂，传统自然直接／间接效应通常不可由观察数据识别，可考虑联合中介、路径特异效应或随机化干预性（interventional）效应等替代目标。VanderWeele、Vansteelandt和Robins（2014）对此给出了可识别的分解策略。<span class="citation" data-cites="vanderweele2014">(<a href="14-sensitivity-analysis.html#ref-vanderweele2014" role="doc-biblioref">VanderWeele 等 2014年</a>)</span></p>
 </section>
 <section id="中介效应的估计" class="level2" data-number="15.4">
 <h2 data-number="15.4" class="anchored" data-anchor-id="中介效应的估计"><span class="header-section-number">15.4</span> 中介效应的估计</h2>
-<p><em>待补充。</em></p>
+<p>已经开发了各种估计方法来估计人口平均水平上的因果直接效应、间接效应和总效应。</p>
+<section id="逐步回归法" class="level3" data-number="15.4.1">
+<h3 data-number="15.4.1" class="anchored" data-anchor-id="逐步回归法"><span class="header-section-number">15.4.1</span> 逐步回归法</h3>
+<p>通常采用的中介效应分析是Baron和Kenny在1986年提出的方法（简称BK法），包括4个回归步骤。第一步：将Y对T进行回归，估计总效应。第二步：将M对T进行回归，估计干预与中介的关联。第三步：将Y对M进行回归，同时控制T，估计中介与结局的关联。第四步：比较纳入中介前后T的回归系数。上述显著性检验步骤只是描述性线索：总效应不显著并不排除间接效应（例如直接与间接效应方向相反时），而”完全中介”也不能仅凭T系数不显著来判定；仍须明确估计目标、混杂控制和置信区间。<span class="citation" data-cites="baron1986">(<a href="14-sensitivity-analysis.html#ref-baron1986" role="doc-biblioref">Baron 和 Kenny 1986年</a>)</span></p>
+<p>回忆案例9.1中比较两种方案（内窥镜手术和显微镜手术）的住院时长LOS，内窥镜手术患者比显微镜手术患者平均住院时长少0.62天。关心手术方式通过什么因素导致了住院时间的缩短，进而可以优化术后管理。然而手术可导致术中脑脊液鼻漏发生，若发生则术后需要住院时长较长。因此提出问题，此平均住院时长的减少是否是由于脑脊液鼻漏发生率减少所致？</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.1：逐步回归法
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> csf_leakage = (csf_leak == <span class="st">"Yes"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sgmediation los, mv(Treatment) iv(csf_leakage) cv(<span class="kw">k</span> age)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码15.1输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.1输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch15-image2.png" style="width:5.76806in;height:2.30278in"></p>
+</div>
+</div>
+</div>
+<p>第一步回归，干预的系数为-0.62，统计显著，说明干预的总体效应存在。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码15.1输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.1输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch15-image3.png" style="width:5.76806in;height:2.30278in"></p>
+</div>
+</div>
+</div>
+<p>第二步回归，中介变量对干预做回归，系数为-0.14，统计显著，证明干预变量和中介变量存在关系。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码15.1输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.1输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch15-image4.png" style="width:5.76806in;height:2.42778in"></p>
+</div>
+</div>
+</div>
+<p>第三步回归，结局变量同时对干预和中介变量做回归，中介变量的系数为-0.14，统计不显著。说明控制干预变量后，结局变量与中介变量的相关性不高。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码15.1输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.1输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch15-image5.png" style="width:5.76806in;height:2.42778in"></p>
+</div>
+</div>
+</div>
+<p>最后，Sobel检验p值0.124，说明不存在中介效应，其置信区间可由自助法得出。亦可观察到中介比例较低，为5.9%。 Sobel检验不显著表示在该模型和样本量下未观察到足够证据支持间接效应，并不等同于”证实不存在中介效应”；建议报告间接效应及其 bootstrap 置信区间，并说明中介比例仅在总效应远离零且方向一致时较易解释。</p>
+</section>
+<section id="结构方程法" class="level3" data-number="15.4.2">
+<h3 data-number="15.4.2" class="anchored" data-anchor-id="结构方程法"><span class="header-section-number">15.4.2</span> 结构方程法</h3>
+<p>首先构建结构方程模型，然后进行中介分析。medsem有两种方法作为其程序的基础。第一种方法是众所周知的BK法，Iacobucci等对其进行了调整，以用于结构方程建模。第二种方法是Zhao等提出的方法。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.2：结构方程法
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">qui</span> sem (csf_leakage &lt;- Treatment <span class="kw">k</span> age)(los &lt;- csf_leakage Treatment <span class="kw">k</span> age), nocapslatent</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>medsem, indep(Treatment) med(csf_leakage) dep(los)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    stand mcreps(5000) rit zlc</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码15.2输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.2输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch15-image6.png" style="width:5.76806in;height:4.48194in"></p>
+</div>
+</div>
+</div>
+<p>BK法发现中介变量→结局变量的系数无统计显著性，因此不存在中介效应。Zhao法得出同样结论，按照Monte-Carlo抽样z检验无统计显著。中介比例与第一种方法一致，为5.9%。</p>
+</section>
+<section id="ldecomp" class="level3" data-number="15.4.3">
+<h3 data-number="15.4.3" class="anchored" data-anchor-id="ldecomp"><span class="header-section-number">15.4.3</span> ldecomp</h3>
+<p>以上两种方法结局变量为连续变量，对结局变量为二分类变量可以采用ldecomp程序包。案例9.1中比较两种方案（内窥镜手术和显微镜手术）的内分泌缓解，内窥镜手术患者比显微镜手术患者缓解率高，提出问题增加的缓解率是否是由于增加手术的全切率所致？</p>
+<p>ldecomp方法将逻辑回归中分类变量的总效应分解为直接和间接效应。我们怀疑，总效应的一部分可以由全切率之间的差异来解释，全切的患者更容易缓解。这就是间接效应。手术的直接效应是在控制全切的情况下产生的效应。默认情况下，ldecomp使用bootstrap计算标准误差。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.3：ldecomp
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> GTR = (extend == <span class="st">"GTR"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ldecomp Outcome <span class="kw">k</span> age, direct(Treatment) indirect(GTR) <span class="co">///</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">or</span> rindirect reps(1000)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码15.3输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.3输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch15-image7.png" style="width:5.76806in;height:2.17986in"></p>
+</div>
+</div>
+</div>
+<p>总体效应的度量尺度为比值比，结果为1.58，表示内窥镜手术患者比显微镜手术患者缓解率高，直接效应为1.11和1.10（分别采用两种方法），通过增加全切率间接部分为1.42和1.44（分别采用两种方法），平均占比为78.3%。值得注意的是，有中介效应的总效应与一般逻辑回归中的效应没有可比性。二分类结局变量的问题与以下事实有关，即逻辑回归使用的是比值比，而比值比是一种不可加的测量方法，因此边际比值和条件比值不能直接进行比较。 因此边际比值和条件比值不能直接比较；该结果应表述为所指定模型与假设下的效应分解，而非单凭比例宣称某一生物学机制已被证实。</p>
+</section>
+<section id="khb方法" class="level3" data-number="15.4.4">
+<h3 data-number="15.4.4" class="anchored" data-anchor-id="khb方法"><span class="header-section-number">15.4.4</span> KHB方法</h3>
+<p>二分类结局并不必然要求以对数二项式模型代替逻辑回归；应先规定目标效应尺度。对数二项式或稳健泊松模型可估计风险比尺度的效应，逻辑回归可估计比值比尺度的效应。结局罕见时比值比可近似风险比，但不存在适用于所有研究的固定10%界线。由于比值比具有非可折叠性，不能把嵌套逻辑回归系数的变化直接解释为中介作用；若使用风险比尺度，本章第二节的风险比表达式才适用。</p>
+<p>KHB方法比较两个嵌套非线性概率模型之间的估计系数。该方法针对二元、Logit和Probit模型开发的。如前所述，线性模型所描述的策略不能用于非线性概率模型。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.4：KHB方法
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>khb <span class="kw">logit</span> Outcome Treatment || GTR, concomitant(<span class="kw">k</span> age) <span class="kw">or</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码15.4输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.4输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch15-image8.png" style="width:5.76806in;height:1.88819in"></p>
+</div>
+</div>
+</div>
+<p>Reduced代表总效应比值比为2.55；Full代表直接效应比值比为1.15；Diff中介效应比值比为2.23。可以看出中介效应所占比例很大。</p>
+</section>
+<section id="paramed" class="level3" data-number="15.4.5">
+<h3 data-number="15.4.5" class="anchored" data-anchor-id="paramed"><span class="header-section-number">15.4.5</span> paramed</h3>
+<p>以上均为传统中介分析，对于因果中介分析，Stata中利用paramed这样一个命令可以完成，使用参数化回归模型进行分析。估计两个模型：一个是以干预和混杂因素为条件的中介模型，一个是以干预、中介因素和混杂因素为条件的结果模型。使用直接和间接效应的反事实定义的结果回归模型。paramed提供控制直接效应、自然直接效应、自然间接效应和总效应的估计值，其标准误以及默认情况下使用delta方法得出的置信区间，也可使用bootstrap选项。 运行 paramed 前应以因果图预先界定基线混杂因素，并检查干预—中介交互；参数化模型正确设定、一致性、正值性及无未测量混杂仍是该结果具有因果解释的前提。Valeri和VanderWeele（2013）提供了含干预—中介交互时的参数化实施框架。<span class="citation" data-cites="valeri2013">(<a href="14-sensitivity-analysis.html#ref-valeri2013" role="doc-biblioref">Valeri 和 VanderWeele 2013年</a>)</span></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.5：paramed（二分类结局）
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>paramed Outcome, avar(Treatment) mvar(GTR) cvars(<span class="kw">k</span> age) <span class="co">///</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    a0(0) a1(1) <span class="fu">m</span>(1) yreg(loglinear) mreg(<span class="kw">logistic</span>) nointer <span class="kw">boot</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码15.5输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.5输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch15-image9.png" style="width:5.76806in;height:0.88542in"></p>
+</div>
+</div>
+</div>
+<p>由于案例中的结局变量非罕见概率，因此因果中介分析推荐使用loglinear回归。mte表示总体效应，其度量单位为相对危险度（RR），为1.35；cde和nde表示控制直接效应和自然直接效应，均为1.03；nie为自然间接效应，为1.31。</p>
+<p>paramed也支持结局变量为连续变量的中介分析，平均住院时长的减少是否是由于脑脊液鼻漏发生率减少所致？</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.6：paramed（连续结局）
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>paramed los, avar(Treatment) mvar(csf_leakage) cvars(<span class="kw">k</span> age) <span class="co">///</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    a0(0) a1(1) <span class="fu">m</span>(1) yreg(linear) mreg(<span class="kw">logistic</span>) nointer <span class="kw">boot</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码15.6输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.6输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch15-image10.png" style="width:5.76806in;height:1.04722in"></p>
+</div>
+</div>
+</div>
+<p>总体效应与回归方程估计的一致。内窥镜的总体效应将住院时间减少为0.62天，其中直接效应为0.58天；间接效应仅为0.04天。</p>
+</section>
+<section id="medeff" class="level3" data-number="15.4.6">
+<h3 data-number="15.4.6" class="anchored" data-anchor-id="medeff"><span class="header-section-number">15.4.6</span> medeff</h3>
+<p>medeff是用于估计各种数据类型的中介效应的命令。对于连续的中介变量和连续的结果变量，其结果将与通常的BK法相同。然而，该命令可以适应其他数据类型，包括二元结果和中介变量，并计算出正确的估计值。在进行中介分析后，可进行正式的敏感性分析。然而，该方法无法计算比值比。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.7：medeff
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>medeff (<span class="kw">logit</span> Mediator Treatment <span class="kw">k</span> age) <span class="co">///</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">regress</span> los Treatment Mediator <span class="kw">k</span> age), <span class="co">///</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    mediate(Mediator) treat(Treatment)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码15.7输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码15.7输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch15-image11.png" style="width:5.76806in;height:0.98056in"></p>
+</div>
+</div>
+</div>
+<p>干预对结局的总效应是-0.627，平均直接效应为-0.581，平均中介效应为-0.045，中介效应在总校应中占比仅7.4%。</p>
+</section>
 </section>
 <section id="中介效应报告推荐" class="level2" data-number="15.5">
 <h2 data-number="15.5" class="anchored" data-anchor-id="中介效应报告推荐"><span class="header-section-number">15.5</span> 中介效应报告推荐</h2>
-<p><em>待补充。</em></p>
+<p>﻿尽管传统中介分析和因果中介分析对某些模型提供了相同的效应估计，但因果中介分析通常比传统中介分析更受欢迎。因果中介分析明确列出了对效应估计的因果解释所需的所有假设。尽管其中一些因果假设与其他中介分析方法提出的参数化假设相同，但因果中介分析也为这些假设不成立时提供了指导。例如，当存在无法测量的混杂因素时，可使用敏感性分析来评估效果估计值在一系列关于混杂因素对中介模型中的变量影响大小的合理假设基础上如何变化。澄清因果假设是因果中介分析的一个重要贡献，因为中介模型本身就是因果模型。 报告时可按 AGReMA 声明交代因果问题、估计目标、时间顺序、混杂控制策略、效应尺度、模型设定、缺失数据处理、敏感性分析与不确定性区间；这有助于读者判断结论的适用范围。<span class="citation" data-cites="lee2021">(<a href="14-sensitivity-analysis.html#ref-lee2021" role="doc-biblioref">Lee 等 2021年</a>)</span></p>
+<p>传统中介估计最初是基于线性回归系数得出的。只要无（未测量的）混杂假设成立，传统的中介分析为用线性回归估计的中介模型提供因果效应估计。然而，用非线性回归（如逻辑回归或Cox比例风险模型）估计时，传统中介分析和因果中介分析只有在中介因素遵循正态分布、结果罕见、不存在相互作用的情况下才会提供相同的效应估计。</p>
+<p>一般建议评估和讨论相关的参数和因果假设。无混杂假设对于确保效应估计值的因果解释至关重要，对于观察性研究尤其重要，因为中介模型中的所有路径都是观察性的，对中介因素的调整对于确保效应估计值的因果解释至关重要。有向无环图可用于帮助确定中介模型中路径的混杂因素，因为其直观地显示了中介模型中的因果路径，包括这些路径的混杂因素。未测量的混杂因素对效应估计的潜在影响可以通过敏感性分析进行评估。当第四个无混杂假设被违反时，可以估计多中介模型以考虑额外的中介变量。</p>
+<p>协变量干预、协变量中介、干预中介和中介中介的相互作用的存在，可以通过在统计模型中加入交互项来评估。此点很重要，因为如果不考虑具有统计学意义的或与临床相关的相互作用，总体效应就会忽略直接和间接效应估计的重要信息。</p>
+<p>最后，在使用基于回归的估计方法分析具有二分类或时生存结局的中介模型时，必须评估罕见结果假设，因为只有当结局的发生率在干预和中介变量的所有分层中都很低时，比值比和危险比的效果估计才有因果关系的解释。当违反罕见结果假设时，建议用对数线性回归估计二分类结局模型的效应，用加速失效时间模型估计生存结局模型的效应。 更准确地说，效应尺度应由研究问题预先决定：比值比和风险比都可以报告，但应避免把条件比值比的变化直接当作中介比例；生存结局还需处理删失、竞争风险和中介发生时间，不能仅以”罕见结局”作为充分条件。</p>
+<p>建议根据间接效应估计值的非正态抽样分布的置信区间来确定间接效应估计值的统计学意义，如乘积置信区间、蒙特卡洛置信区间和自助法置信区间的分布，因为这些区间具有较高的检测统计学意义。</p>
 </section>
 <section id="中介分析局限性" class="level2" data-number="15.6">
 <h2 data-number="15.6" class="anchored" data-anchor-id="中介分析局限性"><span class="header-section-number">15.6</span> 中介分析局限性</h2>
-<p><em>待补充。</em></p>
+<p>中介分析的目标是在明确研究问题和可识别假设下估计路径相关的因果效应，而不是仅凭统计分解”证明”因果关系，这一目标要求满足特定的假设。在中介分析中，干预结局、干预中介变量和中介变量结局的效应必须是不混淆的，以允许有效的因果推断。这一要求通常被称为无混杂或可忽略的假设。</p>
+<p>在随机试验中，参与者被随机分配到干预组，所以干预结局和干预中介效应可以被假定为无混淆的。然而，试验参与者通常不会被随机分配到接受或不接受中介变量。因此，即使在随机试验中，中介结局效应也可能被混淆。为了克服这种潜在的偏见，研究者可以通过使用回归调整等技术来控制中介变量-结果效应的已知混杂因素。即使对已知的混杂因素进行了调整，未测量的混杂因素仍可能带来偏倚。敏感性分析可以而且应该用来评估中介分析中未测量的混杂因素所引起的潜在偏差。 随机分配干预并不能解决由干预后变量造成的中介—结局混杂；也不保证中介测量无误或中介先于结局。因而即使在随机试验中，仍需以时间线和因果图说明中介分析假设，并对关键未测量混杂开展敏感性分析。</p>
+<p>观察性研究中的混杂风险比随机试验中的混杂风险要大，因为观察性研究的参与者不是随机分配来接受暴露的。在观察性研究中，与随机试验不同的是，不能假设干预中介或干预结局效应是不受干扰的。因此，在观察性研究的中介模型中，对所有效应的估计可能是有偏差的，可能需要对所有效应进行混杂控制。一个例子是在一项观察性研究中，Cheng等人用中介分析来检验脑功能连接是否中介了抑郁症对睡眠质量的影响。由于参与者没有被随机分配到抑郁症（干预）或脑功能连接（中介）的水平，研究者在模型中调整了所有效应的已知混杂因素。尽管有这些努力，未测量的混杂因素可能会使间接和直接效应的估计出现偏差。如果中介分析没有调整混杂因素或使用敏感性分析技术探讨未测量的混杂因素的影响，则应谨慎地解释其结果。随机或非随机研究的中介分析只有在有把握排除混杂因素的情况下才能证明因果效应。 随机或非随机研究的中介分析都应将结果解释为在所陈述假设下的因果估计；若关键混杂、测量误差或时间顺序无法令人信服地排除，应将结论限定为机制相容的关联，并报告敏感性分析。</p>
+<p>如果干预措施有多个相互影响的中介因素，中介因素可能作为其他中介物的随机化后混杂因素。在这些情况下，在解释从单一中介因素的中介分析中得出的间接和直接效应的估计值时，必须谨慎行事。此外，对中介因素和结局的测量时间也很重要，如果中介因素与结局同时测量，可能会出现反向因果关系。也就是说，结局可能导致中介因素，而不是中介因素导致结局。 对于多个中介，不能仅因变量在统计上显著就逐个分解路径；应预先说明中介之间的因果顺序或采用适合并行／序列中介的估计目标。</p>
+<p>对于中介比例，虽然有一个直观的解释，但存在一些重要的局限性。首先，没有适用于所有研究的固定样本量阈值；当总效应接近零、估计不精确或直接与间接效应方向相反时，中介比例尤其不稳定。其次，中介比例的估计值可能低于零或高于一。第三，当总体效应估计值较小且与临床无关时，中介比例的估计值可能具有误导性。</p>
+</section>
+<section id="参考文献" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="参考文献">参考文献</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-baron1986" class="csl-entry" role="listitem">
+Baron, Reuben M., 和 David A. Kenny. 1986年. <span>《The moderator–mediator variable distinction in social psychological research: Conceptual, strategic, and statistical considerations》</span>. <em>Journal of Personality and Social Psychology</em> 51 (6): 1173～82. <a href="https://doi.org/10.1037/0022-3514.51.6.1173">https://doi.org/10.1037/0022-3514.51.6.1173</a>.
+</div>
+<div id="ref-lee2021" class="csl-entry" role="listitem">
+Lee, Hopin, Aidan G. Cashin, Sarah E. Lamb, 等. 2021年. <span>《A Guideline for Reporting Mediation Analyses of Randomized Trials and Observational Studies: The <span>AGReMA</span> Statement》</span>. <em>JAMA</em> 326 (11): 1045～56. <a href="https://doi.org/10.1001/jama.2021.14075">https://doi.org/10.1001/jama.2021.14075</a>.
+</div>
+<div id="ref-valeri2013" class="csl-entry" role="listitem">
+Valeri, Linda, 和 Tyler J. VanderWeele. 2013年. <span>《Mediation analysis allowing for exposure-mediator interactions and causal interpretation: Theoretical assumptions and implementation with <span>SAS</span> and <span>SPSS</span> macros》</span>. <em>Psychological Methods</em> 18 (2): 137～50. <a href="https://doi.org/10.1037/a0031034">https://doi.org/10.1037/a0031034</a>.
+</div>
+<div id="ref-vanderweele2014" class="csl-entry" role="listitem">
+VanderWeele, Tyler J., Stijn Vansteelandt, 和 James M. Robins. 2014年. <span>《Effect decomposition in the presence of an exposure-induced mediator-outcome confounder》</span>. <em>Epidemiology</em> 25 (2): 300～306. <a href="https://doi.org/10.1097/EDE.0000000000000034">https://doi.org/10.1097/EDE.0000000000000034</a>.
+</div>
+</div>
 
 
 <!-- -->
@@ -830,36 +1250,307 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 因果中介分析</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## 编写说明</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>本章内容整理中。可将已校订的 Word 书稿（<span class="in">`乔Book/`</span> 目录）正文迁移至此，公式用 <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span>，图片放 <span class="in">`images/`</span>，代码用 ```{r} 或 ```{python} 代码块。</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 传统中介分析</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## 因果中介效应的定义</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 因果中介效应的统计学假设</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 中介效应的估计</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## 中介效应报告推荐</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## 中介分析局限性</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>_待补充。_</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 因果中介分析</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>健康和医疗干预的效果通常被认为是通过特定的生物或社会心理机制发挥作用。可能的机制可以用中介分析来评估。例如，尽管问题解决教育对抑郁症的有效性已得到证实，但中介这一效果的心理机制却不为人知。Silverste等对他们的随机试验进行了有计划的中介分析，以了解问题解决教育减少抑郁症状的机制，对中介机制的了解可能有助于创造更高效或有效的问题解决教育干预措施。</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## 传统中介分析</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>传统的中介分析是基于对下图所示的路径的估计。左图代表无中介因素下的干预-结果效应。右图表示有中介因素下的效应，虚线代表干预-中介-结果效应，实线路径代表直接干预-结果效应。</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch15-image1.png)</span>{width="3.728682195975503in" height="1.384002624671916in"}</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>通过回归方程可直观的理解中介分析。没有中介效应时，T 的效应直接作用到 Y，对 Y 的效应是直接效应，用方程表示为</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>$$Y = \ \beta_{0} + \beta_{1}*T$$</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>当中介变量和结局变量都是连续的，以上路径是用以下线性回归公式估计的。其中，$\beta_{1}^{‘}$ 代表直接效应，$\beta_{2}^{’}$ 和 $\theta_{1}^{‘}$ 的积就代表间接效应。中介效应的相对大小可以用中介比例来评估，它代表了间接效应估计值相对于总效应估计值的大小。若在上述因果图中包含混杂因素，应该始终将混杂因素纳入公式，所以在基于观察数据进行中介分析时，应始终考虑混杂因素。 在线性、无干预---中介交互且相关混杂已充分控制的特殊条件下，系数乘积法和系数差异法可对应同一效应分解；离开这些条件时，回归系数本身不应自动解释为自然直接或间接效应。</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>$$Y = \ \beta_{0}^{‘} + \beta_{1}^{‘}*\ T + \beta_{2}^{’}*M$$</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>$$M = \ \theta_{0}^{‘} + \theta_{1}^{‘}*\ T$$</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>中介分析是基于干预、中介因素和结局的时间优先性假设，即假设干预的变化先于中介因素的变化，而中介因素的变化又先于结局的变化。可以通过在模型中加入交互项（即干预<span class="sc">\*</span>协变量或中介因素<span class="sc">\*</span>协变量），并随后估计不同效应修饰因子的直接和间接效应来考虑效应修饰因子。可以通过在所有估计的回归方程中加入混杂变量，对测量的混杂因素调整效果估计。</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>然而，当使用传统的中介分析来估计具有非连续中介变量和结局变量的效果时，就会出现模糊不清的情况。例如，当基于非线性回归模型（如逻辑回归或Cox比例风险模型）的系数时，系数乘积法和系数差异法提供了不同的间接效应估计。</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## 因果中介效应定义</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>因果中介分析澄清了传统中介分析中出现的模糊之处，基于反事实框架，并将因果效应定义与因果效应估计区分开来。因果效应定义的一个优点是它们是非参数性的，因此可以应用于任何类型的中介模型，以得出因果效应估计值。这包括具有干预中介交互作用的模型和具有非连续中介变量或非连续结果变量的模型。 自然直接效应与自然间接效应涉及"同一个体在不同干预情形下本会出现的中介值"，属于交叉世界反事实量；其因果解释依赖较强且不可由数据完全检验的假设。</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>当因果效应被运用到中介模型时，结局的平均潜在结果可基于不同的中介取值以及不同的干预取值来定义和估计。也就是说，E<span class="sc">\[</span>Y(T, M)<span class="sc">\]</span> 表示将个体固定在预定的中介值M时，在T组中观察到的个体的结局，对于中介变量和干预变量都为二分类的情况，两者皆可取0或1。因此，因果直接效应、间接效应和总效应被定义为两种潜在结果之间的差异，具体如下： 以下定义同时区分以对照组中介分布为参照的自然直接效应和以干预组中介分布为参照的总体直接效应；报告时应写明所选参照值及效应尺度，而不宜把不同定义混用。</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>① 总体间接效应（TIE，total indirect effect），表示干预组中 T 通过 M 对 Y 的影响：</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>$$TIE = \ E\left\lbrack Y\left( 1,M(1) \right) \right\rbrack - E\left\lbrack Y\left( 1,M(0) \right) \right\rbrack\ $$</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>② 自然间接效应（NIE，natural indirect effect），表示对照组中 T 通过 M 对 Y 的影响：</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>$$NIE = \ E\left\lbrack Y\left( 0,M(1) \right) \right\rbrack - E\left\lbrack Y\left( 0,M(0) \right) \right\rbrack\ $$</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>③ 总体直接效应（TDE，total direct effect），表示个体的中介变量被固定在1时，T 对 Y 的效应；</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>$$TDE = \ E\left\lbrack Y\left( 1,M(1) \right) \right\rbrack - E\left\lbrack Y\left( 0,M(1) \right) \right\rbrack\ $$</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>④ 自然直接效应（NDE，natural direct effect），表示个体的中介变量被固定在0时，T 对 Y 的效应；</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>$$NDE = \ E\left\lbrack Y\left( 1,M(0) \right) \right\rbrack - E\left\lbrack Y\left( 0,M(0) \right) \right\rbrack\ $$</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>⑤ 控制直接效应（CDE，controlled direct effect），表示个体的中介变量被控制时，T 对 Y 的效应，是将个体的干预值从0改为1，同时保持中介值不变的直接效应；</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>$$CDE = \ E\left\lbrack Y(1,M) \right\rbrack - E\left\lbrack Y(0,M) \right\rbrack\ $$</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>⑥ 总效应（TE，total effect），表示不考虑中介效应时，T 对 Y 的效应。</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>$$TE = \ E\left\lbrack Y(T = 1) \right\rbrack - E\left\lbrack Y(T = 0) \right\rbrack = TIE + NDE = NIE + TDE\ $$</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>对于线性模型，交互效应为0时，</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>$NDE = TDE$，</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>$NIE = TIE$。</span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>对于结局变量为二元变量：</span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>自然直接效应（NDE，natural direct effect）定义为：</span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a>$${OR}^{NDE} = \frac{P(Y_{1,M = 0} = 1)/P(Y_{1,M = 0} = 0)}{P(Y_{0,M = 0} = 1)/P(Y_{0,M = 0} = 0)}$$</span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a>自然间接效应（NIE，natural indirect effect）定义为：</span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a>$${OR}^{NIE} = \frac{P(Y_{1,M = 1} = 1)/P(Y_{1,M = 1} = 0)}{P(Y_{1,M = 0} = 1)/P(Y_{1,M = 0} = 0)}$$</span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>总效应：</span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a>$${OR}^{TE} = {OR}^{NDE}*{OR}^{NIE}$$</span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## 因果中介效应的统计学假设</span></span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>﻿为了确保NDE、TDE、NIE和TIE在人群平均水平上有因果解释，需要有以下四个假设。</span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>干预与结局间没有未测量的混杂。</span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>中介与结局间没有未经测量的混杂。</span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>干预与中介间没有未经测量的混杂。</span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>存在多个中介效应时，中介结局效应不会通过其他中介因素产生混杂。</span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>假设4也被称为跨世界的独立假设。在实践中，这通常是一个很强的假设，例如，经常会有干预结局中的多个中介因素。当存在多个中介因素时，必须考虑到所有这些中介因素，因为它们可能是相关的，即违反第四个无混杂假设。对于CDE来说，只有假设1和2必须成立，而对于TE来说，只有假设1必须成立。 此外，还需要一致性、可交换性与正值性；对自然效应，尤其要排除受干预影响的中介---结局混杂。若存在这类干预后混杂，传统自然直接／间接效应通常不可由观察数据识别，可考虑联合中介、路径特异效应或随机化干预性（interventional）效应等替代目标。VanderWeele、Vansteelandt和Robins（2014）对此给出了可识别的分解策略。<span class="co">[</span><span class="ot">@vanderweele2014</span><span class="co">]</span></span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## 中介效应的估计</span></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a>已经开发了各种估计方法来估计人口平均水平上的因果直接效应、间接效应和总效应。</span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a><span class="fu">### 逐步回归法</span></span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a>通常采用的中介效应分析是Baron和Kenny在1986年提出的方法（简称BK法），包括4个回归步骤。第一步：将Y对T进行回归，估计总效应。第二步：将M对T进行回归，估计干预与中介的关联。第三步：将Y对M进行回归，同时控制T，估计中介与结局的关联。第四步：比较纳入中介前后T的回归系数。上述显著性检验步骤只是描述性线索：总效应不显著并不排除间接效应（例如直接与间接效应方向相反时），而"完全中介"也不能仅凭T系数不显著来判定；仍须明确估计目标、混杂控制和置信区间。<span class="co">[</span><span class="ot">@baron1986</span><span class="co">]</span></span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>回忆案例9.1中比较两种方案（内窥镜手术和显微镜手术）的住院时长LOS，内窥镜手术患者比显微镜手术患者平均住院时长少0.62天。关心手术方式通过什么因素导致了住院时间的缩短，进而可以优化术后管理。然而手术可导致术中脑脊液鼻漏发生，若发生则术后需要住院时长较长。因此提出问题，此平均住院时长的减少是否是由于脑脊液鼻漏发生率减少所致？</span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码15.1：逐步回归法</span></span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a><span class="in">gen csf_leakage = (csf_leak == "Yes")</span></span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a><span class="in">sgmediation los, mv(Treatment) iv(csf_leakage) cv(k age)</span></span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码15.1输出"}</span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch15-image2.png)</span>{width="5.768055555555556in" height="2.3027777777777776in"}</span>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a>第一步回归，干预的系数为-0.62，统计显著，说明干预的总体效应存在。</span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码15.1输出"}</span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch15-image3.png)</span>{width="5.768055555555556in" height="2.3027777777777776in"}</span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a>第二步回归，中介变量对干预做回归，系数为-0.14，统计显著，证明干预变量和中介变量存在关系。</span>
+<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码15.1输出"}</span>
+<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch15-image4.png)</span>{width="5.768055555555556in" height="2.4277777777777776in"}</span>
+<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a>第三步回归，结局变量同时对干预和中介变量做回归，中介变量的系数为-0.14，统计不显著。说明控制干预变量后，结局变量与中介变量的相关性不高。</span>
+<span id="cb8-133"><a href="#cb8-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-134"><a href="#cb8-134" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码15.1输出"}</span>
+<span id="cb8-135"><a href="#cb8-135" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch15-image5.png)</span>{width="5.768055555555556in" height="2.4277777777777776in"}</span>
+<span id="cb8-137"><a href="#cb8-137" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-138"><a href="#cb8-138" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-139"><a href="#cb8-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-140"><a href="#cb8-140" aria-hidden="true" tabindex="-1"></a>最后，Sobel检验p值0.124，说明不存在中介效应，其置信区间可由自助法得出。亦可观察到中介比例较低，为5.9%。 Sobel检验不显著表示在该模型和样本量下未观察到足够证据支持间接效应，并不等同于"证实不存在中介效应"；建议报告间接效应及其 bootstrap 置信区间，并说明中介比例仅在总效应远离零且方向一致时较易解释。</span>
+<span id="cb8-141"><a href="#cb8-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-142"><a href="#cb8-142" aria-hidden="true" tabindex="-1"></a><span class="fu">### 结构方程法</span></span>
+<span id="cb8-143"><a href="#cb8-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-144"><a href="#cb8-144" aria-hidden="true" tabindex="-1"></a>首先构建结构方程模型，然后进行中介分析。medsem有两种方法作为其程序的基础。第一种方法是众所周知的BK法，Iacobucci等对其进行了调整，以用于结构方程建模。第二种方法是Zhao等提出的方法。</span>
+<span id="cb8-145"><a href="#cb8-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-146"><a href="#cb8-146" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-147"><a href="#cb8-147" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码15.2：结构方程法</span></span>
+<span id="cb8-148"><a href="#cb8-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-149"><a href="#cb8-149" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-150"><a href="#cb8-150" aria-hidden="true" tabindex="-1"></a><span class="in">qui sem (csf_leakage &lt;- Treatment k age)(los &lt;- csf_leakage Treatment k age), nocapslatent</span></span>
+<span id="cb8-151"><a href="#cb8-151" aria-hidden="true" tabindex="-1"></a><span class="in">medsem, indep(Treatment) med(csf_leakage) dep(los)</span></span>
+<span id="cb8-152"><a href="#cb8-152" aria-hidden="true" tabindex="-1"></a><span class="in">    stand mcreps(5000) rit zlc</span></span>
+<span id="cb8-153"><a href="#cb8-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-154"><a href="#cb8-154" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-155"><a href="#cb8-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-156"><a href="#cb8-156" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码15.2输出"}</span>
+<span id="cb8-157"><a href="#cb8-157" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-158"><a href="#cb8-158" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch15-image6.png)</span>{width="5.768055555555556in" height="4.481944444444444in"}</span>
+<span id="cb8-159"><a href="#cb8-159" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-160"><a href="#cb8-160" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-161"><a href="#cb8-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-162"><a href="#cb8-162" aria-hidden="true" tabindex="-1"></a>BK法发现中介变量→结局变量的系数无统计显著性，因此不存在中介效应。Zhao法得出同样结论，按照Monte-Carlo抽样z检验无统计显著。中介比例与第一种方法一致，为5.9%。</span>
+<span id="cb8-163"><a href="#cb8-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-164"><a href="#cb8-164" aria-hidden="true" tabindex="-1"></a><span class="fu">### ldecomp</span></span>
+<span id="cb8-165"><a href="#cb8-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-166"><a href="#cb8-166" aria-hidden="true" tabindex="-1"></a>以上两种方法结局变量为连续变量，对结局变量为二分类变量可以采用ldecomp程序包。案例9.1中比较两种方案（内窥镜手术和显微镜手术）的内分泌缓解，内窥镜手术患者比显微镜手术患者缓解率高，提出问题增加的缓解率是否是由于增加手术的全切率所致？</span>
+<span id="cb8-167"><a href="#cb8-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-168"><a href="#cb8-168" aria-hidden="true" tabindex="-1"></a>ldecomp方法将逻辑回归中分类变量的总效应分解为直接和间接效应。我们怀疑，总效应的一部分可以由全切率之间的差异来解释，全切的患者更容易缓解。这就是间接效应。手术的直接效应是在控制全切的情况下产生的效应。默认情况下，ldecomp使用bootstrap计算标准误差。</span>
+<span id="cb8-169"><a href="#cb8-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-170"><a href="#cb8-170" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-171"><a href="#cb8-171" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码15.3：ldecomp</span></span>
+<span id="cb8-172"><a href="#cb8-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-173"><a href="#cb8-173" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-174"><a href="#cb8-174" aria-hidden="true" tabindex="-1"></a><span class="in">gen GTR = (extend == "GTR")</span></span>
+<span id="cb8-175"><a href="#cb8-175" aria-hidden="true" tabindex="-1"></a><span class="in">ldecomp Outcome k age, direct(Treatment) indirect(GTR) ///</span></span>
+<span id="cb8-176"><a href="#cb8-176" aria-hidden="true" tabindex="-1"></a><span class="in">    or rindirect reps(1000)</span></span>
+<span id="cb8-177"><a href="#cb8-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-178"><a href="#cb8-178" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-179"><a href="#cb8-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-180"><a href="#cb8-180" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码15.3输出"}</span>
+<span id="cb8-181"><a href="#cb8-181" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-182"><a href="#cb8-182" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch15-image7.png)</span>{width="5.768055555555556in" height="2.1798611111111112in"}</span>
+<span id="cb8-183"><a href="#cb8-183" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-184"><a href="#cb8-184" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-185"><a href="#cb8-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-186"><a href="#cb8-186" aria-hidden="true" tabindex="-1"></a>总体效应的度量尺度为比值比，结果为1.58，表示内窥镜手术患者比显微镜手术患者缓解率高，直接效应为1.11和1.10（分别采用两种方法），通过增加全切率间接部分为1.42和1.44（分别采用两种方法），平均占比为78.3%。值得注意的是，有中介效应的总效应与一般逻辑回归中的效应没有可比性。二分类结局变量的问题与以下事实有关，即逻辑回归使用的是比值比，而比值比是一种不可加的测量方法，因此边际比值和条件比值不能直接进行比较。 因此边际比值和条件比值不能直接比较；该结果应表述为所指定模型与假设下的效应分解，而非单凭比例宣称某一生物学机制已被证实。</span>
+<span id="cb8-187"><a href="#cb8-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-188"><a href="#cb8-188" aria-hidden="true" tabindex="-1"></a><span class="fu">### KHB方法</span></span>
+<span id="cb8-189"><a href="#cb8-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-190"><a href="#cb8-190" aria-hidden="true" tabindex="-1"></a>二分类结局并不必然要求以对数二项式模型代替逻辑回归；应先规定目标效应尺度。对数二项式或稳健泊松模型可估计风险比尺度的效应，逻辑回归可估计比值比尺度的效应。结局罕见时比值比可近似风险比，但不存在适用于所有研究的固定10%界线。由于比值比具有非可折叠性，不能把嵌套逻辑回归系数的变化直接解释为中介作用；若使用风险比尺度，本章第二节的风险比表达式才适用。</span>
+<span id="cb8-191"><a href="#cb8-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-192"><a href="#cb8-192" aria-hidden="true" tabindex="-1"></a>KHB方法比较两个嵌套非线性概率模型之间的估计系数。该方法针对二元、Logit和Probit模型开发的。如前所述，线性模型所描述的策略不能用于非线性概率模型。</span>
+<span id="cb8-193"><a href="#cb8-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-194"><a href="#cb8-194" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-195"><a href="#cb8-195" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码15.4：KHB方法</span></span>
+<span id="cb8-196"><a href="#cb8-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-197"><a href="#cb8-197" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-198"><a href="#cb8-198" aria-hidden="true" tabindex="-1"></a><span class="in">khb logit Outcome Treatment || GTR, concomitant(k age) or</span></span>
+<span id="cb8-199"><a href="#cb8-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-200"><a href="#cb8-200" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-201"><a href="#cb8-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-202"><a href="#cb8-202" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码15.4输出"}</span>
+<span id="cb8-203"><a href="#cb8-203" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-204"><a href="#cb8-204" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch15-image8.png)</span>{width="5.768055555555556in" height="1.8881944444444445in"}</span>
+<span id="cb8-205"><a href="#cb8-205" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-206"><a href="#cb8-206" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-207"><a href="#cb8-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-208"><a href="#cb8-208" aria-hidden="true" tabindex="-1"></a>Reduced代表总效应比值比为2.55；Full代表直接效应比值比为1.15；Diff中介效应比值比为2.23。可以看出中介效应所占比例很大。</span>
+<span id="cb8-209"><a href="#cb8-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-210"><a href="#cb8-210" aria-hidden="true" tabindex="-1"></a><span class="fu">### paramed</span></span>
+<span id="cb8-211"><a href="#cb8-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-212"><a href="#cb8-212" aria-hidden="true" tabindex="-1"></a>以上均为传统中介分析，对于因果中介分析，Stata中利用paramed这样一个命令可以完成，使用参数化回归模型进行分析。估计两个模型：一个是以干预和混杂因素为条件的中介模型，一个是以干预、中介因素和混杂因素为条件的结果模型。使用直接和间接效应的反事实定义的结果回归模型。paramed提供控制直接效应、自然直接效应、自然间接效应和总效应的估计值，其标准误以及默认情况下使用delta方法得出的置信区间，也可使用bootstrap选项。 运行 paramed 前应以因果图预先界定基线混杂因素，并检查干预---中介交互；参数化模型正确设定、一致性、正值性及无未测量混杂仍是该结果具有因果解释的前提。Valeri和VanderWeele（2013）提供了含干预---中介交互时的参数化实施框架。<span class="co">[</span><span class="ot">@valeri2013</span><span class="co">]</span></span>
+<span id="cb8-213"><a href="#cb8-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-214"><a href="#cb8-214" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-215"><a href="#cb8-215" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码15.5：paramed（二分类结局）</span></span>
+<span id="cb8-216"><a href="#cb8-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-217"><a href="#cb8-217" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-218"><a href="#cb8-218" aria-hidden="true" tabindex="-1"></a><span class="in">paramed Outcome, avar(Treatment) mvar(GTR) cvars(k age) ///</span></span>
+<span id="cb8-219"><a href="#cb8-219" aria-hidden="true" tabindex="-1"></a><span class="in">    a0(0) a1(1) m(1) yreg(loglinear) mreg(logistic) nointer boot</span></span>
+<span id="cb8-220"><a href="#cb8-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-221"><a href="#cb8-221" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-222"><a href="#cb8-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-223"><a href="#cb8-223" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码15.5输出"}</span>
+<span id="cb8-224"><a href="#cb8-224" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-225"><a href="#cb8-225" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch15-image9.png)</span>{width="5.768055555555556in" height="0.8854166666666666in"}</span>
+<span id="cb8-226"><a href="#cb8-226" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-227"><a href="#cb8-227" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-228"><a href="#cb8-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-229"><a href="#cb8-229" aria-hidden="true" tabindex="-1"></a>由于案例中的结局变量非罕见概率，因此因果中介分析推荐使用loglinear回归。mte表示总体效应，其度量单位为相对危险度（RR），为1.35；cde和nde表示控制直接效应和自然直接效应，均为1.03；nie为自然间接效应，为1.31。</span>
+<span id="cb8-230"><a href="#cb8-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-231"><a href="#cb8-231" aria-hidden="true" tabindex="-1"></a>paramed也支持结局变量为连续变量的中介分析，平均住院时长的减少是否是由于脑脊液鼻漏发生率减少所致？</span>
+<span id="cb8-232"><a href="#cb8-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-233"><a href="#cb8-233" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-234"><a href="#cb8-234" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码15.6：paramed（连续结局）</span></span>
+<span id="cb8-235"><a href="#cb8-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-236"><a href="#cb8-236" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-237"><a href="#cb8-237" aria-hidden="true" tabindex="-1"></a><span class="in">paramed los, avar(Treatment) mvar(csf_leakage) cvars(k age) ///</span></span>
+<span id="cb8-238"><a href="#cb8-238" aria-hidden="true" tabindex="-1"></a><span class="in">    a0(0) a1(1) m(1) yreg(linear) mreg(logistic) nointer boot</span></span>
+<span id="cb8-239"><a href="#cb8-239" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-240"><a href="#cb8-240" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-241"><a href="#cb8-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-242"><a href="#cb8-242" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码15.6输出"}</span>
+<span id="cb8-243"><a href="#cb8-243" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-244"><a href="#cb8-244" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch15-image10.png)</span>{width="5.768055555555556in" height="1.0472222222222223in"}</span>
+<span id="cb8-245"><a href="#cb8-245" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-246"><a href="#cb8-246" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-247"><a href="#cb8-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-248"><a href="#cb8-248" aria-hidden="true" tabindex="-1"></a>总体效应与回归方程估计的一致。内窥镜的总体效应将住院时间减少为0.62天，其中直接效应为0.58天；间接效应仅为0.04天。</span>
+<span id="cb8-249"><a href="#cb8-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-250"><a href="#cb8-250" aria-hidden="true" tabindex="-1"></a><span class="fu">### medeff</span></span>
+<span id="cb8-251"><a href="#cb8-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-252"><a href="#cb8-252" aria-hidden="true" tabindex="-1"></a>medeff是用于估计各种数据类型的中介效应的命令。对于连续的中介变量和连续的结果变量，其结果将与通常的BK法相同。然而，该命令可以适应其他数据类型，包括二元结果和中介变量，并计算出正确的估计值。在进行中介分析后，可进行正式的敏感性分析。然而，该方法无法计算比值比。</span>
+<span id="cb8-253"><a href="#cb8-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-254"><a href="#cb8-254" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-255"><a href="#cb8-255" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码15.7：medeff</span></span>
+<span id="cb8-256"><a href="#cb8-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-257"><a href="#cb8-257" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-258"><a href="#cb8-258" aria-hidden="true" tabindex="-1"></a><span class="in">medeff (logit Mediator Treatment k age) ///</span></span>
+<span id="cb8-259"><a href="#cb8-259" aria-hidden="true" tabindex="-1"></a><span class="in">    (regress los Treatment Mediator k age), ///</span></span>
+<span id="cb8-260"><a href="#cb8-260" aria-hidden="true" tabindex="-1"></a><span class="in">    mediate(Mediator) treat(Treatment)</span></span>
+<span id="cb8-261"><a href="#cb8-261" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-262"><a href="#cb8-262" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-263"><a href="#cb8-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-264"><a href="#cb8-264" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码15.7输出"}</span>
+<span id="cb8-265"><a href="#cb8-265" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-266"><a href="#cb8-266" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch15-image11.png)</span>{width="5.768055555555556in" height="0.9805555555555555in"}</span>
+<span id="cb8-267"><a href="#cb8-267" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-268"><a href="#cb8-268" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-269"><a href="#cb8-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-270"><a href="#cb8-270" aria-hidden="true" tabindex="-1"></a>干预对结局的总效应是-0.627，平均直接效应为-0.581，平均中介效应为-0.045，中介效应在总校应中占比仅7.4%。</span>
+<span id="cb8-271"><a href="#cb8-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-272"><a href="#cb8-272" aria-hidden="true" tabindex="-1"></a><span class="fu">## 中介效应报告推荐</span></span>
+<span id="cb8-273"><a href="#cb8-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-274"><a href="#cb8-274" aria-hidden="true" tabindex="-1"></a>﻿尽管传统中介分析和因果中介分析对某些模型提供了相同的效应估计，但因果中介分析通常比传统中介分析更受欢迎。因果中介分析明确列出了对效应估计的因果解释所需的所有假设。尽管其中一些因果假设与其他中介分析方法提出的参数化假设相同，但因果中介分析也为这些假设不成立时提供了指导。例如，当存在无法测量的混杂因素时，可使用敏感性分析来评估效果估计值在一系列关于混杂因素对中介模型中的变量影响大小的合理假设基础上如何变化。澄清因果假设是因果中介分析的一个重要贡献，因为中介模型本身就是因果模型。 报告时可按 AGReMA 声明交代因果问题、估计目标、时间顺序、混杂控制策略、效应尺度、模型设定、缺失数据处理、敏感性分析与不确定性区间；这有助于读者判断结论的适用范围。<span class="co">[</span><span class="ot">@lee2021</span><span class="co">]</span></span>
+<span id="cb8-275"><a href="#cb8-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-276"><a href="#cb8-276" aria-hidden="true" tabindex="-1"></a>传统中介估计最初是基于线性回归系数得出的。只要无（未测量的）混杂假设成立，传统的中介分析为用线性回归估计的中介模型提供因果效应估计。然而，用非线性回归（如逻辑回归或Cox比例风险模型）估计时，传统中介分析和因果中介分析只有在中介因素遵循正态分布、结果罕见、不存在相互作用的情况下才会提供相同的效应估计。</span>
+<span id="cb8-277"><a href="#cb8-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-278"><a href="#cb8-278" aria-hidden="true" tabindex="-1"></a>一般建议评估和讨论相关的参数和因果假设。无混杂假设对于确保效应估计值的因果解释至关重要，对于观察性研究尤其重要，因为中介模型中的所有路径都是观察性的，对中介因素的调整对于确保效应估计值的因果解释至关重要。有向无环图可用于帮助确定中介模型中路径的混杂因素，因为其直观地显示了中介模型中的因果路径，包括这些路径的混杂因素。未测量的混杂因素对效应估计的潜在影响可以通过敏感性分析进行评估。当第四个无混杂假设被违反时，可以估计多中介模型以考虑额外的中介变量。</span>
+<span id="cb8-279"><a href="#cb8-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-280"><a href="#cb8-280" aria-hidden="true" tabindex="-1"></a>协变量干预、协变量中介、干预中介和中介中介的相互作用的存在，可以通过在统计模型中加入交互项来评估。此点很重要，因为如果不考虑具有统计学意义的或与临床相关的相互作用，总体效应就会忽略直接和间接效应估计的重要信息。</span>
+<span id="cb8-281"><a href="#cb8-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-282"><a href="#cb8-282" aria-hidden="true" tabindex="-1"></a>最后，在使用基于回归的估计方法分析具有二分类或时生存结局的中介模型时，必须评估罕见结果假设，因为只有当结局的发生率在干预和中介变量的所有分层中都很低时，比值比和危险比的效果估计才有因果关系的解释。当违反罕见结果假设时，建议用对数线性回归估计二分类结局模型的效应，用加速失效时间模型估计生存结局模型的效应。 更准确地说，效应尺度应由研究问题预先决定：比值比和风险比都可以报告，但应避免把条件比值比的变化直接当作中介比例；生存结局还需处理删失、竞争风险和中介发生时间，不能仅以"罕见结局"作为充分条件。</span>
+<span id="cb8-283"><a href="#cb8-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-284"><a href="#cb8-284" aria-hidden="true" tabindex="-1"></a>建议根据间接效应估计值的非正态抽样分布的置信区间来确定间接效应估计值的统计学意义，如乘积置信区间、蒙特卡洛置信区间和自助法置信区间的分布，因为这些区间具有较高的检测统计学意义。</span>
+<span id="cb8-285"><a href="#cb8-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-286"><a href="#cb8-286" aria-hidden="true" tabindex="-1"></a><span class="fu">## 中介分析局限性</span></span>
+<span id="cb8-287"><a href="#cb8-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-288"><a href="#cb8-288" aria-hidden="true" tabindex="-1"></a>中介分析的目标是在明确研究问题和可识别假设下估计路径相关的因果效应，而不是仅凭统计分解"证明"因果关系，这一目标要求满足特定的假设。在中介分析中，干预结局、干预中介变量和中介变量结局的效应必须是不混淆的，以允许有效的因果推断。这一要求通常被称为无混杂或可忽略的假设。</span>
+<span id="cb8-289"><a href="#cb8-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-290"><a href="#cb8-290" aria-hidden="true" tabindex="-1"></a>在随机试验中，参与者被随机分配到干预组，所以干预结局和干预中介效应可以被假定为无混淆的。然而，试验参与者通常不会被随机分配到接受或不接受中介变量。因此，即使在随机试验中，中介结局效应也可能被混淆。为了克服这种潜在的偏见，研究者可以通过使用回归调整等技术来控制中介变量-结果效应的已知混杂因素。即使对已知的混杂因素进行了调整，未测量的混杂因素仍可能带来偏倚。敏感性分析可以而且应该用来评估中介分析中未测量的混杂因素所引起的潜在偏差。 随机分配干预并不能解决由干预后变量造成的中介---结局混杂；也不保证中介测量无误或中介先于结局。因而即使在随机试验中，仍需以时间线和因果图说明中介分析假设，并对关键未测量混杂开展敏感性分析。</span>
+<span id="cb8-291"><a href="#cb8-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-292"><a href="#cb8-292" aria-hidden="true" tabindex="-1"></a>观察性研究中的混杂风险比随机试验中的混杂风险要大，因为观察性研究的参与者不是随机分配来接受暴露的。在观察性研究中，与随机试验不同的是，不能假设干预中介或干预结局效应是不受干扰的。因此，在观察性研究的中介模型中，对所有效应的估计可能是有偏差的，可能需要对所有效应进行混杂控制。一个例子是在一项观察性研究中，Cheng等人用中介分析来检验脑功能连接是否中介了抑郁症对睡眠质量的影响。由于参与者没有被随机分配到抑郁症（干预）或脑功能连接（中介）的水平，研究者在模型中调整了所有效应的已知混杂因素。尽管有这些努力，未测量的混杂因素可能会使间接和直接效应的估计出现偏差。如果中介分析没有调整混杂因素或使用敏感性分析技术探讨未测量的混杂因素的影响，则应谨慎地解释其结果。随机或非随机研究的中介分析只有在有把握排除混杂因素的情况下才能证明因果效应。 随机或非随机研究的中介分析都应将结果解释为在所陈述假设下的因果估计；若关键混杂、测量误差或时间顺序无法令人信服地排除，应将结论限定为机制相容的关联，并报告敏感性分析。</span>
+<span id="cb8-293"><a href="#cb8-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-294"><a href="#cb8-294" aria-hidden="true" tabindex="-1"></a>如果干预措施有多个相互影响的中介因素，中介因素可能作为其他中介物的随机化后混杂因素。在这些情况下，在解释从单一中介因素的中介分析中得出的间接和直接效应的估计值时，必须谨慎行事。此外，对中介因素和结局的测量时间也很重要，如果中介因素与结局同时测量，可能会出现反向因果关系。也就是说，结局可能导致中介因素，而不是中介因素导致结局。 对于多个中介，不能仅因变量在统计上显著就逐个分解路径；应预先说明中介之间的因果顺序或采用适合并行／序列中介的估计目标。</span>
+<span id="cb8-295"><a href="#cb8-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-296"><a href="#cb8-296" aria-hidden="true" tabindex="-1"></a>对于中介比例，虽然有一个直观的解释，但存在一些重要的局限性。首先，没有适用于所有研究的固定样本量阈值；当总效应接近零、估计不精确或直接与间接效应方向相反时，中介比例尤其不稳定。其次，中介比例的估计值可能低于零或高于一。第三，当总体效应估计值较小且与临床无关时，中介比例的估计值可能具有误导性。</span>
+<span id="cb8-297"><a href="#cb8-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-298"><a href="#cb8-298" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考文献 {.unnumbered}</span></span>
+<span id="cb8-299"><a href="#cb8-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-300"><a href="#cb8-300" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
+<span id="cb8-301"><a href="#cb8-301" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

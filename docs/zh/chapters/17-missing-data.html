@@ -58,7 +58,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -108,6 +127,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -220,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12-regression-discontinuity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归法</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -293,10 +341,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">目录</h2>
    
   <ul>
-  <li><a href="#数据缺失的机制" id="toc-数据缺失的机制" class="nav-link active" data-scroll-target="#数据缺失的机制"><span class="header-section-number">17.1</span> 数据缺失的机制</a></li>
-  <li><a href="#数据缺失的传统统计学方法" id="toc-数据缺失的传统统计学方法" class="nav-link" data-scroll-target="#数据缺失的传统统计学方法"><span class="header-section-number">17.2</span> 数据缺失的传统统计学方法</a></li>
-  <li><a href="#依从性" id="toc-依从性" class="nav-link" data-scroll-target="#依从性"><span class="header-section-number">17.3</span> 依从性</a></li>
+  <li><a href="#数据缺失的机制" id="toc-数据缺失的机制" class="nav-link active" data-scroll-target="#数据缺失的机制"><span class="header-section-number">17.1</span> 数据缺失的机制</a>
+  <ul class="collapse">
+  <li><a href="#完全随机缺失missing-completely-at-randommcar" id="toc-完全随机缺失missing-completely-at-randommcar" class="nav-link" data-scroll-target="#完全随机缺失missing-completely-at-randommcar"><span class="header-section-number">17.1.1</span> 完全随机缺失（missing completely at random，MCAR）</a></li>
+  <li><a href="#随机缺失missing-at-randommar" id="toc-随机缺失missing-at-randommar" class="nav-link" data-scroll-target="#随机缺失missing-at-randommar"><span class="header-section-number">17.1.2</span> 随机缺失（missing at random，MAR）</a></li>
+  <li><a href="#非随机缺失missing-not-at-randommnar" id="toc-非随机缺失missing-not-at-randommnar" class="nav-link" data-scroll-target="#非随机缺失missing-not-at-randommnar"><span class="header-section-number">17.1.3</span> 非随机缺失（missing not at random，MNAR）</a></li>
+  </ul></li>
+  <li><a href="#数据缺失的传统统计学方法" id="toc-数据缺失的传统统计学方法" class="nav-link" data-scroll-target="#数据缺失的传统统计学方法"><span class="header-section-number">17.2</span> 数据缺失的传统统计学方法</a>
+  <ul class="collapse">
+  <li><a href="#删除含有缺失值的个案" id="toc-删除含有缺失值的个案" class="nav-link" data-scroll-target="#删除含有缺失值的个案"><span class="header-section-number">17.2.1</span> 删除含有缺失值的个案</a></li>
+  <li><a href="#可能值的单纯插补" id="toc-可能值的单纯插补" class="nav-link" data-scroll-target="#可能值的单纯插补"><span class="header-section-number">17.2.2</span> 可能值的单纯插补</a></li>
+  <li><a href="#多重插补multiple-imputationmi" id="toc-多重插补multiple-imputationmi" class="nav-link" data-scroll-target="#多重插补multiple-imputationmi"><span class="header-section-number">17.2.3</span> 多重插补（Multiple Imputation，MI）</a></li>
+  </ul></li>
+  <li><a href="#依从性" id="toc-依从性" class="nav-link" data-scroll-target="#依从性"><span class="header-section-number">17.3</span> 依从性</a>
+  <ul class="collapse">
+  <li><a href="#伴发事件与补救用药" id="toc-伴发事件与补救用药" class="nav-link" data-scroll-target="#伴发事件与补救用药"><span class="header-section-number">17.3.1</span> 伴发事件与补救用药</a></li>
+  <li><a href="#失访偏倚" id="toc-失访偏倚" class="nav-link" data-scroll-target="#失访偏倚"><span class="header-section-number">17.3.2</span> 失访偏倚</a></li>
+  <li><a href="#逆概率失访加权法" id="toc-逆概率失访加权法" class="nav-link" data-scroll-target="#逆概率失访加权法"><span class="header-section-number">17.3.3</span> 逆概率失访加权法</a></li>
+  </ul></li>
   <li><a href="#幸存者偏倚与治疗零点" id="toc-幸存者偏倚与治疗零点" class="nav-link" data-scroll-target="#幸存者偏倚与治疗零点"><span class="header-section-number">17.4</span> 幸存者偏倚与治疗零点</a></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献">参考文献</a></li>
   </ul>
 </nav>
     </div>
@@ -322,34 +386,330 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">注记</span>编写说明
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>本章内容整理中。可将已校订的 Word 书稿（<code>乔Book/</code> 目录）正文迁移至此，公式用 <code>$...$</code> / <code>$$...$$</code>，图片放 <code>images/</code>，代码用 <code>{r} 或</code>{python} 代码块。</p>
-</div>
-</div>
+<p>数据缺失是指研究数据中由于缺少信息而造成的数据的不完整。它指的是现有数据集中某个或某些属性的值是不完全的。数据缺失与生存分析中的删失不同，删失的概念是指可以观察到受试者在一定时间内未出现结局事件，而数据缺失是指在随访期间既不知道受试者有没有出现结局事件，也不知道他是否没有出现结局事件。</p>
 <section id="数据缺失的机制" class="level2" data-number="17.1">
 <h2 data-number="17.1" class="anchored" data-anchor-id="数据缺失的机制"><span class="header-section-number">17.1</span> 数据缺失的机制</h2>
-<p><em>待补充。</em></p>
+<section id="完全随机缺失missing-completely-at-randommcar" class="level3" data-number="17.1.1">
+<h3 data-number="17.1.1" class="anchored" data-anchor-id="完全随机缺失missing-completely-at-randommcar"><span class="header-section-number">17.1.1</span> 完全随机缺失（missing completely at random，MCAR）</h3>
+<p>所缺失的数据发生的概率既与已观察到的数据无关，也与未观察到的数据无关。MCAR是很强的机制假设；在相应分析模型正确时，完整病例分析可避免由缺失机制本身引入的选择偏倚，但仍会降低精度。<span class="citation" data-cites="sterne2009">(<a href="14-sensitivity-analysis.html#ref-sterne2009" role="doc-biblioref">Sterne 等 2009年</a>)</span>比较缺失者与非缺失者的已观测特征只能描述差异，不能证明MCAR，因为缺失值及其与未观测量的关系无法由数据直接检验。</p>
+</section>
+<section id="随机缺失missing-at-randommar" class="level3" data-number="17.1.2">
+<h3 data-number="17.1.2" class="anchored" data-anchor-id="随机缺失missing-at-randommar"><span class="header-section-number">17.1.2</span> 随机缺失（missing at random，MAR）</h3>
+<p>假设缺失数据发生的概率与所观察到的变量是有关的，而与未观察到的数据的特征是无关的。数据缺失不是完全随机的，即该类数据的缺失依赖于其他完全变量，如入院患者的体重缺失与病情的轻重有关，病情严重的患者无法测量体重； MAR同样是条件性、不可由观测数据完全检验的假设：若已纳入病情严重程度等相关已观测信息，缺失概率可不再额外依赖未观测的体重；遗漏关键预测因素时，表面上的MAR分析仍可能有偏。</p>
+</section>
+<section id="非随机缺失missing-not-at-randommnar" class="level3" data-number="17.1.3">
+<h3 data-number="17.1.3" class="anchored" data-anchor-id="非随机缺失missing-not-at-randommnar"><span class="header-section-number">17.1.3</span> 非随机缺失（missing not at random，MNAR）</h3>
+<p>如果数据的缺失既依赖于完全变量又依赖于不完全变量本身，这种缺失即为不可忽略的缺失。数据的缺失与不完全变量自身的取值有关，如人群不原意提供家庭收入。</p>
+</section>
 </section>
 <section id="数据缺失的传统统计学方法" class="level2" data-number="17.2">
 <h2 data-number="17.2" class="anchored" data-anchor-id="数据缺失的传统统计学方法"><span class="header-section-number">17.2</span> 数据缺失的传统统计学方法</h2>
-<p><em>待补充。</em></p>
+<p>当数据缺失机制是完全随机缺失时，基于似然推断的统计分析是有效的。不幸的是，数据不太可能随机丢失，因此，最好是采用一系列数据缺失的分析方法，每个分析都探索不同的方法来解决数据缺失问题。如果大多数分析方法一致，那么结果就更有说服力。</p>
+<section id="删除含有缺失值的个案" class="level3" data-number="17.2.1">
+<h3 data-number="17.2.1" class="anchored" data-anchor-id="删除含有缺失值的个案"><span class="header-section-number">17.2.1</span> 删除含有缺失值的个案</h3>
+<p>对缺失值进行处理的最原始方法。它将存在缺失值的个案删除，如果数据缺失问题可以通过简单的删除小部分样本来达到目标，那么这个方法是最有效的。然而删除法因为单一值的缺失而放弃大量的其他数据，这种删除是对信息的极大浪费，损失了样本量，降低了统计效能。</p>
+<p>对于结局变量缺失，不存在可普遍适用的5%阈值；即使缺失比例很低，只要缺失与治疗或预后有关，仍可能造成实质偏倚。完整病例分析可作为预先说明的敏感性分析，或在MCAR／合理的条件性MAR假设下使用，但应同时报告缺失比例、缺失原因、各组随时间的缺失模式及其对结论的可能影响。极端情景分析可以帮助展示结论的稳健性；连续结局的情景值应基于临床可接受的范围和明确的MNAR偏移假设，而不宜机械地采用均值±1或2个标准差。</p>
+</section>
+<section id="可能值的单纯插补" class="level3" data-number="17.2.2">
+<h3 data-number="17.2.2" class="anchored" data-anchor-id="可能值的单纯插补"><span class="header-section-number">17.2.2</span> 可能值的单纯插补</h3>
+<p>其基本思想是以最可能的值来插补缺失值，比全部删除不完全样本所产生的信息丢失要少。有多种常用的单纯插补方法。</p>
+<ol type="1">
+<li><p>均值插补。如果缺失值是连续变量，就以平均值来插补缺失的值；如果缺失值是分类数据，用该数据的众数来补齐缺失的值。这是最基本的插补方法，该方法计算起来非常快速，但缺点是均值插补会减少数据的变化差异。</p></li>
+<li><p>最后观测值向前推进法，用于重复测量数据，采用最后一次观察到的值进行插补未观察到的值，其统计假设是最后一次观察后所有未来的观察保持不变。</p></li>
+<li><p>建模预测：将缺失值作为预测目标采用其他指标来预测。该方法有个根本的缺陷：如果缺失和其他数据无关，则预测的结果毫无意义。常用的方法是根据回归方法或者邻近匹配方法。 单次插补（包括均值、众数、最后观测值向前推进和确定性预测）把插补值当作真实观测，通常低估方差并使置信区间过窄；除非其数值含义本身就是预先定义的结局规则，一般不宜作为主要推断分析。</p></li>
+<li><p>贝叶斯极大似然估计：在缺失类型为随机缺失的条件下，假设模型对于完整的样本是正确的，那么通过观测数据的边际分布可以对缺失数据进行极大似然估计。它一个重要前提：适用于大样本，有效样本的数量足够以保证似然估计值是渐近无偏的并服从正态分布。但是这种方法可能会陷入局部极值，收敛速度也不是很快，并且计算很复杂。</p></li>
+</ol>
+<!-- -->
+</section>
+<section id="多重插补multiple-imputationmi" class="level3" data-number="17.2.3">
+<h3 data-number="17.2.3" class="anchored" data-anchor-id="多重插补multiple-imputationmi"><span class="header-section-number">17.2.3</span> 多重插补（Multiple Imputation，MI）</h3>
+<p>多重插补的思想来源于贝叶斯估计，认为待插补的值是随机的。具体实践上为每个缺失值产生一组可能的插补值，这些值反映了模型的不确定性；每个值都可以被用来插补数据集中的缺失值，产生若干个完整数据集合。每个数据集合都进行统计分析，然后综合这些统计分析结果。 插补次数应足以控制Monte Carlo误差，缺失比例较高时通常需要多于传统的5次；应报告插补模型、纳入变量、插补次数、诊断及与完整病例／MNAR情景分析的一致性。</p>
+<div class="text-center">
+<p><img src="images/ch17-image1.png" style="width:5.76806in;height:2.73403in"></p>
+<p><strong>图17.1 多重插补图示</strong></p>
+</div>
+<p>多重插补通过从缺失值的预测分布中重复抽样，生成多个完整数据集；随后分别分析并按Rubin规则合并估计值和标准误，从而反映插补不确定性。它可采用联合建模或链式方程等实现；许多实现具有贝叶斯抽样解释，但多重插补、极大似然和贝叶斯分析并非彼此等同。无论采用何种方法，插补模型都应与分析模型相容，纳入结局、治疗分组、所有分析变量，以及与缺失或结局相关的辅助变量；模型设定错误、正值性不足或MNAR均不能仅靠多重插补解决。<span class="citation" data-cites="sterne2009">(<a href="14-sensitivity-analysis.html#ref-sterne2009" role="doc-biblioref">Sterne 等 2009年</a>)</span></p>
+</section>
 </section>
 <section id="依从性" class="level2" data-number="17.3">
 <h2 data-number="17.3" class="anchored" data-anchor-id="依从性"><span class="header-section-number">17.3</span> 依从性</h2>
-<p><em>待补充。</em></p>
+<p>临床研究中不遵守方案的干预是受试者退出分析的一个原因，也是结局变量出现缺失的主要原因之一。不依从可能是由于干预组或对照组中的不良事件、兴趣或感知利益的丧失、潜在状况的变化或各种其他原因。不依从性对试验结果的影响是，与对照相比，干预的任何益处都将减少，从而使试验所需样本量大于计划。如果某组中的不依从性比另一组更大，且不依从与结果相关，那么不依从受试者的退出可能会导致偏倚。</p>
+<p>不依从性的定义也会对分析产生重大影响。临床研究实践中可以定义在研究​​中接受的干预部分与方案定义的匹配比例。需要分别描述受试者对干预或者对照的依从性，如果受试者对干预措施的依从性低于对照组，则可能无法合理预期该疗法在临床实践中的广泛使用。干预可能是有效的，但如果大部分受试者不能忍受，则可能没有什么价值。</p>
+<p>最好的策略是设计一个试验以使不依从性最小，使试验能够克服不可预防的不依从性，然后使用意向治疗原则接受结果。然而对于不可避免的不依从性，有必要采取一定的统计方法。</p>
+<section id="伴发事件与补救用药" class="level3" data-number="17.3.1">
+<h3 data-number="17.3.1" class="anchored" data-anchor-id="伴发事件与补救用药"><span class="header-section-number">17.3.1</span> 伴发事件与补救用药</h3>
+<p>结局指标的准确估计问题，因受补救用药的使用，以及在试验过程中因无效或安全性问题而脱落的伴发事件影响。因此，ICH E9(R1)中总结和强调了”估计目标（estimand）“的概念，即通过估计目标详细定义在什么样的人群中需要估计什么科学问题。对伴发事件的定义与处理，可以参考以下5个策略:</p>
+<ol type="1">
+<li><p>疗法策略：无论是否发生不良反应、停药或补救治疗，均使用其后的结局数据进行分析。该estimand描述将研究用药置于实际临床路径（包括后续补救治疗）中的总体效果；它不等同于”混杂”，但可能因两组补救治疗使用不同而使疗效解释更接近治疗策略的实际效果。此策略要求尽可能继续收集伴发事件后的结局和安全性资料。</p></li>
+<li><p>组合策略：重新设计结局事件，如结局为二分类变量，出现伴发事件以及补救治疗时考虑结局为无效。临床上多见于恶性肿瘤的生存分析，发生死亡时考虑治疗无效，因此将死亡与肿瘤无复发组合为无进展生存。</p></li>
+<li><p>假设策略：关注假设伴发事件未发生时的结局，例如假设未使用补救治疗、未停药时的疗效。该策略必须说明临床上可理解的反事实情景及相应识别假设；其后数据不是”天然缺失”，而是需要借助模型、插补或加权等方法估计的反事实量。</p></li>
+<li><p>主层策略：目标人群为未发生补救治疗的人群，发生不良事件补救治疗后的测量值无需收集，不做为缺失数据。若剔除了发生补救治疗的受试者，两组间可能存在混杂因素，应该使用恰当的分析方法。通常需要借助敏感性分析来考察结果的敏感性。临床上常见的方法是生存分析中的原因别竞争风险。 主层策略针对的是在不同治疗条件下会（或不会）发生伴发事件的潜在人群；该人群成员资格不可被直接观察，通常需要比常规ITT更强的假设，不应简单地通过排除已发生补救治疗者来实现。</p></li>
+<li><p>在治策略：采用伴发事件之前的治疗效果作为新的指标，补救治疗后的测量值无需收集。可采用多时间点重复测量模型分析数据。对于间断的测量缺失可基于合理的假设对数据进行插值估计。</p></li>
+</ol>
+<p>考虑缺失数据填补方法需与估计目标的分析策略匹配，首选需分辨缺失数据是否需要填补（如组合策略和在治策略下发生伴发事件后的数据缺失无需填补），然后再选择符合分析策略的数据填补方法。如在疗法策略和组合策略发生伴发事件前的缺失数据，可采用相关统计方法进行填补，填补模型中需考虑的变量需包括基线指标、治疗组、测量时点，以及伴发事件等情况。 还应将每一种伴发事件对应的estimand策略、主要估计方法和敏感性分析预先写入方案；同一试验可对不同伴发事件采用不同策略，但不能以事后选择填补法来替代估计目标的定义。ICH E9(R1)将治疗策略、组合、假设、在治和主层列为五类常用策略。<span class="citation" data-cites="iche9r1">(<a href="14-sensitivity-analysis.html#ref-iche9r1" role="doc-biblioref">International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use 2020年</a>)</span></p>
+</section>
+<section id="失访偏倚" class="level3" data-number="17.3.2">
+<h3 data-number="17.3.2" class="anchored" data-anchor-id="失访偏倚"><span class="header-section-number">17.3.2</span> 失访偏倚</h3>
+<p>如果研究的效应指标是生存事件，标准生存分析通常要求在给定模型中已纳入的历史信息后删失为非信息性（独立删失），而非笼统地假设失访”随机”。然而，如果研究组中失访的受试者者人数不同，失访既与干预相关又与结局相关，则数据分析可能存在偏差。图17.2中只分析无缺失的患者，导致原本关闭的对撞打开，形成后门路径。如，慢性心力衰竭试验中比较了器械（心脏起搏器加除颤仪）与药物治疗慢性心力衰竭患者，主要终点结果为死亡。随机分配到其中一个设备组的人不知道他们被分配到哪个设备，但药物治疗组的人知道没有安装任何设备。结果，药物治疗组的受试者开始退出试验，撤回了他们的知情同意，许多人要求使用新批准的设备。因此，当试验接近完成时，药物治疗组的退出率为26%，器械组的退出率为6%。此外，无法收集有关撤回同意的人的后续信息，显然，这些缺失的受试者不是随机的，不能排除与疾病状态有关的可能性，从而产生严重偏倚的可能性。 因此，不能只比较各组失访比例；应比较失访前的结局轨迹和预后变量，并预先设定针对信息性失访的分析与敏感性分析。删失若依赖未记录的病情恶化，即使使用常规Cox模型也可能产生偏倚。</p>
+<div class="text-center">
+<p><img src="images/ch17-image2.png" style="width:2.91071in;height:1.54262in"></p>
+<p><strong>图17.2 失访偏倚</strong></p>
+</div>
+</section>
+<section id="逆概率失访加权法" class="level3" data-number="17.3.3">
+<h3 data-number="17.3.3" class="anchored" data-anchor-id="逆概率失访加权法"><span class="header-section-number">17.3.3</span> 逆概率失访加权法</h3>
+<p>为了调整治疗不依从性，有必要对临床试验结果进行统计调整。逆概率失访加权法（inversed propensity censoring weighting，IPCW）和其他复杂的方法，已被充分研究用于分析随机试验。假设一项试验将10名病人随机分配到治疗组，其中8人没有坚持治疗方案，因为治疗本身或疾病会影响治疗的坚持性，那么IPCW方法就会删除这8例不坚持治疗的患者，并将2例坚持治疗的病人的权重提高5倍，即[(10-8)/10]的倒数。 该例仅为静态直观说明；真实研究中的删失往往随时间发生，不能简单删除不依从者后给其余受试者一个固定权重。应以纵向人时数据拟合删失模型，并使用稳健方差或适当的重复测量／生存模型进行推断。</p>
+<p>IPCW也可以用于治疗过程中的转组（干预组转换至对照组或对照组转换至干预组）。把发生治疗转换的人看作失访，失访的时间为治疗转换发生的时间。再通过对没有发生转组的患者进行加权，把没有发生治疗转换的人扩张成原来的人数，进而校正转组对效果评价的影响。 IPCW的目标是用仍未失访／未偏离策略者代表在相同观察历史下可能失访者，因此权重模型应以每个随访时点的既往治疗、结局和时间依赖混杂因素为条件。该方法还需要一致性、可交换性和正值性；极端权重提示某些历史下几乎无人继续随访，应报告权重分布、截尾规则和加权后的协变量平衡。<span class="citation" data-cites="rimawi2012 hernan2017pp">(<a href="14-sensitivity-analysis.html#ref-rimawi2012" role="doc-biblioref">Rimawi 和 Hilsenbeck 2012年</a>; <a href="14-sensitivity-analysis.html#ref-hernan2017pp" role="doc-biblioref">Hernán 和 Robins 2017年</a>)</span></p>
+<p>缺失数据的逆概率和稳定的逆概率可以表示为</p>
+<p>公式17.1</p>
+<p><span class="math display">\[W_{k_{i}}^{C = 1} = \ \frac{1}{Pr(C = 1|{T,\ \ k}_{i})}\]</span></p>
+<p><span class="math display">\[W_{k_{i}}^{C = 0} = \ \frac{1}{1 - Pr(C = 1|{T,k}_{i})}\]</span></p>
+<p><span class="math display">\[{SW}_{k_{i}}^{C = 1} = \ \frac{\Pr(C = 1|T)}{Pr(C = 1|{T,k}_{i})}\]</span></p>
+<p><span class="math display">\[{SW}_{k_{i}}^{C = 0} = \ \frac{1 - Pr(C = 1|T)}{1 - Pr(C = 1|{T,k}_{i})}\]</span></p>
+<p>其中 <span class="math inline">\(C = 1\)</span> 表示缺失。在计算逆概率的分子和分母时一定要注意在回归方程中加入干预变量。如果研究中既有混杂因素，又有失访偏倚，可以分别计算两个逆概率，然后总的逆概率即为两个逆概率的乘积： 在实际IPCW分析中，通常只对仍可观察到结局的人时赋予”保持未删失”的逆概率权重；分母是给定既往历史仍未删失的条件概率，稳定化分子可仅含基线治疗或更简化的历史。上述公式用于说明思想，具体定义必须与C的编码和分析时点一致。</p>
+<p><span class="math display">\[{SW}_{k_{i}}^{T,C} = {SW}_{k_{i}}^{T}*{SW}_{k_{i}}^{C}\]</span></p>
+<p>回想案例9.1有部分患者的结局事件标记为Censor，意味着这些患者我们没有观察到他们的结局。因此，分别计算治疗的逆概率和失访的逆概率。然后将其乘积作为整体概率放入回归方程。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码17.1：逆概率失访加权
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> censor = (Outcome == .)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> censor Treatment <span class="kw">k</span> age</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">predict</span> _cscore</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> censor Treatment</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">predict</span> _cscore_num</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> s_ipweight_c = _cscore_num/_cscore <span class="kw">if</span> censor == 1</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> s_ipweight_c = (1 - _cscore_num)/(1 - _cscore) <span class="kw">if</span> censor == 0</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> s_ipweight_t = s_ipweight * s_ipweight_c</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">logistic</span> Outcome Treatment [<span class="kw">iweight</span> = s_ipweight_t], <span class="kw">vce</span>(<span class="kw">robust</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码17.1输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码17.1输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 54%">
+<col style="width: 21%">
+<col style="width: 7%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Logistic regression</th>
+<th style="text-align: left;">Number of obs</th>
+<th style="text-align: center;">=</th>
+<th style="text-align: right;"><strong>743</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Log pseudolikelihood = -506.38686</strong></td>
+<td style="text-align: left;">F(3, 32)</td>
+<td style="text-align: center;">=</td>
+<td style="text-align: right;"><strong>19.46</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Prob &gt; F</td>
+<td style="text-align: center;">=</td>
+<td style="text-align: right;"><strong>0.0000</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Psudo R2</td>
+<td style="text-align: center;">=</td>
+<td style="text-align: right;"><strong>0.0198</strong></td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Outcome</th>
+<th style="text-align: right;">Odds ratio</th>
+<th style="text-align: right;">Ribust Std. err.</th>
+<th style="text-align: right;">z</th>
+<th style="text-align: right;">P&gt;</th>
+<th style="text-align: left;">z</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Treatment</td>
+<td style="text-align: right;"><strong>1.955157</strong></td>
+<td style="text-align: right;"><strong>.2971535</strong></td>
+<td style="text-align: right;"><strong>4.41</strong></td>
+<td style="text-align: right;"><strong>0.000</strong></td>
+<td style="text-align: left;"><strong>1.451484</strong> – <strong>2.633607</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_cons</td>
+<td style="text-align: right;"><strong>.7052378</strong></td>
+<td style="text-align: right;"><strong>.0713973</strong></td>
+<td style="text-align: right;"><strong>-3.45</strong></td>
+<td style="text-align: right;"><strong>0.001</strong></td>
+<td style="text-align: left;"><strong>.5783105</strong> – <strong>.860023</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>干预组与对照组相比能显著增加手术的缓解率，计算比值比为1.96。检查假人群中的平衡性，两组在加权后协变量基本一致。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码17.2：加权后的协变量汇总
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">by</span> Treatment, <span class="kw">sort</span> : <span class="kw">summarize</span> age <span class="kw">k</span> [<span class="kw">iweight</span> = s_ipweight_t]</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码17.2输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码17.2输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Treatment</th>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Obs</th>
+<th style="text-align: right;">Weight</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Std. dev.</th>
+<th style="text-align: right;">Min</th>
+<th style="text-align: right;">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">age</td>
+<td style="text-align: right;"><strong>493</strong></td>
+<td style="text-align: right;"><strong>488.956757</strong></td>
+<td style="text-align: right;"><strong>44.43738</strong></td>
+<td style="text-align: right;"><strong>11.65045</strong></td>
+<td style="text-align: right;"><strong>19</strong></td>
+<td style="text-align: right;"><strong>27</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">k</td>
+<td style="text-align: right;"><strong>493</strong></td>
+<td style="text-align: right;"><strong>488.956757</strong></td>
+<td style="text-align: right;"><strong>1.871528</strong></td>
+<td style="text-align: right;"><strong>1.221036</strong></td>
+<td style="text-align: right;"><strong>0</strong></td>
+<td style="text-align: right;"><strong>4</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">age</td>
+<td style="text-align: right;"><strong>406</strong></td>
+<td style="text-align: right;"><strong>408.936015</strong></td>
+<td style="text-align: right;"><strong>44.29863</strong></td>
+<td style="text-align: right;"><strong>12.59395</strong></td>
+<td style="text-align: right;"><strong>18</strong></td>
+<td style="text-align: right;"><strong>78</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">k</td>
+<td style="text-align: right;"><strong>406</strong></td>
+<td style="text-align: right;"><strong>408.936015</strong></td>
+<td style="text-align: right;"><strong>1.874732</strong></td>
+<td style="text-align: right;"><strong>1.17283</strong></td>
+<td style="text-align: right;"><strong>0</strong></td>
+<td style="text-align: right;"><strong>4</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
 </section>
 <section id="幸存者偏倚与治疗零点" class="level2" data-number="17.4">
 <h2 data-number="17.4" class="anchored" data-anchor-id="幸存者偏倚与治疗零点"><span class="header-section-number">17.4</span> 幸存者偏倚与治疗零点</h2>
-<p><em>待补充。</em></p>
+<p>幸存者偏倚来源于只有长期生存的患者才能长期接受一种治疗。假设我们想利用医疗数据库估计他汀类药物对癌症患者死亡率的影响，直接比较长期使用者、短期使用者和非使用者就会产生偏差。因为长期使用者由于种种原因已经生存了很长时间（可能由于这些人本身就很长寿），我们称为幸存者偏倚。</p>
+<p>假设一个完全依从且无删失的随机对照试验数据，12名受试者被随机分配到三种治疗策略中的一种：无阿司匹林组，一年阿司匹林组，或两年阿司匹林组，每组四人。在每种策略下，第一年结束时每组都有1人死亡，第二年结束时每组都有3人死亡。随机对照研究下此三组比较无明显差异。假设我们天真地比较了实际服用阿司匹林两年的人（3人）和没有服用阿司匹林的人（4人），两组的死亡率分别是（2/3）和（3/4），其风险比&lt;1，尽管我们知道实际上阿司匹林的治疗没有效果。接受两年治疗的人在这两年里是”不死的”，数据分析时选择删除了那些接受阿司匹林治疗且已经死亡的病人，这就是为什么这种天真的分析被称为幸存者偏差。</p>
+<p>产生这个问题的深层次问题在于，在随机对照研究中中，研究对象入组时即被分配干预措施，入组和分配干预措施是同步的。但观察性研究中，研究对象入组时，未被分配干预措施（不能依据研究对象之后接受的干预措施决定前面的组别），即无法实现入组和干预分配的同步。换句话说，在观察性研究中，研究对象可能在多个时间点满足入组标准，都可以作为随访开始时间，但分析时需将随访开始时间确定下来。</p>
+<p>我们现在需要将这些见解转移到观察性数据的分析中。使用观察数据模拟完全依从性的随机试验。假设我们想用一个有12人的医疗数据库来估计阿司匹林治疗对生存的影响。我们可以通过三个步骤来模仿随机试验的分析，即克隆、删失和加权。</p>
+<ol type="1">
+<li><p>克隆：将干预个体分配到任何一个治疗策略。对照组直接被分配到无干预的策略中。接受了治疗的个体，即可以被分配到一年阿司匹林组或两年阿司匹林组。我们将这个个体复制一份，分别分配到这两个策略。相当于在数据集中有这个样本的两个拷贝，每个拷贝分配到不同的策略。</p></li>
+<li><p>失访：如果克隆样本在随访期间偏离了指定的策略，我们就人为指定他们为失访。举个例子，如果被分配到一年阿司匹林组的克隆样本在随访一年后继续接受阿司匹林治疗，就会被人工指定为失访；或者被分配到两年阿司匹林组的克隆样本一年后没有接受治疗，就也会被人工指定为失访。</p></li>
+<li><p>加权：为了消除人工失访带来的选择偏差，可以使用逆概率失访加权。同时由于一份样本被多次利用，回归时指定cluster。 克隆、人工删失和加权应从同一个明确定义的time zero开始：该时点必须同时满足纳入标准、治疗策略分配和随访起点。还应检查每个策略下的正值性、人工删失后的权重稳定性及竞争事件的处理；否则克隆并不能自动消除不死时间偏倚。<span class="citation" data-cites="dickerman2019 hernan2020whatif">(<a href="14-sensitivity-analysis.html#ref-dickerman2019" role="doc-biblioref">Dickerman 等 2019年</a>; <a href="14-sensitivity-analysis.html#ref-hernan2020whatif" role="doc-biblioref">Hernán 和 Robins 2020年</a>)</span></p></li>
+</ol>
+</section>
+<section id="参考文献" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="参考文献">参考文献</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-dickerman2019" class="csl-entry" role="listitem">
+Dickerman, Barbra A., Xabier García-Albéniz, Roger W. Logan, Spiros Denaxas, 和 Miguel A. Hernán. 2019年. <span>《Avoidable flaws in observational analyses: an application to statins and cancer》</span>. <em>Nature Medicine</em> 25 (10): 1601～6. <a href="https://doi.org/10.1038/s41591-019-0595-5">https://doi.org/10.1038/s41591-019-0595-5</a>.
+</div>
+<div id="ref-hernan2017pp" class="csl-entry" role="listitem">
+Hernán, Miguel A., 和 James M. Robins. 2017年. <span>《Per-protocol analyses of pragmatic trials》</span>. <em>New England Journal of Medicine</em> 377 (14): 1391～98. <a href="https://doi.org/10.1056/NEJMsm1605385">https://doi.org/10.1056/NEJMsm1605385</a>.
+</div>
+<div id="ref-hernan2020whatif" class="csl-entry" role="listitem">
+Hernán, Miguel A., 和 James M. Robins. 2020年. <em>Causal Inference: What If</em>. Chapman &amp; Hall/CRC.
+</div>
+<div id="ref-iche9r1" class="csl-entry" role="listitem">
+International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use. 2020年. <em><span>ICH E9(R1)</span> Addendum on Estimands and Sensitivity Analysis in Clinical Trials to the Guideline on Statistical Principles for Clinical Trials</em>. Guideline. <a href="https://www.ema.europa.eu/en/documents/scientific-guideline/ich-e9-r1-addendum-estimands-and-sensitivity-analysis-clinical-trials-guideline-statistical-principles-clinical-trials-step-5_en.pdf">https://www.ema.europa.eu/en/documents/scientific-guideline/ich-e9-r1-addendum-estimands-and-sensitivity-analysis-clinical-trials-guideline-statistical-principles-clinical-trials-step-5_en.pdf</a>.
+</div>
+<div id="ref-rimawi2012" class="csl-entry" role="listitem">
+Rimawi, M., 和 S. G. Hilsenbeck. 2012年. <span>《Making sense of clinical trial data: is inverse probability of censoring weighted analysis the answer to crossover bias?》</span> <em>Journal of Clinical Oncology</em> 30 (4): 453～58. <a href="https://doi.org/10.1200/JCO.2011.38.7074">https://doi.org/10.1200/JCO.2011.38.7074</a>.
+</div>
+<div id="ref-sterne2009" class="csl-entry" role="listitem">
+Sterne, Jonathan A. C., Ian R. White, John B. Carlin, 等. 2009年. <span>《Multiple imputation for missing data in epidemiological and clinical research: potential and pitfalls》</span>. <em>BMJ</em> 338: b2393. <a href="https://doi.org/10.1136/bmj.b2393">https://doi.org/10.1136/bmj.b2393</a>.
+</div>
+</div>
 
 
 <!-- -->
@@ -820,28 +1180,186 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 缺失数据</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## 编写说明</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>本章内容整理中。可将已校订的 Word 书稿（<span class="in">`乔Book/`</span> 目录）正文迁移至此，公式用 <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span>，图片放 <span class="in">`images/`</span>，代码用 ```{r} 或 ```{python} 代码块。</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 数据缺失的机制</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## 数据缺失的传统统计学方法</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 依从性</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 幸存者偏倚与治疗零点</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_待补充。_</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 缺失数据</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>数据缺失是指研究数据中由于缺少信息而造成的数据的不完整。它指的是现有数据集中某个或某些属性的值是不完全的。数据缺失与生存分析中的删失不同，删失的概念是指可以观察到受试者在一定时间内未出现结局事件，而数据缺失是指在随访期间既不知道受试者有没有出现结局事件，也不知道他是否没有出现结局事件。</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## 数据缺失的机制</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">### 完全随机缺失（missing completely at random，MCAR）</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>所缺失的数据发生的概率既与已观察到的数据无关，也与未观察到的数据无关。MCAR是很强的机制假设；在相应分析模型正确时，完整病例分析可避免由缺失机制本身引入的选择偏倚，但仍会降低精度。<span class="co">[</span><span class="ot">@sterne2009</span><span class="co">]</span>比较缺失者与非缺失者的已观测特征只能描述差异，不能证明MCAR，因为缺失值及其与未观测量的关系无法由数据直接检验。</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">### 随机缺失（missing at random，MAR）</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>假设缺失数据发生的概率与所观察到的变量是有关的，而与未观察到的数据的特征是无关的。数据缺失不是完全随机的，即该类数据的缺失依赖于其他完全变量，如入院患者的体重缺失与病情的轻重有关，病情严重的患者无法测量体重； MAR同样是条件性、不可由观测数据完全检验的假设：若已纳入病情严重程度等相关已观测信息，缺失概率可不再额外依赖未观测的体重；遗漏关键预测因素时，表面上的MAR分析仍可能有偏。</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### 非随机缺失（missing not at random，MNAR）</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>如果数据的缺失既依赖于完全变量又依赖于不完全变量本身，这种缺失即为不可忽略的缺失。数据的缺失与不完全变量自身的取值有关，如人群不原意提供家庭收入。</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## 数据缺失的传统统计学方法</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>当数据缺失机制是完全随机缺失时，基于似然推断的统计分析是有效的。不幸的是，数据不太可能随机丢失，因此，最好是采用一系列数据缺失的分析方法，每个分析都探索不同的方法来解决数据缺失问题。如果大多数分析方法一致，那么结果就更有说服力。</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu">### 删除含有缺失值的个案</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>对缺失值进行处理的最原始方法。它将存在缺失值的个案删除，如果数据缺失问题可以通过简单的删除小部分样本来达到目标，那么这个方法是最有效的。然而删除法因为单一值的缺失而放弃大量的其他数据，这种删除是对信息的极大浪费，损失了样本量，降低了统计效能。</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>对于结局变量缺失，不存在可普遍适用的5%阈值；即使缺失比例很低，只要缺失与治疗或预后有关，仍可能造成实质偏倚。完整病例分析可作为预先说明的敏感性分析，或在MCAR／合理的条件性MAR假设下使用，但应同时报告缺失比例、缺失原因、各组随时间的缺失模式及其对结论的可能影响。极端情景分析可以帮助展示结论的稳健性；连续结局的情景值应基于临床可接受的范围和明确的MNAR偏移假设，而不宜机械地采用均值±1或2个标准差。</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### 可能值的单纯插补</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>其基本思想是以最可能的值来插补缺失值，比全部删除不完全样本所产生的信息丢失要少。有多种常用的单纯插补方法。</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>均值插补。如果缺失值是连续变量，就以平均值来插补缺失的值；如果缺失值是分类数据，用该数据的众数来补齐缺失的值。这是最基本的插补方法，该方法计算起来非常快速，但缺点是均值插补会减少数据的变化差异。</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>最后观测值向前推进法，用于重复测量数据，采用最后一次观察到的值进行插补未观察到的值，其统计假设是最后一次观察后所有未来的观察保持不变。</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>建模预测：将缺失值作为预测目标采用其他指标来预测。该方法有个根本的缺陷：如果缺失和其他数据无关，则预测的结果毫无意义。常用的方法是根据回归方法或者邻近匹配方法。 单次插补（包括均值、众数、最后观测值向前推进和确定性预测）把插补值当作真实观测，通常低估方差并使置信区间过窄；除非其数值含义本身就是预先定义的结局规则，一般不宜作为主要推断分析。</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>贝叶斯极大似然估计：在缺失类型为随机缺失的条件下，假设模型对于完整的样本是正确的，那么通过观测数据的边际分布可以对缺失数据进行极大似然估计。它一个重要前提：适用于大样本，有效样本的数量足够以保证似然估计值是渐近无偏的并服从正态分布。但是这种方法可能会陷入局部极值，收敛速度也不是很快，并且计算很复杂。</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- --&gt;</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="fu">### 多重插补（Multiple Imputation，MI）</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>多重插补的思想来源于贝叶斯估计，认为待插补的值是随机的。具体实践上为每个缺失值产生一组可能的插补值，这些值反映了模型的不确定性；每个值都可以被用来插补数据集中的缺失值，产生若干个完整数据集合。每个数据集合都进行统计分析，然后综合这些统计分析结果。 插补次数应足以控制Monte Carlo误差，缺失比例较高时通常需要多于传统的5次；应报告插补模型、纳入变量、插补次数、诊断及与完整病例／MNAR情景分析的一致性。</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch17-image1.png)</span>{width="5.768055555555556in" height="2.734027777777778in"}</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>**图17.1 多重插补图示**</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>多重插补通过从缺失值的预测分布中重复抽样，生成多个完整数据集；随后分别分析并按Rubin规则合并估计值和标准误，从而反映插补不确定性。它可采用联合建模或链式方程等实现；许多实现具有贝叶斯抽样解释，但多重插补、极大似然和贝叶斯分析并非彼此等同。无论采用何种方法，插补模型都应与分析模型相容，纳入结局、治疗分组、所有分析变量，以及与缺失或结局相关的辅助变量；模型设定错误、正值性不足或MNAR均不能仅靠多重插补解决。<span class="co">[</span><span class="ot">@sterne2009</span><span class="co">]</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="fu">## 依从性</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>临床研究中不遵守方案的干预是受试者退出分析的一个原因，也是结局变量出现缺失的主要原因之一。不依从可能是由于干预组或对照组中的不良事件、兴趣或感知利益的丧失、潜在状况的变化或各种其他原因。不依从性对试验结果的影响是，与对照相比，干预的任何益处都将减少，从而使试验所需样本量大于计划。如果某组中的不依从性比另一组更大，且不依从与结果相关，那么不依从受试者的退出可能会导致偏倚。</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>不依从性的定义也会对分析产生重大影响。临床研究实践中可以定义在研究​​中接受的干预部分与方案定义的匹配比例。需要分别描述受试者对干预或者对照的依从性，如果受试者对干预措施的依从性低于对照组，则可能无法合理预期该疗法在临床实践中的广泛使用。干预可能是有效的，但如果大部分受试者不能忍受，则可能没有什么价值。</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>最好的策略是设计一个试验以使不依从性最小，使试验能够克服不可预防的不依从性，然后使用意向治疗原则接受结果。然而对于不可避免的不依从性，有必要采取一定的统计方法。</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### 伴发事件与补救用药</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>结局指标的准确估计问题，因受补救用药的使用，以及在试验过程中因无效或安全性问题而脱落的伴发事件影响。因此，ICH E9(R1)中总结和强调了"估计目标（estimand）"的概念，即通过估计目标详细定义在什么样的人群中需要估计什么科学问题。对伴发事件的定义与处理，可以参考以下5个策略:</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>疗法策略：无论是否发生不良反应、停药或补救治疗，均使用其后的结局数据进行分析。该estimand描述将研究用药置于实际临床路径（包括后续补救治疗）中的总体效果；它不等同于"混杂"，但可能因两组补救治疗使用不同而使疗效解释更接近治疗策略的实际效果。此策略要求尽可能继续收集伴发事件后的结局和安全性资料。</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>组合策略：重新设计结局事件，如结局为二分类变量，出现伴发事件以及补救治疗时考虑结局为无效。临床上多见于恶性肿瘤的生存分析，发生死亡时考虑治疗无效，因此将死亡与肿瘤无复发组合为无进展生存。</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>假设策略：关注假设伴发事件未发生时的结局，例如假设未使用补救治疗、未停药时的疗效。该策略必须说明临床上可理解的反事实情景及相应识别假设；其后数据不是"天然缺失"，而是需要借助模型、插补或加权等方法估计的反事实量。</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>主层策略：目标人群为未发生补救治疗的人群，发生不良事件补救治疗后的测量值无需收集，不做为缺失数据。若剔除了发生补救治疗的受试者，两组间可能存在混杂因素，应该使用恰当的分析方法。通常需要借助敏感性分析来考察结果的敏感性。临床上常见的方法是生存分析中的原因别竞争风险。 主层策略针对的是在不同治疗条件下会（或不会）发生伴发事件的潜在人群；该人群成员资格不可被直接观察，通常需要比常规ITT更强的假设，不应简单地通过排除已发生补救治疗者来实现。</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>在治策略：采用伴发事件之前的治疗效果作为新的指标，补救治疗后的测量值无需收集。可采用多时间点重复测量模型分析数据。对于间断的测量缺失可基于合理的假设对数据进行插值估计。</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>考虑缺失数据填补方法需与估计目标的分析策略匹配，首选需分辨缺失数据是否需要填补（如组合策略和在治策略下发生伴发事件后的数据缺失无需填补），然后再选择符合分析策略的数据填补方法。如在疗法策略和组合策略发生伴发事件前的缺失数据，可采用相关统计方法进行填补，填补模型中需考虑的变量需包括基线指标、治疗组、测量时点，以及伴发事件等情况。 还应将每一种伴发事件对应的estimand策略、主要估计方法和敏感性分析预先写入方案；同一试验可对不同伴发事件采用不同策略，但不能以事后选择填补法来替代估计目标的定义。ICH E9(R1)将治疗策略、组合、假设、在治和主层列为五类常用策略。<span class="co">[</span><span class="ot">@iche9r1</span><span class="co">]</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="fu">### 失访偏倚</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>如果研究的效应指标是生存事件，标准生存分析通常要求在给定模型中已纳入的历史信息后删失为非信息性（独立删失），而非笼统地假设失访"随机"。然而，如果研究组中失访的受试者者人数不同，失访既与干预相关又与结局相关，则数据分析可能存在偏差。图17.2中只分析无缺失的患者，导致原本关闭的对撞打开，形成后门路径。如，慢性心力衰竭试验中比较了器械（心脏起搏器加除颤仪）与药物治疗慢性心力衰竭患者，主要终点结果为死亡。随机分配到其中一个设备组的人不知道他们被分配到哪个设备，但药物治疗组的人知道没有安装任何设备。结果，药物治疗组的受试者开始退出试验，撤回了他们的知情同意，许多人要求使用新批准的设备。因此，当试验接近完成时，药物治疗组的退出率为26%，器械组的退出率为6%。此外，无法收集有关撤回同意的人的后续信息，显然，这些缺失的受试者不是随机的，不能排除与疾病状态有关的可能性，从而产生严重偏倚的可能性。 因此，不能只比较各组失访比例；应比较失访前的结局轨迹和预后变量，并预先设定针对信息性失访的分析与敏感性分析。删失若依赖未记录的病情恶化，即使使用常规Cox模型也可能产生偏倚。</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch17-image2.png)</span>{width="2.9107141294838144in" height="1.5426159230096237in"}</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>**图17.2 失访偏倚**</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="fu">### 逆概率失访加权法</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>为了调整治疗不依从性，有必要对临床试验结果进行统计调整。逆概率失访加权法（inversed propensity censoring weighting，IPCW）和其他复杂的方法，已被充分研究用于分析随机试验。假设一项试验将10名病人随机分配到治疗组，其中8人没有坚持治疗方案，因为治疗本身或疾病会影响治疗的坚持性，那么IPCW方法就会删除这8例不坚持治疗的患者，并将2例坚持治疗的病人的权重提高5倍，即<span class="sc">\[</span>(10-8)/10<span class="sc">\]</span>的倒数。 该例仅为静态直观说明；真实研究中的删失往往随时间发生，不能简单删除不依从者后给其余受试者一个固定权重。应以纵向人时数据拟合删失模型，并使用稳健方差或适当的重复测量／生存模型进行推断。</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>IPCW也可以用于治疗过程中的转组（干预组转换至对照组或对照组转换至干预组）。把发生治疗转换的人看作失访，失访的时间为治疗转换发生的时间。再通过对没有发生转组的患者进行加权，把没有发生治疗转换的人扩张成原来的人数，进而校正转组对效果评价的影响。 IPCW的目标是用仍未失访／未偏离策略者代表在相同观察历史下可能失访者，因此权重模型应以每个随访时点的既往治疗、结局和时间依赖混杂因素为条件。该方法还需要一致性、可交换性和正值性；极端权重提示某些历史下几乎无人继续随访，应报告权重分布、截尾规则和加权后的协变量平衡。<span class="co">[</span><span class="ot">@rimawi2012; @hernan2017pp</span><span class="co">]</span></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>缺失数据的逆概率和稳定的逆概率可以表示为</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>公式17.1</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>$$W_{k_{i}}^{C = 1} = \ \frac{1}{Pr(C = 1|{T,\ \ k}_{i})}$$</span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>$$W_{k_{i}}^{C = 0} = \ \frac{1}{1 - Pr(C = 1|{T,k}_{i})}$$</span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>$${SW}_{k_{i}}^{C = 1} = \ \frac{\Pr(C = 1|T)}{Pr(C = 1|{T,k}_{i})}$$</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>$${SW}_{k_{i}}^{C = 0} = \ \frac{1 - Pr(C = 1|T)}{1 - Pr(C = 1|{T,k}_{i})}$$</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>其中 $C = 1$ 表示缺失。在计算逆概率的分子和分母时一定要注意在回归方程中加入干预变量。如果研究中既有混杂因素，又有失访偏倚，可以分别计算两个逆概率，然后总的逆概率即为两个逆概率的乘积： 在实际IPCW分析中，通常只对仍可观察到结局的人时赋予"保持未删失"的逆概率权重；分母是给定既往历史仍未删失的条件概率，稳定化分子可仅含基线治疗或更简化的历史。上述公式用于说明思想，具体定义必须与C的编码和分析时点一致。</span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>$${SW}_{k_{i}}^{T,C} = {SW}_{k_{i}}^{T}*{SW}_{k_{i}}^{C}$$</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>回想案例9.1有部分患者的结局事件标记为Censor，意味着这些患者我们没有观察到他们的结局。因此，分别计算治疗的逆概率和失访的逆概率。然后将其乘积作为整体概率放入回归方程。</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码17.1：逆概率失访加权</span></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="in">gen censor = (Outcome == .)</span></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a><span class="in">logit censor Treatment k age</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="in">predict _cscore</span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a><span class="in">logit censor Treatment</span></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="in">predict _cscore_num</span></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="in">gen s_ipweight_c = _cscore_num/_cscore if censor == 1</span></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="in">replace s_ipweight_c = (1 - _cscore_num)/(1 - _cscore) if censor == 0</span></span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a><span class="in">gen s_ipweight_t = s_ipweight * s_ipweight_c</span></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a><span class="in">logistic Outcome Treatment [iweight = s_ipweight_t], vce(robust)</span></span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码17.1输出"}</span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Logistic regression                   <span class="pp">|</span> Number of obs <span class="pp">|</span>  =  <span class="pp">|</span>    **743** <span class="pp">|</span></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="pp">|:--------------------------------------|:--------------|:---:|-----------:|</span></span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Log pseudolikelihood = -506.38686** | F(3, 32)      |  =  |  **19.46** <span class="pp">|</span></span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                       <span class="pp">|</span> Prob <span class="sc">\&gt;</span> F     <span class="pp">|</span>  =  <span class="pp">|</span> **0.0000** <span class="pp">|</span></span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>                                       <span class="pp">|</span> Psudo R2      <span class="pp">|</span>  =  <span class="pp">|</span> **0.0198** <span class="pp">|</span></span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Outcome <span class="pp">|</span> Odds ratio <span class="pp">|</span> Ribust Std. err. <span class="pp">|</span> z <span class="pp">|</span> P<span class="sc">\&gt;</span> <span class="pp">|</span> z <span class="pp">|</span></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|---:|---:|---:|---:|:---|</span></span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Treatment <span class="pp">|</span> **1.955157** | **.2971535** | **4.41** | **0.000** | **1.451484** – **2.633607** <span class="pp">|</span></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="sc">\_</span>cons <span class="pp">|</span> **.7052378** | **.0713973** | **-3.45** | **0.001** | **.5783105** – **.860023** <span class="pp">|</span></span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>干预组与对照组相比能显著增加手术的缓解率，计算比值比为1.96。检查假人群中的平衡性，两组在加权后协变量基本一致。</span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码17.2：加权后的协变量汇总</span></span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a><span class="in">by Treatment, sort : summarize age k [iweight = s_ipweight_t]</span></span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码17.2输出"}</span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Treatment <span class="pp">|</span> Variable <span class="pp">|</span> Obs <span class="pp">|</span> Weight <span class="pp">|</span> Mean <span class="pp">|</span> Std. dev. <span class="pp">|</span> Min <span class="pp">|</span> Max <span class="pp">|</span></span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|:---|---:|---:|---:|---:|---:|---:|</span></span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> age <span class="pp">|</span> **493** | **488.956757** | **44.43738** | **11.65045** | **19** | **27** <span class="pp">|</span></span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> k <span class="pp">|</span> **493** | **488.956757** | **1.871528** | **1.221036** | **0** | **4** <span class="pp">|</span></span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> age <span class="pp">|</span> **406** | **408.936015** | **44.29863** | **12.59395** | **18** | **78** <span class="pp">|</span></span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> k <span class="pp">|</span> **406** | **408.936015** | **1.874732** | **1.17283** | **0** | **4** <span class="pp">|</span></span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="fu">## 幸存者偏倚与治疗零点</span></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a>幸存者偏倚来源于只有长期生存的患者才能长期接受一种治疗。假设我们想利用医疗数据库估计他汀类药物对癌症患者死亡率的影响，直接比较长期使用者、短期使用者和非使用者就会产生偏差。因为长期使用者由于种种原因已经生存了很长时间（可能由于这些人本身就很长寿），我们称为幸存者偏倚。</span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>假设一个完全依从且无删失的随机对照试验数据，12名受试者被随机分配到三种治疗策略中的一种：无阿司匹林组，一年阿司匹林组，或两年阿司匹林组，每组四人。在每种策略下，第一年结束时每组都有1人死亡，第二年结束时每组都有3人死亡。随机对照研究下此三组比较无明显差异。假设我们天真地比较了实际服用阿司匹林两年的人（3人）和没有服用阿司匹林的人（4人），两组的死亡率分别是（2/3）和（3/4），其风险比<span class="sc">\&lt;</span>1，尽管我们知道实际上阿司匹林的治疗没有效果。接受两年治疗的人在这两年里是"不死的"，数据分析时选择删除了那些接受阿司匹林治疗且已经死亡的病人，这就是为什么这种天真的分析被称为幸存者偏差。</span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a>产生这个问题的深层次问题在于，在随机对照研究中中，研究对象入组时即被分配干预措施，入组和分配干预措施是同步的。但观察性研究中，研究对象入组时，未被分配干预措施（不能依据研究对象之后接受的干预措施决定前面的组别），即无法实现入组和干预分配的同步。换句话说，在观察性研究中，研究对象可能在多个时间点满足入组标准，都可以作为随访开始时间，但分析时需将随访开始时间确定下来。</span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a>我们现在需要将这些见解转移到观察性数据的分析中。使用观察数据模拟完全依从性的随机试验。假设我们想用一个有12人的医疗数据库来估计阿司匹林治疗对生存的影响。我们可以通过三个步骤来模仿随机试验的分析，即克隆、删失和加权。</span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>克隆：将干预个体分配到任何一个治疗策略。对照组直接被分配到无干预的策略中。接受了治疗的个体，即可以被分配到一年阿司匹林组或两年阿司匹林组。我们将这个个体复制一份，分别分配到这两个策略。相当于在数据集中有这个样本的两个拷贝，每个拷贝分配到不同的策略。</span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>失访：如果克隆样本在随访期间偏离了指定的策略，我们就人为指定他们为失访。举个例子，如果被分配到一年阿司匹林组的克隆样本在随访一年后继续接受阿司匹林治疗，就会被人工指定为失访；或者被分配到两年阿司匹林组的克隆样本一年后没有接受治疗，就也会被人工指定为失访。</span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>加权：为了消除人工失访带来的选择偏差，可以使用逆概率失访加权。同时由于一份样本被多次利用，回归时指定cluster。 克隆、人工删失和加权应从同一个明确定义的time zero开始：该时点必须同时满足纳入标准、治疗策略分配和随访起点。还应检查每个策略下的正值性、人工删失后的权重稳定性及竞争事件的处理；否则克隆并不能自动消除不死时间偏倚。<span class="co">[</span><span class="ot">@dickerman2019; @hernan2020whatif</span><span class="co">]</span></span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考文献 {.unnumbered}</span></span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
