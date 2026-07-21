@@ -4,6 +4,7 @@ project:
   render:
     - index.qmd
     - chapters/*.qmd
+    - "!chapters/21-causal-discovery.qmd"
     - references.qmd
 
 lang: en
@@ -39,14 +40,13 @@ book:
     - chapters/18-ml-causal-inference.qmd
     - chapters/19-heterogeneity.qmd
     - chapters/20-sequential-decisions.qmd
-    - chapters/21-causal-discovery.qmd
     - references.qmd
 
 bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
+    theme: [cosmo, styles.scss]
     toc: true
     toc-depth: 3
     number-sections: true

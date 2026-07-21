@@ -1,0 +1,1102 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Causal Inference in Clinical Medical Research",
+    "section": "",
+    "text": "Preface\nCausal inference is a central scientific approach to studying cause-and-effect relationships: its core aim is to determine whether a cause produces an effect and how large that effect is. This book systematically introduces causal-inference methods for contemporary clinical medical research, spanning randomized controlled trials; real-world study designs based on propensity scores, instrumental variables, regression discontinuity, and time-series analysis; and machine-learning- and AI-driven causal inference.\nThe book is intended as an advanced text in medical statistics for medical students, clinical researchers, and researchers in statistics and artificial intelligence.\n\n\n\n\n\n\nNoteAbout this online edition\n\n\n\nThis book is available in 中文 and English, released free online. Companion datasets are in the repository data/ directory; code examples accompany each chapter.\n\n\n\nHow to cite: Qiao N. Causal Inference in Clinical Medical Research. Online edition, 2026. (DOI to be added)",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "chapters/01-framework.html",
+    "href": "chapters/01-framework.html",
+    "title": "1  The Causal Inference Framework",
+    "section": "",
+    "text": "1.1 Individual causal effects\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>The Causal Inference Framework</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-framework.html#causation-and-correlation",
+    "href": "chapters/01-framework.html#causation-and-correlation",
+    "title": "1  The Causal Inference Framework",
+    "section": "1.2 Causation and correlation",
+    "text": "1.2 Causation and correlation\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>The Causal Inference Framework</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-framework.html#simpsons-paradox",
+    "href": "chapters/01-framework.html#simpsons-paradox",
+    "title": "1  The Causal Inference Framework",
+    "section": "1.3 Simpson’s paradox",
+    "text": "1.3 Simpson’s paradox\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>The Causal Inference Framework</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-framework.html#average-causal-effects",
+    "href": "chapters/01-framework.html#average-causal-effects",
+    "title": "1  The Causal Inference Framework",
+    "section": "1.4 Average causal effects",
+    "text": "1.4 Average causal effects\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>The Causal Inference Framework</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-framework.html#conditions-for-identifying-average-causal-effects",
+    "href": "chapters/01-framework.html#conditions-for-identifying-average-causal-effects",
+    "title": "1  The Causal Inference Framework",
+    "section": "1.5 Conditions for identifying average causal effects",
+    "text": "1.5 Conditions for identifying average causal effects\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>The Causal Inference Framework</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-rct.html",
+    "href": "chapters/02-rct.html",
+    "title": "2  Randomized Controlled Trials",
+    "section": "",
+    "text": "2.1 The magic of randomization\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-rct.html#common-rct-designs",
+    "href": "chapters/02-rct.html#common-rct-designs",
+    "title": "2  Randomized Controlled Trials",
+    "section": "2.2 Common RCT designs",
+    "text": "2.2 Common RCT designs\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-rct.html#randomization-methods",
+    "href": "chapters/02-rct.html#randomization-methods",
+    "title": "2  Randomized Controlled Trials",
+    "section": "2.3 Randomization methods",
+    "text": "2.3 Randomization methods\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-rct.html#blinding",
+    "href": "chapters/02-rct.html#blinding",
+    "title": "2  Randomized Controlled Trials",
+    "section": "2.4 Blinding",
+    "text": "2.4 Blinding\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-rct.html#non-inferiority-trials",
+    "href": "chapters/02-rct.html#non-inferiority-trials",
+    "title": "2  Randomized Controlled Trials",
+    "section": "2.5 Non-inferiority trials",
+    "text": "2.5 Non-inferiority trials\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-rct.html#pragmatic-trials",
+    "href": "chapters/02-rct.html#pragmatic-trials",
+    "title": "2  Randomized Controlled Trials",
+    "section": "2.6 Pragmatic trials",
+    "text": "2.6 Pragmatic trials\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-rct.html#adaptive-trials",
+    "href": "chapters/02-rct.html#adaptive-trials",
+    "title": "2  Randomized Controlled Trials",
+    "section": "2.7 Adaptive trials",
+    "text": "2.7 Adaptive trials\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-rct.html#interpreting-negative-rct-results",
+    "href": "chapters/02-rct.html#interpreting-negative-rct-results",
+    "title": "2  Randomized Controlled Trials",
+    "section": "2.8 Interpreting negative RCT results",
+    "text": "2.8 Interpreting negative RCT results\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-rct-statistics.html",
+    "href": "chapters/03-rct-statistics.html",
+    "title": "3  Statistical Considerations in Randomized Controlled Trials",
+    "section": "",
+    "text": "3.1 Intention-to-treat and per-protocol analysis\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Statistical Considerations in Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-rct-statistics.html#protocol-violations",
+    "href": "chapters/03-rct-statistics.html#protocol-violations",
+    "title": "3  Statistical Considerations in Randomized Controlled Trials",
+    "section": "3.2 Protocol violations",
+    "text": "3.2 Protocol violations\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Statistical Considerations in Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-rct-statistics.html#multiple-comparisons",
+    "href": "chapters/03-rct-statistics.html#multiple-comparisons",
+    "title": "3  Statistical Considerations in Randomized Controlled Trials",
+    "section": "3.3 Multiple comparisons",
+    "text": "3.3 Multiple comparisons\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Statistical Considerations in Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-rct-statistics.html#interim-analysis-and-alpha-spending",
+    "href": "chapters/03-rct-statistics.html#interim-analysis-and-alpha-spending",
+    "title": "3  Statistical Considerations in Randomized Controlled Trials",
+    "section": "3.4 Interim analysis and alpha spending",
+    "text": "3.4 Interim analysis and alpha spending\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Statistical Considerations in Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-rct-statistics.html#subgroup-analysis",
+    "href": "chapters/03-rct-statistics.html#subgroup-analysis",
+    "title": "3  Statistical Considerations in Randomized Controlled Trials",
+    "section": "3.5 Subgroup analysis",
+    "text": "3.5 Subgroup analysis\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Statistical Considerations in Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-rct-statistics.html#multicenter-trials",
+    "href": "chapters/03-rct-statistics.html#multicenter-trials",
+    "title": "3  Statistical Considerations in Randomized Controlled Trials",
+    "section": "3.6 Multicenter trials",
+    "text": "3.6 Multicenter trials\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Statistical Considerations in Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-rct-statistics.html#appendix-nejm-statistical-guidelines",
+    "href": "chapters/03-rct-statistics.html#appendix-nejm-statistical-guidelines",
+    "title": "3  Statistical Considerations in Randomized Controlled Trials",
+    "section": "3.7 Appendix: NEJM statistical guidelines",
+    "text": "3.7 Appendix: NEJM statistical guidelines\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Statistical Considerations in Randomized Controlled Trials</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-protocol-consent.html",
+    "href": "chapters/04-protocol-consent.html",
+    "title": "4  Writing RCT Protocols and Informed Consent",
+    "section": "",
+    "text": "4.1 Writing an RCT protocol\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Writing RCT Protocols and Informed Consent</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-protocol-consent.html#writing-informed-consent",
+    "href": "chapters/04-protocol-consent.html#writing-informed-consent",
+    "title": "4  Writing RCT Protocols and Informed Consent",
+    "section": "4.2 Writing informed consent",
+    "text": "4.2 Writing informed consent\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Writing RCT Protocols and Informed Consent</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-protocol-consent.html#appendix-a-multicenter-trial-protocol-example",
+    "href": "chapters/04-protocol-consent.html#appendix-a-multicenter-trial-protocol-example",
+    "title": "4  Writing RCT Protocols and Informed Consent",
+    "section": "4.3 Appendix: A multicenter trial protocol example",
+    "text": "4.3 Appendix: A multicenter trial protocol example\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Writing RCT Protocols and Informed Consent</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-survival.html",
+    "href": "chapters/05-survival.html",
+    "title": "5  Clinical Studies with Survival Outcomes",
+    "section": "",
+    "text": "5.1 The proportional hazards assumption\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Clinical Studies with Survival Outcomes</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-survival.html#cox-regression-under-non-proportional-hazards",
+    "href": "chapters/05-survival.html#cox-regression-under-non-proportional-hazards",
+    "title": "5  Clinical Studies with Survival Outcomes",
+    "section": "5.2 Cox regression under non-proportional hazards",
+    "text": "5.2 Cox regression under non-proportional hazards\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Clinical Studies with Survival Outcomes</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-survival.html#cox-regression-with-time-dependent-covariates",
+    "href": "chapters/05-survival.html#cox-regression-with-time-dependent-covariates",
+    "title": "5  Clinical Studies with Survival Outcomes",
+    "section": "5.3 Cox regression with time-dependent covariates",
+    "text": "5.3 Cox regression with time-dependent covariates\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Clinical Studies with Survival Outcomes</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-survival.html#competing-risks-models",
+    "href": "chapters/05-survival.html#competing-risks-models",
+    "title": "5  Clinical Studies with Survival Outcomes",
+    "section": "5.4 Competing risks models",
+    "text": "5.4 Competing risks models\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Clinical Studies with Survival Outcomes</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-survival.html#limitations-of-the-hazard-ratio",
+    "href": "chapters/05-survival.html#limitations-of-the-hazard-ratio",
+    "title": "5  Clinical Studies with Survival Outcomes",
+    "section": "5.5 Limitations of the hazard ratio",
+    "text": "5.5 Limitations of the hazard ratio\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Clinical Studies with Survival Outcomes</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-meta-analysis.html",
+    "href": "chapters/06-meta-analysis.html",
+    "title": "6  Principles and Methods of Meta-Analysis",
+    "section": "",
+    "text": "6.1 Formulating the research question\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-meta-analysis.html#writing-a-meta-analysis-protocol",
+    "href": "chapters/06-meta-analysis.html#writing-a-meta-analysis-protocol",
+    "title": "6  Principles and Methods of Meta-Analysis",
+    "section": "6.2 Writing a meta-analysis protocol",
+    "text": "6.2 Writing a meta-analysis protocol\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-meta-analysis.html#searching-the-literature",
+    "href": "chapters/06-meta-analysis.html#searching-the-literature",
+    "title": "6  Principles and Methods of Meta-Analysis",
+    "section": "6.3 Searching the literature",
+    "text": "6.3 Searching the literature\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-meta-analysis.html#study-selection",
+    "href": "chapters/06-meta-analysis.html#study-selection",
+    "title": "6  Principles and Methods of Meta-Analysis",
+    "section": "6.4 Study selection",
+    "text": "6.4 Study selection\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-meta-analysis.html#quality-assessment",
+    "href": "chapters/06-meta-analysis.html#quality-assessment",
+    "title": "6  Principles and Methods of Meta-Analysis",
+    "section": "6.5 Quality assessment",
+    "text": "6.5 Quality assessment\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-meta-analysis.html#data-extraction",
+    "href": "chapters/06-meta-analysis.html#data-extraction",
+    "title": "6  Principles and Methods of Meta-Analysis",
+    "section": "6.6 Data extraction",
+    "text": "6.6 Data extraction\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-meta-analysis.html#data-analysis",
+    "href": "chapters/06-meta-analysis.html#data-analysis",
+    "title": "6  Principles and Methods of Meta-Analysis",
+    "section": "6.7 Data analysis",
+    "text": "6.7 Data analysis\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-meta-analysis.html#reporting-a-meta-analysis",
+    "href": "chapters/06-meta-analysis.html#reporting-a-meta-analysis",
+    "title": "6  Principles and Methods of Meta-Analysis",
+    "section": "6.8 Reporting a meta-analysis",
+    "text": "6.8 Reporting a meta-analysis\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07-advanced-meta.html",
+    "href": "chapters/07-advanced-meta.html",
+    "title": "7  Advanced Meta-Analysis",
+    "section": "",
+    "text": "7.1 Meta-analysis of diagnostic studies\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07-advanced-meta.html#network-meta-analysis",
+    "href": "chapters/07-advanced-meta.html#network-meta-analysis",
+    "title": "7  Advanced Meta-Analysis",
+    "section": "7.2 Network meta-analysis",
+    "text": "7.2 Network meta-analysis\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07-advanced-meta.html#multiple-outcome-network-meta-analysis",
+    "href": "chapters/07-advanced-meta.html#multiple-outcome-network-meta-analysis",
+    "title": "7  Advanced Meta-Analysis",
+    "section": "7.3 Multiple-outcome network meta-analysis",
+    "text": "7.3 Multiple-outcome network meta-analysis\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07-advanced-meta.html#prospective-meta-analysis",
+    "href": "chapters/07-advanced-meta.html#prospective-meta-analysis",
+    "title": "7  Advanced Meta-Analysis",
+    "section": "7.4 Prospective meta-analysis",
+    "text": "7.4 Prospective meta-analysis\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-dag-scm.html",
+    "href": "chapters/08-dag-scm.html",
+    "title": "8  Causal Diagrams and Structural Causal Models",
+    "section": "",
+    "text": "8.1 Causal directed acyclic graphs\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Diagrams and Structural Causal Models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-dag-scm.html#applications-of-causal-dags",
+    "href": "chapters/08-dag-scm.html#applications-of-causal-dags",
+    "title": "8  Causal Diagrams and Structural Causal Models",
+    "section": "8.2 Applications of causal DAGs",
+    "text": "8.2 Applications of causal DAGs\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Diagrams and Structural Causal Models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-dag-scm.html#the-back-door-criterion-and-d-separation",
+    "href": "chapters/08-dag-scm.html#the-back-door-criterion-and-d-separation",
+    "title": "8  Causal Diagrams and Structural Causal Models",
+    "section": "8.3 The back-door criterion and d-separation",
+    "text": "8.3 The back-door criterion and d-separation\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Diagrams and Structural Causal Models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-dag-scm.html#the-front-door-criterion",
+    "href": "chapters/08-dag-scm.html#the-front-door-criterion",
+    "title": "8  Causal Diagrams and Structural Causal Models",
+    "section": "8.4 The front-door criterion",
+    "text": "8.4 The front-door criterion\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Diagrams and Structural Causal Models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-dag-scm.html#structural-causal-models",
+    "href": "chapters/08-dag-scm.html#structural-causal-models",
+    "title": "8  Causal Diagrams and Structural Causal Models",
+    "section": "8.5 Structural causal models",
+    "text": "8.5 Structural causal models\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Diagrams and Structural Causal Models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-dag-scm.html#a-taxonomy-of-biases",
+    "href": "chapters/08-dag-scm.html#a-taxonomy-of-biases",
+    "title": "8  Causal Diagrams and Structural Causal Models",
+    "section": "8.6 A taxonomy of biases",
+    "text": "8.6 A taxonomy of biases\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Diagrams and Structural Causal Models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09-regression.html",
+    "href": "chapters/09-regression.html",
+    "title": "9  Regression",
+    "section": "",
+    "text": "9.1 Outcome regression\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Regression</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09-regression.html#misspecified-regression-models",
+    "href": "chapters/09-regression.html#misspecified-regression-models",
+    "title": "9  Regression",
+    "section": "9.2 Misspecified regression models",
+    "text": "9.2 Misspecified regression models\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Regression</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09-regression.html#effect-modification",
+    "href": "chapters/09-regression.html#effect-modification",
+    "title": "9  Regression",
+    "section": "9.3 Effect modification",
+    "text": "9.3 Effect modification\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Regression</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09-regression.html#marginal-effects",
+    "href": "chapters/09-regression.html#marginal-effects",
+    "title": "9  Regression",
+    "section": "9.4 Marginal effects",
+    "text": "9.4 Marginal effects\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Regression</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09-regression.html#interaction",
+    "href": "chapters/09-regression.html#interaction",
+    "title": "9  Regression",
+    "section": "9.5 Interaction",
+    "text": "9.5 Interaction\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Regression</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10-propensity-score.html",
+    "href": "chapters/10-propensity-score.html",
+    "title": "10  Propensity-Score-Based Methods",
+    "section": "",
+    "text": "10.1 The propensity score\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Propensity-Score-Based Methods</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10-propensity-score.html#including-the-propensity-score-in-a-regression-model",
+    "href": "chapters/10-propensity-score.html#including-the-propensity-score-in-a-regression-model",
+    "title": "10  Propensity-Score-Based Methods",
+    "section": "10.2 Including the propensity score in a regression model",
+    "text": "10.2 Including the propensity score in a regression model\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Propensity-Score-Based Methods</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10-propensity-score.html#propensity-score-matching",
+    "href": "chapters/10-propensity-score.html#propensity-score-matching",
+    "title": "10  Propensity-Score-Based Methods",
+    "section": "10.3 Propensity score matching",
+    "text": "10.3 Propensity score matching\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Propensity-Score-Based Methods</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10-propensity-score.html#inverse-probability-weighting",
+    "href": "chapters/10-propensity-score.html#inverse-probability-weighting",
+    "title": "10  Propensity-Score-Based Methods",
+    "section": "10.4 Inverse probability weighting",
+    "text": "10.4 Inverse probability weighting\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Propensity-Score-Based Methods</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10-propensity-score.html#other-weighting-methods",
+    "href": "chapters/10-propensity-score.html#other-weighting-methods",
+    "title": "10  Propensity-Score-Based Methods",
+    "section": "10.5 Other weighting methods",
+    "text": "10.5 Other weighting methods\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Propensity-Score-Based Methods</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10-propensity-score.html#choosing-among-propensity-score-methods",
+    "href": "chapters/10-propensity-score.html#choosing-among-propensity-score-methods",
+    "title": "10  Propensity-Score-Based Methods",
+    "section": "10.6 Choosing among propensity-score methods",
+    "text": "10.6 Choosing among propensity-score methods\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Propensity-Score-Based Methods</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/11-instrumental-variables.html",
+    "href": "chapters/11-instrumental-variables.html",
+    "title": "11  Instrumental Variable Methods",
+    "section": "",
+    "text": "11.1 Instrumental variables\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Instrumental Variable Methods</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/11-instrumental-variables.html#applying-instrumental-variables",
+    "href": "chapters/11-instrumental-variables.html#applying-instrumental-variables",
+    "title": "11  Instrumental Variable Methods",
+    "section": "11.2 Applying instrumental variables",
+    "text": "11.2 Applying instrumental variables\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Instrumental Variable Methods</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/11-instrumental-variables.html#analysis-steps",
+    "href": "chapters/11-instrumental-variables.html#analysis-steps",
+    "title": "11  Instrumental Variable Methods",
+    "section": "11.3 Analysis steps",
+    "text": "11.3 Analysis steps\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Instrumental Variable Methods</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/11-instrumental-variables.html#statistical-tests",
+    "href": "chapters/11-instrumental-variables.html#statistical-tests",
+    "title": "11  Instrumental Variable Methods",
+    "section": "11.4 Statistical tests",
+    "text": "11.4 Statistical tests\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Instrumental Variable Methods</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/11-instrumental-variables.html#finding-instruments",
+    "href": "chapters/11-instrumental-variables.html#finding-instruments",
+    "title": "11  Instrumental Variable Methods",
+    "section": "11.5 Finding instruments",
+    "text": "11.5 Finding instruments\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Instrumental Variable Methods</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/11-instrumental-variables.html#limitations",
+    "href": "chapters/11-instrumental-variables.html#limitations",
+    "title": "11  Instrumental Variable Methods",
+    "section": "11.6 Limitations",
+    "text": "11.6 Limitations\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Instrumental Variable Methods</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/11-instrumental-variables.html#mendelian-randomization",
+    "href": "chapters/11-instrumental-variables.html#mendelian-randomization",
+    "title": "11  Instrumental Variable Methods",
+    "section": "11.7 Mendelian randomization",
+    "text": "11.7 Mendelian randomization\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Instrumental Variable Methods</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/12-regression-discontinuity.html",
+    "href": "chapters/12-regression-discontinuity.html",
+    "title": "12  Regression Discontinuity",
+    "section": "",
+    "text": "12.1 Sharp and fuzzy discontinuities\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Regression Discontinuity</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/12-regression-discontinuity.html#identifying-the-cutoff",
+    "href": "chapters/12-regression-discontinuity.html#identifying-the-cutoff",
+    "title": "12  Regression Discontinuity",
+    "section": "12.2 Identifying the cutoff",
+    "text": "12.2 Identifying the cutoff\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Regression Discontinuity</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/12-regression-discontinuity.html#estimation-methods",
+    "href": "chapters/12-regression-discontinuity.html#estimation-methods",
+    "title": "12  Regression Discontinuity",
+    "section": "12.3 Estimation methods",
+    "text": "12.3 Estimation methods\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Regression Discontinuity</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/12-regression-discontinuity.html#validity-checks",
+    "href": "chapters/12-regression-discontinuity.html#validity-checks",
+    "title": "12  Regression Discontinuity",
+    "section": "12.4 Validity checks",
+    "text": "12.4 Validity checks\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Regression Discontinuity</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/12-regression-discontinuity.html#applications",
+    "href": "chapters/12-regression-discontinuity.html#applications",
+    "title": "12  Regression Discontinuity",
+    "section": "12.5 Applications",
+    "text": "12.5 Applications\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Regression Discontinuity</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/13-time-series.html",
+    "href": "chapters/13-time-series.html",
+    "title": "13  Time Series Analysis",
+    "section": "",
+    "text": "13.1 Simple interrupted time series\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Time Series Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/13-time-series.html#multiple-time-point-interrupted-time-series",
+    "href": "chapters/13-time-series.html#multiple-time-point-interrupted-time-series",
+    "title": "13  Time Series Analysis",
+    "section": "13.2 Multiple-time-point interrupted time series",
+    "text": "13.2 Multiple-time-point interrupted time series\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Time Series Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/13-time-series.html#multi-group-interrupted-time-series",
+    "href": "chapters/13-time-series.html#multi-group-interrupted-time-series",
+    "title": "13  Time Series Analysis",
+    "section": "13.3 Multi-group interrupted time series",
+    "text": "13.3 Multi-group interrupted time series\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Time Series Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/13-time-series.html#cautions-in-interrupted-time-series-analysis",
+    "href": "chapters/13-time-series.html#cautions-in-interrupted-time-series-analysis",
+    "title": "13  Time Series Analysis",
+    "section": "13.4 Cautions in interrupted time series analysis",
+    "text": "13.4 Cautions in interrupted time series analysis\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Time Series Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/14-sensitivity-analysis.html",
+    "href": "chapters/14-sensitivity-analysis.html",
+    "title": "14  Sensitivity Analysis for Observational Studies",
+    "section": "",
+    "text": "14.1 Sensitivity analysis in observational studies\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Sensitivity Analysis for Observational Studies</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/14-sensitivity-analysis.html#unmeasured-confounding",
+    "href": "chapters/14-sensitivity-analysis.html#unmeasured-confounding",
+    "title": "14  Sensitivity Analysis for Observational Studies",
+    "section": "14.2 Unmeasured confounding",
+    "text": "14.2 Unmeasured confounding\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Sensitivity Analysis for Observational Studies</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/14-sensitivity-analysis.html#negative-controls",
+    "href": "chapters/14-sensitivity-analysis.html#negative-controls",
+    "title": "14  Sensitivity Analysis for Observational Studies",
+    "section": "14.3 Negative controls",
+    "text": "14.3 Negative controls\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Sensitivity Analysis for Observational Studies</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/15-mediation.html",
+    "href": "chapters/15-mediation.html",
+    "title": "15  Causal Mediation Analysis",
+    "section": "",
+    "text": "15.1 Traditional mediation analysis\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Causal Mediation Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/15-mediation.html#defining-causal-mediation-effects",
+    "href": "chapters/15-mediation.html#defining-causal-mediation-effects",
+    "title": "15  Causal Mediation Analysis",
+    "section": "15.2 Defining causal mediation effects",
+    "text": "15.2 Defining causal mediation effects\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Causal Mediation Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/15-mediation.html#statistical-assumptions",
+    "href": "chapters/15-mediation.html#statistical-assumptions",
+    "title": "15  Causal Mediation Analysis",
+    "section": "15.3 Statistical assumptions",
+    "text": "15.3 Statistical assumptions\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Causal Mediation Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/15-mediation.html#estimating-mediation-effects",
+    "href": "chapters/15-mediation.html#estimating-mediation-effects",
+    "title": "15  Causal Mediation Analysis",
+    "section": "15.4 Estimating mediation effects",
+    "text": "15.4 Estimating mediation effects\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Causal Mediation Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/15-mediation.html#reporting-recommendations",
+    "href": "chapters/15-mediation.html#reporting-recommendations",
+    "title": "15  Causal Mediation Analysis",
+    "section": "15.5 Reporting recommendations",
+    "text": "15.5 Reporting recommendations\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Causal Mediation Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/15-mediation.html#limitations",
+    "href": "chapters/15-mediation.html#limitations",
+    "title": "15  Causal Mediation Analysis",
+    "section": "15.6 Limitations",
+    "text": "15.6 Limitations\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Causal Mediation Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/16-repeated-measures.html",
+    "href": "chapters/16-repeated-measures.html",
+    "title": "16  Statistical Analysis of Repeated-Measures Data",
+    "section": "",
+    "text": "16.1 Traditional methods\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis of Repeated-Measures Data</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/16-repeated-measures.html#mixed-effects-models",
+    "href": "chapters/16-repeated-measures.html#mixed-effects-models",
+    "title": "16  Statistical Analysis of Repeated-Measures Data",
+    "section": "16.2 Mixed-effects models",
+    "text": "16.2 Mixed-effects models\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis of Repeated-Measures Data</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/16-repeated-measures.html#generalized-estimating-equations",
+    "href": "chapters/16-repeated-measures.html#generalized-estimating-equations",
+    "title": "16  Statistical Analysis of Repeated-Measures Data",
+    "section": "16.3 Generalized estimating equations",
+    "text": "16.3 Generalized estimating equations\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis of Repeated-Measures Data</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/16-repeated-measures.html#latent-class-models",
+    "href": "chapters/16-repeated-measures.html#latent-class-models",
+    "title": "16  Statistical Analysis of Repeated-Measures Data",
+    "section": "16.4 Latent class models",
+    "text": "16.4 Latent class models\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis of Repeated-Measures Data</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/17-missing-data.html",
+    "href": "chapters/17-missing-data.html",
+    "title": "17  Missing Data",
+    "section": "",
+    "text": "17.1 Mechanisms of missingness\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Missing Data</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/17-missing-data.html#traditional-methods-for-missing-data",
+    "href": "chapters/17-missing-data.html#traditional-methods-for-missing-data",
+    "title": "17  Missing Data",
+    "section": "17.2 Traditional methods for missing data",
+    "text": "17.2 Traditional methods for missing data\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Missing Data</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/17-missing-data.html#adherence",
+    "href": "chapters/17-missing-data.html#adherence",
+    "title": "17  Missing Data",
+    "section": "17.3 Adherence",
+    "text": "17.3 Adherence\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Missing Data</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/17-missing-data.html#survivor-bias-and-treatment-time-zero",
+    "href": "chapters/17-missing-data.html#survivor-bias-and-treatment-time-zero",
+    "title": "17  Missing Data",
+    "section": "17.4 Survivor bias and treatment time zero",
+    "text": "17.4 Survivor bias and treatment time zero\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Missing Data</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/18-ml-causal-inference.html",
+    "href": "chapters/18-ml-causal-inference.html",
+    "title": "18  Integrating Machine Learning into Causal Inference",
+    "section": "",
+    "text": "18.1 Fitting propensity scores with machine learning\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Machine Learning into Causal Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/18-ml-causal-inference.html#doubly-robust-estimators",
+    "href": "chapters/18-ml-causal-inference.html#doubly-robust-estimators",
+    "title": "18  Integrating Machine Learning into Causal Inference",
+    "section": "18.2 Doubly robust estimators",
+    "text": "18.2 Doubly robust estimators\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Machine Learning into Causal Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/18-ml-causal-inference.html#cross-validation-in-causal-inference",
+    "href": "chapters/18-ml-causal-inference.html#cross-validation-in-causal-inference",
+    "title": "18  Integrating Machine Learning into Causal Inference",
+    "section": "18.3 Cross-validation in causal inference",
+    "text": "18.3 Cross-validation in causal inference\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Machine Learning into Causal Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/18-ml-causal-inference.html#causal-forests",
+    "href": "chapters/18-ml-causal-inference.html#causal-forests",
+    "title": "18  Integrating Machine Learning into Causal Inference",
+    "section": "18.4 Causal forests",
+    "text": "18.4 Causal forests\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Machine Learning into Causal Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/18-ml-causal-inference.html#limitations",
+    "href": "chapters/18-ml-causal-inference.html#limitations",
+    "title": "18  Integrating Machine Learning into Causal Inference",
+    "section": "18.5 Limitations",
+    "text": "18.5 Limitations\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Machine Learning into Causal Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/18-ml-causal-inference.html#thinking-causally-in-machine-learning",
+    "href": "chapters/18-ml-causal-inference.html#thinking-causally-in-machine-learning",
+    "title": "18  Integrating Machine Learning into Causal Inference",
+    "section": "18.6 Thinking causally in machine learning",
+    "text": "18.6 Thinking causally in machine learning\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Machine Learning into Causal Inference</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/19-heterogeneity.html",
+    "href": "chapters/19-heterogeneity.html",
+    "title": "19  Heterogeneity and Individual Causal Effects",
+    "section": "",
+    "text": "19.1 Subgroup analysis\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Heterogeneity and Individual Causal Effects</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/19-heterogeneity.html#risk-modeling",
+    "href": "chapters/19-heterogeneity.html#risk-modeling",
+    "title": "19  Heterogeneity and Individual Causal Effects",
+    "section": "19.2 Risk modeling",
+    "text": "19.2 Risk modeling\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Heterogeneity and Individual Causal Effects</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/19-heterogeneity.html#treatment-effect-uplift-modeling",
+    "href": "chapters/19-heterogeneity.html#treatment-effect-uplift-modeling",
+    "title": "19  Heterogeneity and Individual Causal Effects",
+    "section": "19.3 Treatment effect (uplift) modeling",
+    "text": "19.3 Treatment effect (uplift) modeling\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Heterogeneity and Individual Causal Effects</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/19-heterogeneity.html#regression-based-uplift-modeling",
+    "href": "chapters/19-heterogeneity.html#regression-based-uplift-modeling",
+    "title": "19  Heterogeneity and Individual Causal Effects",
+    "section": "19.4 Regression-based uplift modeling",
+    "text": "19.4 Regression-based uplift modeling\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Heterogeneity and Individual Causal Effects</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/19-heterogeneity.html#tree-based-uplift-modeling",
+    "href": "chapters/19-heterogeneity.html#tree-based-uplift-modeling",
+    "title": "19  Heterogeneity and Individual Causal Effects",
+    "section": "19.5 Tree-based uplift modeling",
+    "text": "19.5 Tree-based uplift modeling\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Heterogeneity and Individual Causal Effects</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/19-heterogeneity.html#validation-of-uplift-models",
+    "href": "chapters/19-heterogeneity.html#validation-of-uplift-models",
+    "title": "19  Heterogeneity and Individual Causal Effects",
+    "section": "19.6 Validation of uplift models",
+    "text": "19.6 Validation of uplift models\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Heterogeneity and Individual Causal Effects</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/20-sequential-decisions.html",
+    "href": "chapters/20-sequential-decisions.html",
+    "title": "20  Sequential Decision Strategies",
+    "section": "",
+    "text": "20.1 Basic concepts of reinforcement learning\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/20-sequential-decisions.html#statistical-reinforcement-learning",
+    "href": "chapters/20-sequential-decisions.html#statistical-reinforcement-learning",
+    "title": "20  Sequential Decision Strategies",
+    "section": "20.2 Statistical reinforcement learning",
+    "text": "20.2 Statistical reinforcement learning\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/20-sequential-decisions.html#time-varying-treatments-and-confounding",
+    "href": "chapters/20-sequential-decisions.html#time-varying-treatments-and-confounding",
+    "title": "20  Sequential Decision Strategies",
+    "section": "20.3 Time-varying treatments and confounding",
+    "text": "20.3 Time-varying treatments and confounding\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/20-sequential-decisions.html#computational-reinforcement-learning",
+    "href": "chapters/20-sequential-decisions.html#computational-reinforcement-learning",
+    "title": "20  Sequential Decision Strategies",
+    "section": "20.4 Computational reinforcement learning",
+    "text": "20.4 Computational reinforcement learning\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/20-sequential-decisions.html#causal-reinforcement-learning",
+    "href": "chapters/20-sequential-decisions.html#causal-reinforcement-learning",
+    "title": "20  Sequential Decision Strategies",
+    "section": "20.5 Causal reinforcement learning",
+    "text": "20.5 Causal reinforcement learning\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/20-sequential-decisions.html#policy-evaluation",
+    "href": "chapters/20-sequential-decisions.html#policy-evaluation",
+    "title": "20  Sequential Decision Strategies",
+    "section": "20.6 Policy evaluation",
+    "text": "20.6 Policy evaluation\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/20-sequential-decisions.html#limitations",
+    "href": "chapters/20-sequential-decisions.html#limitations",
+    "title": "20  Sequential Decision Strategies",
+    "section": "20.7 Limitations",
+    "text": "20.7 Limitations\nTo be added.",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
+    ]
+  }
+]
