@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; The Causal Inference Framework – Causal Inference in Clinical Medical Research</title>
+<title>1&nbsp; Framework for Causal Inference – Causal Inference in Clinical Medical Research</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -120,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-framework.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Causal Inference Framework</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-framework.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Framework for Causal Inference</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -154,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01-framework.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Causal Inference Framework</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Framework for Causal Inference</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -172,13 +201,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04-protocol-consent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing RCT Protocols and Informed Consent</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing Randomized Controlled Trial Protocols and Informed Consent</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05-survival.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clinical Studies with Survival Outcomes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clinical Research with Survival Outcomes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -287,11 +316,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#individual-causal-effects" id="toc-individual-causal-effects" class="nav-link active" data-scroll-target="#individual-causal-effects"><span class="header-section-number">1.1</span> Individual causal effects</a></li>
-  <li><a href="#causation-and-correlation" id="toc-causation-and-correlation" class="nav-link" data-scroll-target="#causation-and-correlation"><span class="header-section-number">1.2</span> Causation and correlation</a></li>
-  <li><a href="#simpsons-paradox" id="toc-simpsons-paradox" class="nav-link" data-scroll-target="#simpsons-paradox"><span class="header-section-number">1.3</span> Simpson’s paradox</a></li>
-  <li><a href="#average-causal-effects" id="toc-average-causal-effects" class="nav-link" data-scroll-target="#average-causal-effects"><span class="header-section-number">1.4</span> Average causal effects</a></li>
-  <li><a href="#conditions-for-identifying-average-causal-effects" id="toc-conditions-for-identifying-average-causal-effects" class="nav-link" data-scroll-target="#conditions-for-identifying-average-causal-effects"><span class="header-section-number">1.5</span> Conditions for identifying average causal effects</a></li>
+  <li><a href="#individual-causal-effects" id="toc-individual-causal-effects" class="nav-link active" data-scroll-target="#individual-causal-effects"><span class="header-section-number">1.1</span> Individual Causal Effects</a></li>
+  <li><a href="#causation-and-association" id="toc-causation-and-association" class="nav-link" data-scroll-target="#causation-and-association"><span class="header-section-number">1.2</span> Causation and Association</a></li>
+  <li><a href="#simpsons-paradox" id="toc-simpsons-paradox" class="nav-link" data-scroll-target="#simpsons-paradox"><span class="header-section-number">1.3</span> Simpson’s Paradox</a></li>
+  <li><a href="#average-causal-effects" id="toc-average-causal-effects" class="nav-link" data-scroll-target="#average-causal-effects"><span class="header-section-number">1.4</span> Average Causal Effects</a></li>
+  <li><a href="#conditions-for-estimating-an-average-causal-effect" id="toc-conditions-for-estimating-an-average-causal-effect" class="nav-link" data-scroll-target="#conditions-for-estimating-an-average-causal-effect"><span class="header-section-number">1.5</span> Conditions for Estimating an Average Causal Effect</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -300,7 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Causal Inference Framework</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Framework for Causal Inference</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -317,38 +347,367 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<section id="individual-causal-effects" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="individual-causal-effects"><span class="header-section-number">1.1</span> Individual Causal Effects</h2>
+<p>Zhang San is a patient with intracerebral hemorrhage. On October 1, he underwent surgery for an acute hemorrhage and was alive one month later. Imagine that he had not received surgery on October 1: he might have died within the following month. With this information, most people would agree that surgery saved Zhang San’s life. Surgery therefore had a causal effect on his one-month survival.</p>
+<p>Another patient, Li Si, also experienced intracerebral hemorrhage on October 1. He did not undergo surgery and died one month later. We may imagine that, had Li Si received surgery on October 1, he might have survived. Surgery therefore could also have had a causal effect on Li Si’s one-month survival.</p>
+<p>These examples illustrate causal reasoning: we compare the outcome when an action is taken with the outcome when it is not taken, even though the latter comparison is usually only imagined. If the two outcomes differ, the action has a causal effect on the outcome; otherwise, it does not. In epidemiology, statistics, economics, and other social sciences, such an action is often called an intervention, exposure, or treatment.</p>
+<p>To express this intuition mathematically, consider a binary treatment variable—common in clinical research—where <span class="math inline">\(T=1\)</span> denotes treatment and <span class="math inline">\(T=0\)</span> denotes no treatment or control, and a binary outcome where <span class="math inline">\(Y=1\)</span> denotes death and <span class="math inline">\(Y=0\)</span> denotes survival. The outcome under treatment is written as:</p>
+<p><strong>Equation 1.1 Potential outcome under treatment</strong></p>
+<p><span class="math display">\[Y^{T=1}\]</span></p>
+<p>The outcome without treatment is written as:</p>
+<p><strong>Equation 1.2 Potential outcome without treatment</strong></p>
+<p><span class="math display">\[Y^{T=0}\]</span></p>
+<p>For Zhang San or Li Si, the causal effect is:</p>
+<p><strong>Equation 1.3 Individual causal effect</strong></p>
+<p><span class="math display">\[Y^{T=1}-Y^{T=0}\]</span></p>
+<p>If this difference is zero, treatment has no causal effect for that person; if it is nonzero, treatment has a causal effect. Because this effect applies to Zhang San or Li Si specifically, it is called an individual causal effect.</p>
+<p>The two examples require us to imagine the treatment opposite to the one actually received: what would have happened if Zhang San had not undergone surgery, or if Li Si had undergone surgery? The alternative to what actually happened is called a <em>potential outcome</em>; it is also called a <em>counterfactual outcome</em> to emphasize that it represents a situation that did not occur. In almost all settings, however, only one potential outcome can be observed for each person. We know that Zhang San had surgery and survived, and that Li Si did not have surgery and died; the other potential outcome is unobserved. In this sense, an individual causal effect is not identifiable. This framework is known as the potential-outcomes or counterfactual framework. It can be traced to Neyman’s 1923 analysis of randomized experiments and Rubin’s 1974 extension to observational studies, and is therefore also called the Neyman–Rubin potential-outcomes model. Holland (1986) described the fact that each individual can contribute at most one observed potential outcome as the fundamental problem of causal inference.</p>
+</section>
+<section id="causation-and-association" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="causation-and-association"><span class="header-section-number">1.2</span> Causation and Association</h2>
+<p>A well-known statistical maxim is that “association does not imply causation.” Ice-cream sales are associated with attendance at swimming pools. It is easy to see why they move together, but we would not say that higher ice-cream sales cause more people to visit swimming pools, or vice versa. In ordinary circumstances, hot weather increases ice-cream sales and also encourages people to go swimming. Both variables share a common cause: warm weather. This idea is discussed in detail in Chapter 8.</p>
+<p><strong>Case 1.1</strong></p>
+<p>Suppose that the emergency neurosurgery department at Huashan Hospital, Fudan University, admitted 10 patients with intracerebral hemorrhage (Table 1.1). Five underwent surgery and five received non-surgical treatment. Mortality was lower among surgical patients (1/5, 20%) than among patients managed conservatively (3/5, 60%). We can therefore say that surgery is associated with mortality, and it is easy to make the erroneous inference that surgery reduces mortality in intracerebral hemorrhage. Yet we do not know whether the surgical patients would also have survived without surgery, or whether surgery could have saved the lives of those who did not receive it. If conservatively managed patients were too severely ill to tolerate surgery, the association is unsurprising.</p>
+<p><strong>Table 1.1 Hypothetical intracerebral hemorrhage cases</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Case</th>
+<th style="text-align: left;">Treatment</th>
+<th style="text-align: left;">Observed outcome</th>
+<th style="text-align: left;">Hypothetical outcome with surgery</th>
+<th style="text-align: left;">Hypothetical outcome without surgery</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Surgery</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Surgery</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Surgery</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Surgery</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Surgery</td>
+<td style="text-align: left;">Died</td>
+<td style="text-align: left;">Died</td>
+<td style="text-align: left;">?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">No surgery</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">?</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">No surgery</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">?</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">No surgery</td>
+<td style="text-align: left;">Died</td>
+<td style="text-align: left;">?</td>
+<td style="text-align: left;">Died</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">No surgery</td>
+<td style="text-align: left;">Died</td>
+<td style="text-align: left;">?</td>
+<td style="text-align: left;">Died</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">No surgery</td>
+<td style="text-align: left;">Died</td>
+<td style="text-align: left;">?</td>
+<td style="text-align: left;">Died</td>
+</tr>
+</tbody>
+</table>
+<p>In the counterfactual questions introduced in the preceding section, we ask, “What would happen if an individual received treatment?” and “What would happen if the individual did not receive treatment?” Association, by contrast, describes observations in the real world: “What outcome was observed among treated individuals?” and “What outcome was observed among untreated individuals?” Under what conditions can real-world observations support causal inference? Chapter 2 provides one answer: randomized controlled trials.</p>
+</section>
+<section id="simpsons-paradox" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="simpsons-paradox"><span class="header-section-number">1.3</span> Simpson’s Paradox</h2>
+<p><strong>Case 1.2</strong></p>
+<p>Consider COVID-19 pneumonia. Suppose that a company in the United States has developed two treatments, A and B. COVID-19 pneumonia may be classified as mild or severe. The response-rate data reported from a U.S. clinical study are shown in Table 1.2.</p>
+<p><strong>Table 1.2 Hypothetical response rates for two treatments for COVID-19 pneumonia</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Mild</th>
+<th style="text-align: left;">Severe</th>
+<th style="text-align: left;">Overall</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Treatment A</td>
+<td style="text-align: left;">800/1000</td>
+<td style="text-align: left;">40/200</td>
+<td style="text-align: left;">840/1200</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">(80%)</td>
+<td style="text-align: left;">(20%)</td>
+<td style="text-align: left;">(70%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Treatment B</td>
+<td style="text-align: left;">90/100</td>
+<td style="text-align: left;">150/300</td>
+<td style="text-align: left;">240/400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">(90%)</td>
+<td style="text-align: left;">(50%)</td>
+<td style="text-align: left;">(60%)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 1.1">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
+<span class="screen-reader-only">Note</span>Code 1.1
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Overall versus stratum-specific response rates</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Treatment =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Overall =</span> <span class="fu">c</span>(<span class="dv">840</span><span class="sc">/</span><span class="dv">1200</span>, <span class="dv">240</span><span class="sc">/</span><span class="dv">400</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mild =</span> <span class="fu">c</span>(<span class="dv">800</span><span class="sc">/</span><span class="dv">1000</span>, <span class="dv">90</span><span class="sc">/</span><span class="dv">100</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Severe =</span> <span class="fu">c</span>(<span class="dv">40</span><span class="sc">/</span><span class="dv">200</span>, <span class="dv">150</span><span class="sc">/</span><span class="dv">300</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<section id="individual-causal-effects" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="individual-causal-effects"><span class="header-section-number">1.1</span> Individual causal effects</h2>
-<p><em>To be added.</em></p>
-</section>
-<section id="causation-and-correlation" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="causation-and-correlation"><span class="header-section-number">1.2</span> Causation and correlation</h2>
-<p><em>To be added.</em></p>
-</section>
-<section id="simpsons-paradox" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="simpsons-paradox"><span class="header-section-number">1.3</span> Simpson’s paradox</h2>
-<p><em>To be added.</em></p>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 1.1 output">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 1.1 output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Treatment</th>
+<th style="text-align: right;">Overall response</th>
+<th style="text-align: right;">Mild response</th>
+<th style="text-align: right;">Severe response</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.80</td>
+<td style="text-align: right;">0.20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">0.90</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>If these treatments were to be introduced in China, which would be preferable? Overall, treatment A appears preferable because its response rate is 70%, compared with 60% for treatment B. Yet within both mild and severe disease, treatment B has the higher response rate: 90% versus 80% in mild disease, and 50% versus 20% in severe disease.</p>
+<p>The apparent paradox arises because looking only at the “overall” column favors A, whereas considering both severity strata favors B. Which treatment should be chosen?</p>
+<p>Usually, treatment B should be chosen. Both common sense and the data indicate that response rates are higher in mild than in severe disease. Most mildly ill patients received A (1,000 received A and 100 received B), whereas most severely ill patients received B (300 received B and 200 received A). In other words, A’s higher overall response rate reflects the fact that A was used mainly in mildly ill patients. Disease severity confounds the relationship between treatment and response. To correct this confounding, treatment and outcome must be compared within severity strata. This leads to choosing treatment B.</p>
+<p>There is, however, a less common possibility. Treatment B might be so scarce that patients must wait a long time to receive it, while A is immediately available. Because COVID-19 pneumonia can progress over time, waiting for B could allow mildly ill patients to become severely ill and reduce B’s overall response rate. Thus, even if B is more effective within each severity stratum, choosing B might worsen the overall outcome if access to it causes harmful delay.</p>
+<p>This example shows that surface associations alone do not guide treatment decisions. Understanding the underlying causal relationships is necessary to resolve Simpson’s paradox and to guide clinical and public-health decisions.</p>
 </section>
 <section id="average-causal-effects" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="average-causal-effects"><span class="header-section-number">1.4</span> Average causal effects</h2>
-<p><em>To be added.</em></p>
+<h2 data-number="1.4" class="anchored" data-anchor-id="average-causal-effects"><span class="header-section-number">1.4</span> Average Causal Effects</h2>
+<p>The individual causal effect described in the first section is not identifiable. We therefore turn to the average causal effect: the effect of an intervention in a population of patients. Defining an average causal effect requires three elements: the treatments being compared, the outcome, and the target population.</p>
+<p><strong>Table 1.3 Hypothetical intracerebral hemorrhage cases with known counterfactual outcomes</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Case</th>
+<th style="text-align: left;">Treatment</th>
+<th style="text-align: left;">Observed outcome</th>
+<th style="text-align: left;">Outcome with surgery</th>
+<th style="text-align: left;">Outcome without surgery</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Surgery</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Surgery</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Surgery</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Surgery</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Died</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Surgery</td>
+<td style="text-align: left;">Died</td>
+<td style="text-align: left;">Died</td>
+<td style="text-align: left;">Died</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">No surgery</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">No surgery</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Survived</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">No surgery</td>
+<td style="text-align: left;">Died</td>
+<td style="text-align: left;">Survived</td>
+<td style="text-align: left;">Died</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">No surgery</td>
+<td style="text-align: left;">Died</td>
+<td style="text-align: left;">Died</td>
+<td style="text-align: left;">Died</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">No surgery</td>
+<td style="text-align: left;">Died</td>
+<td style="text-align: left;">Died</td>
+<td style="text-align: left;">Died</td>
+</tr>
+</tbody>
+</table>
+<p>Again consider the 10 patients with intracerebral hemorrhage admitted through the Huashan Hospital emergency department. Suppose that we knew—temporarily ignoring how—that if all patients received surgery, 3 would die by three months, whereas if all received non-surgical treatment, 5 would die (the last two columns of Table 1.3). The probability of <span class="math inline">\(Y=1\)</span> if everyone received <span class="math inline">\(T=1\)</span> is <span class="math inline">\(3/10=0.3\)</span>; the probability of <span class="math inline">\(Y=1\)</span> if everyone received <span class="math inline">\(T=0\)</span> is <span class="math inline">\(5/10=0.5\)</span>.</p>
+<p><strong>Equation 1.4 Risk of death if all patients receive treatment</strong></p>
+<p><span class="math display">\[{Pr{ \lbrack}Y}^{T=1}=1\rbrack=0.3\]</span></p>
+<p><strong>Equation 1.5 Risk of death if all patients do not receive treatment</strong></p>
+<p><span class="math display">\[Pr{ \lbrack}Y^{T=0}=1\rbrack=0.5\]</span></p>
+<p>Formally, treatment <span class="math inline">\(T\)</span> has an average causal effect on outcome <span class="math inline">\(Y\)</span> in this population if:</p>
+<p><strong>Equation 1.6 Existence of an average causal effect</strong></p>
+<p><span class="math display">\[{Pr{ \lbrack}Y}^{T=1}=1\rbrack \neq Pr{ \lbrack}Y^{T=0}=1\rbrack\]</span></p>
+<p>If instead:</p>
+<p><strong>Equation 1.7 Absence of an average causal effect</strong></p>
+<p><span class="math display">\[{Pr{ \lbrack}Y}^{T=1}=1\rbrack = Pr{ \lbrack}Y^{T=0}=1\rbrack\]</span></p>
+<p>then treatment <span class="math inline">\(T\)</span> has no average causal effect on <span class="math inline">\(Y\)</span> in this population. The example uses a binary outcome. For a continuous outcome, <span class="math inline">\(E\)</span> denotes the expected (mean) outcome, and the corresponding expression is:</p>
+<p><strong>Equation 1.8 Average causal effect for a continuous outcome</strong></p>
+<p><span class="math display">\[{E{ \lbrack}Y}^{T=1}=1\rbrack \neq E{ \lbrack}Y^{T=0}=1\rbrack\]</span></p>
 </section>
-<section id="conditions-for-identifying-average-causal-effects" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="conditions-for-identifying-average-causal-effects"><span class="header-section-number">1.5</span> Conditions for identifying average causal effects</h2>
-<p><em>To be added.</em></p>
+<section id="conditions-for-estimating-an-average-causal-effect" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="conditions-for-estimating-an-average-causal-effect"><span class="header-section-number">1.5</span> Conditions for Estimating an Average Causal Effect</h2>
+<p>The preceding section defined the average causal effect in a hypothetical setting in which every patient receives surgery and in another setting in which every patient receives no surgery. In reality, we cannot observe both potential outcomes for the same patient; we only have the first three columns of Table 1.3. As discussed above, directly comparing mortality in surgical and conservatively managed patients yields an association. Under what conditions can that association be interpreted as an average causal effect?</p>
+<p>Four conditions are required.</p>
+<ol type="1">
+<li><p><strong>Exchangeability.</strong> We cannot directly compare surgical and conservatively managed patients because the groups may not be comparable. Imagine the surgical patients as an original file and the non-surgical patients as copy-and-paste duplicates of that file: intuitively, the two groups would then be comparable because they would be identical in all respects other than treatment. If either the original or its duplicate received surgery, its outcome would be the same; the same would hold if either received conservative treatment. This is exchangeability. Complete exchangeability is generally unrealistic in observed data, because the two groups are rarely identical in every characteristic other than treatment. Randomized controlled trials can make the assumption more plausible, as discussed in the next chapter.</p></li>
+<li><p><strong>Conditional exchangeability.</strong> Complete exchangeability is unrealistic in observational data, but exchangeability may hold after conditioning on relevant variables. In the example in Section 3, one may control for disease severity by comparing the response rates of treatments A and B only among patients with mild COVID-19 pneumonia. Although response rates may be related to severity overall, within the mild stratum they are no longer compared across different severity levels. Controlling for severity can therefore produce conditional exchangeability between treatment groups.</p>
+<p>Conditional exchangeability, also called no unmeasured confounding, is a central causal-inference assumption. It is more realistic than complete exchangeability, but it cannot usually be verified: unmeasured confounders may be absent from the data. Intuitively, the best practical approach is to observe and record as many relevant variables as possible.</p></li>
+<li><p><strong>Positivity (overlap).</strong> When comparing surgery with conservative treatment for intracerebral hemorrhage, there must be patients who receive surgery and patients who receive conservative treatment. If everyone receives surgery, the average causal effect cannot be estimated. Positivity is also required within relevant subgroups. For example, patients with hematoma volumes below 10 mL generally do not undergo surgery; in that group, the average causal effect of surgery versus no surgery cannot be learned from the data (and may not be clinically necessary). In other words, the covariate distributions of the treatment and control groups must overlap, so that every subgroup relevant to the comparison has some probability of receiving each treatment.</p></li>
+<li><p><strong>Consistency.</strong> Return to surgery for intracerebral hemorrhage. Defining treatment merely as “surgery” or “no surgery” may be too vague to satisfy consistency. Surgery may include craniotomy with hematoma evacuation, burr-hole drainage, or intracranial-pressure monitoring; it may also depend on the surgeon and on whether conventional microscopic or newer endoscopic techniques are used. Causal inference therefore requires a precise definition of treatment, including its mode, method, dose, and timing. This requirement is closely related to Rubin’s stable unit treatment value assumption (SUTVA): an individual’s potential outcome is not affected by treatments received by others (no interference), and each treatment corresponds to one well-defined version. Exchangeability, conditional exchangeability, positivity, and consistency are identification conditions that allow associations to be interpreted as causal effects. Hernán and Robins (2020) discuss them systematically; the epidemiologic formulation of exchangeability can be traced to Greenland and Robins (1986), and Cole and Frangakis (2009) discuss the precise meaning of consistency.</p></li>
+</ol>
+<p><strong>Case 1.3</strong></p>
+<p>One study question concerns postmenopausal hormone therapy and cardiovascular events. Consider two studies: an observational study and a randomized controlled trial. In the randomized trial, 16,000 menopausal women were randomly assigned to initiate hormone therapy or not to use hormones. The published results suggested that initiating hormones increased the risk of cardiovascular events by 20%, with a hazard ratio of 1.24.</p>
+<p>In an observational study, women currently using hormones had a 30% lower risk of cardiovascular events than women who had never used hormones, with a hazard ratio of 0.68.</p>
+<p>The results appear contradictory, and randomized trials are generally considered more reliable. Why did the studies differ? The interventions of interest were different. The observational study compared women currently using hormones with women who had never used them; the randomized trial compared initiating hormones with not initiating hormones. Thus, the causal question in the observational study was not the causal question in the randomized trial.</p>
+<p>Reanalysis of the randomized-trial results shows that, during the first two years after hormone initiation, cardiovascular-event risk was indeed increased. With more than five years of follow-up, however, cardiovascular-event risk was lower among these women. Participants who experienced cardiovascular events early had already reached the outcome and were no longer under follow-up; women remaining at later times were inherently less likely to experience such events. The observational study had a similar problem, because hormone users who experienced cardiovascular events could not enter the comparison as current users, producing an apparently protective association.</p>
+<p>When the observational study was reanalyzed by restricting the comparison to initiators and non-initiators, its conclusion agreed with that of the randomized trial: women initiating hormones had increased cardiovascular risk. This illustrates why defining the causal question is essential.</p>
+<p>The two studies in Case 1.3 are the classic analysis of Hernán et al.&nbsp;(2008). When investigators designed and analyzed the observational Nurses’ Health Study to emulate the randomized Women’s Health Initiative (WHI), and allowed risk to vary with time since hormone initiation, the results became more consistent. This illustrates target-trial emulation: first specify the hypothetical randomized trial to be emulated, then use observational data to emulate it, thereby avoiding design biases such as inappropriate inclusion of prevalent users (Hernán and Robins, 2016).</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Prosperi M, Yi G, Sperrin M, et al.&nbsp;Causal inference and counterfactual prediction in machine learning for actionable healthcare. <em>Nature Machine Intelligence</em>. 2020;2(7):1-7.</li>
+<li>Hernán MA, Robins JM. <em>Causal Inference: What If.</em> Boca Raton: Chapman &amp; Hall/CRC; 2020.</li>
+<li>Splawa-Neyman J. On the application of probability theory to agricultural experiments. Essay on principles. Section 9 (1923). <em>Statistical Science</em>. 1990;5(4):465-472.</li>
+<li>Rubin DB. Estimating causal effects of treatments in randomized and nonrandomized studies. <em>Journal of Educational Psychology</em>. 1974;66(5):688-701.</li>
+<li>Holland PW. Statistics and causal inference. <em>Journal of the American Statistical Association</em>. 1986;81(396):945-960.</li>
+<li>Greenland S, Robins JM. Identifiability, exchangeability, and epidemiological confounding. <em>International Journal of Epidemiology</em>. 1986;15(3):413-419.</li>
+<li>Cole SR, Frangakis CE. The consistency statement in causal inference: a definition or an assumption? <em>Epidemiology</em>. 2009;20(1):3-5.</li>
+<li>Hernán MA, Alonso A, Logan R, et al.&nbsp;Observational studies analyzed like randomized experiments: an application to postmenopausal hormone therapy and coronary heart disease. <em>Epidemiology</em>. 2008;19(6):766-779.</li>
+<li>Hernán MA, Robins JM. Using big data to emulate a target trial when a randomized trial is not available. <em>American Journal of Epidemiology</em>. 2016;183(8):758-764.</li>
+<li>Pearl J. <em>Causality: Models, Reasoning, and Inference.</em> 2nd ed.&nbsp;Cambridge: Cambridge University Press; 2009.</li>
+</ol>
 
 
 <!-- -->
@@ -819,32 +1178,198 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># The Causal Inference Framework</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Individual causal effects</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Causation and correlation</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simpson's paradox</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Average causal effects</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conditions for identifying average causal effects</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Framework for Causal Inference</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Individual Causal Effects</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Zhang San is a patient with intracerebral hemorrhage. On October 1, he underwent surgery for an acute hemorrhage and was alive one month later. Imagine that he had not received surgery on October 1: he might have died within the following month. With this information, most people would agree that surgery saved Zhang San's life. Surgery therefore had a causal effect on his one-month survival.</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>Another patient, Li Si, also experienced intracerebral hemorrhage on October 1. He did not undergo surgery and died one month later. We may imagine that, had Li Si received surgery on October 1, he might have survived. Surgery therefore could also have had a causal effect on Li Si's one-month survival.</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>These examples illustrate causal reasoning: we compare the outcome when an action is taken with the outcome when it is not taken, even though the latter comparison is usually only imagined. If the two outcomes differ, the action has a causal effect on the outcome; otherwise, it does not. In epidemiology, statistics, economics, and other social sciences, such an action is often called an intervention, exposure, or treatment.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>To express this intuition mathematically, consider a binary treatment variable—common in clinical research—where $T=1$ denotes treatment and $T=0$ denotes no treatment or control, and a binary outcome where $Y=1$ denotes death and $Y=0$ denotes survival. The outcome under treatment is written as:</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>**Equation 1.1 Potential outcome under treatment**</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>$$Y^{T=1}$$</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>The outcome without treatment is written as:</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>**Equation 1.2 Potential outcome without treatment**</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>$$Y^{T=0}$$</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>For Zhang San or Li Si, the causal effect is:</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>**Equation 1.3 Individual causal effect**</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>$$Y^{T=1}-Y^{T=0}$$</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>If this difference is zero, treatment has no causal effect for that person; if it is nonzero, treatment has a causal effect. Because this effect applies to Zhang San or Li Si specifically, it is called an individual causal effect.</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>The two examples require us to imagine the treatment opposite to the one actually received: what would have happened if Zhang San had not undergone surgery, or if Li Si had undergone surgery? The alternative to what actually happened is called a *potential outcome*; it is also called a *counterfactual outcome* to emphasize that it represents a situation that did not occur. In almost all settings, however, only one potential outcome can be observed for each person. We know that Zhang San had surgery and survived, and that Li Si did not have surgery and died; the other potential outcome is unobserved. In this sense, an individual causal effect is not identifiable. This framework is known as the potential-outcomes or counterfactual framework. It can be traced to Neyman's 1923 analysis of randomized experiments and Rubin's 1974 extension to observational studies, and is therefore also called the Neyman–Rubin potential-outcomes model. Holland (1986) described the fact that each individual can contribute at most one observed potential outcome as the fundamental problem of causal inference.</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Causation and Association</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>A well-known statistical maxim is that “association does not imply causation.” Ice-cream sales are associated with attendance at swimming pools. It is easy to see why they move together, but we would not say that higher ice-cream sales cause more people to visit swimming pools, or vice versa. In ordinary circumstances, hot weather increases ice-cream sales and also encourages people to go swimming. Both variables share a common cause: warm weather. This idea is discussed in detail in Chapter 8.</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>**Case 1.1**</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>Suppose that the emergency neurosurgery department at Huashan Hospital, Fudan University, admitted 10 patients with intracerebral hemorrhage (Table 1.1). Five underwent surgery and five received non-surgical treatment. Mortality was lower among surgical patients (1/5, 20%) than among patients managed conservatively (3/5, 60%). We can therefore say that surgery is associated with mortality, and it is easy to make the erroneous inference that surgery reduces mortality in intracerebral hemorrhage. Yet we do not know whether the surgical patients would also have survived without surgery, or whether surgery could have saved the lives of those who did not receive it. If conservatively managed patients were too severely ill to tolerate surgery, the association is unsurprising.</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>**Table 1.1 Hypothetical intracerebral hemorrhage cases**</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Case <span class="pp">|</span> Treatment <span class="pp">|</span> Observed outcome <span class="pp">|</span> Hypothetical outcome with surgery <span class="pp">|</span> Hypothetical outcome without surgery <span class="pp">|</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|:---|:---|:---|:---|</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> Surgery <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span> ? <span class="pp">|</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> Surgery <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span> ? <span class="pp">|</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> Surgery <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span> ? <span class="pp">|</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> Surgery <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span> ? <span class="pp">|</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> Surgery <span class="pp">|</span> Died <span class="pp">|</span> Died <span class="pp">|</span> ? <span class="pp">|</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 6 <span class="pp">|</span> No surgery <span class="pp">|</span> Survived <span class="pp">|</span> ? <span class="pp">|</span> Survived <span class="pp">|</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 7 <span class="pp">|</span> No surgery <span class="pp">|</span> Survived <span class="pp">|</span> ? <span class="pp">|</span> Survived <span class="pp">|</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 8 <span class="pp">|</span> No surgery <span class="pp">|</span> Died <span class="pp">|</span> ? <span class="pp">|</span> Died <span class="pp">|</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 9 <span class="pp">|</span> No surgery <span class="pp">|</span> Died <span class="pp">|</span> ? <span class="pp">|</span> Died <span class="pp">|</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10 <span class="pp">|</span> No surgery <span class="pp">|</span> Died <span class="pp">|</span> ? <span class="pp">|</span> Died <span class="pp">|</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>In the counterfactual questions introduced in the preceding section, we ask, “What would happen if an individual received treatment?” and “What would happen if the individual did not receive treatment?” Association, by contrast, describes observations in the real world: “What outcome was observed among treated individuals?” and “What outcome was observed among untreated individuals?” Under what conditions can real-world observations support causal inference? Chapter 2 provides one answer: randomized controlled trials.</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simpson's Paradox</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>**Case 1.2**</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>Consider COVID-19 pneumonia. Suppose that a company in the United States has developed two treatments, A and B. COVID-19 pneumonia may be classified as mild or severe. The response-rate data reported from a U.S. clinical study are shown in Table 1.2.</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>**Table 1.2 Hypothetical response rates for two treatments for COVID-19 pneumonia**</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> Mild <span class="pp">|</span> Severe <span class="pp">|</span> Overall <span class="pp">|</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|:---|:---|:---|</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Treatment A <span class="pp">|</span> 800/1000 <span class="pp">|</span> 40/200 <span class="pp">|</span> 840/1200 <span class="pp">|</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  <span class="pp">|</span> (80%) <span class="pp">|</span> (20%) <span class="pp">|</span> (70%) <span class="pp">|</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Treatment B <span class="pp">|</span> 90/100 <span class="pp">|</span> 150/300 <span class="pp">|</span> 240/400 <span class="pp">|</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  <span class="pp">|</span> (90%) <span class="pp">|</span> (50%) <span class="pp">|</span> (60%) <span class="pp">|</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 1.1"}</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Overall versus stratum-specific response rates</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>  <span class="at">Treatment =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>),</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>  <span class="at">Overall =</span> <span class="fu">c</span>(<span class="dv">840</span><span class="sc">/</span><span class="dv">1200</span>, <span class="dv">240</span><span class="sc">/</span><span class="dv">400</span>),</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mild =</span> <span class="fu">c</span>(<span class="dv">800</span><span class="sc">/</span><span class="dv">1000</span>, <span class="dv">90</span><span class="sc">/</span><span class="dv">100</span>),</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>  <span class="at">Severe =</span> <span class="fu">c</span>(<span class="dv">40</span><span class="sc">/</span><span class="dv">200</span>, <span class="dv">150</span><span class="sc">/</span><span class="dv">300</span>)</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 1.1 output"}</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Treatment <span class="pp">|</span> Overall response <span class="pp">|</span> Mild response <span class="pp">|</span> Severe response <span class="pp">|</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|---:|---:|---:|</span></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A <span class="pp">|</span> 0.70 <span class="pp">|</span> 0.80 <span class="pp">|</span> 0.20 <span class="pp">|</span></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> B <span class="pp">|</span> 0.60 <span class="pp">|</span> 0.90 <span class="pp">|</span> 0.50 <span class="pp">|</span></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>If these treatments were to be introduced in China, which would be preferable? Overall, treatment A appears preferable because its response rate is 70%, compared with 60% for treatment B. Yet within both mild and severe disease, treatment B has the higher response rate: 90% versus 80% in mild disease, and 50% versus 20% in severe disease.</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>The apparent paradox arises because looking only at the “overall” column favors A, whereas considering both severity strata favors B. Which treatment should be chosen?</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>Usually, treatment B should be chosen. Both common sense and the data indicate that response rates are higher in mild than in severe disease. Most mildly ill patients received A (1,000 received A and 100 received B), whereas most severely ill patients received B (300 received B and 200 received A). In other words, A's higher overall response rate reflects the fact that A was used mainly in mildly ill patients. Disease severity confounds the relationship between treatment and response. To correct this confounding, treatment and outcome must be compared within severity strata. This leads to choosing treatment B.</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>There is, however, a less common possibility. Treatment B might be so scarce that patients must wait a long time to receive it, while A is immediately available. Because COVID-19 pneumonia can progress over time, waiting for B could allow mildly ill patients to become severely ill and reduce B's overall response rate. Thus, even if B is more effective within each severity stratum, choosing B might worsen the overall outcome if access to it causes harmful delay.</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>This example shows that surface associations alone do not guide treatment decisions. Understanding the underlying causal relationships is necessary to resolve Simpson's paradox and to guide clinical and public-health decisions.</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## Average Causal Effects</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>The individual causal effect described in the first section is not identifiable. We therefore turn to the average causal effect: the effect of an intervention in a population of patients. Defining an average causal effect requires three elements: the treatments being compared, the outcome, and the target population.</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>**Table 1.3 Hypothetical intracerebral hemorrhage cases with known counterfactual outcomes**</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Case <span class="pp">|</span> Treatment <span class="pp">|</span> Observed outcome <span class="pp">|</span> Outcome with surgery <span class="pp">|</span> Outcome without surgery <span class="pp">|</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|:---|:---|:---|:---|</span></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> Surgery <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> Surgery <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> Surgery <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> Surgery <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span> Died <span class="pp">|</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> Surgery <span class="pp">|</span> Died <span class="pp">|</span> Died <span class="pp">|</span> Died <span class="pp">|</span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 6 <span class="pp">|</span> No surgery <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 7 <span class="pp">|</span> No surgery <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span> Survived <span class="pp">|</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 8 <span class="pp">|</span> No surgery <span class="pp">|</span> Died <span class="pp">|</span> Survived <span class="pp">|</span> Died <span class="pp">|</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 9 <span class="pp">|</span> No surgery <span class="pp">|</span> Died <span class="pp">|</span> Died <span class="pp">|</span> Died <span class="pp">|</span></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10 <span class="pp">|</span> No surgery <span class="pp">|</span> Died <span class="pp">|</span> Died <span class="pp">|</span> Died <span class="pp">|</span></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>Again consider the 10 patients with intracerebral hemorrhage admitted through the Huashan Hospital emergency department. Suppose that we knew—temporarily ignoring how—that if all patients received surgery, 3 would die by three months, whereas if all received non-surgical treatment, 5 would die (the last two columns of Table 1.3). The probability of $Y=1$ if everyone received $T=1$ is $3/10=0.3$; the probability of $Y=1$ if everyone received $T=0$ is $5/10=0.5$.</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>**Equation 1.4 Risk of death if all patients receive treatment**</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>$${Pr{ \lbrack}Y}^{T=1}=1\rbrack=0.3$$</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>**Equation 1.5 Risk of death if all patients do not receive treatment**</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>$$Pr{ \lbrack}Y^{T=0}=1\rbrack=0.5$$</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>Formally, treatment $T$ has an average causal effect on outcome $Y$ in this population if:</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>**Equation 1.6 Existence of an average causal effect**</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>$${Pr{ \lbrack}Y}^{T=1}=1\rbrack \neq Pr{ \lbrack}Y^{T=0}=1\rbrack$$</span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>If instead:</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>**Equation 1.7 Absence of an average causal effect**</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>$${Pr{ \lbrack}Y}^{T=1}=1\rbrack = Pr{ \lbrack}Y^{T=0}=1\rbrack$$</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>then treatment $T$ has no average causal effect on $Y$ in this population. The example uses a binary outcome. For a continuous outcome, $E$ denotes the expected (mean) outcome, and the corresponding expression is:</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>**Equation 1.8 Average causal effect for a continuous outcome**</span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>$${E{ \lbrack}Y}^{T=1}=1\rbrack \neq E{ \lbrack}Y^{T=0}=1\rbrack$$</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conditions for Estimating an Average Causal Effect</span></span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>The preceding section defined the average causal effect in a hypothetical setting in which every patient receives surgery and in another setting in which every patient receives no surgery. In reality, we cannot observe both potential outcomes for the same patient; we only have the first three columns of Table 1.3. As discussed above, directly comparing mortality in surgical and conservatively managed patients yields an association. Under what conditions can that association be interpreted as an average causal effect?</span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>Four conditions are required.</span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Exchangeability.** We cannot directly compare surgical and conservatively managed patients because the groups may not be comparable. Imagine the surgical patients as an original file and the non-surgical patients as copy-and-paste duplicates of that file: intuitively, the two groups would then be comparable because they would be identical in all respects other than treatment. If either the original or its duplicate received surgery, its outcome would be the same; the same would hold if either received conservative treatment. This is exchangeability. Complete exchangeability is generally unrealistic in observed data, because the two groups are rarely identical in every characteristic other than treatment. Randomized controlled trials can make the assumption more plausible, as discussed in the next chapter.</span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Conditional exchangeability.** Complete exchangeability is unrealistic in observational data, but exchangeability may hold after conditioning on relevant variables. In the example in Section 3, one may control for disease severity by comparing the response rates of treatments A and B only among patients with mild COVID-19 pneumonia. Although response rates may be related to severity overall, within the mild stratum they are no longer compared across different severity levels. Controlling for severity can therefore produce conditional exchangeability between treatment groups.</span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>   Conditional exchangeability, also called no unmeasured confounding, is a central causal-inference assumption. It is more realistic than complete exchangeability, but it cannot usually be verified: unmeasured confounders may be absent from the data. Intuitively, the best practical approach is to observe and record as many relevant variables as possible.</span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Positivity (overlap).** When comparing surgery with conservative treatment for intracerebral hemorrhage, there must be patients who receive surgery and patients who receive conservative treatment. If everyone receives surgery, the average causal effect cannot be estimated. Positivity is also required within relevant subgroups. For example, patients with hematoma volumes below 10 mL generally do not undergo surgery; in that group, the average causal effect of surgery versus no surgery cannot be learned from the data (and may not be clinically necessary). In other words, the covariate distributions of the treatment and control groups must overlap, so that every subgroup relevant to the comparison has some probability of receiving each treatment.</span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Consistency.** Return to surgery for intracerebral hemorrhage. Defining treatment merely as “surgery” or “no surgery” may be too vague to satisfy consistency. Surgery may include craniotomy with hematoma evacuation, burr-hole drainage, or intracranial-pressure monitoring; it may also depend on the surgeon and on whether conventional microscopic or newer endoscopic techniques are used. Causal inference therefore requires a precise definition of treatment, including its mode, method, dose, and timing. This requirement is closely related to Rubin's stable unit treatment value assumption (SUTVA): an individual's potential outcome is not affected by treatments received by others (no interference), and each treatment corresponds to one well-defined version. Exchangeability, conditional exchangeability, positivity, and consistency are identification conditions that allow associations to be interpreted as causal effects. Hernán and Robins (2020) discuss them systematically; the epidemiologic formulation of exchangeability can be traced to Greenland and Robins (1986), and Cole and Frangakis (2009) discuss the precise meaning of consistency.</span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>**Case 1.3**</span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>One study question concerns postmenopausal hormone therapy and cardiovascular events. Consider two studies: an observational study and a randomized controlled trial. In the randomized trial, 16,000 menopausal women were randomly assigned to initiate hormone therapy or not to use hormones. The published results suggested that initiating hormones increased the risk of cardiovascular events by 20%, with a hazard ratio of 1.24.</span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>In an observational study, women currently using hormones had a 30% lower risk of cardiovascular events than women who had never used hormones, with a hazard ratio of 0.68.</span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>The results appear contradictory, and randomized trials are generally considered more reliable. Why did the studies differ? The interventions of interest were different. The observational study compared women currently using hormones with women who had never used them; the randomized trial compared initiating hormones with not initiating hormones. Thus, the causal question in the observational study was not the causal question in the randomized trial.</span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>Reanalysis of the randomized-trial results shows that, during the first two years after hormone initiation, cardiovascular-event risk was indeed increased. With more than five years of follow-up, however, cardiovascular-event risk was lower among these women. Participants who experienced cardiovascular events early had already reached the outcome and were no longer under follow-up; women remaining at later times were inherently less likely to experience such events. The observational study had a similar problem, because hormone users who experienced cardiovascular events could not enter the comparison as current users, producing an apparently protective association.</span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>When the observational study was reanalyzed by restricting the comparison to initiators and non-initiators, its conclusion agreed with that of the randomized trial: women initiating hormones had increased cardiovascular risk. This illustrates why defining the causal question is essential.</span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>The two studies in Case 1.3 are the classic analysis of Hernán et al. (2008). When investigators designed and analyzed the observational Nurses' Health Study to emulate the randomized Women's Health Initiative (WHI), and allowed risk to vary with time since hormone initiation, the results became more consistent. This illustrates target-trial emulation: first specify the hypothetical randomized trial to be emulated, then use observational data to emulate it, thereby avoiding design biases such as inappropriate inclusion of prevalent users (Hernán and Robins, 2016).</span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Prosperi M, Yi G, Sperrin M, et al. Causal inference and counterfactual prediction in machine learning for actionable healthcare. *Nature Machine Intelligence*. 2020;2(7):1-7.</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Hernán MA, Robins JM. *Causal Inference: What If.* Boca Raton: Chapman &amp; Hall/CRC; 2020.</span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Splawa-Neyman J. On the application of probability theory to agricultural experiments. Essay on principles. Section 9 (1923). *Statistical Science*. 1990;5(4):465-472.</span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Rubin DB. Estimating causal effects of treatments in randomized and nonrandomized studies. *Journal of Educational Psychology*. 1974;66(5):688-701.</span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Holland PW. Statistics and causal inference. *Journal of the American Statistical Association*. 1986;81(396):945-960.</span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Greenland S, Robins JM. Identifiability, exchangeability, and epidemiological confounding. *International Journal of Epidemiology*. 1986;15(3):413-419.</span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Cole SR, Frangakis CE. The consistency statement in causal inference: a definition or an assumption? *Epidemiology*. 2009;20(1):3-5.</span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Hernán MA, Alonso A, Logan R, et al. Observational studies analyzed like randomized experiments: an application to postmenopausal hormone therapy and coronary heart disease. *Epidemiology*. 2008;19(6):766-779.</span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>Hernán MA, Robins JM. Using big data to emulate a target trial when a randomized trial is not available. *American Journal of Epidemiology*. 2016;183(8):758-764.</span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Pearl J. *Causality: Models, Reasoning, and Inference.* 2nd ed. Cambridge: Cambridge University Press; 2009.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

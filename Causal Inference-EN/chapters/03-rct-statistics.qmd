@@ -1,35 +1,151 @@
 # Statistical Considerations in Randomized Controlled Trials
 
-::: {.callout-note}
-## Drafting note
-Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
-:::
-
 ## Intention-to-treat and per-protocol analysis
 
-_To be added._
+The analysis strategy usually used in randomized controlled trials is intention-to-treat (ITT): regardless of what happens after randomization, every randomized participant is analyzed in the group to which they were originally assigned. Per-protocol (PP) analysis instead analyzes enrolled participants according to their actual adherence to the protocol. Three misunderstandings about ITT are common.
 
-## Protocol violations
+First, ITT is not necessarily more likely than PP to show no effect. Suppose interventions A and B have the same biological effect. If A has more adverse effects and poorer adherence, while B has fewer adverse effects and better adherence, ITT may show that B is superior to A. Second, ITT is not inherently more conservative. If A causes more adverse effects, its participants may adhere less, so the adverse effects actually observed in A can resemble those in B. ITT may then conclude that adverse effects do not differ, even though more A participants deviated from protocol; that cannot simply be called more conservative. Third, ITT does not automatically reflect the real world better. When a couple asks a physician about the effectiveness of contraception, the useful answer is usually its effectiveness when used correctly—the PP result—not the ITT result under which 40% used it incorrectly.
 
-_To be added._
+Because of randomization, ITT can directly compare treatment groups. In PP analysis, however, groups can differ not only before randomization but also after randomization because of actual treatment received—for example, dose adjustments based on patient condition or loss to follow-up caused by adverse effects. PP analysis in an RCT therefore requires adjustment for pre- and post-randomization confounding, just as in a non-randomized study. The protocol should prespecify which post-randomization prognostic factors will be collected and how PP analysis will be performed.
+
+In the causal language of Chapter 1, ITT estimates the causal effect of being *assigned* to an intervention—the assignment effect. It answers a policy-level question and is directly identifiable because of randomization. PP analysis estimates the effect of actually receiving intervention according to protocol. Because adherence is often affected by post-randomization prognostic factors, naive PP analysis creates selection bias and requires adjustment for post-randomization confounding, for example inverse-probability weighting (Hernán and Hernández-Díaz 2012).
+
+## Protocol deviations
+
+Two common types of protocol deviation are ineligibility and nonadherence.
+
+### Failure to meet eligibility criteria
+
+Participants may violate eligibility criteria at enrollment because of documentation errors, laboratory errors, or misclassification. In a multicenter myocardial-infarction study, for example, participants admitted with possible acute myocardial infarction received intervention or placebo, but diagnosis was confirmed only after several days of electrocardiographic and serum-enzyme monitoring. Some were randomized on the basis of an initial diagnosis that later enzyme monitoring did not support.
+
+A more complicated problem arises when the intervention itself affects eligibility. If it limits infarct size, it can change electrocardiographic and enzyme findings and thus affect diagnosis; this cannot occur in the placebo group. Ineligible control participants are easy to recognize, whereas truly ineligible intervention participants must be distinguished from those who merely appear ineligible because treatment worked. Three strategies are possible: do not enroll until diagnosis is confirmed and carefully checked; if ineligible participants must be removed, use only information collected before enrollment and have the decision-maker blinded to outcomes and allocation; or allow enrollment but do not remove them, since both groups have equal opportunity to include ineligible participants, although they may dilute outcome differences.
+
+### Adherence
+
+Nonadherence is another reason participants leave analysis; loss to follow-up is one form. It may result from adverse events in either group, loss of interest or perceived benefit, changes in underlying condition, or other causes. Nonadherence diminishes any benefit of intervention over control and therefore increases the sample size needed. If it is greater in one group and related to outcome, removal of nonadherent participants can introduce bias. The best strategy is to minimize nonadherence in trial design and use ITT results.
+
+The definition of adherence also matters. It may be defined as the proportion of actual intervention received that matches the protocol. Drug/placebo trials should describe adherence separately in intervention and control groups. If intervention-group adherence is lower, broad clinical uptake may not be reasonable: an intervention may work, but have little value if most participants cannot tolerate it.
 
 ## Multiple comparisons
 
-_To be added._
+Suppose Zhang San guesses the outcome of five coin tosses and is correct each time. The probability, if he is not cheating, is:
+
+**Equation 3.1 Probability of five consecutive correct guesses**
+
+$$0.5^5 \approx 0.03$$
+
+But if 100 people each guess five tosses and only Li Si is correct five times, it is no longer sensible to conclude that Li Si cheated. The probability that at least one person is correct five times is:
+
+**Equation 3.2 Probability that at least one of 100 people guesses five tosses correctly**
+
+$$1-(1-1/32)^{100}=0.958$$
+
+::: {.callout-note appearance="simple" icon="false" title="Code 3.1"}
+```{r}
+#| output: false
+p_one <- 1 / 2^5                 # one person guesses 5 correctly
+p_any <- 1 - (1 - p_one)^100     # at least one of 100 does so
+c(one_person = p_one, `at_least_one_of_100` = p_any)
+```
+:::
+
+::: {.callout-note appearance="simple" icon="false" title="Code 3.1 output"}
+| Situation | Probability |
+|:--|--:|
+| One person guesses five consecutively | 0.0312500 |
+| At least one of 100 guesses five consecutively | 0.9582005 |
+:::
+
+Hypothesis testing relies on the small-probability principle: a small-probability event is regarded as unlikely in one experiment. Multiple hypothesis tests in the same study are no longer one experiment. In 1992, Swedish investigators examined residents living within 300 m of high-voltage power lines and, over 25 years, compared rates of more than 800 diseases with residents farther away. Childhood leukemia appeared four times as frequent and prompted government action. With more than 800 comparisons, however, one or more diseases can easily appear increased by chance. Multiple testing has two distinct control targets: family-wise error rate (FWER), controlled by methods such as Bonferroni and Holm, and false discovery rate (FDR), the expected proportion of false positives among rejected hypotheses, controlled by Benjamini–Hochberg and less conservative in large exploratory testing. See Schulz and Grimes (2005) for a systematic discussion in RCTs.
+
+### Multiple primary efficacy outcomes
+
+The usual solution is to select the most important outcome as primary and regard others as secondary, or to construct a composite primary outcome. If multiple primary outcomes are essential: (1) if all must be significant, alpha need not be adjusted; (2) if any one significant outcome establishes efficacy, alpha must be allocated across outcomes, often by importance or equally, with total no greater than alpha. A simple Bonferroni correction is
+
+**Equation 3.3 Bonferroni correction**
+
+$$\text{adjusted }\alpha=0.05/n$$
+
+where *n* is the number of primary outcomes. Bonferroni is simple but conservative, especially for large *n*. (3) Outcomes can be ranked and tested sequentially: test the most important first, and test the next only after rejecting the preceding null hypothesis. If a prior test is not significant, stop all later tests. Alpha adjustment is not needed, but the order must be specified in the protocol before unblinding and must never be selected or changed afterward.
+
+### Comparisons among multiple groups
+
+When groups have an ordered dose relationship, sequential comparisons with control from high to low dose can be used without alpha adjustment. When no dose ordering exists, alpha must be adjusted; for example, mutual comparisons among experimental, placebo, and active-control groups commonly use Bonferroni alpha/n, where *n* is the number of comparisons.
+
+### Composite outcomes
+
+When a composite is formed by weighting components (such as a score) or by defining a combined outcome (such as major adverse cardiovascular events), components may be tested after a significant composite without alpha adjustment. If components are tested regardless of composite significance and any one significant component establishes efficacy, alpha must be adjusted.
+
+### A change in comparison type for the same primary outcome
+
+A common approach is first to compare experimental and active-control groups for noninferiority and, only if noninferiority is established, test superiority. Alpha adjustment is not required.
 
 ## Interim analysis and alpha spending
 
-_To be added._
+An interim analysis assesses efficacy and safety between intervention and control groups before formal trial completion according to a prespecified statistical analysis plan. Because its number, method, and results affect interpretation, every interim analysis must be described in advance in the protocol. If a special circumstance prevents this, the interim-analysis plan must at least be completed and the protocol amended before final analysis.
+
+Its three usual purposes are: timely safety monitoring, with early stopping when safety problems appear; early confirmation of efficacy, with stopping for efficacy or futility when prespecified criteria are met; and sample-size re-estimation when limited prior information yields inaccurate estimates of efficacy, safety, or power.
+
+Most interim analyses aim to show efficacy and therefore must control false positives. Each interim analysis is a hypothesis test; using alpha = 0.05 each time increases the overall type I error. To keep the overall type I error at 0.05, each analysis must use adjusted alpha. Each interim look spends part of alpha: more interim analyses consume more alpha and leave less for the final analysis. The schedule, arrangements, and alpha allocation must be planned and stated in the protocol. Common approaches are Pocock, O’Brien–Fleming, and Peto boundaries. Pocock is simple: with one interim and one final analysis, alpha is 0.029 at both looks, but the final threshold is much smaller than 0.05. O’Brien–Fleming uses a stringent early threshold that relaxes as information accumulates; if the planned sample is reached, the final analysis is much like one without an interim look, while a strong advantage can still stop the trial early. Peto is similar but uses an especially small early threshold (0.001), making early stopping difficult. In the alpha-spending-function framework, alpha expenditure is prespecified as information accumulates, allowing flexible timing and number of looks (DeMets and Lan 1994).
+
+**Case 3.1**
+
+KEYNOTE-604 was a randomized, double-blind phase III study in which 453 eligible patients with lung cancer were randomized 1:1 to pembrolizumab or placebo for 35 cycles or until disease progression. Progression-free and overall survival were primary endpoints. Two interim analyses and one final analysis were planned, with alpha 0.0024, 0.0071, and 0.012, respectively. Neither interim analysis was positive. At final analysis, median overall survival was 10.8 versus 9.7 months, and the ITT comparison did not reach significance (hazard ratio 0.80; 95% CI 0.64–0.98; *p* = 0.016). Although survival curves separated, the small difference between 0.016 and 0.012 produced a negative result. Alpha spent in interim analyses cannot be ignored: without interim analyses, overall survival would have been positive. Clinicians need to understand these methods so that a clinically important difference is not declared negative because of an unsuitable statistical design or analysis.
 
 ## Subgroup analysis
 
-_To be added._
+Subgroup analysis groups participants by baseline characteristics to assess whether responses differ. It can support or clarify an overall effect and generate exploratory findings for a particular subgroup, but is often misleading. Subgroups should be prespecified: continued post-trial exploration will almost always find at least one suggestive subgroup effect. The protocol should state proposed subgroups and their biological rationale. Stratification factors such as age, sex, and disease stage are implicitly subgroups. Post hoc, data-mining analyses without biological rationale should primarily generate hypotheses for other trials.
 
-## Multicenter trials
+Multiple-comparison adjustment is needed when many subgroups are tested, for example with Bonferroni or other methods, and apparently concentrated effects should be sought in a similar independent trial. Interaction tests, rather than separate within-subgroup treatment estimates, should be used: an interaction provides a global assessment of whether the subgroup variable relates to treatment effect, with estimates and confidence intervals. Separate subgroup tests require more hypotheses and inflate false positives. Differences observed between subgroups do not necessarily mean heterogeneous treatment effects, especially when the primary effect is non-significant. Wang et al. (2007) summarize the principles of prespecification, interaction testing, and multiplicity adjustment; Sun et al. (2010) provide practical credibility criteria including prespecification, interaction evidence, and replication.
 
-_To be added._
+## Multicenter clinical research
 
-## Appendix: NEJM statistical guidelines
+Multicenter trials are common because a single center rarely recruits enough participants. Analysis should consider center effects to understand the overall average effect, variation in treatment effect, and effects across centers. Randomization is usually stratified by center to balance treatment within each center.
 
-_To be added._
+One model omits center effects and treats all variation as participant-level variation, assuming no systematic differences among centers. A more appropriate model separates variation among participants within centers from variation among centers. Omitting center effects overestimates variability in the average treatment effect, produces wider confidence intervals, and reduces power. A model including center effects recognizes that part of variation reflects differences in populations treated at each center, reduces within-center residual variation, and increases precision. Center may be modeled as a fixed effect in linear models, survival analysis, or logistic regression, allowing outcomes within a center to resemble each other more than outcomes across centers.
 
+## Appendix: Statistical reporting standards of the *New England Journal of Medicine*
+
+### All studies
+
+- The Methods section should describe sample-size and power considerations and briefly describe analyses of primary and secondary outcomes.
+- The Methods section should explain handling of missing data. Except when data are very sparse, complete-case analysis should not be primary analysis; use appropriate imputation based on the missing-data mechanism. Multiple imputation or inverse-probability weighting may be used for missing at random, whereas model-based approaches are more suitable for missing not at random.
+- Point estimates of effects, associations, and other parameters should be accompanied by confidence intervals adjusted according to alpha.
+- Unless design such as a noninferiority trial requires a one-sided test, reported *p* values should be two-sided. In general, report values above 0.01 to two decimals, 0.01–0.001 to three decimals, and values below 0.001 as *p* < 0.001. Prespecified stopping-rule and genome-wide association p values may use other precision.
+- Reported precision should not exceed that justified by scientific meaning and sample size; odds ratios generally use two decimals.
+
+### Clinical trials
+
+- Submit original and final protocols, the statistical analysis plan, and a dated list of protocol amendments.
+- Analyze the primary outcome as prespecified. Explain analyses not in the original protocol; editors may request additional analyses.
+- Use the protocol-specified procedure to control overall type I error for comparisons. Prespecified exploratory analyses should use the stated method, for example Benjamini–Hochberg for FDR.
+- Without a prespecified multiplicity-control method, secondary and exploratory endpoints should be limited to point estimates and 95% confidence intervals. State that interval widths are not multiplicity-adjusted, that inferences may not replicate, and do not report p values.
+- Prespecified subgroup analyses should follow the protocol. Important post hoc analyses require justification and clear labeling. Forest plots are useful for showing estimates in important subgroups; multiple interaction p values have limited inferential value and ordinarily should not be provided.
+- Safety outcomes that are not primary endpoints need not be multiplicity-adjusted when significance tests are reported, because a larger type I error is acceptable for safety information.
+- Before risk differences or risk ratios, report absolute event counts or rates; avoid odds ratios when they can overstate relative risk or be misinterpreted.
+- Provide a CONSORT flow diagram and all relevant CONSORT checklist information.
+
+### Observational studies
+
+- Validity depends on sample selection, measured and unmeasured confounding, and methods of controlling confounding; explain how these issues were handled in design and analysis.
+- Submit a signed and dated prespecified statistical analysis plan when one exists.
+- For multiple tests, use a prespecified type I error-control method. Without one, limit statistics to point estimates and 95% confidence intervals, state that intervals are not multiplicity-adjusted and may not replicate, and do not report p values.
+- List planned analyses, inclusion criteria, and data-sampling methods, with figures or tables where appropriate; identify the association or causal relationship to be estimated and why.
+- Studies reporting treatment effects should show distributions of potential confounders and other variables between treatment groups.
+- Explain complex models in a supplement where possible; use sensitivity analysis to discuss bias from unmeasured confounding, or explicitly discuss it if sensitivity analysis was not done.
+- Replicate findings in one or more similar independent studies to assess robustness.
+
+## References {.unnumbered}
+
+1. Friedman LM, Furberg CD, DeMets DL, Reboussin DM, Granger CB. *Fundamentals of Clinical Trials*. Springer; 2015.
+2. Senn SJ, Lewis RJ. Treatment effects in multicenter randomized clinical trials. *JAMA*. 2019;321(12):1211-1212.
+3. Hernán MA, Hernández-Díaz S. Beyond the intention-to-treat in comparative effectiveness research. *Clinical Trials*. 2012;9(1):48-55.
+4. Montori VM, Guyatt GH. Intention-to-treat principle. *CMAJ*. 2001;165(10):1339-1341.
+5. Schulz KF, Grimes DA. Multiplicity in randomised trials I: endpoints and treatments. *Lancet*. 2005;365(9470):1591-1595.
+6. Pocock SJ. Group sequential methods in the design and analysis of clinical trials. *Biometrika*. 1977;64(2):191-199.
+7. O’Brien PC, Fleming TR. A multiple testing procedure for clinical trials. *Biometrics*. 1979;35(3):549-556.
+8. Peto R, Pike MC, Armitage P, et al. Design and analysis of randomized clinical trials requiring prolonged observation of each patient. *British Journal of Cancer*. 1976;34(6):585-612.
+9. DeMets DL, Lan KK. Interim analysis: the alpha spending function approach. *Statistics in Medicine*. 1994;13(13-14):1341-1352.
+10. Wang R, Lagakos SW, Ware JH, et al. Reporting of subgroup analyses in clinical trials. *New England Journal of Medicine*. 2007;357(21):2189-2194.
+11. Sun X, Briel M, Walter SD, et al. Is a subgroup effect believable? *BMJ*. 2010;340:c117.
+12. Benjamini Y, Hochberg Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing. *Journal of the Royal Statistical Society: Series B*. 1995;57(1):289-300.

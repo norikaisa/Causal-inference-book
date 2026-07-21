@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Writing RCT Protocols and Informed Consent – Causal Inference in Clinical Medical Research</title>
+<title>4&nbsp; Writing Randomized Controlled Trial Protocols and Informed Consent – Causal Inference in Clinical Medical Research</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/04-protocol-consent.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing RCT Protocols and Informed Consent</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/04-protocol-consent.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing Randomized Controlled Trial Protocols and Informed Consent</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -154,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01-framework.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Causal Inference Framework</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Framework for Causal Inference</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -172,13 +172,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04-protocol-consent.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing RCT Protocols and Informed Consent</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing Randomized Controlled Trial Protocols and Informed Consent</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05-survival.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clinical Studies with Survival Outcomes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clinical Research with Survival Outcomes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -287,9 +287,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#writing-an-rct-protocol" id="toc-writing-an-rct-protocol" class="nav-link active" data-scroll-target="#writing-an-rct-protocol"><span class="header-section-number">4.1</span> Writing an RCT protocol</a></li>
-  <li><a href="#writing-informed-consent" id="toc-writing-informed-consent" class="nav-link" data-scroll-target="#writing-informed-consent"><span class="header-section-number">4.2</span> Writing informed consent</a></li>
-  <li><a href="#appendix-a-multicenter-trial-protocol-example" id="toc-appendix-a-multicenter-trial-protocol-example" class="nav-link" data-scroll-target="#appendix-a-multicenter-trial-protocol-example"><span class="header-section-number">4.3</span> Appendix: A multicenter trial protocol example</a></li>
+  <li><a href="#writing-an-rct-protocol" id="toc-writing-an-rct-protocol" class="nav-link active" data-scroll-target="#writing-an-rct-protocol"><span class="header-section-number">4.1</span> Writing an RCT protocol</a>
+  <ul class="collapse">
+  <li><a href="#research-background" id="toc-research-background" class="nav-link" data-scroll-target="#research-background"><span class="header-section-number">4.1.1</span> 1. Research background</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives"><span class="header-section-number">4.1.2</span> 2. Objectives</a></li>
+  <li><a href="#design-randomization-and-blinding" id="toc-design-randomization-and-blinding" class="nav-link" data-scroll-target="#design-randomization-and-blinding"><span class="header-section-number">4.1.3</span> 3. Design, randomization, and blinding</a></li>
+  <li><a href="#inclusion-exclusion-withdrawal-and-stopping-criteria" id="toc-inclusion-exclusion-withdrawal-and-stopping-criteria" class="nav-link" data-scroll-target="#inclusion-exclusion-withdrawal-and-stopping-criteria"><span class="header-section-number">4.1.4</span> 4. Inclusion, exclusion, withdrawal, and stopping criteria</a></li>
+  <li><a href="#sample-size" id="toc-sample-size" class="nav-link" data-scroll-target="#sample-size"><span class="header-section-number">4.1.5</span> 5. Sample size</a></li>
+  <li><a href="#study-procedures" id="toc-study-procedures" class="nav-link" data-scroll-target="#study-procedures"><span class="header-section-number">4.1.6</span> 6. Study procedures</a></li>
+  <li><a href="#efficacy-assessment" id="toc-efficacy-assessment" class="nav-link" data-scroll-target="#efficacy-assessment"><span class="header-section-number">4.1.7</span> 7. Efficacy assessment</a></li>
+  <li><a href="#adverse-events" id="toc-adverse-events" class="nav-link" data-scroll-target="#adverse-events"><span class="header-section-number">4.1.8</span> 8. Adverse events</a></li>
+  <li><a href="#other-items" id="toc-other-items" class="nav-link" data-scroll-target="#other-items"><span class="header-section-number">4.1.9</span> 9. Other items</a></li>
+  </ul></li>
+  <li><a href="#writing-participant-informed-consent" id="toc-writing-participant-informed-consent" class="nav-link" data-scroll-target="#writing-participant-informed-consent"><span class="header-section-number">4.2</span> Writing participant informed consent</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#appendix-protocol-for-a-prospective-multicenter-study-of-drug-a-combined-with-radiotherapy-for-disease-b" id="toc-appendix-protocol-for-a-prospective-multicenter-study-of-drug-a-combined-with-radiotherapy-for-disease-b" class="nav-link" data-scroll-target="#appendix-protocol-for-a-prospective-multicenter-study-of-drug-a-combined-with-radiotherapy-for-disease-b"><span class="header-section-number">4.3</span> Appendix: Protocol for a prospective multicenter study of drug A combined with radiotherapy for disease B</a>
+  <ul class="collapse">
+  <li><a href="#contents-and-protocol-synopsis" id="toc-contents-and-protocol-synopsis" class="nav-link" data-scroll-target="#contents-and-protocol-synopsis"><span class="header-section-number">4.3.1</span> Contents and protocol synopsis</a></li>
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background"><span class="header-section-number">4.3.2</span> Background</a></li>
+  <li><a href="#objectives-and-endpoints" id="toc-objectives-and-endpoints" class="nav-link" data-scroll-target="#objectives-and-endpoints"><span class="header-section-number">4.3.3</span> Objectives and endpoints</a></li>
+  <li><a href="#study-design" id="toc-study-design" class="nav-link" data-scroll-target="#study-design"><span class="header-section-number">4.3.4</span> Study design</a></li>
+  <li><a href="#study-treatment" id="toc-study-treatment" class="nav-link" data-scroll-target="#study-treatment"><span class="header-section-number">4.3.5</span> Study treatment</a></li>
+  <li><a href="#study-procedures-1" id="toc-study-procedures-1" class="nav-link" data-scroll-target="#study-procedures-1"><span class="header-section-number">4.3.6</span> Study procedures</a></li>
+  <li><a href="#study-evaluation" id="toc-study-evaluation" class="nav-link" data-scroll-target="#study-evaluation"><span class="header-section-number">4.3.7</span> Study evaluation</a></li>
+  <li><a href="#adverse-events-1" id="toc-adverse-events-1" class="nav-link" data-scroll-target="#adverse-events-1"><span class="header-section-number">4.3.8</span> Adverse events</a></li>
+  <li><a href="#data-management" id="toc-data-management" class="nav-link" data-scroll-target="#data-management"><span class="header-section-number">4.3.9</span> Data management</a></li>
+  <li><a href="#statistical-analysis" id="toc-statistical-analysis" class="nav-link" data-scroll-target="#statistical-analysis"><span class="header-section-number">4.3.10</span> Statistical analysis</a></li>
+  <li><a href="#clinical-monitoring" id="toc-clinical-monitoring" class="nav-link" data-scroll-target="#clinical-monitoring"><span class="header-section-number">4.3.11</span> Clinical monitoring</a></li>
+  <li><a href="#quality-assurance" id="toc-quality-assurance" class="nav-link" data-scroll-target="#quality-assurance"><span class="header-section-number">4.3.12</span> Quality assurance</a></li>
+  <li><a href="#handling-unusual-events-during-the-trial" id="toc-handling-unusual-events-during-the-trial" class="nav-link" data-scroll-target="#handling-unusual-events-during-the-trial"><span class="header-section-number">4.3.13</span> Handling unusual events during the trial</a></li>
+  <li><a href="#insurance-and-compensation" id="toc-insurance-and-compensation" class="nav-link" data-scroll-target="#insurance-and-compensation"><span class="header-section-number">4.3.14</span> Insurance and compensation</a></li>
+  <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1"><span class="header-section-number">4.3.15</span> References</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -298,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing RCT Protocols and Informed Consent</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing Randomized Controlled Trial Protocols and Informed Consent</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -315,34 +344,209 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
-</div>
-</div>
+<p>Writing a protocol and participant informed-consent materials is an important step before conducting an RCT. This chapter sets out the key elements and provides a model protocol. Protocols should follow the SPIRIT 2013 statement (Standard Protocol Items: Recommendations for Interventional Trials), which provides a 33-item checklist. A trial should also be prospectively registered on a public registry, such as ClinicalTrials.gov or the Chinese Clinical Trial Registry, before participant enrollment (Chan et al.&nbsp;2013).</p>
 <section id="writing-an-rct-protocol" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="writing-an-rct-protocol"><span class="header-section-number">4.1</span> Writing an RCT protocol</h2>
-<p><em>To be added.</em></p>
+<section id="research-background" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="research-background"><span class="header-section-number">4.1.1</span> 1. Research background</h3>
+<p>The protocol should provide sufficient background to demonstrate the importance and necessity of the question, expected benefits, and relevant references and data. It should describe prior laboratory and animal research, scientific literature, and other information supporting the rationale; it should summarize domestic and international progress and identify the innovation of the proposed study.</p>
+<p>A useful sequence is: define the research question; describe the current situation and its deficiencies; review relevant domestic and international progress; explain what the study will do, its innovations, and its clinical or societal value; describe prior work and the conditions supporting the scientific rationale, feasibility, and regulatory compliance; and assess possible risks, the justification for choosing the population, potential benefit, and whether benefit outweighs risk.</p>
 </section>
-<section id="writing-informed-consent" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="writing-informed-consent"><span class="header-section-number">4.2</span> Writing informed consent</h2>
-<p><em>To be added.</em></p>
+<section id="objectives" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="objectives"><span class="header-section-number">4.1.2</span> 2. Objectives</h3>
+<p>Every study needs clear objectives: the question it will answer or problem it will solve. In drug research, objectives generally concern safety and efficacy. Too many objectives make data collection and analysis more complex and can compromise feasibility.</p>
 </section>
-<section id="appendix-a-multicenter-trial-protocol-example" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="appendix-a-multicenter-trial-protocol-example"><span class="header-section-number">4.3</span> Appendix: A multicenter trial protocol example</h2>
-<p><em>To be added.</em></p>
+<section id="design-randomization-and-blinding" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="design-randomization-and-blinding"><span class="header-section-number">4.1.3</span> 3. Design, randomization, and blinding</h3>
+<p>The protocol should state how the allocation sequence will be generated, for example by computer-generated random numbers; how the sequence will be implemented, for example through a central telephone system; and how it will be kept unknown before allocation. It should confirm clinical equipoise—the genuine uncertainty about comparative treatment effects that makes random allocation ethically acceptable.</p>
+<p>Blinding can reduce measurement bias. State who will be blinded (participants, investigators, outcome assessors), whether the study is single- or double-blind, and how blinding will be implemented. For an unblinded study, explain why and describe bias-control measures. Specify unblinding procedures and emergency code-breaking arrangements.</p>
+</section>
+<section id="inclusion-exclusion-withdrawal-and-stopping-criteria" class="level3" data-number="4.1.4">
+<h3 data-number="4.1.4" class="anchored" data-anchor-id="inclusion-exclusion-withdrawal-and-stopping-criteria"><span class="header-section-number">4.1.4</span> 4. Inclusion, exclusion, withdrawal, and stopping criteria</h3>
+<p>Inclusion and exclusion criteria usually address demographic information (age, sex, race), health and disease requirements, concomitant medication, previous treatment, and other relevant factors. Disease and severity requirements should use recognized diagnostic standards rather than standards altered to suit the study, because the latter harms reliability. In addition to the target indication, consider whether study procedures or interventions could harm patients of a given severity and whether risks are controllable. Restrictions on comorbidities, behavior, and lifestyle (such as smoking or alcohol) can control confounding, clarify treatment effects, and reduce unexpected serious adverse events; too many restrictions make the sample unrepresentative and limit generalizability.</p>
+<p>For safety, participants normally may not join more than one clinical study at a time. Specify a washout period after prior drug trials. People of reproductive potential generally need effective contraception during the study. If mutagenic or reproductive toxicity in men cannot be excluded, male participants should also use effective contraception.</p>
+<p>Specify when a participant must stop treatment or leave the study, rather than when the whole project stops: unwillingness or inability to continue; discovery after enrollment that eligibility is not met; intolerable adverse events or serious adverse events for which continued participation has more risk than benefit; no improvement or deterioration after continuous treatment (with a defined time point for judging ineffectiveness); loss to follow-up; or use of protocol-prohibited drugs or treatments. Specify criteria for stopping the entire study: major protocol errors or serious deviations that prevent assessment; treatment-related adverse events making continuation inappropriate; a requirement from regulators, government, or the ethics committee; or other situations in which investigators consider continuation unsuitable or impossible.</p>
+</section>
+<section id="sample-size" class="level3" data-number="4.1.5">
+<h3 data-number="4.1.5" class="anchored" data-anchor-id="sample-size"><span class="header-section-number">4.1.5</span> 5. Sample size</h3>
+<p>Calculate the number of participants needed to achieve the objective using statistical principles. Consider the minimum clinically important difference, variability of the primary measure, type I error (alpha; false positive), type II error (beta; false negative), one- or two-sided testing, the statistical test, and expected loss to follow-up.</p>
+</section>
+<section id="study-procedures" class="level3" data-number="4.1.6">
+<h3 data-number="4.1.6" class="anchored" data-anchor-id="study-procedures"><span class="header-section-number">4.1.6</span> 6. Study procedures</h3>
+<p>RCTs usually include screening, intervention, and follow-up periods. Describe all study content and steps in detail, preferably with a flowchart. State clinical and laboratory assessments, their frequency, volume and number of blood or tissue specimens, and total specimen volume. State the route, method, frequency, and duration of intervention. For drugs, specify formulation, dose, route, administration method, frequency, course, and rules for concomitant medication; also describe accountability, use records, delivery, dispensing, storage, packaging, and labeling. Specify follow-up visits and content, and measures to support adherence, such as diary cards, adherence education, pill counts, and return of drug containers.</p>
+<p>For drug interventions, specify rules for stopping, reducing, and resuming dose after adverse drug reactions, how reactions will be managed, how loss to follow-up is defined, and the process that follows it.</p>
+</section>
+<section id="efficacy-assessment" class="level3" data-number="4.1.7">
+<h3 data-number="4.1.7" class="anchored" data-anchor-id="efficacy-assessment"><span class="header-section-number">4.1.7</span> 7. Efficacy assessment</h3>
+<p>Studies assessing efficacy require outcome measures. There may be primary and secondary outcomes, each with standards for measurement method, observation time, recording, and analysis.</p>
+</section>
+<section id="adverse-events" class="level3" data-number="4.1.8">
+<h3 data-number="4.1.8" class="anchored" data-anchor-id="adverse-events"><span class="header-section-number">4.1.8</span> 8. Adverse events</h3>
+<p>Record in detail every clinical adverse event and abnormal laboratory result, evaluate its relationship to the study drug, and judge severity. An adverse event is any unfavorable medical occurrence or clinically meaningful laboratory abnormality during a trial, whether or not related to study treatment. For each, describe onset, duration, management, outcome, severity, and relationship to study drug.</p>
+<p>A serious adverse event (SAE) is any unfavorable event at any dose that results in death, is life-threatening, requires or prolongs hospitalization, causes persistent or substantial disability/incapacity, causes a congenital anomaly/birth defect, or is an important medical event that may jeopardize the participant or require intervention to prevent one of these outcomes. On an SAE, investigators should immediately protect the participant and report it to the ethics committee and relevant authorities within 24 hours.</p>
+<p>Classify relationship according to temporal sequence, reaction type, and response to withdrawal/rechallenge as definitely related, probably related, possibly related, possibly unrelated, or definitely unrelated. “Definitely related” requires evidence of exposure, a reasonable time relationship, a more plausible drug explanation than alternatives, a positive dechallenge, and, where feasible, a positive rechallenge. “Probably related” has exposure, a reasonable time relationship, a more plausible drug explanation, and positive dechallenge. “Possibly related” has exposure and a reasonable temporal relationship but may have another explanation and positive dechallenge. “Possibly unrelated” is better explained by another cause, with negative or unclear dechallenge. “Definitely unrelated” involves no exposure, no temporal relationship, or another definite cause.</p>
+</section>
+<section id="other-items" class="level3" data-number="4.1.9">
+<h3 data-number="4.1.9" class="anchored" data-anchor-id="other-items"><span class="header-section-number">4.1.9</span> 9. Other items</h3>
+<p>Address construction of electronic case-report forms or research records; data entry and amendment; confidentiality of participant information and research data; quality control and assurance; ethics; recruitment and the consent process; anticipated progress and completion date; responsibilities of all parties; and other relevant rules.</p>
+</section>
+</section>
+<section id="writing-participant-informed-consent" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="writing-participant-informed-consent"><span class="header-section-number">4.2</span> Writing participant informed consent</h2>
+<ol type="1">
+<li>State that the participant is being invited to clinical research and that participation is voluntary.</li>
+<li>Describe national and international progress concerning the intervention.</li>
+<li>Introduce the design, including blinding, control, or crossover, and the planned number of participants.</li>
+<li>Describe the main content, procedures and duration, number of follow-ups, tests or procedures and their frequency, possible allocation to different groups, and medication methods.</li>
+<li>Explain known and unknown adverse reactions and possible risks and discomfort from study procedures.</li>
+<li>Explain potential benefits, such as curing disease or preventing/slowing progression, or clearly state that there may be no direct benefit; describe alternative therapies outside the study.</li>
+<li>Explain whether intervention and examination costs are waived, whether travel reimbursement is available, and whether free treatment and compensation are available for study-related injury.</li>
+<li>Explain participant responsibilities and rights, including the right to decline or withdraw at any time after notifying the investigator, and confidentiality of personal information. The entire consent process must comply with the Declaration of Helsinki, ICH Good Clinical Practice (ICH-GCP), and China’s GCP ethics requirements. Consent must contain all these elements, be written in language the participant can understand, and be signed voluntarily after adequate information and without coercion (World Medical Association 2013).</li>
+</ol>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Chan AW, Tetzlaff JM, Altman DG, et al.&nbsp;SPIRIT 2013 statement: defining standard protocol items for clinical trials. <em>Annals of Internal Medicine</em>. 2013;158(3):200-207.</li>
+<li>Chan AW, Tetzlaff JM, Gøtzsche PC, et al.&nbsp;SPIRIT 2013 explanation and elaboration: guidance for protocols of clinical trials. <em>BMJ</em>. 2013;346:e7586.</li>
+<li>World Medical Association. Declaration of Helsinki: ethical principles for medical research involving human subjects. <em>JAMA</em>. 2013;310(20):2191-2194.</li>
+<li>Schulz KF, Altman DG, Moher D, et al.&nbsp;CONSORT 2010 statement. <em>BMJ</em>. 2010;340:c332.</li>
+<li>International Council for Harmonisation. <em>ICH Harmonised Guideline E6(R2): Good Clinical Practice</em>. 2016.</li>
+<li>Council for International Organizations of Medical Sciences. <em>International Ethical Guidelines for Health-related Research Involving Humans</em>. 4th ed.&nbsp;2016.</li>
+</ol>
+</section>
+<section id="appendix-protocol-for-a-prospective-multicenter-study-of-drug-a-combined-with-radiotherapy-for-disease-b" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="appendix-protocol-for-a-prospective-multicenter-study-of-drug-a-combined-with-radiotherapy-for-disease-b"><span class="header-section-number">4.3</span> Appendix: Protocol for a prospective multicenter study of drug A combined with radiotherapy for disease B</h2>
+<section id="contents-and-protocol-synopsis" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="contents-and-protocol-synopsis"><span class="header-section-number">4.3.1</span> Contents and protocol synopsis</h3>
+<p>Contents and protocol synopsis are omitted in this example. A trial flow chart should state the key treatment and follow-up time points during the study.</p>
+</section>
+<section id="background" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="background"><span class="header-section-number">4.3.2</span> Background</h3>
+<section id="introduction-to-disease-b" class="level4" data-number="4.3.2.1">
+<h4 data-number="4.3.2.1" class="anchored" data-anchor-id="introduction-to-disease-b"><span class="header-section-number">4.3.2.1</span> 1. Introduction to disease B</h4>
+<p>(Omitted.)</p>
+</section>
+<section id="summary-of-radiotherapy-for-disease-b" class="level4" data-number="4.3.2.2">
+<h4 data-number="4.3.2.2" class="anchored" data-anchor-id="summary-of-radiotherapy-for-disease-b"><span class="header-section-number">4.3.2.2</span> 2. Summary of radiotherapy for disease B</h4>
+<p>The main purpose of radiotherapy is to prevent tumor growth. All patients with disease B whose imaging suggests residual tumor should be considered for radiotherapy. Evidence is limited, but conventionally fractionated external-beam radiotherapy and stereotactic radiotherapy can both control tumor growth. Conventional external-beam radiotherapy usually totals 45–54 Gy in 25–30 fractions and is mainly used for irregular tumors; stereotactic radiotherapy may be selected when tumor invasion involves important structures. No randomized comparison is available, but increasing reports suggest that radiotherapy may control growth.</p>
+</section>
+<section id="summary-of-drug-a-for-disease-b" class="level4" data-number="4.3.2.3">
+<h4 data-number="4.3.2.3" class="anchored" data-anchor-id="summary-of-drug-a-for-disease-b"><span class="header-section-number">4.3.2.3</span> 3. Summary of drug A for disease B</h4>
+<p>Drug A is a novel alkylating agent for malignant tumors. It is widely distributed without hepatic or renal metabolism, rapidly crosses the blood–brain barrier, enters cerebrospinal fluid, and reaches effective concentrations in the central nervous system. In 1999, it was first approved by the US FDA for recurrent or progressive malignant tumors after standard therapy. Compared with radiotherapy alone, drug A plus radiotherapy can prolong overall and progression-free survival in malignant tumors.</p>
+<p>Increasing reports suggest that drug A can control growth and reduce volume in disease B that is difficult to control with conventional treatment. Many reports from the United States, France, Japan, and elsewhere show response rates of 40%–70%. Overall, about 60% of patients have reduced tumor volume and substantial symptom relief after drug A, whereas about 40% are insensitive or develop chemotherapy resistance.</p>
+</section>
+<section id="investigational-product" class="level4" data-number="4.3.2.4">
+<h4 data-number="4.3.2.4" class="anchored" data-anchor-id="investigational-product"><span class="header-section-number">4.3.2.4</span> 4. Investigational product</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Generic name</td>
+<td style="text-align: left;">Drug A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trade name</td>
+<td style="text-align: left;">XXX</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">English name</td>
+<td style="text-align: left;">XXX</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Form</td>
+<td style="text-align: left;">Hard capsule containing white powder</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Specification</td>
+<td style="text-align: left;">XXX</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Batch number</td>
+<td style="text-align: left;">See package</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Shelf life</td>
+<td style="text-align: left;">24 months</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Storage</td>
+<td style="text-align: left;">Sealed at 2°C–25°C</td>
+</tr>
+</tbody>
+</table>
+<p>This is a marketed domestic product with approved indications of XXX. A pharmacology summary for the approved indication population is XXX.</p>
+</section>
+<section id="proposed-study" class="level4" data-number="4.3.2.5">
+<h4 data-number="4.3.2.5" class="anchored" data-anchor-id="proposed-study"><span class="header-section-number">4.3.2.5</span> 5. Proposed study</h4>
+<p>To further verify the efficacy and safety of drug A in disease B and compare radiotherapy alone with concurrent chemoradiotherapy, a multicenter study is planned to obtain more reliable and generalizable results. This prospective, multicenter, large-sample study will assess efficacy and safety of drug A plus radiotherapy in Chinese patients with disease B, standardize its use, reduce mortality and disability, and improve survival and quality of life.</p>
+</section>
+<section id="riskbenefit-assessment" class="level4" data-number="4.3.2.6">
+<h4 data-number="4.3.2.6" class="anchored" data-anchor-id="riskbenefit-assessment"><span class="header-section-number">4.3.2.6</span> 6. Risk–benefit assessment</h4>
+<p>The risk–benefit assessment should summarize known and uncertain toxicities of drug A and radiotherapy, safety-monitoring procedures, alternatives, and the anticipated benefit to participants and society. Continuation requires that anticipated benefit outweigh reasonably foreseeable risk.</p>
+</section>
+</section>
+<section id="objectives-and-endpoints" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="objectives-and-endpoints"><span class="header-section-number">4.3.3</span> Objectives and endpoints</h3>
+<p>Specify the primary objective, safety objective, and exploratory objectives; define the primary and secondary endpoints, their measurement windows, and their analysis populations.</p>
+</section>
+<section id="study-design" class="level3" data-number="4.3.4">
+<h3 data-number="4.3.4" class="anchored" data-anchor-id="study-design"><span class="header-section-number">4.3.4</span> Study design</h3>
+<p>Specify the prospective multicenter randomized design, study sites, allocation ratio, allocation concealment, blinding where feasible, recruitment target, and planned duration.</p>
+</section>
+<section id="study-treatment" class="level3" data-number="4.3.5">
+<h3 data-number="4.3.5" class="anchored" data-anchor-id="study-treatment"><span class="header-section-number">4.3.5</span> Study treatment</h3>
+<p>Specify radiotherapy planning and delivery, the drug A regimen, concomitant treatments, dose modification and discontinuation rules, accountability, and adherence procedures.</p>
+</section>
+<section id="study-procedures-1" class="level3" data-number="4.3.6">
+<h3 data-number="4.3.6" class="anchored" data-anchor-id="study-procedures-1"><span class="header-section-number">4.3.6</span> Study procedures</h3>
+<p>The detailed intervention and examination schedule is omitted in this example. The protocol should identify baseline, treatment, and follow-up visits, required imaging, laboratory tests, efficacy evaluation, and safety assessments.</p>
+</section>
+<section id="study-evaluation" class="level3" data-number="4.3.7">
+<h3 data-number="4.3.7" class="anchored" data-anchor-id="study-evaluation"><span class="header-section-number">4.3.7</span> Study evaluation</h3>
+<p>Define efficacy, imaging, clinical, and quality-of-life evaluation standards, assessment intervals, and endpoint adjudication procedures.</p>
+</section>
+<section id="adverse-events-1" class="level3" data-number="4.3.8">
+<h3 data-number="4.3.8" class="anchored" data-anchor-id="adverse-events-1"><span class="header-section-number">4.3.8</span> Adverse events</h3>
+<p>For adverse-event procedures, see the adverse-event section of this chapter.</p>
+</section>
+<section id="data-management" class="level3" data-number="4.3.9">
+<h3 data-number="4.3.9" class="anchored" data-anchor-id="data-management"><span class="header-section-number">4.3.9</span> Data management</h3>
+<p>Specify eCRF completion, source-data verification, data query and correction, coding, database lock, access control, and confidentiality procedures.</p>
+</section>
+<section id="statistical-analysis" class="level3" data-number="4.3.10">
+<h3 data-number="4.3.10" class="anchored" data-anchor-id="statistical-analysis"><span class="header-section-number">4.3.10</span> Statistical analysis</h3>
+<p>Define analysis sets, sample-size justification, primary and secondary endpoint analyses, handling of missing data, subgroup and sensitivity analyses, and safety analyses.</p>
+</section>
+<section id="clinical-monitoring" class="level3" data-number="4.3.11">
+<h3 data-number="4.3.11" class="anchored" data-anchor-id="clinical-monitoring"><span class="header-section-number">4.3.11</span> Clinical monitoring</h3>
+<p>Specify monitoring frequency, responsibilities, source-data review, protocol-deviation reporting, and communication with investigators.</p>
+</section>
+<section id="quality-assurance" class="level3" data-number="4.3.12">
+<h3 data-number="4.3.12" class="anchored" data-anchor-id="quality-assurance"><span class="header-section-number">4.3.12</span> Quality assurance</h3>
+<p>Describe training, standard operating procedures, audits, quality-control checks, and corrective and preventive actions.</p>
+</section>
+<section id="handling-unusual-events-during-the-trial" class="level3" data-number="4.3.13">
+<h3 data-number="4.3.13" class="anchored" data-anchor-id="handling-unusual-events-during-the-trial"><span class="header-section-number">4.3.13</span> Handling unusual events during the trial</h3>
+<p>State procedures for protocol deviations, emergency unblinding, pregnancy, loss to follow-up, product complaints, regulatory reporting, suspension, and early termination.</p>
+</section>
+<section id="insurance-and-compensation" class="level3" data-number="4.3.14">
+<h3 data-number="4.3.14" class="anchored" data-anchor-id="insurance-and-compensation"><span class="header-section-number">4.3.14</span> Insurance and compensation</h3>
+<p>State insurance coverage and the arrangements for medical care and compensation for study-related injury.</p>
+</section>
+<section id="references-1" class="level3" data-number="4.3.15">
+<h3 data-number="4.3.15" class="anchored" data-anchor-id="references-1"><span class="header-section-number">4.3.15</span> References</h3>
+<p>(Omitted in this protocol example.)</p>
 
 
 <!-- -->
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -804,29 +1008,183 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/05-survival.html" class="pagination-link" aria-label="Clinical Studies with Survival Outcomes">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clinical Studies with Survival Outcomes</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/05-survival.html" class="pagination-link" aria-label="Clinical Research with Survival Outcomes">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clinical Research with Survival Outcomes</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Writing RCT Protocols and Informed Consent</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Writing Randomized Controlled Trial Protocols and Informed Consent</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Writing an RCT protocol</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Writing informed consent</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Appendix: A multicenter trial protocol example</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Writing a protocol and participant informed-consent materials is an important step before conducting an RCT. This chapter sets out the key elements and provides a model protocol. Protocols should follow the SPIRIT 2013 statement (Standard Protocol Items: Recommendations for Interventional Trials), which provides a 33-item checklist. A trial should also be prospectively registered on a public registry, such as ClinicalTrials.gov or the Chinese Clinical Trial Registry, before participant enrollment (Chan et al. 2013).</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Writing an RCT protocol</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. Research background</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>The protocol should provide sufficient background to demonstrate the importance and necessity of the question, expected benefits, and relevant references and data. It should describe prior laboratory and animal research, scientific literature, and other information supporting the rationale; it should summarize domestic and international progress and identify the innovation of the proposed study.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>A useful sequence is: define the research question; describe the current situation and its deficiencies; review relevant domestic and international progress; explain what the study will do, its innovations, and its clinical or societal value; describe prior work and the conditions supporting the scientific rationale, feasibility, and regulatory compliance; and assess possible risks, the justification for choosing the population, potential benefit, and whether benefit outweighs risk.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2. Objectives</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Every study needs clear objectives: the question it will answer or problem it will solve. In drug research, objectives generally concern safety and efficacy. Too many objectives make data collection and analysis more complex and can compromise feasibility.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. Design, randomization, and blinding</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>The protocol should state how the allocation sequence will be generated, for example by computer-generated random numbers; how the sequence will be implemented, for example through a central telephone system; and how it will be kept unknown before allocation. It should confirm clinical equipoise—the genuine uncertainty about comparative treatment effects that makes random allocation ethically acceptable.</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Blinding can reduce measurement bias. State who will be blinded (participants, investigators, outcome assessors), whether the study is single- or double-blind, and how blinding will be implemented. For an unblinded study, explain why and describe bias-control measures. Specify unblinding procedures and emergency code-breaking arrangements.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4. Inclusion, exclusion, withdrawal, and stopping criteria</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>Inclusion and exclusion criteria usually address demographic information (age, sex, race), health and disease requirements, concomitant medication, previous treatment, and other relevant factors. Disease and severity requirements should use recognized diagnostic standards rather than standards altered to suit the study, because the latter harms reliability. In addition to the target indication, consider whether study procedures or interventions could harm patients of a given severity and whether risks are controllable. Restrictions on comorbidities, behavior, and lifestyle (such as smoking or alcohol) can control confounding, clarify treatment effects, and reduce unexpected serious adverse events; too many restrictions make the sample unrepresentative and limit generalizability.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>For safety, participants normally may not join more than one clinical study at a time. Specify a washout period after prior drug trials. People of reproductive potential generally need effective contraception during the study. If mutagenic or reproductive toxicity in men cannot be excluded, male participants should also use effective contraception.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>Specify when a participant must stop treatment or leave the study, rather than when the whole project stops: unwillingness or inability to continue; discovery after enrollment that eligibility is not met; intolerable adverse events or serious adverse events for which continued participation has more risk than benefit; no improvement or deterioration after continuous treatment (with a defined time point for judging ineffectiveness); loss to follow-up; or use of protocol-prohibited drugs or treatments. Specify criteria for stopping the entire study: major protocol errors or serious deviations that prevent assessment; treatment-related adverse events making continuation inappropriate; a requirement from regulators, government, or the ethics committee; or other situations in which investigators consider continuation unsuitable or impossible.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5. Sample size</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Calculate the number of participants needed to achieve the objective using statistical principles. Consider the minimum clinically important difference, variability of the primary measure, type I error (alpha; false positive), type II error (beta; false negative), one- or two-sided testing, the statistical test, and expected loss to follow-up.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### 6. Study procedures</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>RCTs usually include screening, intervention, and follow-up periods. Describe all study content and steps in detail, preferably with a flowchart. State clinical and laboratory assessments, their frequency, volume and number of blood or tissue specimens, and total specimen volume. State the route, method, frequency, and duration of intervention. For drugs, specify formulation, dose, route, administration method, frequency, course, and rules for concomitant medication; also describe accountability, use records, delivery, dispensing, storage, packaging, and labeling. Specify follow-up visits and content, and measures to support adherence, such as diary cards, adherence education, pill counts, and return of drug containers.</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>For drug interventions, specify rules for stopping, reducing, and resuming dose after adverse drug reactions, how reactions will be managed, how loss to follow-up is defined, and the process that follows it.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### 7. Efficacy assessment</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>Studies assessing efficacy require outcome measures. There may be primary and secondary outcomes, each with standards for measurement method, observation time, recording, and analysis.</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">### 8. Adverse events</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>Record in detail every clinical adverse event and abnormal laboratory result, evaluate its relationship to the study drug, and judge severity. An adverse event is any unfavorable medical occurrence or clinically meaningful laboratory abnormality during a trial, whether or not related to study treatment. For each, describe onset, duration, management, outcome, severity, and relationship to study drug.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>A serious adverse event (SAE) is any unfavorable event at any dose that results in death, is life-threatening, requires or prolongs hospitalization, causes persistent or substantial disability/incapacity, causes a congenital anomaly/birth defect, or is an important medical event that may jeopardize the participant or require intervention to prevent one of these outcomes. On an SAE, investigators should immediately protect the participant and report it to the ethics committee and relevant authorities within 24 hours.</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>Classify relationship according to temporal sequence, reaction type, and response to withdrawal/rechallenge as definitely related, probably related, possibly related, possibly unrelated, or definitely unrelated. “Definitely related” requires evidence of exposure, a reasonable time relationship, a more plausible drug explanation than alternatives, a positive dechallenge, and, where feasible, a positive rechallenge. “Probably related” has exposure, a reasonable time relationship, a more plausible drug explanation, and positive dechallenge. “Possibly related” has exposure and a reasonable temporal relationship but may have another explanation and positive dechallenge. “Possibly unrelated” is better explained by another cause, with negative or unclear dechallenge. “Definitely unrelated” involves no exposure, no temporal relationship, or another definite cause.</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="fu">### 9. Other items</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>Address construction of electronic case-report forms or research records; data entry and amendment; confidentiality of participant information and research data; quality control and assurance; ethics; recruitment and the consent process; anticipated progress and completion date; responsibilities of all parties; and other relevant rules.</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Writing participant informed consent</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>State that the participant is being invited to clinical research and that participation is voluntary.</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Describe national and international progress concerning the intervention.</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Introduce the design, including blinding, control, or crossover, and the planned number of participants.</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Describe the main content, procedures and duration, number of follow-ups, tests or procedures and their frequency, possible allocation to different groups, and medication methods.</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Explain known and unknown adverse reactions and possible risks and discomfort from study procedures.</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Explain potential benefits, such as curing disease or preventing/slowing progression, or clearly state that there may be no direct benefit; describe alternative therapies outside the study.</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Explain whether intervention and examination costs are waived, whether travel reimbursement is available, and whether free treatment and compensation are available for study-related injury.</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Explain participant responsibilities and rights, including the right to decline or withdraw at any time after notifying the investigator, and confidentiality of personal information. The entire consent process must comply with the Declaration of Helsinki, ICH Good Clinical Practice (ICH-GCP), and China’s GCP ethics requirements. Consent must contain all these elements, be written in language the participant can understand, and be signed voluntarily after adequate information and without coercion (World Medical Association 2013).</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Chan AW, Tetzlaff JM, Altman DG, et al. SPIRIT 2013 statement: defining standard protocol items for clinical trials. *Annals of Internal Medicine*. 2013;158(3):200-207.</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Chan AW, Tetzlaff JM, Gøtzsche PC, et al. SPIRIT 2013 explanation and elaboration: guidance for protocols of clinical trials. *BMJ*. 2013;346:e7586.</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>World Medical Association. Declaration of Helsinki: ethical principles for medical research involving human subjects. *JAMA*. 2013;310(20):2191-2194.</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Schulz KF, Altman DG, Moher D, et al. CONSORT 2010 statement. *BMJ*. 2010;340:c332.</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>International Council for Harmonisation. *ICH Harmonised Guideline E6(R2): Good Clinical Practice*. 2016.</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Council for International Organizations of Medical Sciences. *International Ethical Guidelines for Health-related Research Involving Humans*. 4th ed. 2016.</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## Appendix: Protocol for a prospective multicenter study of drug A combined with radiotherapy for disease B</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="fu">### Contents and protocol synopsis</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>Contents and protocol synopsis are omitted in this example. A trial flow chart should state the key treatment and follow-up time points during the study.</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### Background</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 1. Introduction to disease B</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>(Omitted.)</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2. Summary of radiotherapy for disease B</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>The main purpose of radiotherapy is to prevent tumor growth. All patients with disease B whose imaging suggests residual tumor should be considered for radiotherapy. Evidence is limited, but conventionally fractionated external-beam radiotherapy and stereotactic radiotherapy can both control tumor growth. Conventional external-beam radiotherapy usually totals 45–54 Gy in 25–30 fractions and is mainly used for irregular tumors; stereotactic radiotherapy may be selected when tumor invasion involves important structures. No randomized comparison is available, but increasing reports suggest that radiotherapy may control growth.</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 3. Summary of drug A for disease B</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>Drug A is a novel alkylating agent for malignant tumors. It is widely distributed without hepatic or renal metabolism, rapidly crosses the blood–brain barrier, enters cerebrospinal fluid, and reaches effective concentrations in the central nervous system. In 1999, it was first approved by the US FDA for recurrent or progressive malignant tumors after standard therapy. Compared with radiotherapy alone, drug A plus radiotherapy can prolong overall and progression-free survival in malignant tumors.</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>Increasing reports suggest that drug A can control growth and reduce volume in disease B that is difficult to control with conventional treatment. Many reports from the United States, France, Japan, and elsewhere show response rates of 40%–70%. Overall, about 60% of patients have reduced tumor volume and substantial symptom relief after drug A, whereas about 40% are insensitive or develop chemotherapy resistance.</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 4. Investigational product</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Item <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Generic name <span class="pp">|</span> Drug A <span class="pp">|</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Trade name <span class="pp">|</span> XXX <span class="pp">|</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> English name <span class="pp">|</span> XXX <span class="pp">|</span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Form <span class="pp">|</span> Hard capsule containing white powder <span class="pp">|</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Specification <span class="pp">|</span> XXX <span class="pp">|</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Batch number <span class="pp">|</span> See package <span class="pp">|</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Shelf life <span class="pp">|</span> 24 months <span class="pp">|</span></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Storage <span class="pp">|</span> Sealed at 2°C–25°C <span class="pp">|</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>This is a marketed domestic product with approved indications of XXX. A pharmacology summary for the approved indication population is XXX.</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5. Proposed study</span></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>To further verify the efficacy and safety of drug A in disease B and compare radiotherapy alone with concurrent chemoradiotherapy, a multicenter study is planned to obtain more reliable and generalizable results. This prospective, multicenter, large-sample study will assess efficacy and safety of drug A plus radiotherapy in Chinese patients with disease B, standardize its use, reduce mortality and disability, and improve survival and quality of life.</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 6. Risk–benefit assessment</span></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>The risk–benefit assessment should summarize known and uncertain toxicities of drug A and radiotherapy, safety-monitoring procedures, alternatives, and the anticipated benefit to participants and society. Continuation requires that anticipated benefit outweigh reasonably foreseeable risk.</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="fu">### Objectives and endpoints</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>Specify the primary objective, safety objective, and exploratory objectives; define the primary and secondary endpoints, their measurement windows, and their analysis populations.</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="fu">### Study design</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>Specify the prospective multicenter randomized design, study sites, allocation ratio, allocation concealment, blinding where feasible, recruitment target, and planned duration.</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="fu">### Study treatment</span></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>Specify radiotherapy planning and delivery, the drug A regimen, concomitant treatments, dose modification and discontinuation rules, accountability, and adherence procedures.</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="fu">### Study procedures</span></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>The detailed intervention and examination schedule is omitted in this example. The protocol should identify baseline, treatment, and follow-up visits, required imaging, laboratory tests, efficacy evaluation, and safety assessments.</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="fu">### Study evaluation</span></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>Define efficacy, imaging, clinical, and quality-of-life evaluation standards, assessment intervals, and endpoint adjudication procedures.</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a><span class="fu">### Adverse events</span></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>For adverse-event procedures, see the adverse-event section of this chapter.</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data management</span></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>Specify eCRF completion, source-data verification, data query and correction, coding, database lock, access control, and confidentiality procedures.</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### Statistical analysis</span></span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>Define analysis sets, sample-size justification, primary and secondary endpoint analyses, handling of missing data, subgroup and sensitivity analyses, and safety analyses.</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="fu">### Clinical monitoring</span></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>Specify monitoring frequency, responsibilities, source-data review, protocol-deviation reporting, and communication with investigators.</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a><span class="fu">### Quality assurance</span></span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>Describe training, standard operating procedures, audits, quality-control checks, and corrective and preventive actions.</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="fu">### Handling unusual events during the trial</span></span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>State procedures for protocol deviations, emergency unblinding, pregnancy, loss to follow-up, product complaints, regulatory reporting, suspension, and early termination.</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Insurance and compensation</span></span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>State insurance coverage and the arrangements for medical care and compensation for study-related injury.</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="fu">### References</span></span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>(Omitted in this protocol example.)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

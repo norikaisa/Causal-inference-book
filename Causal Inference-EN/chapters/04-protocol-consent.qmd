@@ -1,19 +1,172 @@
-# Writing RCT Protocols and Informed Consent
+# Writing Randomized Controlled Trial Protocols and Informed Consent
 
-::: {.callout-note}
-## Drafting note
-Chapter content in progress. Migrate the corresponding text here; use `$...$` / `$$...$$` for math, place figures in `images/`, and use ```{r} or ```{python} code blocks.
-:::
+Writing a protocol and participant informed-consent materials is an important step before conducting an RCT. This chapter sets out the key elements and provides a model protocol. Protocols should follow the SPIRIT 2013 statement (Standard Protocol Items: Recommendations for Interventional Trials), which provides a 33-item checklist. A trial should also be prospectively registered on a public registry, such as ClinicalTrials.gov or the Chinese Clinical Trial Registry, before participant enrollment (Chan et al. 2013).
 
 ## Writing an RCT protocol
 
-_To be added._
+### 1. Research background
 
-## Writing informed consent
+The protocol should provide sufficient background to demonstrate the importance and necessity of the question, expected benefits, and relevant references and data. It should describe prior laboratory and animal research, scientific literature, and other information supporting the rationale; it should summarize domestic and international progress and identify the innovation of the proposed study.
 
-_To be added._
+A useful sequence is: define the research question; describe the current situation and its deficiencies; review relevant domestic and international progress; explain what the study will do, its innovations, and its clinical or societal value; describe prior work and the conditions supporting the scientific rationale, feasibility, and regulatory compliance; and assess possible risks, the justification for choosing the population, potential benefit, and whether benefit outweighs risk.
 
-## Appendix: A multicenter trial protocol example
+### 2. Objectives
 
-_To be added._
+Every study needs clear objectives: the question it will answer or problem it will solve. In drug research, objectives generally concern safety and efficacy. Too many objectives make data collection and analysis more complex and can compromise feasibility.
 
+### 3. Design, randomization, and blinding
+
+The protocol should state how the allocation sequence will be generated, for example by computer-generated random numbers; how the sequence will be implemented, for example through a central telephone system; and how it will be kept unknown before allocation. It should confirm clinical equipoise—the genuine uncertainty about comparative treatment effects that makes random allocation ethically acceptable.
+
+Blinding can reduce measurement bias. State who will be blinded (participants, investigators, outcome assessors), whether the study is single- or double-blind, and how blinding will be implemented. For an unblinded study, explain why and describe bias-control measures. Specify unblinding procedures and emergency code-breaking arrangements.
+
+### 4. Inclusion, exclusion, withdrawal, and stopping criteria
+
+Inclusion and exclusion criteria usually address demographic information (age, sex, race), health and disease requirements, concomitant medication, previous treatment, and other relevant factors. Disease and severity requirements should use recognized diagnostic standards rather than standards altered to suit the study, because the latter harms reliability. In addition to the target indication, consider whether study procedures or interventions could harm patients of a given severity and whether risks are controllable. Restrictions on comorbidities, behavior, and lifestyle (such as smoking or alcohol) can control confounding, clarify treatment effects, and reduce unexpected serious adverse events; too many restrictions make the sample unrepresentative and limit generalizability.
+
+For safety, participants normally may not join more than one clinical study at a time. Specify a washout period after prior drug trials. People of reproductive potential generally need effective contraception during the study. If mutagenic or reproductive toxicity in men cannot be excluded, male participants should also use effective contraception.
+
+Specify when a participant must stop treatment or leave the study, rather than when the whole project stops: unwillingness or inability to continue; discovery after enrollment that eligibility is not met; intolerable adverse events or serious adverse events for which continued participation has more risk than benefit; no improvement or deterioration after continuous treatment (with a defined time point for judging ineffectiveness); loss to follow-up; or use of protocol-prohibited drugs or treatments. Specify criteria for stopping the entire study: major protocol errors or serious deviations that prevent assessment; treatment-related adverse events making continuation inappropriate; a requirement from regulators, government, or the ethics committee; or other situations in which investigators consider continuation unsuitable or impossible.
+
+### 5. Sample size
+
+Calculate the number of participants needed to achieve the objective using statistical principles. Consider the minimum clinically important difference, variability of the primary measure, type I error (alpha; false positive), type II error (beta; false negative), one- or two-sided testing, the statistical test, and expected loss to follow-up.
+
+### 6. Study procedures
+
+RCTs usually include screening, intervention, and follow-up periods. Describe all study content and steps in detail, preferably with a flowchart. State clinical and laboratory assessments, their frequency, volume and number of blood or tissue specimens, and total specimen volume. State the route, method, frequency, and duration of intervention. For drugs, specify formulation, dose, route, administration method, frequency, course, and rules for concomitant medication; also describe accountability, use records, delivery, dispensing, storage, packaging, and labeling. Specify follow-up visits and content, and measures to support adherence, such as diary cards, adherence education, pill counts, and return of drug containers.
+
+For drug interventions, specify rules for stopping, reducing, and resuming dose after adverse drug reactions, how reactions will be managed, how loss to follow-up is defined, and the process that follows it.
+
+### 7. Efficacy assessment
+
+Studies assessing efficacy require outcome measures. There may be primary and secondary outcomes, each with standards for measurement method, observation time, recording, and analysis.
+
+### 8. Adverse events
+
+Record in detail every clinical adverse event and abnormal laboratory result, evaluate its relationship to the study drug, and judge severity. An adverse event is any unfavorable medical occurrence or clinically meaningful laboratory abnormality during a trial, whether or not related to study treatment. For each, describe onset, duration, management, outcome, severity, and relationship to study drug.
+
+A serious adverse event (SAE) is any unfavorable event at any dose that results in death, is life-threatening, requires or prolongs hospitalization, causes persistent or substantial disability/incapacity, causes a congenital anomaly/birth defect, or is an important medical event that may jeopardize the participant or require intervention to prevent one of these outcomes. On an SAE, investigators should immediately protect the participant and report it to the ethics committee and relevant authorities within 24 hours.
+
+Classify relationship according to temporal sequence, reaction type, and response to withdrawal/rechallenge as definitely related, probably related, possibly related, possibly unrelated, or definitely unrelated. “Definitely related” requires evidence of exposure, a reasonable time relationship, a more plausible drug explanation than alternatives, a positive dechallenge, and, where feasible, a positive rechallenge. “Probably related” has exposure, a reasonable time relationship, a more plausible drug explanation, and positive dechallenge. “Possibly related” has exposure and a reasonable temporal relationship but may have another explanation and positive dechallenge. “Possibly unrelated” is better explained by another cause, with negative or unclear dechallenge. “Definitely unrelated” involves no exposure, no temporal relationship, or another definite cause.
+
+### 9. Other items
+
+Address construction of electronic case-report forms or research records; data entry and amendment; confidentiality of participant information and research data; quality control and assurance; ethics; recruitment and the consent process; anticipated progress and completion date; responsibilities of all parties; and other relevant rules.
+
+## Writing participant informed consent
+
+1. State that the participant is being invited to clinical research and that participation is voluntary.
+2. Describe national and international progress concerning the intervention.
+3. Introduce the design, including blinding, control, or crossover, and the planned number of participants.
+4. Describe the main content, procedures and duration, number of follow-ups, tests or procedures and their frequency, possible allocation to different groups, and medication methods.
+5. Explain known and unknown adverse reactions and possible risks and discomfort from study procedures.
+6. Explain potential benefits, such as curing disease or preventing/slowing progression, or clearly state that there may be no direct benefit; describe alternative therapies outside the study.
+7. Explain whether intervention and examination costs are waived, whether travel reimbursement is available, and whether free treatment and compensation are available for study-related injury.
+8. Explain participant responsibilities and rights, including the right to decline or withdraw at any time after notifying the investigator, and confidentiality of personal information. The entire consent process must comply with the Declaration of Helsinki, ICH Good Clinical Practice (ICH-GCP), and China’s GCP ethics requirements. Consent must contain all these elements, be written in language the participant can understand, and be signed voluntarily after adequate information and without coercion (World Medical Association 2013).
+
+## References {.unnumbered}
+
+1. Chan AW, Tetzlaff JM, Altman DG, et al. SPIRIT 2013 statement: defining standard protocol items for clinical trials. *Annals of Internal Medicine*. 2013;158(3):200-207.
+2. Chan AW, Tetzlaff JM, Gøtzsche PC, et al. SPIRIT 2013 explanation and elaboration: guidance for protocols of clinical trials. *BMJ*. 2013;346:e7586.
+3. World Medical Association. Declaration of Helsinki: ethical principles for medical research involving human subjects. *JAMA*. 2013;310(20):2191-2194.
+4. Schulz KF, Altman DG, Moher D, et al. CONSORT 2010 statement. *BMJ*. 2010;340:c332.
+5. International Council for Harmonisation. *ICH Harmonised Guideline E6(R2): Good Clinical Practice*. 2016.
+6. Council for International Organizations of Medical Sciences. *International Ethical Guidelines for Health-related Research Involving Humans*. 4th ed. 2016.
+
+## Appendix: Protocol for a prospective multicenter study of drug A combined with radiotherapy for disease B
+
+### Contents and protocol synopsis
+
+Contents and protocol synopsis are omitted in this example. A trial flow chart should state the key treatment and follow-up time points during the study.
+
+### Background
+
+#### 1. Introduction to disease B
+
+(Omitted.)
+
+#### 2. Summary of radiotherapy for disease B
+
+The main purpose of radiotherapy is to prevent tumor growth. All patients with disease B whose imaging suggests residual tumor should be considered for radiotherapy. Evidence is limited, but conventionally fractionated external-beam radiotherapy and stereotactic radiotherapy can both control tumor growth. Conventional external-beam radiotherapy usually totals 45–54 Gy in 25–30 fractions and is mainly used for irregular tumors; stereotactic radiotherapy may be selected when tumor invasion involves important structures. No randomized comparison is available, but increasing reports suggest that radiotherapy may control growth.
+
+#### 3. Summary of drug A for disease B
+
+Drug A is a novel alkylating agent for malignant tumors. It is widely distributed without hepatic or renal metabolism, rapidly crosses the blood–brain barrier, enters cerebrospinal fluid, and reaches effective concentrations in the central nervous system. In 1999, it was first approved by the US FDA for recurrent or progressive malignant tumors after standard therapy. Compared with radiotherapy alone, drug A plus radiotherapy can prolong overall and progression-free survival in malignant tumors.
+
+Increasing reports suggest that drug A can control growth and reduce volume in disease B that is difficult to control with conventional treatment. Many reports from the United States, France, Japan, and elsewhere show response rates of 40%–70%. Overall, about 60% of patients have reduced tumor volume and substantial symptom relief after drug A, whereas about 40% are insensitive or develop chemotherapy resistance.
+
+#### 4. Investigational product
+
+| Item | Description |
+|:--|:--|
+| Generic name | Drug A |
+| Trade name | XXX |
+| English name | XXX |
+| Form | Hard capsule containing white powder |
+| Specification | XXX |
+| Batch number | See package |
+| Shelf life | 24 months |
+| Storage | Sealed at 2°C–25°C |
+
+This is a marketed domestic product with approved indications of XXX. A pharmacology summary for the approved indication population is XXX.
+
+#### 5. Proposed study
+
+To further verify the efficacy and safety of drug A in disease B and compare radiotherapy alone with concurrent chemoradiotherapy, a multicenter study is planned to obtain more reliable and generalizable results. This prospective, multicenter, large-sample study will assess efficacy and safety of drug A plus radiotherapy in Chinese patients with disease B, standardize its use, reduce mortality and disability, and improve survival and quality of life.
+
+#### 6. Risk–benefit assessment
+
+The risk–benefit assessment should summarize known and uncertain toxicities of drug A and radiotherapy, safety-monitoring procedures, alternatives, and the anticipated benefit to participants and society. Continuation requires that anticipated benefit outweigh reasonably foreseeable risk.
+
+### Objectives and endpoints
+
+Specify the primary objective, safety objective, and exploratory objectives; define the primary and secondary endpoints, their measurement windows, and their analysis populations.
+
+### Study design
+
+Specify the prospective multicenter randomized design, study sites, allocation ratio, allocation concealment, blinding where feasible, recruitment target, and planned duration.
+
+### Study treatment
+
+Specify radiotherapy planning and delivery, the drug A regimen, concomitant treatments, dose modification and discontinuation rules, accountability, and adherence procedures.
+
+### Study procedures
+
+The detailed intervention and examination schedule is omitted in this example. The protocol should identify baseline, treatment, and follow-up visits, required imaging, laboratory tests, efficacy evaluation, and safety assessments.
+
+### Study evaluation
+
+Define efficacy, imaging, clinical, and quality-of-life evaluation standards, assessment intervals, and endpoint adjudication procedures.
+
+### Adverse events
+
+For adverse-event procedures, see the adverse-event section of this chapter.
+
+### Data management
+
+Specify eCRF completion, source-data verification, data query and correction, coding, database lock, access control, and confidentiality procedures.
+
+### Statistical analysis
+
+Define analysis sets, sample-size justification, primary and secondary endpoint analyses, handling of missing data, subgroup and sensitivity analyses, and safety analyses.
+
+### Clinical monitoring
+
+Specify monitoring frequency, responsibilities, source-data review, protocol-deviation reporting, and communication with investigators.
+
+### Quality assurance
+
+Describe training, standard operating procedures, audits, quality-control checks, and corrective and preventive actions.
+
+### Handling unusual events during the trial
+
+State procedures for protocol deviations, emergency unblinding, pregnancy, loss to follow-up, product complaints, regulatory reporting, suspension, and early termination.
+
+### Insurance and compensation
+
+State insurance coverage and the arrangements for medical care and compensation for study-related injury.
+
+### References
+
+(Omitted in this protocol example.)

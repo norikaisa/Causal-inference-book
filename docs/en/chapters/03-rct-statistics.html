@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -154,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01-framework.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Causal Inference Framework</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Framework for Causal Inference</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -172,13 +201,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04-protocol-consent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing RCT Protocols and Informed Consent</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing Randomized Controlled Trial Protocols and Informed Consent</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/05-survival.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clinical Studies with Survival Outcomes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Clinical Research with Survival Outcomes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -288,12 +317,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#intention-to-treat-and-per-protocol-analysis" id="toc-intention-to-treat-and-per-protocol-analysis" class="nav-link active" data-scroll-target="#intention-to-treat-and-per-protocol-analysis"><span class="header-section-number">3.1</span> Intention-to-treat and per-protocol analysis</a></li>
-  <li><a href="#protocol-violations" id="toc-protocol-violations" class="nav-link" data-scroll-target="#protocol-violations"><span class="header-section-number">3.2</span> Protocol violations</a></li>
-  <li><a href="#multiple-comparisons" id="toc-multiple-comparisons" class="nav-link" data-scroll-target="#multiple-comparisons"><span class="header-section-number">3.3</span> Multiple comparisons</a></li>
+  <li><a href="#protocol-deviations" id="toc-protocol-deviations" class="nav-link" data-scroll-target="#protocol-deviations"><span class="header-section-number">3.2</span> Protocol deviations</a>
+  <ul class="collapse">
+  <li><a href="#failure-to-meet-eligibility-criteria" id="toc-failure-to-meet-eligibility-criteria" class="nav-link" data-scroll-target="#failure-to-meet-eligibility-criteria"><span class="header-section-number">3.2.1</span> Failure to meet eligibility criteria</a></li>
+  <li><a href="#adherence" id="toc-adherence" class="nav-link" data-scroll-target="#adherence"><span class="header-section-number">3.2.2</span> Adherence</a></li>
+  </ul></li>
+  <li><a href="#multiple-comparisons" id="toc-multiple-comparisons" class="nav-link" data-scroll-target="#multiple-comparisons"><span class="header-section-number">3.3</span> Multiple comparisons</a>
+  <ul class="collapse">
+  <li><a href="#multiple-primary-efficacy-outcomes" id="toc-multiple-primary-efficacy-outcomes" class="nav-link" data-scroll-target="#multiple-primary-efficacy-outcomes"><span class="header-section-number">3.3.1</span> Multiple primary efficacy outcomes</a></li>
+  <li><a href="#comparisons-among-multiple-groups" id="toc-comparisons-among-multiple-groups" class="nav-link" data-scroll-target="#comparisons-among-multiple-groups"><span class="header-section-number">3.3.2</span> Comparisons among multiple groups</a></li>
+  <li><a href="#composite-outcomes" id="toc-composite-outcomes" class="nav-link" data-scroll-target="#composite-outcomes"><span class="header-section-number">3.3.3</span> Composite outcomes</a></li>
+  <li><a href="#a-change-in-comparison-type-for-the-same-primary-outcome" id="toc-a-change-in-comparison-type-for-the-same-primary-outcome" class="nav-link" data-scroll-target="#a-change-in-comparison-type-for-the-same-primary-outcome"><span class="header-section-number">3.3.4</span> A change in comparison type for the same primary outcome</a></li>
+  </ul></li>
   <li><a href="#interim-analysis-and-alpha-spending" id="toc-interim-analysis-and-alpha-spending" class="nav-link" data-scroll-target="#interim-analysis-and-alpha-spending"><span class="header-section-number">3.4</span> Interim analysis and alpha spending</a></li>
   <li><a href="#subgroup-analysis" id="toc-subgroup-analysis" class="nav-link" data-scroll-target="#subgroup-analysis"><span class="header-section-number">3.5</span> Subgroup analysis</a></li>
-  <li><a href="#multicenter-trials" id="toc-multicenter-trials" class="nav-link" data-scroll-target="#multicenter-trials"><span class="header-section-number">3.6</span> Multicenter trials</a></li>
-  <li><a href="#appendix-nejm-statistical-guidelines" id="toc-appendix-nejm-statistical-guidelines" class="nav-link" data-scroll-target="#appendix-nejm-statistical-guidelines"><span class="header-section-number">3.7</span> Appendix: NEJM statistical guidelines</a></li>
+  <li><a href="#multicenter-clinical-research" id="toc-multicenter-clinical-research" class="nav-link" data-scroll-target="#multicenter-clinical-research"><span class="header-section-number">3.6</span> Multicenter clinical research</a></li>
+  <li><a href="#appendix-statistical-reporting-standards-of-the-new-england-journal-of-medicine" id="toc-appendix-statistical-reporting-standards-of-the-new-england-journal-of-medicine" class="nav-link" data-scroll-target="#appendix-statistical-reporting-standards-of-the-new-england-journal-of-medicine"><span class="header-section-number">3.7</span> Appendix: Statistical reporting standards of the <em>New England Journal of Medicine</em></a>
+  <ul class="collapse">
+  <li><a href="#all-studies" id="toc-all-studies" class="nav-link" data-scroll-target="#all-studies"><span class="header-section-number">3.7.1</span> All studies</a></li>
+  <li><a href="#clinical-trials" id="toc-clinical-trials" class="nav-link" data-scroll-target="#clinical-trials"><span class="header-section-number">3.7.2</span> Clinical trials</a></li>
+  <li><a href="#observational-studies" id="toc-observational-studies" class="nav-link" data-scroll-target="#observational-studies"><span class="header-section-number">3.7.3</span> Observational studies</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -319,46 +364,175 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
-</div>
-</div>
 <section id="intention-to-treat-and-per-protocol-analysis" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="intention-to-treat-and-per-protocol-analysis"><span class="header-section-number">3.1</span> Intention-to-treat and per-protocol analysis</h2>
-<p><em>To be added.</em></p>
+<p>The analysis strategy usually used in randomized controlled trials is intention-to-treat (ITT): regardless of what happens after randomization, every randomized participant is analyzed in the group to which they were originally assigned. Per-protocol (PP) analysis instead analyzes enrolled participants according to their actual adherence to the protocol. Three misunderstandings about ITT are common.</p>
+<p>First, ITT is not necessarily more likely than PP to show no effect. Suppose interventions A and B have the same biological effect. If A has more adverse effects and poorer adherence, while B has fewer adverse effects and better adherence, ITT may show that B is superior to A. Second, ITT is not inherently more conservative. If A causes more adverse effects, its participants may adhere less, so the adverse effects actually observed in A can resemble those in B. ITT may then conclude that adverse effects do not differ, even though more A participants deviated from protocol; that cannot simply be called more conservative. Third, ITT does not automatically reflect the real world better. When a couple asks a physician about the effectiveness of contraception, the useful answer is usually its effectiveness when used correctly—the PP result—not the ITT result under which 40% used it incorrectly.</p>
+<p>Because of randomization, ITT can directly compare treatment groups. In PP analysis, however, groups can differ not only before randomization but also after randomization because of actual treatment received—for example, dose adjustments based on patient condition or loss to follow-up caused by adverse effects. PP analysis in an RCT therefore requires adjustment for pre- and post-randomization confounding, just as in a non-randomized study. The protocol should prespecify which post-randomization prognostic factors will be collected and how PP analysis will be performed.</p>
+<p>In the causal language of Chapter 1, ITT estimates the causal effect of being <em>assigned</em> to an intervention—the assignment effect. It answers a policy-level question and is directly identifiable because of randomization. PP analysis estimates the effect of actually receiving intervention according to protocol. Because adherence is often affected by post-randomization prognostic factors, naive PP analysis creates selection bias and requires adjustment for post-randomization confounding, for example inverse-probability weighting (Hernán and Hernández-Díaz 2012).</p>
 </section>
-<section id="protocol-violations" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="protocol-violations"><span class="header-section-number">3.2</span> Protocol violations</h2>
-<p><em>To be added.</em></p>
+<section id="protocol-deviations" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="protocol-deviations"><span class="header-section-number">3.2</span> Protocol deviations</h2>
+<p>Two common types of protocol deviation are ineligibility and nonadherence.</p>
+<section id="failure-to-meet-eligibility-criteria" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="failure-to-meet-eligibility-criteria"><span class="header-section-number">3.2.1</span> Failure to meet eligibility criteria</h3>
+<p>Participants may violate eligibility criteria at enrollment because of documentation errors, laboratory errors, or misclassification. In a multicenter myocardial-infarction study, for example, participants admitted with possible acute myocardial infarction received intervention or placebo, but diagnosis was confirmed only after several days of electrocardiographic and serum-enzyme monitoring. Some were randomized on the basis of an initial diagnosis that later enzyme monitoring did not support.</p>
+<p>A more complicated problem arises when the intervention itself affects eligibility. If it limits infarct size, it can change electrocardiographic and enzyme findings and thus affect diagnosis; this cannot occur in the placebo group. Ineligible control participants are easy to recognize, whereas truly ineligible intervention participants must be distinguished from those who merely appear ineligible because treatment worked. Three strategies are possible: do not enroll until diagnosis is confirmed and carefully checked; if ineligible participants must be removed, use only information collected before enrollment and have the decision-maker blinded to outcomes and allocation; or allow enrollment but do not remove them, since both groups have equal opportunity to include ineligible participants, although they may dilute outcome differences.</p>
+</section>
+<section id="adherence" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="adherence"><span class="header-section-number">3.2.2</span> Adherence</h3>
+<p>Nonadherence is another reason participants leave analysis; loss to follow-up is one form. It may result from adverse events in either group, loss of interest or perceived benefit, changes in underlying condition, or other causes. Nonadherence diminishes any benefit of intervention over control and therefore increases the sample size needed. If it is greater in one group and related to outcome, removal of nonadherent participants can introduce bias. The best strategy is to minimize nonadherence in trial design and use ITT results.</p>
+<p>The definition of adherence also matters. It may be defined as the proportion of actual intervention received that matches the protocol. Drug/placebo trials should describe adherence separately in intervention and control groups. If intervention-group adherence is lower, broad clinical uptake may not be reasonable: an intervention may work, but have little value if most participants cannot tolerate it.</p>
+</section>
 </section>
 <section id="multiple-comparisons" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="multiple-comparisons"><span class="header-section-number">3.3</span> Multiple comparisons</h2>
-<p><em>To be added.</em></p>
+<p>Suppose Zhang San guesses the outcome of five coin tosses and is correct each time. The probability, if he is not cheating, is:</p>
+<p><strong>Equation 3.1 Probability of five consecutive correct guesses</strong></p>
+<p><span class="math display">\[0.5^5 \approx 0.03\]</span></p>
+<p>But if 100 people each guess five tosses and only Li Si is correct five times, it is no longer sensible to conclude that Li Si cheated. The probability that at least one person is correct five times is:</p>
+<p><strong>Equation 3.2 Probability that at least one of 100 people guesses five tosses correctly</strong></p>
+<p><span class="math display">\[1-(1-1/32)^{100}=0.958\]</span></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 3.1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 3.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>p_one <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2</span><span class="sc">^</span><span class="dv">5</span>                 <span class="co"># one person guesses 5 correctly</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>p_any <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> p_one)<span class="sc">^</span><span class="dv">100</span>     <span class="co"># at least one of 100 does so</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">one_person =</span> p_one, <span class="st">`</span><span class="at">at_least_one_of_100</span><span class="st">`</span> <span class="ot">=</span> p_any)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 3.1 output">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 3.1 output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Situation</th>
+<th style="text-align: right;">Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">One person guesses five consecutively</td>
+<td style="text-align: right;">0.0312500</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">At least one of 100 guesses five consecutively</td>
+<td style="text-align: right;">0.9582005</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Hypothesis testing relies on the small-probability principle: a small-probability event is regarded as unlikely in one experiment. Multiple hypothesis tests in the same study are no longer one experiment. In 1992, Swedish investigators examined residents living within 300 m of high-voltage power lines and, over 25 years, compared rates of more than 800 diseases with residents farther away. Childhood leukemia appeared four times as frequent and prompted government action. With more than 800 comparisons, however, one or more diseases can easily appear increased by chance. Multiple testing has two distinct control targets: family-wise error rate (FWER), controlled by methods such as Bonferroni and Holm, and false discovery rate (FDR), the expected proportion of false positives among rejected hypotheses, controlled by Benjamini–Hochberg and less conservative in large exploratory testing. See Schulz and Grimes (2005) for a systematic discussion in RCTs.</p>
+<section id="multiple-primary-efficacy-outcomes" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="multiple-primary-efficacy-outcomes"><span class="header-section-number">3.3.1</span> Multiple primary efficacy outcomes</h3>
+<p>The usual solution is to select the most important outcome as primary and regard others as secondary, or to construct a composite primary outcome. If multiple primary outcomes are essential: (1) if all must be significant, alpha need not be adjusted; (2) if any one significant outcome establishes efficacy, alpha must be allocated across outcomes, often by importance or equally, with total no greater than alpha. A simple Bonferroni correction is</p>
+<p><strong>Equation 3.3 Bonferroni correction</strong></p>
+<p><span class="math display">\[\text{adjusted }\alpha=0.05/n\]</span></p>
+<p>where <em>n</em> is the number of primary outcomes. Bonferroni is simple but conservative, especially for large <em>n</em>. (3) Outcomes can be ranked and tested sequentially: test the most important first, and test the next only after rejecting the preceding null hypothesis. If a prior test is not significant, stop all later tests. Alpha adjustment is not needed, but the order must be specified in the protocol before unblinding and must never be selected or changed afterward.</p>
+</section>
+<section id="comparisons-among-multiple-groups" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="comparisons-among-multiple-groups"><span class="header-section-number">3.3.2</span> Comparisons among multiple groups</h3>
+<p>When groups have an ordered dose relationship, sequential comparisons with control from high to low dose can be used without alpha adjustment. When no dose ordering exists, alpha must be adjusted; for example, mutual comparisons among experimental, placebo, and active-control groups commonly use Bonferroni alpha/n, where <em>n</em> is the number of comparisons.</p>
+</section>
+<section id="composite-outcomes" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="composite-outcomes"><span class="header-section-number">3.3.3</span> Composite outcomes</h3>
+<p>When a composite is formed by weighting components (such as a score) or by defining a combined outcome (such as major adverse cardiovascular events), components may be tested after a significant composite without alpha adjustment. If components are tested regardless of composite significance and any one significant component establishes efficacy, alpha must be adjusted.</p>
+</section>
+<section id="a-change-in-comparison-type-for-the-same-primary-outcome" class="level3" data-number="3.3.4">
+<h3 data-number="3.3.4" class="anchored" data-anchor-id="a-change-in-comparison-type-for-the-same-primary-outcome"><span class="header-section-number">3.3.4</span> A change in comparison type for the same primary outcome</h3>
+<p>A common approach is first to compare experimental and active-control groups for noninferiority and, only if noninferiority is established, test superiority. Alpha adjustment is not required.</p>
+</section>
 </section>
 <section id="interim-analysis-and-alpha-spending" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="interim-analysis-and-alpha-spending"><span class="header-section-number">3.4</span> Interim analysis and alpha spending</h2>
-<p><em>To be added.</em></p>
+<p>An interim analysis assesses efficacy and safety between intervention and control groups before formal trial completion according to a prespecified statistical analysis plan. Because its number, method, and results affect interpretation, every interim analysis must be described in advance in the protocol. If a special circumstance prevents this, the interim-analysis plan must at least be completed and the protocol amended before final analysis.</p>
+<p>Its three usual purposes are: timely safety monitoring, with early stopping when safety problems appear; early confirmation of efficacy, with stopping for efficacy or futility when prespecified criteria are met; and sample-size re-estimation when limited prior information yields inaccurate estimates of efficacy, safety, or power.</p>
+<p>Most interim analyses aim to show efficacy and therefore must control false positives. Each interim analysis is a hypothesis test; using alpha = 0.05 each time increases the overall type I error. To keep the overall type I error at 0.05, each analysis must use adjusted alpha. Each interim look spends part of alpha: more interim analyses consume more alpha and leave less for the final analysis. The schedule, arrangements, and alpha allocation must be planned and stated in the protocol. Common approaches are Pocock, O’Brien–Fleming, and Peto boundaries. Pocock is simple: with one interim and one final analysis, alpha is 0.029 at both looks, but the final threshold is much smaller than 0.05. O’Brien–Fleming uses a stringent early threshold that relaxes as information accumulates; if the planned sample is reached, the final analysis is much like one without an interim look, while a strong advantage can still stop the trial early. Peto is similar but uses an especially small early threshold (0.001), making early stopping difficult. In the alpha-spending-function framework, alpha expenditure is prespecified as information accumulates, allowing flexible timing and number of looks (DeMets and Lan 1994).</p>
+<p><strong>Case 3.1</strong></p>
+<p>KEYNOTE-604 was a randomized, double-blind phase III study in which 453 eligible patients with lung cancer were randomized 1:1 to pembrolizumab or placebo for 35 cycles or until disease progression. Progression-free and overall survival were primary endpoints. Two interim analyses and one final analysis were planned, with alpha 0.0024, 0.0071, and 0.012, respectively. Neither interim analysis was positive. At final analysis, median overall survival was 10.8 versus 9.7 months, and the ITT comparison did not reach significance (hazard ratio 0.80; 95% CI 0.64–0.98; <em>p</em> = 0.016). Although survival curves separated, the small difference between 0.016 and 0.012 produced a negative result. Alpha spent in interim analyses cannot be ignored: without interim analyses, overall survival would have been positive. Clinicians need to understand these methods so that a clinically important difference is not declared negative because of an unsuitable statistical design or analysis.</p>
 </section>
 <section id="subgroup-analysis" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="subgroup-analysis"><span class="header-section-number">3.5</span> Subgroup analysis</h2>
-<p><em>To be added.</em></p>
+<p>Subgroup analysis groups participants by baseline characteristics to assess whether responses differ. It can support or clarify an overall effect and generate exploratory findings for a particular subgroup, but is often misleading. Subgroups should be prespecified: continued post-trial exploration will almost always find at least one suggestive subgroup effect. The protocol should state proposed subgroups and their biological rationale. Stratification factors such as age, sex, and disease stage are implicitly subgroups. Post hoc, data-mining analyses without biological rationale should primarily generate hypotheses for other trials.</p>
+<p>Multiple-comparison adjustment is needed when many subgroups are tested, for example with Bonferroni or other methods, and apparently concentrated effects should be sought in a similar independent trial. Interaction tests, rather than separate within-subgroup treatment estimates, should be used: an interaction provides a global assessment of whether the subgroup variable relates to treatment effect, with estimates and confidence intervals. Separate subgroup tests require more hypotheses and inflate false positives. Differences observed between subgroups do not necessarily mean heterogeneous treatment effects, especially when the primary effect is non-significant. Wang et al.&nbsp;(2007) summarize the principles of prespecification, interaction testing, and multiplicity adjustment; Sun et al.&nbsp;(2010) provide practical credibility criteria including prespecification, interaction evidence, and replication.</p>
 </section>
-<section id="multicenter-trials" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="multicenter-trials"><span class="header-section-number">3.6</span> Multicenter trials</h2>
-<p><em>To be added.</em></p>
+<section id="multicenter-clinical-research" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="multicenter-clinical-research"><span class="header-section-number">3.6</span> Multicenter clinical research</h2>
+<p>Multicenter trials are common because a single center rarely recruits enough participants. Analysis should consider center effects to understand the overall average effect, variation in treatment effect, and effects across centers. Randomization is usually stratified by center to balance treatment within each center.</p>
+<p>One model omits center effects and treats all variation as participant-level variation, assuming no systematic differences among centers. A more appropriate model separates variation among participants within centers from variation among centers. Omitting center effects overestimates variability in the average treatment effect, produces wider confidence intervals, and reduces power. A model including center effects recognizes that part of variation reflects differences in populations treated at each center, reduces within-center residual variation, and increases precision. Center may be modeled as a fixed effect in linear models, survival analysis, or logistic regression, allowing outcomes within a center to resemble each other more than outcomes across centers.</p>
 </section>
-<section id="appendix-nejm-statistical-guidelines" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="appendix-nejm-statistical-guidelines"><span class="header-section-number">3.7</span> Appendix: NEJM statistical guidelines</h2>
-<p><em>To be added.</em></p>
+<section id="appendix-statistical-reporting-standards-of-the-new-england-journal-of-medicine" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="appendix-statistical-reporting-standards-of-the-new-england-journal-of-medicine"><span class="header-section-number">3.7</span> Appendix: Statistical reporting standards of the <em>New England Journal of Medicine</em></h2>
+<section id="all-studies" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="all-studies"><span class="header-section-number">3.7.1</span> All studies</h3>
+<ul>
+<li>The Methods section should describe sample-size and power considerations and briefly describe analyses of primary and secondary outcomes.</li>
+<li>The Methods section should explain handling of missing data. Except when data are very sparse, complete-case analysis should not be primary analysis; use appropriate imputation based on the missing-data mechanism. Multiple imputation or inverse-probability weighting may be used for missing at random, whereas model-based approaches are more suitable for missing not at random.</li>
+<li>Point estimates of effects, associations, and other parameters should be accompanied by confidence intervals adjusted according to alpha.</li>
+<li>Unless design such as a noninferiority trial requires a one-sided test, reported <em>p</em> values should be two-sided. In general, report values above 0.01 to two decimals, 0.01–0.001 to three decimals, and values below 0.001 as <em>p</em> &lt; 0.001. Prespecified stopping-rule and genome-wide association p values may use other precision.</li>
+<li>Reported precision should not exceed that justified by scientific meaning and sample size; odds ratios generally use two decimals.</li>
+</ul>
+</section>
+<section id="clinical-trials" class="level3" data-number="3.7.2">
+<h3 data-number="3.7.2" class="anchored" data-anchor-id="clinical-trials"><span class="header-section-number">3.7.2</span> Clinical trials</h3>
+<ul>
+<li>Submit original and final protocols, the statistical analysis plan, and a dated list of protocol amendments.</li>
+<li>Analyze the primary outcome as prespecified. Explain analyses not in the original protocol; editors may request additional analyses.</li>
+<li>Use the protocol-specified procedure to control overall type I error for comparisons. Prespecified exploratory analyses should use the stated method, for example Benjamini–Hochberg for FDR.</li>
+<li>Without a prespecified multiplicity-control method, secondary and exploratory endpoints should be limited to point estimates and 95% confidence intervals. State that interval widths are not multiplicity-adjusted, that inferences may not replicate, and do not report p values.</li>
+<li>Prespecified subgroup analyses should follow the protocol. Important post hoc analyses require justification and clear labeling. Forest plots are useful for showing estimates in important subgroups; multiple interaction p values have limited inferential value and ordinarily should not be provided.</li>
+<li>Safety outcomes that are not primary endpoints need not be multiplicity-adjusted when significance tests are reported, because a larger type I error is acceptable for safety information.</li>
+<li>Before risk differences or risk ratios, report absolute event counts or rates; avoid odds ratios when they can overstate relative risk or be misinterpreted.</li>
+<li>Provide a CONSORT flow diagram and all relevant CONSORT checklist information.</li>
+</ul>
+</section>
+<section id="observational-studies" class="level3" data-number="3.7.3">
+<h3 data-number="3.7.3" class="anchored" data-anchor-id="observational-studies"><span class="header-section-number">3.7.3</span> Observational studies</h3>
+<ul>
+<li>Validity depends on sample selection, measured and unmeasured confounding, and methods of controlling confounding; explain how these issues were handled in design and analysis.</li>
+<li>Submit a signed and dated prespecified statistical analysis plan when one exists.</li>
+<li>For multiple tests, use a prespecified type I error-control method. Without one, limit statistics to point estimates and 95% confidence intervals, state that intervals are not multiplicity-adjusted and may not replicate, and do not report p values.</li>
+<li>List planned analyses, inclusion criteria, and data-sampling methods, with figures or tables where appropriate; identify the association or causal relationship to be estimated and why.</li>
+<li>Studies reporting treatment effects should show distributions of potential confounders and other variables between treatment groups.</li>
+<li>Explain complex models in a supplement where possible; use sensitivity analysis to discuss bias from unmeasured confounding, or explicitly discuss it if sensitivity analysis was not done.</li>
+<li>Replicate findings in one or more similar independent studies to assess robustness.</li>
+</ul>
+</section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Friedman LM, Furberg CD, DeMets DL, Reboussin DM, Granger CB. <em>Fundamentals of Clinical Trials</em>. Springer; 2015.</li>
+<li>Senn SJ, Lewis RJ. Treatment effects in multicenter randomized clinical trials. <em>JAMA</em>. 2019;321(12):1211-1212.</li>
+<li>Hernán MA, Hernández-Díaz S. Beyond the intention-to-treat in comparative effectiveness research. <em>Clinical Trials</em>. 2012;9(1):48-55.</li>
+<li>Montori VM, Guyatt GH. Intention-to-treat principle. <em>CMAJ</em>. 2001;165(10):1339-1341.</li>
+<li>Schulz KF, Grimes DA. Multiplicity in randomised trials I: endpoints and treatments. <em>Lancet</em>. 2005;365(9470):1591-1595.</li>
+<li>Pocock SJ. Group sequential methods in the design and analysis of clinical trials. <em>Biometrika</em>. 1977;64(2):191-199.</li>
+<li>O’Brien PC, Fleming TR. A multiple testing procedure for clinical trials. <em>Biometrics</em>. 1979;35(3):549-556.</li>
+<li>Peto R, Pike MC, Armitage P, et al.&nbsp;Design and analysis of randomized clinical trials requiring prolonged observation of each patient. <em>British Journal of Cancer</em>. 1976;34(6):585-612.</li>
+<li>DeMets DL, Lan KK. Interim analysis: the alpha spending function approach. <em>Statistics in Medicine</em>. 1994;13(13-14):1341-1352.</li>
+<li>Wang R, Lagakos SW, Ware JH, et al.&nbsp;Reporting of subgroup analyses in clinical trials. <em>New England Journal of Medicine</em>. 2007;357(21):2189-2194.</li>
+<li>Sun X, Briel M, Walter SD, et al.&nbsp;Is a subgroup effect believable? <em>BMJ</em>. 2010;340:c117.</li>
+<li>Benjamini Y, Hochberg Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing. <em>Journal of the Royal Statistical Society: Series B</em>. 1995;57(1):289-300.</li>
+</ol>
 
 
 <!-- -->
@@ -824,45 +998,163 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/04-protocol-consent.html" class="pagination-link" aria-label="Writing RCT Protocols and Informed Consent">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing RCT Protocols and Informed Consent</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/04-protocol-consent.html" class="pagination-link" aria-label="Writing Randomized Controlled Trial Protocols and Informed Consent">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing Randomized Controlled Trial Protocols and Informed Consent</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Statistical Considerations in Randomized Controlled Trials</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intention-to-treat and per-protocol analysis</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Protocol violations</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multiple comparisons</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interim analysis and alpha spending</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Subgroup analysis</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multicenter trials</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Appendix: NEJM statistical guidelines</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Statistical Considerations in Randomized Controlled Trials</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intention-to-treat and per-protocol analysis</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>The analysis strategy usually used in randomized controlled trials is intention-to-treat (ITT): regardless of what happens after randomization, every randomized participant is analyzed in the group to which they were originally assigned. Per-protocol (PP) analysis instead analyzes enrolled participants according to their actual adherence to the protocol. Three misunderstandings about ITT are common.</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>First, ITT is not necessarily more likely than PP to show no effect. Suppose interventions A and B have the same biological effect. If A has more adverse effects and poorer adherence, while B has fewer adverse effects and better adherence, ITT may show that B is superior to A. Second, ITT is not inherently more conservative. If A causes more adverse effects, its participants may adhere less, so the adverse effects actually observed in A can resemble those in B. ITT may then conclude that adverse effects do not differ, even though more A participants deviated from protocol; that cannot simply be called more conservative. Third, ITT does not automatically reflect the real world better. When a couple asks a physician about the effectiveness of contraception, the useful answer is usually its effectiveness when used correctly—the PP result—not the ITT result under which 40% used it incorrectly.</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Because of randomization, ITT can directly compare treatment groups. In PP analysis, however, groups can differ not only before randomization but also after randomization because of actual treatment received—for example, dose adjustments based on patient condition or loss to follow-up caused by adverse effects. PP analysis in an RCT therefore requires adjustment for pre- and post-randomization confounding, just as in a non-randomized study. The protocol should prespecify which post-randomization prognostic factors will be collected and how PP analysis will be performed.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>In the causal language of Chapter 1, ITT estimates the causal effect of being *assigned* to an intervention—the assignment effect. It answers a policy-level question and is directly identifiable because of randomization. PP analysis estimates the effect of actually receiving intervention according to protocol. Because adherence is often affected by post-randomization prognostic factors, naive PP analysis creates selection bias and requires adjustment for post-randomization confounding, for example inverse-probability weighting (Hernán and Hernández-Díaz 2012).</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Protocol deviations</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>Two common types of protocol deviation are ineligibility and nonadherence.</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### Failure to meet eligibility criteria</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>Participants may violate eligibility criteria at enrollment because of documentation errors, laboratory errors, or misclassification. In a multicenter myocardial-infarction study, for example, participants admitted with possible acute myocardial infarction received intervention or placebo, but diagnosis was confirmed only after several days of electrocardiographic and serum-enzyme monitoring. Some were randomized on the basis of an initial diagnosis that later enzyme monitoring did not support.</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>A more complicated problem arises when the intervention itself affects eligibility. If it limits infarct size, it can change electrocardiographic and enzyme findings and thus affect diagnosis; this cannot occur in the placebo group. Ineligible control participants are easy to recognize, whereas truly ineligible intervention participants must be distinguished from those who merely appear ineligible because treatment worked. Three strategies are possible: do not enroll until diagnosis is confirmed and carefully checked; if ineligible participants must be removed, use only information collected before enrollment and have the decision-maker blinded to outcomes and allocation; or allow enrollment but do not remove them, since both groups have equal opportunity to include ineligible participants, although they may dilute outcome differences.</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">### Adherence</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>Nonadherence is another reason participants leave analysis; loss to follow-up is one form. It may result from adverse events in either group, loss of interest or perceived benefit, changes in underlying condition, or other causes. Nonadherence diminishes any benefit of intervention over control and therefore increases the sample size needed. If it is greater in one group and related to outcome, removal of nonadherent participants can introduce bias. The best strategy is to minimize nonadherence in trial design and use ITT results.</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>The definition of adherence also matters. It may be defined as the proportion of actual intervention received that matches the protocol. Drug/placebo trials should describe adherence separately in intervention and control groups. If intervention-group adherence is lower, broad clinical uptake may not be reasonable: an intervention may work, but have little value if most participants cannot tolerate it.</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multiple comparisons</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>Suppose Zhang San guesses the outcome of five coin tosses and is correct each time. The probability, if he is not cheating, is:</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>**Equation 3.1 Probability of five consecutive correct guesses**</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>$$0.5^5 \approx 0.03$$</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>But if 100 people each guess five tosses and only Li Si is correct five times, it is no longer sensible to conclude that Li Si cheated. The probability that at least one person is correct five times is:</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>**Equation 3.2 Probability that at least one of 100 people guesses five tosses correctly**</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>$$1-(1-1/32)^{100}=0.958$$</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 3.1"}</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>p_one <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2</span><span class="sc">^</span><span class="dv">5</span>                 <span class="co"># one person guesses 5 correctly</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>p_any <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> p_one)<span class="sc">^</span><span class="dv">100</span>     <span class="co"># at least one of 100 does so</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">one_person =</span> p_one, <span class="st">`</span><span class="at">at_least_one_of_100</span><span class="st">`</span> <span class="ot">=</span> p_any)</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 3.1 output"}</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Situation <span class="pp">|</span> Probability <span class="pp">|</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>--:<span class="pp">|</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> One person guesses five consecutively <span class="pp">|</span> 0.0312500 <span class="pp">|</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> At least one of 100 guesses five consecutively <span class="pp">|</span> 0.9582005 <span class="pp">|</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>Hypothesis testing relies on the small-probability principle: a small-probability event is regarded as unlikely in one experiment. Multiple hypothesis tests in the same study are no longer one experiment. In 1992, Swedish investigators examined residents living within 300 m of high-voltage power lines and, over 25 years, compared rates of more than 800 diseases with residents farther away. Childhood leukemia appeared four times as frequent and prompted government action. With more than 800 comparisons, however, one or more diseases can easily appear increased by chance. Multiple testing has two distinct control targets: family-wise error rate (FWER), controlled by methods such as Bonferroni and Holm, and false discovery rate (FDR), the expected proportion of false positives among rejected hypotheses, controlled by Benjamini–Hochberg and less conservative in large exploratory testing. See Schulz and Grimes (2005) for a systematic discussion in RCTs.</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multiple primary efficacy outcomes</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>The usual solution is to select the most important outcome as primary and regard others as secondary, or to construct a composite primary outcome. If multiple primary outcomes are essential: (1) if all must be significant, alpha need not be adjusted; (2) if any one significant outcome establishes efficacy, alpha must be allocated across outcomes, often by importance or equally, with total no greater than alpha. A simple Bonferroni correction is</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>**Equation 3.3 Bonferroni correction**</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>$$\text{adjusted }\alpha=0.05/n$$</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>where *n* is the number of primary outcomes. Bonferroni is simple but conservative, especially for large *n*. (3) Outcomes can be ranked and tested sequentially: test the most important first, and test the next only after rejecting the preceding null hypothesis. If a prior test is not significant, stop all later tests. Alpha adjustment is not needed, but the order must be specified in the protocol before unblinding and must never be selected or changed afterward.</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparisons among multiple groups</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>When groups have an ordered dose relationship, sequential comparisons with control from high to low dose can be used without alpha adjustment. When no dose ordering exists, alpha must be adjusted; for example, mutual comparisons among experimental, placebo, and active-control groups commonly use Bonferroni alpha/n, where *n* is the number of comparisons.</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### Composite outcomes</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>When a composite is formed by weighting components (such as a score) or by defining a combined outcome (such as major adverse cardiovascular events), components may be tested after a significant composite without alpha adjustment. If components are tested regardless of composite significance and any one significant component establishes efficacy, alpha must be adjusted.</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="fu">### A change in comparison type for the same primary outcome</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>A common approach is first to compare experimental and active-control groups for noninferiority and, only if noninferiority is established, test superiority. Alpha adjustment is not required.</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interim analysis and alpha spending</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>An interim analysis assesses efficacy and safety between intervention and control groups before formal trial completion according to a prespecified statistical analysis plan. Because its number, method, and results affect interpretation, every interim analysis must be described in advance in the protocol. If a special circumstance prevents this, the interim-analysis plan must at least be completed and the protocol amended before final analysis.</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>Its three usual purposes are: timely safety monitoring, with early stopping when safety problems appear; early confirmation of efficacy, with stopping for efficacy or futility when prespecified criteria are met; and sample-size re-estimation when limited prior information yields inaccurate estimates of efficacy, safety, or power.</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>Most interim analyses aim to show efficacy and therefore must control false positives. Each interim analysis is a hypothesis test; using alpha = 0.05 each time increases the overall type I error. To keep the overall type I error at 0.05, each analysis must use adjusted alpha. Each interim look spends part of alpha: more interim analyses consume more alpha and leave less for the final analysis. The schedule, arrangements, and alpha allocation must be planned and stated in the protocol. Common approaches are Pocock, O’Brien–Fleming, and Peto boundaries. Pocock is simple: with one interim and one final analysis, alpha is 0.029 at both looks, but the final threshold is much smaller than 0.05. O’Brien–Fleming uses a stringent early threshold that relaxes as information accumulates; if the planned sample is reached, the final analysis is much like one without an interim look, while a strong advantage can still stop the trial early. Peto is similar but uses an especially small early threshold (0.001), making early stopping difficult. In the alpha-spending-function framework, alpha expenditure is prespecified as information accumulates, allowing flexible timing and number of looks (DeMets and Lan 1994).</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>**Case 3.1**</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>KEYNOTE-604 was a randomized, double-blind phase III study in which 453 eligible patients with lung cancer were randomized 1:1 to pembrolizumab or placebo for 35 cycles or until disease progression. Progression-free and overall survival were primary endpoints. Two interim analyses and one final analysis were planned, with alpha 0.0024, 0.0071, and 0.012, respectively. Neither interim analysis was positive. At final analysis, median overall survival was 10.8 versus 9.7 months, and the ITT comparison did not reach significance (hazard ratio 0.80; 95% CI 0.64–0.98; *p* = 0.016). Although survival curves separated, the small difference between 0.016 and 0.012 produced a negative result. Alpha spent in interim analyses cannot be ignored: without interim analyses, overall survival would have been positive. Clinicians need to understand these methods so that a clinically important difference is not declared negative because of an unsuitable statistical design or analysis.</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## Subgroup analysis</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>Subgroup analysis groups participants by baseline characteristics to assess whether responses differ. It can support or clarify an overall effect and generate exploratory findings for a particular subgroup, but is often misleading. Subgroups should be prespecified: continued post-trial exploration will almost always find at least one suggestive subgroup effect. The protocol should state proposed subgroups and their biological rationale. Stratification factors such as age, sex, and disease stage are implicitly subgroups. Post hoc, data-mining analyses without biological rationale should primarily generate hypotheses for other trials.</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>Multiple-comparison adjustment is needed when many subgroups are tested, for example with Bonferroni or other methods, and apparently concentrated effects should be sought in a similar independent trial. Interaction tests, rather than separate within-subgroup treatment estimates, should be used: an interaction provides a global assessment of whether the subgroup variable relates to treatment effect, with estimates and confidence intervals. Separate subgroup tests require more hypotheses and inflate false positives. Differences observed between subgroups do not necessarily mean heterogeneous treatment effects, especially when the primary effect is non-significant. Wang et al. (2007) summarize the principles of prespecification, interaction testing, and multiplicity adjustment; Sun et al. (2010) provide practical credibility criteria including prespecification, interaction evidence, and replication.</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multicenter clinical research</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>Multicenter trials are common because a single center rarely recruits enough participants. Analysis should consider center effects to understand the overall average effect, variation in treatment effect, and effects across centers. Randomization is usually stratified by center to balance treatment within each center.</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>One model omits center effects and treats all variation as participant-level variation, assuming no systematic differences among centers. A more appropriate model separates variation among participants within centers from variation among centers. Omitting center effects overestimates variability in the average treatment effect, produces wider confidence intervals, and reduces power. A model including center effects recognizes that part of variation reflects differences in populations treated at each center, reduces within-center residual variation, and increases precision. Center may be modeled as a fixed effect in linear models, survival analysis, or logistic regression, allowing outcomes within a center to resemble each other more than outcomes across centers.</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## Appendix: Statistical reporting standards of the *New England Journal of Medicine*</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="fu">### All studies</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The Methods section should describe sample-size and power considerations and briefly describe analyses of primary and secondary outcomes.</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The Methods section should explain handling of missing data. Except when data are very sparse, complete-case analysis should not be primary analysis; use appropriate imputation based on the missing-data mechanism. Multiple imputation or inverse-probability weighting may be used for missing at random, whereas model-based approaches are more suitable for missing not at random.</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Point estimates of effects, associations, and other parameters should be accompanied by confidence intervals adjusted according to alpha.</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Unless design such as a noninferiority trial requires a one-sided test, reported *p* values should be two-sided. In general, report values above 0.01 to two decimals, 0.01–0.001 to three decimals, and values below 0.001 as *p* &lt; 0.001. Prespecified stopping-rule and genome-wide association p values may use other precision.</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Reported precision should not exceed that justified by scientific meaning and sample size; odds ratios generally use two decimals.</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="fu">### Clinical trials</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Submit original and final protocols, the statistical analysis plan, and a dated list of protocol amendments.</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Analyze the primary outcome as prespecified. Explain analyses not in the original protocol; editors may request additional analyses.</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use the protocol-specified procedure to control overall type I error for comparisons. Prespecified exploratory analyses should use the stated method, for example Benjamini–Hochberg for FDR.</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Without a prespecified multiplicity-control method, secondary and exploratory endpoints should be limited to point estimates and 95% confidence intervals. State that interval widths are not multiplicity-adjusted, that inferences may not replicate, and do not report p values.</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prespecified subgroup analyses should follow the protocol. Important post hoc analyses require justification and clear labeling. Forest plots are useful for showing estimates in important subgroups; multiple interaction p values have limited inferential value and ordinarily should not be provided.</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Safety outcomes that are not primary endpoints need not be multiplicity-adjusted when significance tests are reported, because a larger type I error is acceptable for safety information.</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Before risk differences or risk ratios, report absolute event counts or rates; avoid odds ratios when they can overstate relative risk or be misinterpreted.</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Provide a CONSORT flow diagram and all relevant CONSORT checklist information.</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="fu">### Observational studies</span></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Validity depends on sample selection, measured and unmeasured confounding, and methods of controlling confounding; explain how these issues were handled in design and analysis.</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Submit a signed and dated prespecified statistical analysis plan when one exists.</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For multiple tests, use a prespecified type I error-control method. Without one, limit statistics to point estimates and 95% confidence intervals, state that intervals are not multiplicity-adjusted and may not replicate, and do not report p values.</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>List planned analyses, inclusion criteria, and data-sampling methods, with figures or tables where appropriate; identify the association or causal relationship to be estimated and why.</span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Studies reporting treatment effects should show distributions of potential confounders and other variables between treatment groups.</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Explain complex models in a supplement where possible; use sensitivity analysis to discuss bias from unmeasured confounding, or explicitly discuss it if sensitivity analysis was not done.</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Replicate findings in one or more similar independent studies to assess robustness.</span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Friedman LM, Furberg CD, DeMets DL, Reboussin DM, Granger CB. *Fundamentals of Clinical Trials*. Springer; 2015.</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Senn SJ, Lewis RJ. Treatment effects in multicenter randomized clinical trials. *JAMA*. 2019;321(12):1211-1212.</span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Hernán MA, Hernández-Díaz S. Beyond the intention-to-treat in comparative effectiveness research. *Clinical Trials*. 2012;9(1):48-55.</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Montori VM, Guyatt GH. Intention-to-treat principle. *CMAJ*. 2001;165(10):1339-1341.</span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Schulz KF, Grimes DA. Multiplicity in randomised trials I: endpoints and treatments. *Lancet*. 2005;365(9470):1591-1595.</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Pocock SJ. Group sequential methods in the design and analysis of clinical trials. *Biometrika*. 1977;64(2):191-199.</span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>O’Brien PC, Fleming TR. A multiple testing procedure for clinical trials. *Biometrics*. 1979;35(3):549-556.</span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Peto R, Pike MC, Armitage P, et al. Design and analysis of randomized clinical trials requiring prolonged observation of each patient. *British Journal of Cancer*. 1976;34(6):585-612.</span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>DeMets DL, Lan KK. Interim analysis: the alpha spending function approach. *Statistics in Medicine*. 1994;13(13-14):1341-1352.</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Wang R, Lagakos SW, Ware JH, et al. Reporting of subgroup analyses in clinical trials. *New England Journal of Medicine*. 2007;357(21):2189-2194.</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Sun X, Briel M, Walter SD, et al. Is a subgroup effect believable? *BMJ*. 2010;340:c117.</span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Benjamini Y, Hochberg Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing. *Journal of the Royal Statistical Society: Series B*. 1995;57(1):289-300.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
