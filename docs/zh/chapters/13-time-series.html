@@ -321,12 +321,6 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/21-causal-discovery.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">因果发现</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">参考文献</span></a>
   </div>
@@ -376,7 +370,7 @@ window.Quarto = {
 <p>预测：从当前值预测时间序列的未来值，并量化这些预测中的不确定性，比如根据今天的气温预测未来几天的温度。</p>
 <p>分类：给定多个时间序列，将它们按照相似性进行分类。</p>
 <p>因果推断：检测时间序列行为何时发生变化，并评估与某项措施的因果关系。</p>
-<p>本章重点介绍通过时间序列分析进行因果推断的方法：中断时间序列设计。 ITS 不是只要在政策前后画出两条趋势线便可作因果解释；其核心是以干预前趋势构造反事实，并要求干预时点明确、结果测量方式稳定，且没有与干预同时发生并只影响研究对象的其他重大变化。<span class="citation" data-cites="kontopantelis2015 taljaard2014">(<a href="../references.html#ref-kontopantelis2015" role="doc-biblioref">Kontopantelis 等 2015年</a>; <a href="../references.html#ref-taljaard2014" role="doc-biblioref">Taljaard 等 2014年</a>)</span></p>
+<p>本章重点介绍通过时间序列分析进行因果推断的方法：中断时间序列设计。 ITS 不是只要在政策前后画出两条趋势线便可作因果解释；其核心是以干预前趋势构造反事实，并要求干预时点明确、结果测量方式稳定，且没有与干预同时发生并只影响研究对象的其他重大变化。<span class="citation" data-cites="kontopantelis2015 taljaard2014">(<a href="14-sensitivity-analysis.html#ref-kontopantelis2015" role="doc-biblioref">Kontopantelis 等 2015年</a>; <a href="14-sensitivity-analysis.html#ref-taljaard2014" role="doc-biblioref">Taljaard 等 2014年</a>)</span></p>
 <section id="简单中断时间序列" class="level2" data-number="13.1">
 <h2 data-number="13.1" class="anchored" data-anchor-id="简单中断时间序列"><span class="header-section-number">13.1</span> 简单中断时间序列</h2>
 <p>中断时间序列（interrupted time series, ITS）是评估干预前后回归趋势的变化，即通过比较和检验序列在干预前后两段回归线斜率改变，进而评价干预措施的有效性。分段回归是回归分析中最常用的一种方法，它通常以时间作为自变量，并以干预时点将时间轴划分为若干区间，对每个区间进行单独的线段拟合；其目标是每个线段的最小平方误差最小，从而使预测和真实结果之间的误差最小。分析中最基本、最常见的回归分析形式是线性回归法，即试图通过对观察到的数据拟合一个线性方程来建立两个变量之间的关系。当有一个参数出现非线性时，可使用非线性分段回归，但这样的模型可能难以解释。 分段回归可估计干预发生时的即时水平变化和干预后趋势（斜率）变化；仅比较两段斜率会遗漏可能存在的即时效应。</p>
@@ -384,7 +378,7 @@ window.Quarto = {
 <p><strong>公式 13.1</strong></p>
 <p><span class="math display">\[Y = \beta_{0} + \beta_{1}*T + \beta_{2}*X + \beta_{3}*X*T + \varepsilon\]</span></p>
 <p>上述公式中，Y 为结局变量，T 是等时间间隔，X 是干预变量，即政策开展前后（0值是前，1值是后）；T和X的交互项表示表示干预前后回归斜率的变化。通过回归计算后可得到上述公式中的回归系数，其中 β<sub>1</sub> 是指干预前 Y 的变化斜率，β<sub>1</sub>+β<sub>3</sub> 是指干预后 Y 的变化斜率，β<sub>3</sub> 是指干预前后Y变化趋势的斜率改变量。 β2 表示在假定即时起效时干预时点的水平变化；若干预存在滞后或逐步实施，模型应预先设定过渡期、滞后项或更合适的非线性函数，而不宜事后根据显著性选择。</p>
-<p>在此模型中，干预前的趋势被认为是线性的。随着时间的推移，趋势的线性需要被可视化的图像评估和确认。其次是通过适当的统计工具，才能使中断时间序列的分析结果具有可信度。然而，当干预前只有几个时间点时，验证线性可能是一个问题，此时开展此分析可能性不大。 数据点数没有普适的固定阈值：Cochrane EPOC 对 ITS 的最低设计标准是干预前后各至少3个时间点，但用于评估季节性、非线性和自相关通常需要远多于这一最低数量。<span class="citation" data-cites="cochraneepoc2017 bernal2017">(<a href="../references.html#ref-cochraneepoc2017" role="doc-biblioref">Cochrane Effective Practice and Organisation of Care (EPOC) 2017年</a>; <a href="../references.html#ref-bernal2017" role="doc-biblioref">Lopez Bernal 等 2017年</a>)</span></p>
+<p>在此模型中，干预前的趋势被认为是线性的。随着时间的推移，趋势的线性需要被可视化的图像评估和确认。其次是通过适当的统计工具，才能使中断时间序列的分析结果具有可信度。然而，当干预前只有几个时间点时，验证线性可能是一个问题，此时开展此分析可能性不大。 数据点数没有普适的固定阈值：Cochrane EPOC 对 ITS 的最低设计标准是干预前后各至少3个时间点，但用于评估季节性、非线性和自相关通常需要远多于这一最低数量。<span class="citation" data-cites="cochraneepoc2017 bernal2017">(<a href="14-sensitivity-analysis.html#ref-cochraneepoc2017" role="doc-biblioref">Cochrane Effective Practice and Organisation of Care (EPOC) 2017年</a>; <a href="14-sensitivity-analysis.html#ref-bernal2017" role="doc-biblioref">Lopez Bernal 等 2017年</a>)</span></p>
 <p>案例13.1</p>
 <p>回想案例9.1中内窥镜与显微镜治疗生长激素型垂体腺瘤的疗效对比研究，内窥镜虽然从2010年即开始使用，但其大规模开展是在2016年1月以后。因此研究目的是比较内窥镜大规模开展之前的疾病缓解率和之后的疾病缓解率差异，即内窥镜大规模开展是否提高了疾病的缓解率。可以在原数据集的基础上计算每月、每半年或每年平均缓解率数据。此处我们计算了从2010年开始每季度的评价疾病缓解率记为Rate，并指定2016年第一季度开始为干预组（Treatment），Year_ID表示时间间隔变量，设为从1开始的连续变量。 将2016年第一季度定义为干预时点还需有明确的临床或管理依据，并检查同期是否伴随术者构成、影像技术、病例选择、随访或结局定义的变化；这些共时变化不能由单组 ITS 自动排除。</p>
 <p><strong>案例13.1数据集</strong></p>
@@ -789,7 +783,7 @@ window.Quarto = {
 <p><strong>代码13.2输出：中断时间序列的图形显示</strong></p>
 </div>
 <p>该命令所得回归系数为0.013（_x_t21），p值0.009，与分段回归方法一致。干预后的系数为0.016。该命令可以直接得出中断时间序列的图形显示，每个点代表每个季度的平均缓解率，虚线左侧为2016年之前的手术，拟合的曲线提示该时期疾病缓解概率随时间变化不大。虚线右侧为2016年及之后的手术，内窥镜手术大量开展，拟合的曲线提示疾病缓解概率随时间变化显著提升。 图形应同时呈现观测值、拟合值及其不确定性，并明确”显著”来自何种已校正自相关和季节性的模型推断；仅凭图形不能判断因果关系。</p>
-<p>此外，自相关是时间序列的一个重要概念，指的是时间序列中某一个时刻的值和另一个时刻的值具有一定的相关性。自相关导致最小二乘法计算得到的预测区间不可靠。研究者需检验误差项的自相关，因为自相关滞后的期数对于模型的选择至关重要。本例通过自相关检验（原假设为不存在自相关），p值为0.929，故未能拒绝原假设；这并不证明不存在自相关，尤其在仅36个季度观测点时检验把握度有限。 除单一检验的 P 值外，还应检查残差 ACF/PACF、季节性与异方差，并报告所选误差结构或 Newey–West 滞后阶数的依据。<span class="citation" data-cites="zhang2009">(<a href="../references.html#ref-zhang2009" role="doc-biblioref">Zhang 等 2009年</a>)</span></p>
+<p>此外，自相关是时间序列的一个重要概念，指的是时间序列中某一个时刻的值和另一个时刻的值具有一定的相关性。自相关导致最小二乘法计算得到的预测区间不可靠。研究者需检验误差项的自相关，因为自相关滞后的期数对于模型的选择至关重要。本例通过自相关检验（原假设为不存在自相关），p值为0.929，故未能拒绝原假设；这并不证明不存在自相关，尤其在仅36个季度观测点时检验把握度有限。 除单一检验的 P 值外，还应检查残差 ACF/PACF、季节性与异方差，并报告所选误差结构或 Newey–West 滞后阶数的依据。<span class="citation" data-cites="zhang2009">(<a href="14-sensitivity-analysis.html#ref-zhang2009" role="doc-biblioref">Zhang 等 2009年</a>)</span></p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码13.3">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -926,7 +920,7 @@ window.Quarto = {
 <p><strong>公式 13.2</strong></p>
 <p><span class="math display">\[Y = \beta_{0} + \beta_{1}*T + \beta_{2}*X + \beta_{3}*X*T + \beta_{4}*T_{2} + \beta_{5}*X_{2}*T_{2} + \varepsilon\]</span></p>
 <p>其中 X<sub>2</sub> 是第二个干预指示变量，0为干预前，1为干预后； T<sub>2</sub> 为第二次干预时间计数变量，第二次干预前以及第二次干预的第一个观察点取值为0，第二次干预后的第二个观察点取值为1，依此类推。β<sub>5</sub> 为第二次干预前后的斜率改变量。</p>
-<p>itsa可以适应观测期内有多项干预存在的情况，例如一项政策被实施、撤回和再次引入，或一项大范围的干预由多项具体政策汇集而成。假设2018年为另一项干预的发生时间。将新的时间点添加到模型中（即trperiod中指定两个时间点），重新进行单组的干预分析。 多个干预时点应有预先说明的政策机制和足够的每段观察值；若干预效应重叠、逐步实施或存在滞后，简单加入多个哑变量可能难以区分各干预的独立贡献。<span class="citation" data-cites="cruz2017">(<a href="../references.html#ref-cruz2017" role="doc-biblioref">Cruz 等 2017年</a>)</span></p>
+<p>itsa可以适应观测期内有多项干预存在的情况，例如一项政策被实施、撤回和再次引入，或一项大范围的干预由多项具体政策汇集而成。假设2018年为另一项干预的发生时间。将新的时间点添加到模型中（即trperiod中指定两个时间点），重新进行单组的干预分析。 多个干预时点应有预先说明的政策机制和足够的每段观察值；若干预效应重叠、逐步实施或存在滞后，简单加入多个哑变量可能难以区分各干预的独立贡献。<span class="citation" data-cites="cruz2017">(<a href="14-sensitivity-analysis.html#ref-cruz2017" role="doc-biblioref">Cruz 等 2017年</a>)</span></p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码13.4">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1155,7 +1149,7 @@ window.Quarto = {
 </section>
 <section id="多组中断时间序列分析" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="多组中断时间序列分析"><span class="header-section-number">13.3</span> 多组中断时间序列分析</h2>
-<p>上述分析的一个不足之处在于无法排除可能存在其他因素在两个时间段出现不同，如影像技术的提升可促进肿瘤的早期发现从而提高疗效。针对这一问题，在上述设计的基础上，再加入一个对照机构，该机构并没有大规模使用内窥镜手术，然后比较本中心与对照中心的差异。这种设计方法可有效规避上述问题。 这种受控设计可以减少共同时间冲击的影响，但并不能自动”规避”混杂：仍应比较两组干预前水平与趋势，并考察对照中心是否受到干预扩散、转诊结构变化或不同的同期政策影响。<span class="citation" data-cites="lopezbernal2019">(<a href="../references.html#ref-lopezbernal2019" role="doc-biblioref">Lopez Bernal 等 2019年</a>)</span></p>
+<p>上述分析的一个不足之处在于无法排除可能存在其他因素在两个时间段出现不同，如影像技术的提升可促进肿瘤的早期发现从而提高疗效。针对这一问题，在上述设计的基础上，再加入一个对照机构，该机构并没有大规模使用内窥镜手术，然后比较本中心与对照中心的差异。这种设计方法可有效规避上述问题。 这种受控设计可以减少共同时间冲击的影响，但并不能自动”规避”混杂：仍应比较两组干预前水平与趋势，并考察对照中心是否受到干预扩散、转诊结构变化或不同的同期政策影响。<span class="citation" data-cites="lopezbernal2019">(<a href="14-sensitivity-analysis.html#ref-lopezbernal2019" role="doc-biblioref">Lopez Bernal 等 2019年</a>)</span></p>
 <p>数据中增加一列Center，代表机构，1为本机构，0为对照机构。同时收集该机构在不同时间段内的平均缓解概率。</p>
 <p><strong>案例13.1数据集增补</strong></p>
 <table class="caption-top table">

@@ -292,12 +292,6 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/21-causal-discovery.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">因果发现</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">参考文献</span></a>
   </div>
@@ -359,7 +353,7 @@ div.csl-indent {
 
 
 <p>使用观察数据进行评估时的一个基本问题，混杂因素可能会被误认为是处理效应。因此，研究人员在进行分析时，可运用上述多种设计与统计方法减轻已测量混杂。然而，在观察性研究中，不太可能获得所有潜在混杂变量的数据。因此，应开展针对关键假设的敏感性分析，以评估未测量的混杂因素与处理分配之间，以及与结果之间的关系有多强，从而解释观察到的处理效应的稳健性。</p>
-<p>敏感性分析应在方案中预先说明其目的、主要估计目标、将改变的定义或参数范围，以及哪些结果将被视为支持或削弱主要结论；它不是在多种分析中挑选最有利结果的过程。<span class="citation" data-cites="greenland1996">(<a href="../references.html#ref-greenland1996" role="doc-biblioref">Greenland 1996年</a>)</span></p>
+<p>敏感性分析应在方案中预先说明其目的、主要估计目标、将改变的定义或参数范围，以及哪些结果将被视为支持或削弱主要结论；它不是在多种分析中挑选最有利结果的过程。<span class="citation" data-cites="greenland1996">(<a href="14-sensitivity-analysis.html#ref-greenland1996" role="doc-biblioref">Greenland 1996年</a>)</span></p>
 <section id="观察性研究的敏感性分析" class="level2" data-number="14.1">
 <h2 data-number="14.1" class="anchored" data-anchor-id="观察性研究的敏感性分析"><span class="header-section-number">14.1</span> 观察性研究的敏感性分析</h2>
 <section id="干预的定义" class="level3" data-number="14.1.1">
@@ -391,12 +385,12 @@ div.csl-indent {
 <section id="未测量混杂因素" class="level2" data-number="14.2">
 <h2 data-number="14.2" class="anchored" data-anchor-id="未测量混杂因素"><span class="header-section-number">14.2</span> 未测量混杂因素</h2>
 <p>观察性研究中存在未测量混杂因素时，回归、倾向性评分配对和逆概率加权等方法不能在不增加额外假设或信息的情况下识别无偏的因果效应。这时深入探索的思路是：未测量混杂是否能全部或部分解释研究中观察到的干预因素的效应。即当未测量混杂因素达到何种强度时，之前的结果才不可信？若这种要求显然过于苛刻，则说明之前的结果大致可信。</p>
-<p>这里的“苛刻”必须与现实中可能存在的混杂强度比较，而不能仅依据统计量数值作出结论；定量偏倚分析应明确其偏倚参数、方向与情景范围。Ding和VanderWeele（2016）提出了在较少分布假设下构造未测量混杂界限的框架。<span class="citation" data-cites="ding2016">(<a href="../references.html#ref-ding2016" role="doc-biblioref">Ding 和 VanderWeele 2016年</a>)</span></p>
+<p>这里的“苛刻”必须与现实中可能存在的混杂强度比较，而不能仅依据统计量数值作出结论；定量偏倚分析应明确其偏倚参数、方向与情景范围。Ding和VanderWeele（2016）提出了在较少分布假设下构造未测量混杂界限的框架。<span class="citation" data-cites="ding2016">(<a href="14-sensitivity-analysis.html#ref-ding2016" role="doc-biblioref">Ding 和 VanderWeele 2016年</a>)</span></p>
 <section id="边界因子法e值" class="level3" data-number="14.2.1">
 <h3 data-number="14.2.1" class="anchored" data-anchor-id="边界因子法e值"><span class="header-section-number">14.2.1</span> 边界因子法（E值）</h3>
 <p>E值用于量化：在给定已调整协变量后，一个未测量混杂因素须同时与处理和结局具有多强的关联，才可能将观察到的相对效应完全解释为无效应。E值针对相对风险尺度；对非罕见结局的比值比或风险比以外的效应尺度，应说明所采用的尺度转换及其假设。研究者不必预先指定某一个具体混杂因素，但应结合临床和流行病学知识判断如此强度的混杂是否可信。</p>
 <p>采用案例9.1中回归结果估计E值。由于E值得估计采用相对危险度，因此需根据结局变量发生频率进行调整，案例9.1结局变量发生频率介于15%和85%之间，因此指定为common（非小概率结局变量）。</p>
-<p>报告时应同时给出点估计及最接近无效应的置信区间界限的E值；后者通常更能反映统计不确定性。VanderWeele和Ding（2017）强调，大E值表示需要较强的未测量混杂来完全解释关联，而非对因果效应的证明。<span class="citation" data-cites="vanderweele2017">(<a href="../references.html#ref-vanderweele2017" role="doc-biblioref">VanderWeele 和 Ding 2017年</a>)</span></p>
+<p>报告时应同时给出点估计及最接近无效应的置信区间界限的E值；后者通常更能反映统计不确定性。VanderWeele和Ding（2017）强调，大E值表示需要较强的未测量混杂来完全解释关联，而非对因果效应的证明。<span class="citation" data-cites="vanderweele2017">(<a href="14-sensitivity-analysis.html#ref-vanderweele2017" role="doc-biblioref">VanderWeele 和 Ding 2017年</a>)</span></p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码14.1">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -449,7 +443,7 @@ div.csl-indent {
 <p>混杂函数法是一套用于线性回归模型中敏感性分析的工具，来探索未观察到的混杂因素，这套工具不需要假设治疗分配机制的功能形式，也不需要假设未观察到的混杂因素的分布，可以自然地处理多个混杂因素，可能以非线性方式发挥作用，利用专家知识来约束敏感性参数，并且可以通过仅使用标准回归结果来轻松计算。</p>
 <p>该方法引入了两个适合于常规报告的新的敏感性措施。稳健性值描述了以改变研究结论的未观察到的混杂因素与治疗和结果之间需要有的最小关联强度。干预对结局的偏R方解释了所有未观察到的混杂因素与治疗的关联程度。该方法提供图形工具来阐述有问题的混杂因素，检查点估计和t值的敏感性，以及极端情况。</p>
 <p>仍然采用案例9.1的数据，检验未观察混杂因素的影响。</p>
-<p>需要注意，sensemakr的标准实现对应线性回归及其偏R方参数化；若Outcome为二分类变量，这里的解读依赖于线性概率模型近似，不应直接外推至逻辑回归的比值比。Cinelli和Hazlett（2020）的框架应与所拟合模型及效应尺度一致。<span class="citation" data-cites="cinelli2020">(<a href="../references.html#ref-cinelli2020" role="doc-biblioref">Cinelli 和 Hazlett 2020年</a>)</span></p>
+<p>需要注意，sensemakr的标准实现对应线性回归及其偏R方参数化；若Outcome为二分类变量，这里的解读依赖于线性概率模型近似，不应直接外推至逻辑回归的比值比。Cinelli和Hazlett（2020）的框架应与所拟合模型及效应尺度一致。<span class="citation" data-cites="cinelli2020">(<a href="14-sensitivity-analysis.html#ref-cinelli2020" role="doc-biblioref">Cinelli 和 Hazlett 2020年</a>)</span></p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码14.2">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -659,10 +653,10 @@ div.csl-indent {
 <section id="阴性对照法" class="level2" data-number="14.3">
 <h2 data-number="14.3" class="anchored" data-anchor-id="阴性对照法"><span class="header-section-number">14.3</span> 阴性对照法</h2>
 <p>在进行队列研究时，通过额外设置合适的阴性对照，即形成了阴性对照法（negative control methods，NCM）。阴性对照的定义是：不参与拟研究的因果假设，但具有与研究假设相同的潜在人群对照。阴性对照可分为3种：阴性干预、阴性时期和阴性结局。</p>
-<p>更常用的分类是阴性暴露（或阴性干预）和阴性结局；阴性时期可视为安慰剂时间窗。合格的阴性对照应与研究问题共享相关偏倚结构，但不应存在研究处理到阴性结局、或阴性暴露到研究结局的真实因果路径。Lipsitch等（2010）指出，阴性对照选择本身依赖强烈且不可完全检验的领域知识。<span class="citation" data-cites="lipsitch2010">(<a href="../references.html#ref-lipsitch2010" role="doc-biblioref">Lipsitch 等 2010年</a>)</span></p>
+<p>更常用的分类是阴性暴露（或阴性干预）和阴性结局；阴性时期可视为安慰剂时间窗。合格的阴性对照应与研究问题共享相关偏倚结构，但不应存在研究处理到阴性结局、或阴性暴露到研究结局的真实因果路径。Lipsitch等（2010）指出，阴性对照选择本身依赖强烈且不可完全检验的领域知识。<span class="citation" data-cites="lipsitch2010">(<a href="14-sensitivity-analysis.html#ref-lipsitch2010" role="doc-biblioref">Lipsitch 等 2010年</a>)</span></p>
 <section id="阴性干预" class="level3" data-number="14.3.1">
 <h3 data-number="14.3.1" class="anchored" data-anchor-id="阴性干预"><span class="header-section-number">14.3.1</span> 阴性干预</h3>
-<p>阴性干预对照法即阴性干预和结局在理论上为零效应，同时设置阴性干预和待研究干预，可以检验干预和结局之间的内部有效性是否受到偏倚的影响。如Surén等在孕期母亲补充叶酸与儿童自闭症风险的关系研究中，把其他维生素补充（不含叶酸）者作为阴性干预对照组。<span class="citation" data-cites="suren2013">(<a href="../references.html#ref-suren2013" role="doc-biblioref">Surén 等 2013年</a>)</span> Ruckart等研究孕妇饮用化学物污染水与新生儿神经管畸形和口唇裂疾病风险的相关性，发现神经管及口唇发育在早中期已发育完成，妊娠晚期孕妇的污水暴露可作为阴性干预。案例9.1中未观察的混杂因素是年历所致的技术进步是否是导致手术效果增加的原因。此时可采用2016年之后的显微镜手术作为阴性干预对照组，与2016年之前的显微镜手术比较。若两者没有明显差别，说明年历所致技术进步在改善预后方面作用不大。结果提示2016年之后的显微镜手术并不能显著增加手术效果，提示年历所致的技术进步作为未观察的混杂因素可能与手术效果增加无关，客观上反应了之前结果的稳健性。</p>
+<p>阴性干预对照法即阴性干预和结局在理论上为零效应，同时设置阴性干预和待研究干预，可以检验干预和结局之间的内部有效性是否受到偏倚的影响。如Surén等在孕期母亲补充叶酸与儿童自闭症风险的关系研究中，把其他维生素补充（不含叶酸）者作为阴性干预对照组。<span class="citation" data-cites="suren2013">(<a href="14-sensitivity-analysis.html#ref-suren2013" role="doc-biblioref">Surén 等 2013年</a>)</span> Ruckart等研究孕妇饮用化学物污染水与新生儿神经管畸形和口唇裂疾病风险的相关性，发现神经管及口唇发育在早中期已发育完成，妊娠晚期孕妇的污水暴露可作为阴性干预。案例9.1中未观察的混杂因素是年历所致的技术进步是否是导致手术效果增加的原因。此时可采用2016年之后的显微镜手术作为阴性干预对照组，与2016年之前的显微镜手术比较。若两者没有明显差别，说明年历所致技术进步在改善预后方面作用不大。结果提示2016年之后的显微镜手术并不能显著增加手术效果，提示年历所致的技术进步作为未观察的混杂因素可能与手术效果增加无关，客观上反应了之前结果的稳健性。</p>
 <p>这一结果只能说明该阴性对照未发现与年历相关的偏倚信号；若显微镜病例的构成、术者或随访方式亦随年份改变，阴性干预的假设仍可能不成立。</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码14.6">
 <div class="callout-header d-flex align-content-center">
@@ -775,32 +769,174 @@ div.csl-indent {
 <h3 data-number="14.3.3" class="anchored" data-anchor-id="阴性结局"><span class="header-section-number">14.3.3</span> 阴性结局</h3>
 <p>阴性结局又称为伪终点（falsification end points），设置阴性结局对照，通过干预与阴性结局对照间是否为零关联，判断感兴趣的干预对照的内部有效性是否受偏倚的影响。如肺炎球菌疫苗有效性评价中，Broome等将研究人群的结局分为3组：疫苗型感染组，发生疫苗所覆盖血清型的肺炎球菌感染；非疫苗型感染组，发生非疫苗所覆盖血清型的肺炎球菌感染；健康人群：未接种疫苗所致肺炎球菌感染。阴性结局要求疫苗接种与非疫苗型感染组的风险无关。</p>
 <p>阴性对照也有其局限性，阴性对照设立基于因果关联的先验知识，即不参与因果假设和相同的偏倚结构。因此，实际研究中单纯采用统计检验等来探测混杂及其他偏倚是否存在，来进行因果关联估计的做法，值得商榷。阴性对照不能证实不存在偏倚；阴性对照不出现关联，也不意味着感兴趣的因果关系无偏，亦有可能有残存或未测量混杂因素无法控制而相互抵消的情形。阴性对照出现关联，可能是阴性对照两变量间存在着效应修饰，这并不意味着真正因果关联有偏倚。</p>
-<p>也可能是阴性对照的“零效应”或共同偏倚结构假设不成立。因此，阴性对照应与因果图、时间顺序和临床机制一并论证；阳性信号提示需要进一步调查，阴性信号则只能有限地增加可信度。<span class="citation" data-cites="devries2023">(<a href="../references.html#ref-devries2023" role="doc-biblioref">Penning de Vries 和 Groenwold 2023年</a>)</span></p>
+<p>也可能是阴性对照的“零效应”或共同偏倚结构假设不成立。因此，阴性对照应与因果图、时间顺序和临床机制一并论证；阳性信号提示需要进一步调查，阴性信号则只能有限地增加可信度。<span class="citation" data-cites="devries2023">(<a href="14-sensitivity-analysis.html#ref-devries2023" role="doc-biblioref">Penning de Vries 和 Groenwold 2023年</a>)</span></p>
 </section>
 </section>
 <section id="参考文献" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="参考文献">参考文献</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-baron1986" class="csl-entry" role="listitem">
+Baron, Reuben M., and David A. Kenny. 1986. <span>“The
+Moderator–Mediator Variable Distinction in Social Psychological
+Research: Conceptual, Strategic, and Statistical Considerations.”</span>
+<em>Journal of Personality and Social Psychology</em> 51 (6): 1173–82.
+<a href="https://doi.org/10.1037/0022-3514.51.6.1173">https://doi.org/10.1037/0022-3514.51.6.1173</a>.
+</div>
 <div id="ref-cinelli2020" class="csl-entry" role="listitem">
-Cinelli, Carlos, 和 Chad Hazlett. 2020年. <span>《Making Sense of Sensitivity: Extending Omitted Variable Bias》</span>. <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 82 (1): 39～67. <a href="https://doi.org/10.1111/rssb.12348">https://doi.org/10.1111/rssb.12348</a>.
+Cinelli, Carlos, and Chad Hazlett. 2020. <span>“Making Sense of
+Sensitivity: Extending Omitted Variable Bias.”</span> <em>Journal of the
+Royal Statistical Society: Series B (Statistical Methodology)</em> 82
+(1): 39–67. <a href="https://doi.org/10.1111/rssb.12348">https://doi.org/10.1111/rssb.12348</a>.
+</div>
+<div id="ref-cochraneepoc2017" class="csl-entry" role="listitem">
+Cochrane Effective Practice and Organisation of Care (EPOC). 2017.
+<em>What Study Designs Should Be Included in an <span>EPOC</span> Review
+and What Should They Be Called?</em> Guidance document. <a href="https://epoc.cochrane.org/sites/epoc.cochrane.org/files/uploads/Resources-for-authors2017/what_study_designs_should_be_included_in_an_epoc_review.pdf">https://epoc.cochrane.org/sites/epoc.cochrane.org/files/uploads/Resources-for-authors2017/what_study_designs_should_be_included_in_an_epoc_review.pdf</a>.
+</div>
+<div id="ref-cruz2017" class="csl-entry" role="listitem">
+Cruz, Maricela, Miriam Bender, and Hernando Ombao. 2017. <span>“A Robust
+Interrupted Time Series Model for Analyzing Complex Health Care
+Intervention Data.”</span> <em>Statistics in Medicine</em> 36 (29):
+4660–76. <a href="https://doi.org/10.1002/sim.7443">https://doi.org/10.1002/sim.7443</a>.
+</div>
+<div id="ref-dickerman2019" class="csl-entry" role="listitem">
+Dickerman, Barbra A., Xabier García-Albéniz, Roger W. Logan, Spiros
+Denaxas, and Miguel A. Hernán. 2019. <span>“Avoidable Flaws in
+Observational Analyses: An Application to Statins and Cancer.”</span>
+<em>Nature Medicine</em> 25 (10): 1601–6. <a href="https://doi.org/10.1038/s41591-019-0595-5">https://doi.org/10.1038/s41591-019-0595-5</a>.
 </div>
 <div id="ref-ding2016" class="csl-entry" role="listitem">
-Ding, Peng, 和 Tyler J. VanderWeele. 2016年. <span>《Sensitivity Analysis Without Assumptions》</span>. <em>Epidemiology</em> 27 (3): 368～77. <a href="https://doi.org/10.1097/EDE.0000000000000457">https://doi.org/10.1097/EDE.0000000000000457</a>.
+Ding, Peng, and Tyler J. VanderWeele. 2016. <span>“Sensitivity Analysis
+Without Assumptions.”</span> <em>Epidemiology</em> 27 (3): 368–77. <a href="https://doi.org/10.1097/EDE.0000000000000457">https://doi.org/10.1097/EDE.0000000000000457</a>.
 </div>
 <div id="ref-greenland1996" class="csl-entry" role="listitem">
-Greenland, Sander. 1996年. <span>《Basic methods for sensitivity analysis of biases》</span>. <em>International Journal of Epidemiology</em> 25 (6): 1107～16. <a href="https://doi.org/10.1093/ije/25.6.1107">https://doi.org/10.1093/ije/25.6.1107</a>.
+Greenland, Sander. 1996. <span>“Basic Methods for Sensitivity Analysis
+of Biases.”</span> <em>International Journal of Epidemiology</em> 25
+(6): 1107–16. <a href="https://doi.org/10.1093/ije/25.6.1107">https://doi.org/10.1093/ije/25.6.1107</a>.
+</div>
+<div id="ref-hernan2017pp" class="csl-entry" role="listitem">
+Hernán, Miguel A., and James M. Robins. 2017. <span>“Per-Protocol
+Analyses of Pragmatic Trials.”</span> <em>New England Journal of
+Medicine</em> 377 (14): 1391–98. <a href="https://doi.org/10.1056/NEJMsm1605385">https://doi.org/10.1056/NEJMsm1605385</a>.
+</div>
+<div id="ref-hernan2020whatif" class="csl-entry" role="listitem">
+Hernán, Miguel A., and James M. Robins. 2020. <em>Causal Inference: What
+If</em>. Chapman &amp; Hall/CRC.
+</div>
+<div id="ref-iche9r1" class="csl-entry" role="listitem">
+International Council for Harmonisation of Technical Requirements for
+Pharmaceuticals for Human Use. 2020. <em><span>ICH E9(R1)</span>
+Addendum on Estimands and Sensitivity Analysis in Clinical Trials to the
+Guideline on Statistical Principles for Clinical Trials</em>. Guideline.
+<a href="https://www.ema.europa.eu/en/documents/scientific-guideline/ich-e9-r1-addendum-estimands-and-sensitivity-analysis-clinical-trials-guideline-statistical-principles-clinical-trials-step-5_en.pdf">https://www.ema.europa.eu/en/documents/scientific-guideline/ich-e9-r1-addendum-estimands-and-sensitivity-analysis-clinical-trials-guideline-statistical-principles-clinical-trials-step-5_en.pdf</a>.
+</div>
+<div id="ref-kim2026" class="csl-entry" role="listitem">
+Kim, Hye Jin, and Kijun Song. 2026. <span>“Linear Mixed-Effects Models
+for Analysis of Longitudinal Repeated Measures: A Conceptual Framework
+for Clinical Researchers.”</span> <em>Korean Journal of
+Anesthesiology</em>, ahead of print. <a href="https://doi.org/10.4097/kja.25877">https://doi.org/10.4097/kja.25877</a>.
+</div>
+<div id="ref-kontopantelis2015" class="csl-entry" role="listitem">
+Kontopantelis, Evangelos, Tim Doran, David A. Springate, Iain Buchan,
+and David Reeves. 2015. <span>“Regression Based Quasi-Experimental
+Approach When Randomisation Is Not an Option: Interrupted Time Series
+Analysis.”</span> <em>BMJ</em> 350: h2750. <a href="https://doi.org/10.1136/bmj.h2750">https://doi.org/10.1136/bmj.h2750</a>.
+</div>
+<div id="ref-lee2021" class="csl-entry" role="listitem">
+Lee, Hopin, Aidan G. Cashin, Sarah E. Lamb, et al. 2021. <span>“A
+Guideline for Reporting Mediation Analyses of Randomized Trials and
+Observational Studies: The <span>AGReMA</span> Statement.”</span>
+<em>JAMA</em> 326 (11): 1045–56. <a href="https://doi.org/10.1001/jama.2021.14075">https://doi.org/10.1001/jama.2021.14075</a>.
+</div>
+<div id="ref-lennon2018" class="csl-entry" role="listitem">
+Lennon, Hannah, Sarah Kelly, Matthew Sperrin, et al. 2018.
+<span>“Framework to Construct and Interpret Latent Class Trajectory
+Modelling.”</span> <em>BMJ Open</em> 8 (7): e020683. <a href="https://doi.org/10.1136/bmjopen-2017-020683">https://doi.org/10.1136/bmjopen-2017-020683</a>.
+</div>
+<div id="ref-harris2022" class="csl-entry" role="listitem">
+Li, Yihan, Dai Feng, Yunxia Sui, et al. 2022. <span>“Analyzing
+Longitudinal Binary Data in Clinical Studies.”</span> <em>Contemporary
+Clinical Trials</em> 115: 106717. <a href="https://doi.org/10.1016/j.cct.2022.106717">https://doi.org/10.1016/j.cct.2022.106717</a>.
+</div>
+<div id="ref-liang1986" class="csl-entry" role="listitem">
+Liang, Kung-Yee, and Scott L. Zeger. 1986. <span>“Longitudinal Data
+Analysis Using Generalized Linear Models.”</span> <em>Biometrika</em> 73
+(1): 13–22. <a href="https://doi.org/10.1093/biomet/73.1.13">https://doi.org/10.1093/biomet/73.1.13</a>.
 </div>
 <div id="ref-lipsitch2010" class="csl-entry" role="listitem">
-Lipsitch, Marc, Eric Tchetgen Tchetgen, 和 Ted Cohen. 2010年. <span>《Negative controls: a tool for detecting confounding and bias in observational studies》</span>. <em>Epidemiology</em> 21 (3): 383～88. <a href="https://doi.org/10.1097/EDE.0b013e3181d61eeb">https://doi.org/10.1097/EDE.0b013e3181d61eeb</a>.
+Lipsitch, Marc, Eric Tchetgen Tchetgen, and Ted Cohen. 2010.
+<span>“Negative Controls: A Tool for Detecting Confounding and Bias in
+Observational Studies.”</span> <em>Epidemiology</em> 21 (3): 383–88. <a href="https://doi.org/10.1097/EDE.0b013e3181d61eeb">https://doi.org/10.1097/EDE.0b013e3181d61eeb</a>.
+</div>
+<div id="ref-bernal2017" class="csl-entry" role="listitem">
+Lopez Bernal, James, Steven Cummins, and Antonio Gasparrini. 2017.
+<span>“Interrupted Time Series Regression for the Evaluation of Public
+Health Interventions: A Tutorial.”</span> <em>International Journal of
+Epidemiology</em> 46 (1): 348–55. <a href="https://doi.org/10.1093/ije/dyw098">https://doi.org/10.1093/ije/dyw098</a>.
+</div>
+<div id="ref-lopezbernal2019" class="csl-entry" role="listitem">
+Lopez Bernal, James, Steven Cummins, and Antonio Gasparrini. 2019.
+<span>“Difference in Difference, Controlled Interrupted Time Series and
+Synthetic Controls.”</span> <em>International Journal of
+Epidemiology</em> 48 (6): 2062–63. <a href="https://doi.org/10.1093/ije/dyz050">https://doi.org/10.1093/ije/dyz050</a>.
+</div>
+<div id="ref-nagin2010" class="csl-entry" role="listitem">
+Nagin, Daniel S., and Candice L. Odgers. 2010. <span>“Group-Based
+Trajectory Modeling in Clinical Research.”</span> <em>Annual Review of
+Clinical Psychology</em> 6: 109–38. <a href="https://doi.org/10.1146/annurev.clinpsy.121208.131413">https://doi.org/10.1146/annurev.clinpsy.121208.131413</a>.
 </div>
 <div id="ref-devries2023" class="csl-entry" role="listitem">
-Penning de Vries, Bas B. L., 和 Rolf H. H. Groenwold. 2023年. <span>《Negative controls: Concepts and caveats》</span>. <em>Statistical Methods in Medical Research</em> 32 (8): 1576～87. <a href="https://doi.org/10.1177/09622802231181230">https://doi.org/10.1177/09622802231181230</a>.
+Penning de Vries, Bas B. L., and Rolf H. H. Groenwold. 2023.
+<span>“Negative Controls: Concepts and Caveats.”</span> <em>Statistical
+Methods in Medical Research</em> 32 (8): 1576–87. <a href="https://doi.org/10.1177/09622802231181230">https://doi.org/10.1177/09622802231181230</a>.
+</div>
+<div id="ref-rimawi2012" class="csl-entry" role="listitem">
+Rimawi, M., and S. G. Hilsenbeck. 2012. <span>“Making Sense of Clinical
+Trial Data: Is Inverse Probability of Censoring Weighted Analysis the
+Answer to Crossover Bias?”</span> <em>Journal of Clinical Oncology</em>
+30 (4): 453–58. <a href="https://doi.org/10.1200/JCO.2011.38.7074">https://doi.org/10.1200/JCO.2011.38.7074</a>.
+</div>
+<div id="ref-sterne2009" class="csl-entry" role="listitem">
+Sterne, Jonathan A. C., Ian R. White, John B. Carlin, et al. 2009.
+<span>“Multiple Imputation for Missing Data in Epidemiological and
+Clinical Research: Potential and Pitfalls.”</span> <em>BMJ</em> 338:
+b2393. <a href="https://doi.org/10.1136/bmj.b2393">https://doi.org/10.1136/bmj.b2393</a>.
 </div>
 <div id="ref-suren2013" class="csl-entry" role="listitem">
-Surén, Pål, Christine Roth, Michaeline Bresnahan, 等. 2013年. <span>《Association Between Maternal Use of Folic Acid Supplements and Risk of Autism Spectrum Disorders in Children》</span>. <em>JAMA</em> 309 (6): 570～77. <a href="https://doi.org/10.1001/jama.2012.155925">https://doi.org/10.1001/jama.2012.155925</a>.
+Surén, Pål, Christine Roth, Michaeline Bresnahan, et al. 2013.
+<span>“Association Between Maternal Use of Folic Acid Supplements and
+Risk of Autism Spectrum Disorders in Children.”</span> <em>JAMA</em> 309
+(6): 570–77. <a href="https://doi.org/10.1001/jama.2012.155925">https://doi.org/10.1001/jama.2012.155925</a>.
+</div>
+<div id="ref-taljaard2014" class="csl-entry" role="listitem">
+Taljaard, Monica, Joanne E. McKenzie, Craig R. Ramsay, and Jeremy M.
+Grimshaw. 2014. <span>“The Use of Segmented Regression in Analysing
+Interrupted Time Series Studies: An Example in Pre-Hospital Ambulance
+Care.”</span> <em>Implementation Science</em> 9: 77. <a href="https://doi.org/10.1186/1748-5908-9-77">https://doi.org/10.1186/1748-5908-9-77</a>.
+</div>
+<div id="ref-valeri2013" class="csl-entry" role="listitem">
+Valeri, Linda, and Tyler J. VanderWeele. 2013. <span>“Mediation Analysis
+Allowing for Exposure-Mediator Interactions and Causal Interpretation:
+Theoretical Assumptions and Implementation with <span>SAS</span> and
+<span>SPSS</span> Macros.”</span> <em>Psychological Methods</em> 18 (2):
+137–50. <a href="https://doi.org/10.1037/a0031034">https://doi.org/10.1037/a0031034</a>.
 </div>
 <div id="ref-vanderweele2017" class="csl-entry" role="listitem">
-VanderWeele, Tyler J., 和 Peng Ding. 2017年. <span>《Sensitivity analysis in observational research: Introducing the <span>E</span>-value》</span>. <em>Annals of Internal Medicine</em> 167 (4): 268～74. <a href="https://doi.org/10.7326/M16-2607">https://doi.org/10.7326/M16-2607</a>.
+VanderWeele, Tyler J., and Peng Ding. 2017. <span>“Sensitivity Analysis
+in Observational Research: Introducing the <span>E</span>-Value.”</span>
+<em>Annals of Internal Medicine</em> 167 (4): 268–74. <a href="https://doi.org/10.7326/M16-2607">https://doi.org/10.7326/M16-2607</a>.
+</div>
+<div id="ref-vanderweele2014" class="csl-entry" role="listitem">
+VanderWeele, Tyler J., Stijn Vansteelandt, and James M. Robins. 2014.
+<span>“Effect Decomposition in the Presence of an Exposure-Induced
+Mediator-Outcome Confounder.”</span> <em>Epidemiology</em> 25 (2):
+300–306. <a href="https://doi.org/10.1097/EDE.0000000000000034">https://doi.org/10.1097/EDE.0000000000000034</a>.
+</div>
+<div id="ref-zhang2009" class="csl-entry" role="listitem">
+Zhang, Fang, Anita K. Wagner, Stephen B. Soumerai, and Dennis
+Ross-Degnan. 2009. <span>“Methods for Estimating Confidence Intervals in
+Interrupted Time Series Analyses of Health Interventions.”</span>
+<em>Journal of Clinical Epidemiology</em> 62 (2): 143–48. <a href="https://doi.org/10.1016/j.jclinepi.2008.08.007">https://doi.org/10.1016/j.jclinepi.2008.08.007</a>.
 </div>
 </div>
 

@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/21-causal-discovery.html" rel="next">
+<link href="../references.html" rel="next">
 <link href="../chapters/19-heterogeneity.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -220,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12-regression-discontinuity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归法</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -273,12 +302,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/21-causal-discovery.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">因果发现</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">参考文献</span></a>
   </div>
@@ -294,12 +317,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#强化学习的基本概念" id="toc-强化学习的基本概念" class="nav-link active" data-scroll-target="#强化学习的基本概念"><span class="header-section-number">20.1</span> 强化学习的基本概念</a></li>
-  <li><a href="#统计性强化学习" id="toc-统计性强化学习" class="nav-link" data-scroll-target="#统计性强化学习"><span class="header-section-number">20.2</span> 统计性强化学习</a></li>
+  <li><a href="#统计学强化学习" id="toc-统计学强化学习" class="nav-link" data-scroll-target="#统计学强化学习"><span class="header-section-number">20.2</span> 统计学强化学习</a>
+  <ul class="collapse">
+  <li><a href="#案例20.1" id="toc-案例20.1" class="nav-link" data-scroll-target="#案例20.1"><span class="header-section-number">20.2.1</span> 案例20.1</a></li>
+  <li><a href="#案例20.1数据表" id="toc-案例20.1数据表" class="nav-link" data-scroll-target="#案例20.1数据表"><span class="header-section-number">20.2.2</span> 案例20.1数据表</a></li>
+  </ul></li>
   <li><a href="#随时间变动的治疗和混杂" id="toc-随时间变动的治疗和混杂" class="nav-link" data-scroll-target="#随时间变动的治疗和混杂"><span class="header-section-number">20.3</span> 随时间变动的治疗和混杂</a></li>
   <li><a href="#计算性强化学习" id="toc-计算性强化学习" class="nav-link" data-scroll-target="#计算性强化学习"><span class="header-section-number">20.4</span> 计算性强化学习</a></li>
   <li><a href="#因果强化学习" id="toc-因果强化学习" class="nav-link" data-scroll-target="#因果强化学习"><span class="header-section-number">20.5</span> 因果强化学习</a></li>
   <li><a href="#强化学习的策略评估" id="toc-强化学习的策略评估" class="nav-link" data-scroll-target="#强化学习的策略评估"><span class="header-section-number">20.6</span> 强化学习的策略评估</a></li>
   <li><a href="#强化学习的局限性" id="toc-强化学习的局限性" class="nav-link" data-scroll-target="#强化学习的局限性"><span class="header-section-number">20.7</span> 强化学习的局限性</a></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献">参考文献</a></li>
   </ul>
 </nav>
     </div>
@@ -325,46 +353,758 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<p>序贯决策（动态治疗方案，dynamic treatment regime，DTR）是由一系列按时间顺序执行的决策规则组成的策略：每一阶段的治疗选择依赖于该时点及既往可获得的患者信息，同时又可能改变后续状态、治疗选择和最终结局。临床问题的目标不是在每个时点孤立地选择“当下最好”的治疗，而是在预先定义的患者重要结局、治疗负担和安全约束下，使整个治疗轨迹的预期净获益最大。DTR 可作为临床决策支持的一种形式，但必须以清晰的临床问题、可识别的因果效应和可验证的策略表现为基础，而非仅由既往医疗经验或算法预测性能决定。</p>
+<p>例如，外伤性颅脑损伤患者出现颅内压增高时，临床可考虑高渗盐水、机械通气或镇静等措施。医生会依据患者在不同阶段的神经状态、生命体征、既往治疗和不良反应决定下一步方案；早期选择还可能影响之后的状态与可选治疗。因此，序贯治疗策略应明确每个决策时点、可用信息、候选治疗、升级/停药规则及兼顾短期稳定与长期预后的结局。</p>
+<div class="text-center">
+<p><img src="images/ch20-image1.jpeg" class="img-fluid" style="width:3.45in"></p>
+<p>图20.1 外伤性颅脑损伤患者的序贯治疗策略</p>
+</div>
+<p>在计算机科学中，强化学习（reinforcement learning，RL）研究如何通过与环境交互学习连续决策策略。智能体依据状态选择行动、获得奖励并据此更新策略，目标是优化预先定义的累计回报。临床 DTR 与强化学习在“多阶段、依赖历史信息的决策”上相通，但二者并不等同：临床研究还必须处理治疗分配的因果识别、时间变化混杂、缺失与删失、可行性及患者安全。</p>
+<section id="强化学习的基本概念" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="强化学习的基本概念"><span class="header-section-number">20.1</span> 强化学习的基本概念</h2>
+<p>强化学习可借助“状态—行动—奖励—策略”的框架描述连续决策，但临床应用不应把患者简单视为可反复试错的环境。其目标不是仅预测下一步会发生什么，而是在明确的因果假设和临床约束下，比较不同治疗策略下的预期结局。应用于临床医学时，通常至少需要明确以下要素：</p>
+<p>患者在时间 t 的状态或可用历史：H_t（可包括 S_t 及既往治疗、反应和测量信息）</p>
+<p>患者在时间 t 接受的治疗或行动：A_t</p>
+<p>治疗后的即时反馈或奖励：R_t</p>
+<p>动态治疗策略：π，即由 H_t 映射到行动 A_t 的规则</p>
+<div class="text-center">
+<p><img src="images/ch20-image2.png" style="width:3.72045in;height:2.88911in"></p>
+<p>图20.2 强化学习基本概念</p>
+</div>
+<p>S_t 可理解为某一时点的患者指标集合，如生命体征、实验室检查和症状；H_t 则更完整地包含截至该时点的可用历史。A_t 是该时点实际接受的一种或多种治疗；R_t 是治疗后的即时反应或预先规定的奖励。策略 π 是根据 H_t 推荐 A_t 的规则。临床策略的“奖励”应由患者重要结局、治疗伤害和资源负担共同定义，而不能只由易获得的代理指标决定。</p>
+<p>强化学习根据数据来源可以分为以下两类：</p>
+<ol type="1">
+<li>在线学习（On-Policy）</li>
+</ol>
+<p>在线学习指策略在部署过程中依据新获得的数据不断更新。直接在患者身上探索治疗的风险和伦理约束很高，通常只可能在严格方案、监测规则和伦理审查下实施。适应性临床试验或反应适应性随机化可以借鉴其思想，但其设计、随机化概率更新和推断方法必须预先规定，不能简单理解为“根据前一位患者的结局决定下一位患者的治疗”。</p>
+<ol start="2" type="1">
+<li>离线学习（Off-Policy）</li>
+</ol>
+<p>离线学习（off-policy learning）利用既往随机试验或观察性数据学习策略，而不在学习阶段改变患者治疗。它更贴近多数临床数据库研究，但只能在数据支持的状态—治疗组合内可靠学习；若历史治疗选择受未测量因素影响，或某些治疗几乎从未给予特定患者，离线算法的价值估计和推荐可能产生严重偏倚。</p>
+<p>根据训练的方法又可以将强化学习分为以下几类：</p>
+<ol type="1">
+<li>基于策略的强化学习（Policy based）</li>
+</ol>
+<p>基于策略的方法直接参数化或搜索决策规则，并输出不同干预的选择概率或确定性推荐；其效果取决于策略空间、约束和价值评估是否合理。</p>
+<ol start="2" type="1">
+<li>基于值的强化学习（Value based）</li>
+</ol>
+<p>基于价值的方法估计状态—行动价值函数，再选择预期累计回报最高的行动；Q-learning 属于这一类。价值函数的高低不是观察到的因果效应本身，而是在模型、数据和识别假设下对策略价值的估计。</p>
+<ol start="3" type="1">
+<li>无模型的强化学习</li>
+</ol>
+<p>无模型方法不显式建立状态转移和奖励生成机制，而是直接从经验轨迹估计价值或策略；这并不免除对数据质量、重叠性和因果识别的要求。</p>
+<ol start="4" type="1">
+<li>有模型的强化学习</li>
+</ol>
+<p>有模型方法显式估计状态转移与奖励机制，并在模型中模拟不同干预路径以比较策略。模型错设、未测量变量和分布漂移会使模拟结果偏离真实临床后果，因此应进行模型诊断、敏感性分析和外部验证。</p>
+</section>
+<section id="统计学强化学习" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="统计学强化学习"><span class="header-section-number">20.2</span> 统计学强化学习</h2>
+<p>统计学中的动态治疗方案方法将单阶段治疗比较扩展到多阶段决策。顺序多重分配随机试验（sequential multiple assignment randomized trial，SMART）在预先规定的关键节点对符合条件的患者再次随机分配，可高效比较嵌入式 DTR。Q-learning、A-learning、边际结构模型、g 公式和结构嵌套模型等方法可用于随机或观察性纵向数据；在观察性数据中，结论还依赖序贯可交换性、正值性、一致性及正确处理删失等假设。</p>
+<p>Q 函数可理解为在给定历史 H_t 下采取行动 A_t，并在之后遵循某一策略时的预期累计临床回报。在单阶段研究中，它可退化为给定协变量下不同治疗的预期结局；在多阶段研究中，Q 值必须纳入后续最优或规定策略下的回报，因而不能把它简单等同于某一次治疗的孤立因果效应。</p>
+<p><strong>公式20.1</strong></p>
+<p><span class="math display">\[Q^{opt}(H,A) = E\lbrack Y|H,A\rbrack\]</span></p>
+<p>多阶段干预的目标是在预先定义的时间范围内选择使策略价值最大的治疗序列。对每个阶段，比较的不是该阶段即时 Q 值，而是该阶段行动及后续行动共同决定的累计回报；这也是通常采用从最后阶段向前递推（backward induction）的原因。</p>
+<p>在两阶段随机或观察性研究中（图20.3），可记第一阶段的基线/历史、治疗与阶段性反应为 H_1、A_1、R_1，第二阶段的历史、治疗与结局为 H_2、A_2、Y。H_2 应包括截至第二次决策前可获得的基线状态、第一阶段治疗和中间反应/测量。随机试验中，各阶段随机化使相应治疗在已知历史条件下可比较；观察性研究中，若 A_2 同时受既往治疗、病情变化和医生判断影响，则这些共同原因必须被充分测量并纳入序贯混杂控制。</p>
+<p>两阶段的序贯决策规则记为 d_1、d_2。最后阶段的规则选择使给定 H_2 时预期结局最优的 A_2；第一阶段规则则选择使第一阶段后、并在其后遵循 d_2 时的预期累计回报最优的 A_1。据此可定义两阶段的 Q 方程：</p>
+<p><strong>公式20.2</strong></p>
+<p><span class="math display">\[Q_{2}^{opt}\left( H_{2},A_{2} \right) = E\lbrack Y_{2}|H_{2},A_{2}\rbrack\]</span></p>
+<p><span class="math display">\[Q_{1}^{opt}\left( H_{1},A_{1} \right) = E\lbrack Y_{1} + \max_{A_{2}}Q_{2}^{opt}(H_{2},A_{2})|H_{1},A_{1}\rbrack\]</span></p>
+<p>若两个 Q 方程已知或被可靠估计，可在每个可观测历史下选择 Q 值最大的行动，组成候选最优治疗策略。应同时报告策略的适用范围、估计不确定性和对未测量混杂/模型设定的敏感性。</p>
+<p><strong>公式20.3</strong></p>
+<p><span class="math display">\[d_{1}^{opt} = arg\max_{A_{1}}{Q_{1}^{opt}(H_{1},A_{1})}\]</span></p>
+<p><span class="math display">\[d_{2}^{opt} = arg\max_{A_{2}}{Q_{2}^{opt}(H_{2},A_{2})}\]</span></p>
+<div class="text-center">
+<p><img src="images/ch20-image3.png" style="width:5.76806in;height:3.2849in"></p>
+<p>图20.3 多阶段干预的混杂</p>
+</div>
+<section id="案例20.1" class="level3" data-number="20.2.1">
+<h3 data-number="20.2.1" class="anchored" data-anchor-id="案例20.1"><span class="header-section-number">20.2.1</span> 案例20.1</h3>
+<p>这是一个序贯多重分配随机试验，基线状况记录受试者的性别（gender）、种族（race）、体重指数（baselineBMI）以及父母体重指数（parentBMI）。该实验分两个阶段，第一阶段首先将患者随机分配到为干预组（A1表示，替餐组，MR）和对照组（A2表示，常规饮食组，CD），四个月后记录受试者的体重指数（month4BMI）；第二阶段重新进行随机分配，十二个月后记录受试者的体重指数（month12BMI）。</p>
+</section>
+<section id="案例20.1数据表" class="level3" data-number="20.2.2">
+<h3 data-number="20.2.2" class="anchored" data-anchor-id="案例20.1数据表"><span class="header-section-number">20.2.2</span> 案例20.1数据表</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 16%">
+<col style="width: 17%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 6%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">gender</th>
+<th style="text-align: left;">race</th>
+<th style="text-align: left;">parentBMI</th>
+<th style="text-align: left;">baselineBMI</th>
+<th style="text-align: left;">month4BMI</th>
+<th style="text-align: left;">month12BMI</th>
+<th style="text-align: left;">A1</th>
+<th style="text-align: left;">A2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">31.5968318</td>
+<td style="text-align: left;">35.8400506</td>
+<td style="text-align: left;">34.2271673</td>
+<td style="text-align: left;">34.2726268</td>
+<td style="text-align: left;">CD</td>
+<td style="text-align: left;">MR</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">30.1756357</td>
+<td style="text-align: left;">37.3039587</td>
+<td style="text-align: left;">36.3801392</td>
+<td style="text-align: left;">36.3840057</td>
+<td style="text-align: left;">CD</td>
+<td style="text-align: left;">MR</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">30.2791806</td>
+<td style="text-align: left;">36.8388927</td>
+<td style="text-align: left;">34.4216825</td>
+<td style="text-align: left;">34.4144739</td>
+<td style="text-align: left;">MR</td>
+<td style="text-align: left;">CD</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">27.492564</td>
+<td style="text-align: left;">36.7067889</td>
+<td style="text-align: left;">32.5201128</td>
+<td style="text-align: left;">32.5239747</td>
+<td style="text-align: left;">CD</td>
+<td style="text-align: left;">CD</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">26.4235031</td>
+<td style="text-align: left;">34.8420685</td>
+<td style="text-align: left;">33.7292175</td>
+<td style="text-align: left;">33.735464</td>
+<td style="text-align: left;">CD</td>
+<td style="text-align: left;">CD</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+</tr>
+</tbody>
+</table>
+<p>临床问题是第一阶段和第二阶段采用何种干预措施才能使体重指数得到明显下降。统计学强化学习采用两步回归方法，首先将第二阶段结局（12个月体重指数与4个月体重指数变化幅度，正值代表减重、负值代表增重）对第二阶段决策以及第二阶段患者的治疗历史回归。</p>
+<p><strong>公式20.4</strong></p>
+<p><span class="math display">\[Y_{2} = \varepsilon_{0} + \beta_{21}*A_{1} + \beta_{22}*A_{1}*S_{1} + \beta_{23}*A_{2} + \beta_{24}*A_{2}*S_{2} + \beta_{25}*S_{1} + \beta_{26}*S_{2}\]</span></p>
+<p>纳入第一阶段随机分配与基线和第二阶段随机分配治疗与第二次分配前基线的交互项。回归模型建立后代入第二阶段治疗的值计算第二阶段的最大Q值，并加上第一阶段随机分配后的结局以计算第一阶段随机分配后的假结局：</p>
+<p><strong>公式20.5</strong></p>
+<p><span class="math display">\[{\widehat{Y}}_{1} = Y_{1} + \widehat{Y_{2}} = Y_{1} +\]</span></p>
+<p><span class="math display">\[\max_{{Treatment}_{2}}\begin{array}{r}
+\left( \varepsilon_{0} + \beta_{21}*A_{1} + \beta_{22}*A_{1}*S_{1} + \beta_{23}*A_{2} + \beta_{24}*A_{2}*S_{2} + \beta_{25}*S_{1} + \beta_{26}*S_{2} \right)
+\end{array}\]</span></p>
+<p>用第一的假结局对第一次治疗历史做回归：</p>
+<p><strong>公式20.6</strong></p>
+<p><span class="math display">\[{\widehat{Y}}_{1} = \varepsilon_{0} + \beta_{11}*A_{1} + \beta_{12}*A_{1}*S_{1} + \beta_{13}*S_{1}\]</span></p>
+<p>最后得出第一次和第二次治疗的最优策略：</p>
+<p><strong>公式20.7</strong></p>
+<p><span class="math display">\[d_{2}^{opt} = \underset{{Treatment}_{2}}{argmax}\widehat{Y_{2}}\]</span></p>
+<p><span class="math display">\[d_{1}^{opt} = \underset{{Treatment}_{1}}{argmax}\widehat{Y_{1}}\]</span></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">注记</span>编写说明
+<span class="screen-reader-only">注记</span>代码20.1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> y12 = -100*(month12bmi - month4bmi)/month4bmi</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> A1 = (a1 == <span class="st">"MR"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> A2 = (a2 == <span class="st">"MR"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">reg</span> y12 A2 A1 A2#c.month4bmi A1#c.baselinebmi c.month4bmi c.baselinebmi</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码20.1输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码20.1输出
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>本章内容整理中。可将已校订的 Word 书稿（<code>乔Book/</code> 目录）正文迁移至此，公式用 <code>$...$</code> / <code>$$...$$</code>，图片放 <code>images/</code>，代码用 <code>{r} 或</code>{python} 代码块。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 14%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 19%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Source</th>
+<th style="text-align: center;">SS</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">MS</th>
+<th>Number of obs</th>
+<th style="text-align: center;">=</th>
+<th style="text-align: center;"><strong>210</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">Model</td>
+<td style="text-align: center;"><strong>12.3427503</strong></td>
+<td style="text-align: center;"><strong>6</strong></td>
+<td style="text-align: center;"><strong>2.057125</strong></td>
+<td>F(3, 32)</td>
+<td style="text-align: center;">=</td>
+<td style="text-align: center;"><strong>90.80</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Residual</td>
+<td style="text-align: center;"><strong>.4.60417904</strong></td>
+<td style="text-align: center;"><strong>203</strong></td>
+<td style="text-align: center;"><strong>.02268068</strong></td>
+<td>Prob &gt; F</td>
+<td style="text-align: center;">=</td>
+<td style="text-align: center;"><strong>0.0000</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">Total</td>
+<td style="text-align: center;"><strong>16.9469294</strong></td>
+<td style="text-align: center;"><strong>209</strong></td>
+<td style="text-align: center;"><strong>.08108578</strong></td>
+<td>R-squared</td>
+<td style="text-align: center;">=</td>
+<td style="text-align: center;"><strong>0.7283</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td>Adj R-squared</td>
+<td style="text-align: center;">=</td>
+<td style="text-align: center;"><strong>0.7203</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td>Root MSE</td>
+<td style="text-align: center;">=</td>
+<td style="text-align: center;"><strong>.1506</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">rate</td>
+<td style="text-align: center;">Coefficient</td>
+<td style="text-align: center;">Std. err.</td>
+<td style="text-align: center;">t</td>
+<td>P&gt;|t|</td>
+<td style="text-align: center;">[95% conf. interval]</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">A2</td>
+<td style="text-align: center;"><strong>-4.201988</strong></td>
+<td style="text-align: center;"><strong>.1825362</strong></td>
+<td style="text-align: center;"><strong>-23.02</strong></td>
+<td><strong>0.000</strong></td>
+<td style="text-align: center;"><strong>-4.56189</strong></td>
+<td style="text-align: center;"><strong>-3.84207</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">A1</td>
+<td style="text-align: center;"><strong>-.1950291</strong></td>
+<td style="text-align: center;"><strong>.2126561</strong></td>
+<td style="text-align: center;"><strong>-0.92</strong></td>
+<td><strong>0.360</strong></td>
+<td style="text-align: center;"><strong>-.6143272</strong></td>
+<td style="text-align: center;"><strong>.224269</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><p>A2#</p>
+<p>c.month4bmi</p></td>
+<td style="text-align: center;"><strong>.1176601</strong></td>
+<td style="text-align: center;"><strong>.0051116</strong></td>
+<td style="text-align: center;"><strong>23.02</strong></td>
+<td><strong>0.000</strong></td>
+<td style="text-align: center;"><strong>.1075816</strong></td>
+<td style="text-align: center;"><strong>.1277387</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><p>A1#</p>
+<p>c.baselinebmi</p></td>
+<td style="text-align: center;"><strong>.0057149</strong></td>
+<td style="text-align: center;"><strong>.0055766</strong></td>
+<td style="text-align: center;"><strong>1.02</strong></td>
+<td><strong>0.307</strong></td>
+<td style="text-align: center;"><strong>-.0052807</strong></td>
+<td style="text-align: center;"><strong>.0167104</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">month4bmi</td>
+<td style="text-align: center;"><strong>-.0570188</strong></td>
+<td style="text-align: center;"><strong>.0043428</strong></td>
+<td style="text-align: center;"><strong>-13.13</strong></td>
+<td><strong>0.000</strong></td>
+<td style="text-align: center;"><strong>-.0655816</strong></td>
+<td style="text-align: center;"><strong>-.048456</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">baselinebmi</td>
+<td style="text-align: center;"><strong>.0005309</strong></td>
+<td style="text-align: center;"><strong>.0047231</strong></td>
+<td style="text-align: center;"><strong>0.11</strong></td>
+<td><strong>0.911</strong></td>
+<td style="text-align: center;"><strong>-.0087816</strong></td>
+<td style="text-align: center;"><strong>.0098434</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">_cons</td>
+<td style="text-align: center;"><strong>1.963313</strong></td>
+<td style="text-align: center;"><strong>.174191</strong></td>
+<td style="text-align: center;"><strong>11.27</strong></td>
+<td><strong>0.000</strong></td>
+<td style="text-align: center;"><strong>1.619858</strong></td>
+<td style="text-align: center;"><strong>2.306769</strong></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<section id="强化学习的基本概念" class="level2" data-number="20.1">
-<h2 data-number="20.1" class="anchored" data-anchor-id="强化学习的基本概念"><span class="header-section-number">20.1</span> 强化学习的基本概念</h2>
-<p><em>待补充。</em></p>
+<p>结果提示：在该回归模型和示例数据中，第二阶段替餐相对常规饮食与更大的体重指数下降相关（A2 系数为 -4.2，P&lt;0.001）；4 个月时体重指数与之后体重变化有关（month4BMI 系数为 -0.06，P&lt;0.001）。A2 与 month4BMI 的交互项系数为 0.12（P&lt;0.001），提示第二阶段治疗效应可能随 4 个月时体重指数而变化。这里的终点是 4 至 12 个月的体重指数变化，而不是“12周”的变化；具体临床解释还应与变量编码及结局方向一致。</p>
+<p>可进一步观察两种第二阶段治疗下，4 个月时体重指数与随后体重变化的模型预测关系。图形提示在当前模型中，4 个月时体重指数约低于 35 的受试者在常规饮食下的预测变化较优，而高于 35 者在替餐下的预测变化较优。该阈值来自示例性模型，不应视为可直接推广的临床切点；应在独立数据中评估其稳定性和策略价值。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码20.2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> y12 month4bmi), <span class="kw">by</span>(a2)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码20.2输出：第二阶段干预措施与4周体重指数的交互">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码20.2输出：第二阶段干预措施与4周体重指数的交互
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch20-image4.png" style="width:5.76806in;height:4.10417in"></p>
+</div>
+</div>
+</div>
+<p>第二步，将第二阶段回归模型分别代入替餐和常规饮食的取值，计算两种行动下的预测体重变化，并取较优值作为第二阶段的预测最优 Q 值；再与第一阶段至第二阶段的变化合并，构造第一阶段的伪结局。此递推过程要求结局方向、治疗编码与“较优”的定义保持一致。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码20.3
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> A2=1</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> y1_A2_1</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> A2=0</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> y1_A2_0</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> y01 = -100*(month4bmi - baselinebmi)/baselinebmi</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> y1_hat = y01 + <span class="fu">max</span>(y1_A2_1, y1_A2_0)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<p>最后，将第一阶段伪结局对第一阶段治疗、基线变量及预先规定的交互项进行回归，以估计第一阶段的候选决策规则。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码20.4
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">reg</span> y1_hat A1 A1#c.parentbmi A1#c.baselinebmi c.parentbmi c.baselinebmi</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码20.4输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码20.4输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 20%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Source</th>
+<th style="text-align: center;">SS</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">MS</th>
+<th>Number of obs</th>
+<th style="text-align: center;">=</th>
+<th style="text-align: center;"><strong>210</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">Model</td>
+<td style="text-align: center;"><strong>6623.3245</strong></td>
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: center;"><strong>1324.6649</strong></td>
+<td>F(3, 32)</td>
+<td style="text-align: center;">=</td>
+<td style="text-align: center;"><strong>46.22</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Residual</td>
+<td style="text-align: center;"><strong>5846.1556</strong></td>
+<td style="text-align: center;"><strong>204</strong></td>
+<td style="text-align: center;"><strong>28.657625</strong></td>
+<td>Prob &gt; F</td>
+<td style="text-align: center;">=</td>
+<td style="text-align: center;"><strong>0.0000</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">Total</td>
+<td style="text-align: center;"><strong>12469.480</strong></td>
+<td style="text-align: center;"><strong>209</strong></td>
+<td style="text-align: center;"><strong>59.662584</strong></td>
+<td>R-squared</td>
+<td style="text-align: center;">=</td>
+<td style="text-align: center;"><strong>0.5312</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td>Adj R-squared</td>
+<td style="text-align: center;">=</td>
+<td style="text-align: center;"><strong>0.5197</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td>Root MSE</td>
+<td style="text-align: center;">=</td>
+<td style="text-align: center;"><strong>5.3333</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">rate</td>
+<td style="text-align: center;">Coefficient</td>
+<td style="text-align: center;">Std. err.</td>
+<td style="text-align: center;">t</td>
+<td>P&gt;|t|</td>
+<td style="text-align: center;">[95% conf. interval]</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">A1</td>
+<td style="text-align: center;"><strong>9.741562</strong></td>
+<td style="text-align: center;"><strong>7.707874</strong></td>
+<td style="text-align: center;"><strong>1.26</strong></td>
+<td><strong>0.208</strong></td>
+<td style="text-align: center;"><strong>-5.455751</strong></td>
+<td style="text-align: center;"><strong>24.93888</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><p>A1#</p>
+<p>c.parentbmi</p></td>
+<td style="text-align: center;"><strong>-1.241542</strong></td>
+<td style="text-align: center;"><strong>.1411901</strong></td>
+<td style="text-align: center;"><strong>-8.79</strong></td>
+<td><strong>0.000</strong></td>
+<td style="text-align: center;"><strong>-1.519921</strong></td>
+<td style="text-align: center;"><strong>-.963163</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><p>A1#</p>
+<p>c.baselinebmi</p></td>
+<td style="text-align: center;"><strong>.7835519</strong></td>
+<td style="text-align: center;"><strong>.214443</strong></td>
+<td style="text-align: center;"><strong>3.65</strong></td>
+<td><strong>0.000</strong></td>
+<td style="text-align: center;"><strong>.3607431</strong></td>
+<td style="text-align: center;"><strong>1.206361</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">parentbmi</td>
+<td style="text-align: center;"><strong>-.0758288</strong></td>
+<td style="text-align: center;"><strong>.1061661</strong></td>
+<td style="text-align: center;"><strong>-0.71</strong></td>
+<td><strong>0.476</strong></td>
+<td style="text-align: center;"><strong>-.2851524</strong></td>
+<td style="text-align: center;"><strong>.1334947</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">baselinebmi</td>
+<td style="text-align: center;"><strong>.3243268</strong></td>
+<td style="text-align: center;"><strong>.1440423</strong></td>
+<td style="text-align: center;"><strong>2.25</strong></td>
+<td><strong>0.025</strong></td>
+<td style="text-align: center;"><strong>.0403241</strong></td>
+<td style="text-align: center;"><strong>.6083294</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">_cons</td>
+<td style="text-align: center;"><strong>-1.801225</strong></td>
+<td style="text-align: center;"><strong>5.032545</strong></td>
+<td style="text-align: center;"><strong>-0.36</strong></td>
+<td><strong>0.721</strong></td>
+<td style="text-align: center;"><strong>-11.7237</strong></td>
+<td style="text-align: center;"><strong>8.121247</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>结果提示：在该模型中，第一阶段治疗的总体主效应没有统计学证据；但基线体重指数和父母体重指数与治疗的交互项具有统计学证据。交互项的发现应结合效应大小、区间估计、模型选择过程和独立验证解释，不能仅以 P 值决定个体化治疗。</p>
+<p>可分别观察两种第一阶段治疗下，基线体重指数及父母体重指数与伪结局的模型预测关系。当前示例提示基线体重指数较高时替餐的预测效果较好，而父母体重指数较高时替餐的预测效果较差。该结论是本样本、该模型和该结局定义下的候选规则；在临床使用前需进行样本外验证并评估可操作性与潜在伤害。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码20.5
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> y1_hat baselinebmi), <span class="kw">by</span>(a1)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> y1_hat parentbmi), <span class="kw">by</span>(a1)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码20.5输出：基线体重指数以及父母体重指数与第一阶段干预的交互">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码20.5输出：基线体重指数以及父母体重指数与第一阶段干预的交互
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch20-image5.png" style="width:2.78731in;height:1.9685in"> <img src="images/ch20-image6.png" style="width:2.78731in;height:1.9685in"></p>
+</div>
+</div>
+</div>
 </section>
-<section id="统计性强化学习" class="level2" data-number="20.2">
-<h2 data-number="20.2" class="anchored" data-anchor-id="统计性强化学习"><span class="header-section-number">20.2</span> 统计性强化学习</h2>
-<p><em>待补充。</em></p>
 </section>
 <section id="随时间变动的治疗和混杂" class="level2" data-number="20.3">
 <h2 data-number="20.3" class="anchored" data-anchor-id="随时间变动的治疗和混杂"><span class="header-section-number">20.3</span> 随时间变动的治疗和混杂</h2>
-<p><em>待补充。</em></p>
+<p>以上两步回归以顺序随机化的试验为背景，因此在正确执行随机化且处理失访后，各阶段治疗在既往历史条件下可比较。观察性纵向数据中，疾病状态和中间指标常同时影响后续治疗与结局，且这些指标又可能受到既往治疗影响，形成时间变化混杂；此时仅在常规回归、混合模型或广义估计方程中直接调整中间变量，通常不能估计所关心的动态策略总效应。</p>
+<p>本书已介绍回归与倾向评分等控制混杂的方法；但当时间变化协变量既受既往治疗影响，又影响后续治疗和结局时，直接条件化可能产生两类问题：一是阻断既往治疗经该协变量作用于结局的路径，导致总效应估计改变；二是在不恰当的结构中条件化可引入选择偏倚。正确处理应先用因果图和时间顺序明确研究问题与估计目标，而不是机械地“把所有随访变量都调进去”。图号应为图20.3。</p>
+<p>处理受既往治疗影响的时间变化混杂，需要详细的纵向治疗、协变量、结局和删失数据，并明确比较的静态或动态策略。逆概率加权边际结构模型、参数 g 公式与结构嵌套模型的 g 估计统称为 g 方法。它们在一致性、序贯可交换性、正值性和模型/估计器条件成立时，可用于估计“总是治疗/从不治疗”或“当 CD4 低于某阈值时开始治疗”等策略的反事实结局；这些假设不能仅由统计模型本身检验。</p>
+<ol type="1">
+<li>逆概率加权</li>
+</ol>
+<p>研究随时间变动的治疗时，比较对象通常是完整的治疗策略，而非孤立的一次治疗。例如，“基线 BMI 大于35 时给予替餐，4个月后 BMI 小于35 时改为常规饮食”是一种动态策略。若案例20.1来自观察性数据，则应先明确每个策略的决策时点、允许治疗、测量频率与结局；随后可用逆概率加权、g 公式或其他适当方法控制时间变化混杂。</p>
+<p><strong>公式20.8</strong></p>
+<p><span class="math display">\[W^{\overline{A}} = \ \frac{1}{Pr(A_{1}|S_{1})}*\frac{1}{\Pr\left( A_{2} \middle| {S_{1}{,S}_{2},A}_{1} \right)}\]</span></p>
+<p><span class="math display">\[{SW}^{\overline{A}} = \ \frac{\Pr(A_{1})}{\Pr\left( A_{1} \middle| S_{1} \right)}*\frac{Pr(A_{2}{|A}_{1})}{Pr(A_{2}|{S_{1}{,S}_{2},A}_{1})}\]</span></p>
+<p>上述权重可扩展至多个时间点，并通常包含治疗与删失机制。估计时应检查每个时点的治疗概率、权重分布和极端权重；极端或不稳定权重常提示正值性不足或模型错设。截尾、稳定化或改变目标人群可降低方差，但会改变估计目标或引入偏倚，必须预先说明并做敏感性分析。</p>
+<p><strong>公式20.9</strong></p>
+<p><span class="math display">\[W^{\overline{C}} = \frac{1}{Pr(C_{2}|{S_{1}{,S}_{2},A}_{1},A_{2})}\]</span></p>
+<p><span class="math display">\[{SW}^{\overline{C}} = \frac{Pr(C_{2}|A_{1},A_{2})}{Pr(C_{2}|{S_{1}{,S}_{2},A}_{1},A_{2})}\]</span></p>
+<p>治疗与删失权重相乘可构造加权的伪总体；在正确的权重模型及识别假设下，既往测量的时间变化混杂在该伪总体中不再预测后续治疗分配。加权分析不是“没有混杂”的证明，仍须报告权重诊断、协变量平衡、有效样本量及对模型设定的敏感性。</p>
+<p>为提高效率，可在加权的边际结构模型中纳入基线协变量，但不应再以会受既往治疗影响的随访协变量作为普通调整变量来估计策略总效应。置信区间可采用稳健/夹心方差或自助法；当存在克隆—删失—加权、重复入组或复杂抽样时，方差估计应与分析设计相匹配。</p>
+<p>多中心艾滋病队列的经典示例显示，针对时间变化混杂的加权 Cox 模型与常规时间依赖 Cox 模型可给出不同的效应估计。差异本身并不能证明哪一个结果“天然正确”，而是提醒研究者：必须明确目标策略、检查权重和可比性，并将结果放在相应因果假设下解释。</p>
+<ol start="2" type="1">
+<li>参数G公式</li>
+</ol>
+<p>参数 g 公式是一种基于纵向标准化与模型模拟的方法，用于估计每个预先规定治疗策略下的平均反事实结局。它需要建模随访期间协变量、治疗、删失和结局的条件分布，再在“所有参与者遵循某策略”的模拟世界中递推生成后续协变量与结局。可通过蒙特卡洛模拟得到风险、均值或生存概率，并通常用非参数自助法构建区间；其可靠性取决于模型设定、数据支持和识别假设。</p>
+<ol start="3" type="1">
+<li>G估计</li>
+</ol>
+<p>g 估计通常用于结构嵌套均值模型或结构嵌套失效时间模型。其基本思想是寻找一个因果效应参数，使在“去除”既往治疗效应后的反事实结局与实际治疗分配在既往历史条件下独立。它可处理时间变化混杂，但需要明确结构模型和治疗模型，且结果解释与实现相对复杂。</p>
+<p>g 估计的应用可用于在存在时间变化混杂时研究肥胖、代谢因素与冠心病等长期关系。与常规时间依赖回归估计不同的结果，往往反映两类方法对应的因果问题和调整方式不同；应报告目标策略、模型形式、诊断与敏感性分析，而不应把单一数值差异简单归因于“传统模型一定有偏”。</p>
+<p>下表总结了三种G方法的优点和缺点。</p>
+<p><strong>表20.1 三种G方法的优缺点</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">优点</th>
+<th style="text-align: left;">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">逆概率加权</td>
+<td style="text-align: left;">类似于常规的逆概率加权法，简单易懂；几乎所有的统计软件都有；当干预分配的原因是已知时（如，存在适应症混淆的情况）是有用的。</td>
+<td style="text-align: left;">如果存在所有参与者都有的混杂因素，则不能使用；在存在极端权重的情况下不稳定；对于研究干预和时间变化的混杂物之间的交互作用不太有用。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">参数G方程</td>
+<td style="text-align: left;">研究对多个风险因素的联合干预和取决于变化的风险因素的干预措施（动态干预）的理想选择；可计算出相对风险比和风险差。</td>
+<td style="text-align: left;">需耗费计算力，需要额外的编程，并可能导致拟合问题；需要混杂因素和结局的模型；受到G零悖论 的影响：在足够大的样本中，该方法拒绝零假设，即使真实情况下因果效应确实为零的，所以只能用于干预确实有效的情况。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">G估计</td>
+<td style="text-align: left;">即使存在所有参与者都有的混杂因素，也可以使用该方法；对于研究干预和时间变化的混杂物之间的交互作用很有用。</td>
+<td style="text-align: left;">需耗费计算力，需要额外的编程，并可能导致拟合问题；方法和产生的效应变量有些难以理解</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="计算性强化学习" class="level2" data-number="20.4">
 <h2 data-number="20.4" class="anchored" data-anchor-id="计算性强化学习"><span class="header-section-number">20.4</span> 计算性强化学习</h2>
-<p><em>待补充。</em></p>
+<p>统计学 Q-learning 常从两阶段例子讲起，但也可扩展到更多阶段；真正困难在于治疗历史、状态和行动空间随阶段数增长而迅速增大，简单参数回归可能不稳定或难以充分表达非线性与交互。计算性强化学习尝试用函数逼近、动态规划或深度学习处理高维、多阶段问题，但其预测能力不自动带来临床策略的因果有效性。</p>
+<ol type="1">
+<li>马科夫决策过程（Markov Decision Process）</li>
+</ol>
+<p>强化学习的常用模型，马尔可夫决策过程是一个五元组，其中</p>
+<p>S 是状态空间；在临床中可为离散状态，也可为连续、高维的患者历史表示；</p>
+<p>A 是行动/治疗空间；应明确可行治疗、剂量范围与安全约束；</p>
+<p>P 是状态转移机制，例如在时间 t 的状态为 S_t、采取行动 A_t 后进入 S_{t+1} 的条件分布；</p>
+<p>R 是状态转移后得到的即时奖励或其期望；奖励应反映患者重要获益与伤害；</p>
+<p>γ 是折现系数，用于规定不同时间点回报的相对权重；临床分析中应由研究时限和临床价值设定，而不能仅为算法收敛方便而任意选择。</p>
+<ol start="2" type="1">
+<li>贝尔曼方程（Bellman function）</li>
+</ol>
+<p>在给定策略下，可先评估状态—行动价值函数；再依据该函数选择当前状态下的候选行动。若用于临床，该优化还应受安全、可行性、公平性和不确定性约束，并与真实可实施的治疗规则一致。</p>
+<p>Q-learning 通过贝尔曼最优性方程递推估计状态—行动的累计价值：即时奖励加上下一状态可获得的最优折现回报。该递推依赖状态表示足以概括与未来有关的历史；在医疗数据中这一假设常不完全满足，因此应明确历史窗口、缺失处理和部分可观测性带来的风险。</p>
+<p><strong>公式20.10</strong></p>
+<p><span class="math display">\[Q(S,A) = R_{t} + \gamma*maxQ(S_{t + 1},A_{t + 1})\]</span></p>
+<p>折现因子 γ 体现即时与未来回报的相对权重。若状态和行动空间有限，表格型 Q-learning 可迭代更新 Q 表；但临床数据常具有连续、高维、缺失和不规则测量等特征，通常需要函数逼近。维度增加会使估计不稳定、加重分布外行动的外推风险，不能仅因算法收敛就认为策略安全有效。</p>
+<p>计算性强化学习可处理多阶段、多治疗和高维数据，并已在重症、血液透析、HIV、抗凝和糖尿病等场景中被探索。此类研究多数属于回顾性方法学或决策支持探索；当训练数据中存在未测量混杂、治疗重叠不足、奖励错设或医院间流程差异时，学得策略可能不具备可迁移性。所需样本量取决于状态—行动空间、有效重叠和策略复杂度，不能以“数据量大”替代严格验证。</p>
 </section>
 <section id="因果强化学习" class="level2" data-number="20.5">
 <h2 data-number="20.5" class="anchored" data-anchor-id="因果强化学习"><span class="header-section-number">20.5</span> 因果强化学习</h2>
-<p><em>待补充。</em></p>
+<p>传统强化学习侧重于从观察到的轨迹中优化状态—行动的预测价值，却不必然回答“若改用另一种治疗策略，结局会怎样”的因果问题。在医疗数据中，医生往往依据病情严重度、治疗偏好和难以测量的临床信息选择治疗，这些因素也影响结局；若不处理这种混杂，算法可能把临床处置模式误学为最优策略。</p>
+<p>因果强化学习尝试将结构因果模型、目标试验或 g 方法的识别思想嵌入策略学习。例如，可明确治疗、时间变化协变量、删失与结局的因果图，再估计不同策略下的反事实价值。其关键不是在训练中加入一个“因果系数”，而是明确估计目标、处理时间顺序与混杂、检验数据支持并量化不确定性。</p>
+<p><strong>公式20.11</strong></p>
+<p><span class="math display">\[C\left( Y|do(X) \right) = P\left( Y|X = 1 \right) - P\left( Y|X = 0 \right)\]</span></p>
+<p><span class="math display">\[= P(Y \cap X = 1)*P(X = 1) - P(Y \cap X = 0)*(1 - P(X = 1))\]</span></p>
+<p>因果效应可在满足识别假设时用 g 公式、加权、双重稳健估计或结构嵌套模型等方法估计。因果效应估计为正并不能单凭数值“证明”存在因果关系；仍需依赖研究设计、无未测混杂/随机化、正值性、一致性以及模型诊断。离线因果强化学习在部署前还面临策略分布外外推、奖励错设和未观察混杂等挑战。</p>
 </section>
 <section id="强化学习的策略评估" class="level2" data-number="20.6">
 <h2 data-number="20.6" class="anchored" data-anchor-id="强化学习的策略评估"><span class="header-section-number">20.6</span> 强化学习的策略评估</h2>
-<p><em>待补充。</em></p>
+<p>当强化学习方法给出候选干预策略后，必须评价其表现。医学中的大多数强化学习属于离线学习，无法直接观察“若所有患者都遵循该策略”的结局。离线策略评估（off-policy evaluation，OPE）应使用与策略学习分开的验证数据或嵌套交叉验证，并同时报告价值估计、置信区间、权重/重叠诊断及与临床现行策略的可比较性。</p>
+<ol type="1">
+<li>重要性加权（importance sampling，IS）</li>
+</ol>
+<p>重要性采样（importance sampling，IS）借鉴逆概率加权思想，利用目标策略与历史行为策略在每个阶段采取实际行动的概率比，对观察到的轨迹回报重新加权。若行为策略概率被正确估计、满足正值性并具有适当的有限方差条件，IS 价值估计可具有无偏或渐近无偏性质；但当目标策略与历史医生策略差异大时，权重会高度不稳定，估计方差可能极大。</p>
+<p>可计算算法策略 e 与历史行为/医生策略 b 所对应的加权平均回报差异。每阶段权重应基于在给定既往历史下，实际行动在目标策略和行为策略中的条件概率；连续剂量、多行动策略和确定性规则会使概率建模及重叠诊断更困难。</p>
+<p><strong>公式20.12</strong></p>
+<p><span class="math display">\[V^{e} = \frac{1}{N}\sum_{n = 1}^{N}{w_{n}^{e}R_{n}}\ \ \ \ \ \ \ \ w_{n}^{e} = \prod_{t = 1}^{k}\frac{1}{\Pr_{e}(A_{t}|S_{t})}\]</span></p>
+<p><span class="math display">\[V^{b} = \frac{1}{N}\sum_{n = 1}^{N}{w_{n}^{b}R_{n}}\ \ \ \ \ \ \ \ \ w_{n}^{b} = \prod_{t = 1}^{k}\frac{1}{\Pr_{b}(A_{t}|S_{t})}\]</span></p>
+<p>其中 N 为患者数；策略价值估计依赖于观察到的累计奖励、实际行动轨迹及目标/行为策略概率。应注意，行为策略概率通常需要从数据估计，不能把医生实际选择的频率直接当作充分的因果校正。</p>
+<ol start="2" type="1">
+<li>PU学习法</li>
+</ol>
+<p>PU（positive-unlabeled）学习利用“已标记为阳性”和“未标记”样本进行半监督分类。它可在奖励为二分类、阳性结果稀少的特定设定下作为探索性工具，但不是临床离线策略评估的通用替代方法；其标签机制、类别先验、行为策略和因果识别假设均需明确。</p>
+<p>在二分类奖励示例中，可将与成功结局相关的观察到行动称为“阳性”行动，将缺少成功标签的行动视为未标记。然而，观察到成功或失败不等于该行动必然导致成功或失败，因为患者基础风险、治疗选择和未测量因素可能不同。任何基于此类标签的策略推荐都应接受因果诊断与独立验证。</p>
 </section>
 <section id="强化学习的局限性" class="level2" data-number="20.7">
 <h2 data-number="20.7" class="anchored" data-anchor-id="强化学习的局限性"><span class="header-section-number">20.7</span> 强化学习的局限性</h2>
-<p><em>待补充。</em></p>
+<p>强化学习在医疗研究中的应用增加，但其价值取决于问题定义、数据生成过程、因果识别与临床验证。以下问题尤其应在阅读文献和实际应用时透明报告与尽可能改进：</p>
+<ol type="1">
+<li>反馈的定义</li>
+</ol>
+<p>将强化学习用于医疗的第一步，是在临床、患者和方法学团队共同参与下定义状态、治疗、决策时间点、奖励和安全边界。状态应区分基线信息、既往治疗、随访测量与缺失机制；未记录的医生判断、资源可及性或患者偏好都可能同时影响治疗与结局。连续剂量的离散化、测量频率与延迟、以及缺失值处理应预先规定并做敏感性分析。</p>
+<p>奖励函数是最重要也最易被错设的环节之一。脓毒症等急危重症中，临床决策需在短期生理稳定、并发症、舒适度与长期生存之间权衡；若只使用单一长期终点，算法可能忽略有临床意义的中间伤害或产生不合常规的治疗建议。奖励应由临床专家和患者价值共同制定，明确各结局的方向与权重，并对不同合理定义进行敏感性分析。</p>
+<ol start="2" type="1">
+<li>治疗重叠性</li>
+</ol>
+<p>与其他因果研究一样，正值性/重叠性是离线策略学习的基本限制：对每一种由策略可能推荐的状态—行动组合，数据中应有足够概率观察到相应行动。若严重低钠血症患者几乎总被给予高渗盐水，历史数据无法可靠估计“不给予高渗盐水”在相同状态下的后果。算法在缺乏数据支持的区域提出“不行动”等建议属于分布外外推，应通过限制策略空间、设定临床安全规则、报告重叠诊断或重新定义目标人群加以避免。</p>
+<ol start="3" type="1">
+<li>算法验证</li>
+</ol>
+<p>在真实临床环境中部署前，必须系统评价所学策略。内部重抽样或外部数据上的 OPE 只能提供间接证据，且受行为策略建模、未测量混杂和分布漂移影响；不应把“估计总奖励高于医生策略”直接当作临床获益。应进行时间外和地域外验证，评估校准、重叠、亚组安全性、临床可行性与公平性。对高风险或会改变治疗标准的策略，最终需要在严格监督下开展前瞻性影响研究或随机化比较，并设置暂停规则和人工覆盖机制。</p>
+<ol start="4" type="1">
+<li>马科夫性质</li>
+</ol>
+<p>贝尔曼方程常假设当前状态已充分概括与未来有关的历史（马尔可夫性质）。在游戏中这一假设可能近似成立；在医疗中，病程、既往治疗、累积毒性和未记录的临床判断常使其不成立。可通过纳入合理的历史窗口、状态表示学习或部分可观测马尔可夫决策过程缓解，但这些技术并不能恢复未记录的关键混杂信息。</p>
+<p>多时点干预还面临时间变化混杂、治疗依从性、竞争事件和信息性删失。若算法只从观察性轨迹学习相关模式而不以目标试验和因果图界定比较策略，可能把“病情越重越接受强化治疗且结局越差”的关联误解为应避免强化治疗。因果强化学习应与纵向 g 方法、策略价值的敏感性分析及临床安全约束结合，而不能取代它们。</p>
+<p>临床部署前还应建立完整的治理与监测流程：记录训练数据范围、决策逻辑、版本更新、人工覆盖、异常建议和患者结局；对新中心、新设备或临床路径变化进行再校准和再验证。策略的效益、伤害与不平等影响应持续监测，出现分布漂移或安全信号时应暂停或回退到标准治疗流程。</p>
+<p>因此，动态治疗方案研究的推荐工作流是：先以目标试验形式明确目标人群、时间零点、决策节点、候选策略、结局与随访；再用因果图判断时间顺序和混杂；在训练集学习候选规则，在独立数据评价策略价值及不确定性；最后在可行时开展前瞻性影响评估。算法复杂度不能替代透明的研究设计、临床可解释性与患者安全。</p>
+</section>
+<section id="参考文献" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="参考文献">参考文献</h2>
+<ol type="1">
+<li><p>王硕汝等. 强化学习离线策略评估研究综述. 计算机学报.</p></li>
+<li><p>Liu Y, Qiao N, Altinel Y. Reinforcement Learning in Neurocritical and Neurosurgical Care: Principles and Possible Applications. Comput Math Methods Med. 2021;2021:6657119. doi:10.1155/2021/6657119. PMID:33727970.</p></li>
+<li><p>Komorowski M, Celi LA, Badawi O, Gordon AC, Faisal AA. The Artificial Intelligence Clinician learns optimal treatment strategies for sepsis in intensive care. Nat Med. 2018;24(11):1716-1720. doi:10.1038/s41591-018-0213-5. PMID:30349085.</p></li>
+<li><p>Chakraborty B, Moodie E. Statistical Methods for Dynamic Treatment Regimes: Reinforcement Learning, Causal Inference, and Personalized Medicine. Springer; 2013.</p></li>
+<li><p>Murphy SA. A generalization error for Q-learning. J Mach Learn Res. 2005;6:1073-1097</p></li>
+<li><p>Chakraborty B, Murphy SA. Dynamic treatment regimes. Annu Rev Stat Appl. 2014;1:447-464. doi:10.1146/annurev-statistics-022513-115553. PMID:25401119.</p></li>
+<li><p>Collins LM, Nahum-Shani I, Almirall D. Optimization of behavioral dynamic treatment regimens based on the sequential, multiple assignment, randomized trial (SMART). Clin Trials. 2014;11(4):426-434. doi:10.1177/1740774514536795. PMID:24902922.</p></li>
+<li><p>Hernán MA, Robins JM. Causal Inference: What If. Boca Raton: Chapman &amp; Hall/CRC; 2020.</p></li>
+<li><p>Lendle SD, Schwab J, Petersen ML, van der Laan MJ. ltmle: An R Package Implementing Targeted Minimum Loss-Based Estimation for Longitudinal Data. J Stat Softw. 2017;81(1):1-21. doi:10.18637/jss.v081.i01.</p></li>
+<li><p>Tang S, Wiens J. Model Selection for Offline Reinforcement Learning: Practical Considerations for Healthcare Settings. Proc Mach Learn Res. 2021;149:2-35. PMID:35702420.</p></li>
+<li><p>Birnie K, Tomson C, Caskey FJ, et al.&nbsp;Comparative Effectiveness of Dynamic Treatment Strategies for Medication Use and Dosage: Emulating a Target Trial Using Observational Data. Epidemiology. 2023;34(6):879-887. doi:10.1097/EDE.0000000000001649. PMID:37757876.</p></li>
+</ol>
 
 
 <!-- -->
@@ -830,45 +1570,470 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/21-causal-discovery.html" class="pagination-link" aria-label="因果发现">
-        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">因果发现</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../references.html" class="pagination-link" aria-label="参考文献">
+        <span class="nav-page-text">参考文献</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 序贯决策方案</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## 编写说明</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>本章内容整理中。可将已校订的 Word 书稿（<span class="in">`乔Book/`</span> 目录）正文迁移至此，公式用 <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span>，图片放 <span class="in">`images/`</span>，代码用 ```{r} 或 ```{python} 代码块。</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 强化学习的基本概念</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## 统计性强化学习</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 随时间变动的治疗和混杂</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 计算性强化学习</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## 因果强化学习</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## 强化学习的策略评估</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## 强化学习的局限性</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>_待补充。_</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 序贯决策方案</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>序贯决策（动态治疗方案，dynamic treatment regime，DTR）是由一系列按时间顺序执行的决策规则组成的策略：每一阶段的治疗选择依赖于该时点及既往可获得的患者信息，同时又可能改变后续状态、治疗选择和最终结局。临床问题的目标不是在每个时点孤立地选择“当下最好”的治疗，而是在预先定义的患者重要结局、治疗负担和安全约束下，使整个治疗轨迹的预期净获益最大。DTR 可作为临床决策支持的一种形式，但必须以清晰的临床问题、可识别的因果效应和可验证的策略表现为基础，而非仅由既往医疗经验或算法预测性能决定。</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>例如，外伤性颅脑损伤患者出现颅内压增高时，临床可考虑高渗盐水、机械通气或镇静等措施。医生会依据患者在不同阶段的神经状态、生命体征、既往治疗和不良反应决定下一步方案；早期选择还可能影响之后的状态与可选治疗。因此，序贯治疗策略应明确每个决策时点、可用信息、候选治疗、升级/停药规则及兼顾短期稳定与长期预后的结局。</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch20-image1.jpeg)</span>{width="3.45in"}</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>图20.1 外伤性颅脑损伤患者的序贯治疗策略</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>在计算机科学中，强化学习（reinforcement learning，RL）研究如何通过与环境交互学习连续决策策略。智能体依据状态选择行动、获得奖励并据此更新策略，目标是优化预先定义的累计回报。临床 DTR 与强化学习在“多阶段、依赖历史信息的决策”上相通，但二者并不等同：临床研究还必须处理治疗分配的因果识别、时间变化混杂、缺失与删失、可行性及患者安全。</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 强化学习的基本概念</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>强化学习可借助“状态—行动—奖励—策略”的框架描述连续决策，但临床应用不应把患者简单视为可反复试错的环境。其目标不是仅预测下一步会发生什么，而是在明确的因果假设和临床约束下，比较不同治疗策略下的预期结局。应用于临床医学时，通常至少需要明确以下要素：</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>患者在时间 t 的状态或可用历史：H_t（可包括 S_t 及既往治疗、反应和测量信息）</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>患者在时间 t 接受的治疗或行动：A_t</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>治疗后的即时反馈或奖励：R_t</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>动态治疗策略：π，即由 H_t 映射到行动 A_t 的规则</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch20-image2.png)</span>{width="3.72045in" height="2.88911in"}</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>图20.2 强化学习基本概念</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>S_t 可理解为某一时点的患者指标集合，如生命体征、实验室检查和症状；H_t 则更完整地包含截至该时点的可用历史。A_t 是该时点实际接受的一种或多种治疗；R_t 是治疗后的即时反应或预先规定的奖励。策略 π 是根据 H_t 推荐 A_t 的规则。临床策略的“奖励”应由患者重要结局、治疗伤害和资源负担共同定义，而不能只由易获得的代理指标决定。</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>强化学习根据数据来源可以分为以下两类：</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>在线学习（On-Policy）</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>在线学习指策略在部署过程中依据新获得的数据不断更新。直接在患者身上探索治疗的风险和伦理约束很高，通常只可能在严格方案、监测规则和伦理审查下实施。适应性临床试验或反应适应性随机化可以借鉴其思想，但其设计、随机化概率更新和推断方法必须预先规定，不能简单理解为“根据前一位患者的结局决定下一位患者的治疗”。</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>离线学习（Off-Policy）</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>离线学习（off-policy learning）利用既往随机试验或观察性数据学习策略，而不在学习阶段改变患者治疗。它更贴近多数临床数据库研究，但只能在数据支持的状态—治疗组合内可靠学习；若历史治疗选择受未测量因素影响，或某些治疗几乎从未给予特定患者，离线算法的价值估计和推荐可能产生严重偏倚。</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>根据训练的方法又可以将强化学习分为以下几类：</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>基于策略的强化学习（Policy based）</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>基于策略的方法直接参数化或搜索决策规则，并输出不同干预的选择概率或确定性推荐；其效果取决于策略空间、约束和价值评估是否合理。</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>基于值的强化学习（Value based）</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>基于价值的方法估计状态—行动价值函数，再选择预期累计回报最高的行动；Q-learning 属于这一类。价值函数的高低不是观察到的因果效应本身，而是在模型、数据和识别假设下对策略价值的估计。</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>无模型的强化学习</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>无模型方法不显式建立状态转移和奖励生成机制，而是直接从经验轨迹估计价值或策略；这并不免除对数据质量、重叠性和因果识别的要求。</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>有模型的强化学习</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>有模型方法显式估计状态转移与奖励机制，并在模型中模拟不同干预路径以比较策略。模型错设、未测量变量和分布漂移会使模拟结果偏离真实临床后果，因此应进行模型诊断、敏感性分析和外部验证。</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="fu">## 统计学强化学习</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>统计学中的动态治疗方案方法将单阶段治疗比较扩展到多阶段决策。顺序多重分配随机试验（sequential multiple assignment randomized trial，SMART）在预先规定的关键节点对符合条件的患者再次随机分配，可高效比较嵌入式 DTR。Q-learning、A-learning、边际结构模型、g 公式和结构嵌套模型等方法可用于随机或观察性纵向数据；在观察性数据中，结论还依赖序贯可交换性、正值性、一致性及正确处理删失等假设。</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>Q 函数可理解为在给定历史 H_t 下采取行动 A_t，并在之后遵循某一策略时的预期累计临床回报。在单阶段研究中，它可退化为给定协变量下不同治疗的预期结局；在多阶段研究中，Q 值必须纳入后续最优或规定策略下的回报，因而不能把它简单等同于某一次治疗的孤立因果效应。</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>**公式20.1**</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>$$Q^{opt}(H,A) = E\lbrack Y|H,A\rbrack$$</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>多阶段干预的目标是在预先定义的时间范围内选择使策略价值最大的治疗序列。对每个阶段，比较的不是该阶段即时 Q 值，而是该阶段行动及后续行动共同决定的累计回报；这也是通常采用从最后阶段向前递推（backward induction）的原因。</span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>在两阶段随机或观察性研究中（图20.3），可记第一阶段的基线/历史、治疗与阶段性反应为 H_1、A_1、R_1，第二阶段的历史、治疗与结局为 H_2、A_2、Y。H_2 应包括截至第二次决策前可获得的基线状态、第一阶段治疗和中间反应/测量。随机试验中，各阶段随机化使相应治疗在已知历史条件下可比较；观察性研究中，若 A_2 同时受既往治疗、病情变化和医生判断影响，则这些共同原因必须被充分测量并纳入序贯混杂控制。</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>两阶段的序贯决策规则记为 d_1、d_2。最后阶段的规则选择使给定 H_2 时预期结局最优的 A_2；第一阶段规则则选择使第一阶段后、并在其后遵循 d_2 时的预期累计回报最优的 A_1。据此可定义两阶段的 Q 方程：</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>**公式20.2**</span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>$$Q_{2}^{opt}\left( H_{2},A_{2} \right) = E\lbrack Y_{2}|H_{2},A_{2}\rbrack$$</span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>$$Q_{1}^{opt}\left( H_{1},A_{1} \right) = E\lbrack Y_{1} + \max_{A_{2}}Q_{2}^{opt}(H_{2},A_{2})|H_{1},A_{1}\rbrack$$</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>若两个 Q 方程已知或被可靠估计，可在每个可观测历史下选择 Q 值最大的行动，组成候选最优治疗策略。应同时报告策略的适用范围、估计不确定性和对未测量混杂/模型设定的敏感性。</span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>**公式20.3**</span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>$$d_{1}^{opt} = arg\max_{A_{1}}{Q_{1}^{opt}(H_{1},A_{1})}$$</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>$$d_{2}^{opt} = arg\max_{A_{2}}{Q_{2}^{opt}(H_{2},A_{2})}$$</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch20-image3.png)</span>{width="5.76806in" height="3.2849in"}</span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>图20.3 多阶段干预的混杂</span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a><span class="fu">### 案例20.1</span></span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>这是一个序贯多重分配随机试验，基线状况记录受试者的性别（gender）、种族（race）、体重指数（baselineBMI）以及父母体重指数（parentBMI）。该实验分两个阶段，第一阶段首先将患者随机分配到为干预组（A1表示，替餐组，MR）和对照组（A2表示，常规饮食组，CD），四个月后记录受试者的体重指数（month4BMI）；第二阶段重新进行随机分配，十二个月后记录受试者的体重指数（month12BMI）。</span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a><span class="fu">### 案例20.1数据表</span></span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> gender <span class="pp">|</span> race <span class="pp">|</span> parentBMI  <span class="pp">|</span> baselineBMI <span class="pp">|</span> month4BMI  <span class="pp">|</span> month12BMI <span class="pp">|</span> A1  <span class="pp">|</span> A2  <span class="pp">|</span></span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|:-------|:-----|:-----------|:------------|:-----------|:-----------|:----|:----|</span></span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0      <span class="pp">|</span> 1    <span class="pp">|</span> 31.5968318 <span class="pp">|</span> 35.8400506  <span class="pp">|</span> 34.2271673 <span class="pp">|</span> 34.2726268 <span class="pp">|</span> CD  <span class="pp">|</span> MR  <span class="pp">|</span></span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1      <span class="pp">|</span> 0    <span class="pp">|</span> 30.1756357 <span class="pp">|</span> 37.3039587  <span class="pp">|</span> 36.3801392 <span class="pp">|</span> 36.3840057 <span class="pp">|</span> CD  <span class="pp">|</span> MR  <span class="pp">|</span></span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1      <span class="pp">|</span> 0    <span class="pp">|</span> 30.2791806 <span class="pp">|</span> 36.8388927  <span class="pp">|</span> 34.4216825 <span class="pp">|</span> 34.4144739 <span class="pp">|</span> MR  <span class="pp">|</span> CD  <span class="pp">|</span></span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1      <span class="pp">|</span> 0    <span class="pp">|</span> 27.492564  <span class="pp">|</span> 36.7067889  <span class="pp">|</span> 32.5201128 <span class="pp">|</span> 32.5239747 <span class="pp">|</span> CD  <span class="pp">|</span> CD  <span class="pp">|</span></span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1      <span class="pp">|</span> 1    <span class="pp">|</span> 26.4235031 <span class="pp">|</span> 34.8420685  <span class="pp">|</span> 33.7292175 <span class="pp">|</span> 33.735464  <span class="pp">|</span> CD  <span class="pp">|</span> CD  <span class="pp">|</span></span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> …      <span class="pp">|</span> …    <span class="pp">|</span> …          <span class="pp">|</span> …           <span class="pp">|</span> …          <span class="pp">|</span> …          <span class="pp">|</span> …   <span class="pp">|</span> …   <span class="pp">|</span></span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>临床问题是第一阶段和第二阶段采用何种干预措施才能使体重指数得到明显下降。统计学强化学习采用两步回归方法，首先将第二阶段结局（12个月体重指数与4个月体重指数变化幅度，正值代表减重、负值代表增重）对第二阶段决策以及第二阶段患者的治疗历史回归。</span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a>**公式20.4**</span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>$$Y_{2} = \varepsilon_{0} + \beta_{21}*A_{1} + \beta_{22}*A_{1}*S_{1} + \beta_{23}*A_{2} + \beta_{24}*A_{2}*S_{2} + \beta_{25}*S_{1} + \beta_{26}*S_{2}$$</span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a>纳入第一阶段随机分配与基线和第二阶段随机分配治疗与第二次分配前基线的交互项。回归模型建立后代入第二阶段治疗的值计算第二阶段的最大Q值，并加上第一阶段随机分配后的结局以计算第一阶段随机分配后的假结局：</span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a>**公式20.5**</span>
+<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a>$${\widehat{Y}}_{1} = Y_{1} + \widehat{Y_{2}} = Y_{1} +$$</span>
+<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a>$$\max_{{Treatment}_{2}}\begin{array}{r}</span>
+<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a>\left( \varepsilon_{0} + \beta_{21}*A_{1} + \beta_{22}*A_{1}*S_{1} + \beta_{23}*A_{2} + \beta_{24}*A_{2}*S_{2} + \beta_{25}*S_{1} + \beta_{26}*S_{2} \right)</span>
+<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a>\end{array}$$</span>
+<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a>用第一的假结局对第一次治疗历史做回归：</span>
+<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a>**公式20.6**</span>
+<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a>$${\widehat{Y}}_{1} = \varepsilon_{0} + \beta_{11}*A_{1} + \beta_{12}*A_{1}*S_{1} + \beta_{13}*S_{1}$$</span>
+<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a>最后得出第一次和第二次治疗的最优策略：</span>
+<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>**公式20.7**</span>
+<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a>$$d_{2}^{opt} = \underset{{Treatment}_{2}}{argmax}\widehat{Y_{2}}$$</span>
+<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a>$$d_{1}^{opt} = \underset{{Treatment}_{1}}{argmax}\widehat{Y_{1}}$$</span>
+<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码20.1</span></span>
+<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a><span class="in">. gen y12 = -100*(month12bmi - month4bmi)/month4bmi</span></span>
+<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a><span class="in">. gen A1 = (a1 == "MR")</span></span>
+<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a><span class="in">. gen A2 = (a2 == "MR")</span></span>
+<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a><span class="in">. reg y12 A2 A1 A2#c.month4bmi A1#c.baselinebmi c.month4bmi c.baselinebmi</span></span>
+<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码20.1输出"}</span>
+<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Source        <span class="pp">|</span> SS              <span class="pp">|</span> df           <span class="pp">|</span> MS            <span class="pp">|</span> Number of obs <span class="pp">|</span> =                      <span class="pp">|</span> **210**      <span class="pp">|</span></span>
+<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a>+============<span class="al">==:+:===============:+:============:+:=============:+===============+:======================:+:==</span>==========:+</span>
+<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Model         <span class="pp">|</span> **12.3427503**  | **6**        | **2.057125**  | F(3, 32)      | =                      | **90.80**    <span class="pp">|</span></span>
+<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Residual      <span class="pp">|</span> **.4.60417904** | **203**      | **.02268068** | Prob \&gt; F     | =                      | **0.0000**   <span class="pp">|</span></span>
+<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Total         <span class="pp">|</span> **16.9469294**  | **209**      | **.08108578** | R-squared     | =                      | **0.7283**   <span class="pp">|</span></span>
+<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>               <span class="pp">|</span>                 <span class="pp">|</span>              <span class="pp">|</span>               <span class="pp">|</span> Adj R-squared <span class="pp">|</span> =                      <span class="pp">|</span> **0.7203**   <span class="pp">|</span></span>
+<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>               <span class="pp">|</span>                 <span class="pp">|</span>              <span class="pp">|</span>               <span class="pp">|</span> Root MSE      <span class="pp">|</span> =                      <span class="pp">|</span> **.1506**    <span class="pp">|</span></span>
+<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> rate          <span class="pp">|</span> Coefficient     <span class="pp">|</span> Std. err.    <span class="pp">|</span> t             <span class="pp">|</span> P<span class="sc">\&gt;\|</span>t<span class="sc">\|</span>      <span class="pp">|</span> <span class="sc">\[</span>95% conf. interval<span class="sc">\]</span> <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A2            <span class="pp">|</span> **-4.201988**   | **.1825362** | **-23.02**    | **0.000**     | **-4.56189**           | **-3.84207** <span class="pp">|</span></span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A1            <span class="pp">|</span> **-.1950291**   | **.2126561** | **-0.92**     | **0.360**     | **-.6143272**          | **.224269**  <span class="pp">|</span></span>
+<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A2#           <span class="pp">|</span> **.1176601**    | **.0051116** | **23.02**     | **0.000**     | **.1075816**           | **.1277387** <span class="pp">|</span></span>
+<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>               <span class="pp">|</span>                 <span class="pp">|</span>              <span class="pp">|</span>               <span class="pp">|</span>               <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> c.month4bmi   <span class="pp">|</span>                 <span class="pp">|</span>              <span class="pp">|</span>               <span class="pp">|</span>               <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A1#           <span class="pp">|</span> **.0057149**    | **.0055766** | **1.02**      | **0.307**     | **-.0052807**          | **.0167104** <span class="pp">|</span></span>
+<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>               <span class="pp">|</span>                 <span class="pp">|</span>              <span class="pp">|</span>               <span class="pp">|</span>               <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> c.baselinebmi <span class="pp">|</span>                 <span class="pp">|</span>              <span class="pp">|</span>               <span class="pp">|</span>               <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> month4bmi     <span class="pp">|</span> **-.0570188**   | **.0043428** | **-13.13**    | **0.000**     | **-.0655816**          | **-.048456** <span class="pp">|</span></span>
+<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> baselinebmi   <span class="pp">|</span> **.0005309**    | **.0047231** | **0.11**      | **0.911**     | **-.0087816**          | **.0098434** <span class="pp">|</span></span>
+<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="sc">\_</span>cons        <span class="pp">|</span> **1.963313**    | **.174191**  | **11.27**     | **0.000**     | **1.619858**           | **2.306769** <span class="pp">|</span></span>
+<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a>结果提示：在该回归模型和示例数据中，第二阶段替餐相对常规饮食与更大的体重指数下降相关（A2 系数为 -4.2，P<span class="sc">\&lt;</span>0.001）；4 个月时体重指数与之后体重变化有关（month4BMI 系数为 -0.06，P<span class="sc">\&lt;</span>0.001）。A2 与 month4BMI 的交互项系数为 0.12（P<span class="sc">\&lt;</span>0.001），提示第二阶段治疗效应可能随 4 个月时体重指数而变化。这里的终点是 4 至 12 个月的体重指数变化，而不是“12周”的变化；具体临床解释还应与变量编码及结局方向一致。</span>
+<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a>可进一步观察两种第二阶段治疗下，4 个月时体重指数与随后体重变化的模型预测关系。图形提示在当前模型中，4 个月时体重指数约低于 35 的受试者在常规饮食下的预测变化较优，而高于 35 者在替餐下的预测变化较优。该阈值来自示例性模型，不应视为可直接推广的临床切点；应在独立数据中评估其稳定性和策略价值。</span>
+<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码20.2</span></span>
+<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a><span class="in">. twoway (scatter y12 month4bmi), by(a2)</span></span>
+<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码20.2输出：第二阶段干预措施与4周体重指数的交互"}</span>
+<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch20-image4.png)</span>{width="5.76806in" height="4.10417in"}</span>
+<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a>第二步，将第二阶段回归模型分别代入替餐和常规饮食的取值，计算两种行动下的预测体重变化，并取较优值作为第二阶段的预测最优 Q 值；再与第一阶段至第二阶段的变化合并，构造第一阶段的伪结局。此递推过程要求结局方向、治疗编码与“较优”的定义保持一致。</span>
+<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码20.3</span></span>
+<span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a><span class="in">. replace A2=1</span></span>
+<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a><span class="in">. predict y1_A2_1</span></span>
+<span id="cb6-217"><a href="#cb6-217" aria-hidden="true" tabindex="-1"></a><span class="in">. replace A2=0</span></span>
+<span id="cb6-218"><a href="#cb6-218" aria-hidden="true" tabindex="-1"></a><span class="in">. predict y1_A2_0</span></span>
+<span id="cb6-219"><a href="#cb6-219" aria-hidden="true" tabindex="-1"></a><span class="in">. gen y01 = -100*(month4bmi - baselinebmi)/baselinebmi</span></span>
+<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a><span class="in">. gen y1_hat = y01 + max(y1_A2_1, y1_A2_0)</span></span>
+<span id="cb6-221"><a href="#cb6-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-222"><a href="#cb6-222" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-223"><a href="#cb6-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-224"><a href="#cb6-224" aria-hidden="true" tabindex="-1"></a>最后，将第一阶段伪结局对第一阶段治疗、基线变量及预先规定的交互项进行回归，以估计第一阶段的候选决策规则。</span>
+<span id="cb6-225"><a href="#cb6-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-226"><a href="#cb6-226" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb6-227"><a href="#cb6-227" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码20.4</span></span>
+<span id="cb6-228"><a href="#cb6-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-229"><a href="#cb6-229" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb6-230"><a href="#cb6-230" aria-hidden="true" tabindex="-1"></a><span class="in">. reg y1_hat A1 A1#c.parentbmi A1#c.baselinebmi c.parentbmi c.baselinebmi</span></span>
+<span id="cb6-231"><a href="#cb6-231" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-232"><a href="#cb6-232" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-233"><a href="#cb6-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-234"><a href="#cb6-234" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码20.4输出"}</span>
+<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a>+---------------+---------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Source        <span class="pp">|</span> SS            <span class="pp">|</span> df           <span class="pp">|</span> MS            <span class="pp">|</span> Number of obs <span class="pp">|</span> =                      <span class="pp">|</span> **210**      <span class="pp">|</span></span>
+<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a>+============<span class="al">==:+:=============:+:============:+:=============:+===============+:======================:+:==</span>==========:+</span>
+<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Model         <span class="pp">|</span> **6623.3245** | **5**        | **1324.6649** | F(3, 32)      | =                      | **46.22**    <span class="pp">|</span></span>
+<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a>+---------------+---------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Residual      <span class="pp">|</span> **5846.1556** | **204**      | **28.657625** | Prob \&gt; F     | =                      | **0.0000**   <span class="pp">|</span></span>
+<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a>+---------------+---------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Total         <span class="pp">|</span> **12469.480** | **209**      | **59.662584** | R-squared     | =                      | **0.5312**   <span class="pp">|</span></span>
+<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a>+---------------+---------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>               <span class="pp">|</span>               <span class="pp">|</span>              <span class="pp">|</span>               <span class="pp">|</span> Adj R-squared <span class="pp">|</span> =                      <span class="pp">|</span> **0.5197**   <span class="pp">|</span></span>
+<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a>+---------------+---------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>               <span class="pp">|</span>               <span class="pp">|</span>              <span class="pp">|</span>               <span class="pp">|</span> Root MSE      <span class="pp">|</span> =                      <span class="pp">|</span> **5.3333**   <span class="pp">|</span></span>
+<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a>+---------------+---------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> rate          <span class="pp">|</span> Coefficient   <span class="pp">|</span> Std. err.    <span class="pp">|</span> t             <span class="pp">|</span> P<span class="sc">\&gt;\|</span>t<span class="sc">\|</span>      <span class="pp">|</span> <span class="sc">\[</span>95% conf. interval<span class="sc">\]</span> <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a>+---------------+---------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A1            <span class="pp">|</span> **9.741562**  | **7.707874** | **1.26**      | **0.208**     | **-5.455751**          | **24.93888** <span class="pp">|</span></span>
+<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a>+---------------+---------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A1#           <span class="pp">|</span> **-1.241542** | **.1411901** | **-8.79**     | **0.000**     | **-1.519921**          | **-.963163** <span class="pp">|</span></span>
+<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>               <span class="pp">|</span>               <span class="pp">|</span>              <span class="pp">|</span>               <span class="pp">|</span>               <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> c.parentbmi   <span class="pp">|</span>               <span class="pp">|</span>              <span class="pp">|</span>               <span class="pp">|</span>               <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a>+---------------+---------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A1#           <span class="pp">|</span> **.7835519**  | **.214443**  | **3.65**      | **0.000**     | **.3607431**           | **1.206361** <span class="pp">|</span></span>
+<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>               <span class="pp">|</span>               <span class="pp">|</span>              <span class="pp">|</span>               <span class="pp">|</span>               <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> c.baselinebmi <span class="pp">|</span>               <span class="pp">|</span>              <span class="pp">|</span>               <span class="pp">|</span>               <span class="pp">|</span>                        <span class="pp">|</span>              <span class="pp">|</span></span>
+<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a>+---------------+---------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> parentbmi     <span class="pp">|</span> **-.0758288** | **.1061661** | **-0.71**     | **0.476**     | **-.2851524**          | **.1334947** <span class="pp">|</span></span>
+<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a>+---------------+---------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> baselinebmi   <span class="pp">|</span> **.3243268**  | **.1440423** | **2.25**      | **0.025**     | **.0403241**           | **.6083294** <span class="pp">|</span></span>
+<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a>+---------------+---------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="sc">\_</span>cons        <span class="pp">|</span> **-1.801225** | **5.032545** | **-0.36**     | **0.721**     | **-11.7237**           | **8.121247** <span class="pp">|</span></span>
+<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a>+---------------+---------------+--------------+---------------+---------------+------------------------+--------------+</span>
+<span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a>结果提示：在该模型中，第一阶段治疗的总体主效应没有统计学证据；但基线体重指数和父母体重指数与治疗的交互项具有统计学证据。交互项的发现应结合效应大小、区间估计、模型选择过程和独立验证解释，不能仅以 P 值决定个体化治疗。</span>
+<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a>可分别观察两种第一阶段治疗下，基线体重指数及父母体重指数与伪结局的模型预测关系。当前示例提示基线体重指数较高时替餐的预测效果较好，而父母体重指数较高时替餐的预测效果较差。该结论是本样本、该模型和该结局定义下的候选规则；在临床使用前需进行样本外验证并评估可操作性与潜在伤害。</span>
+<span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb6-273"><a href="#cb6-273" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码20.5</span></span>
+<span id="cb6-274"><a href="#cb6-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-275"><a href="#cb6-275" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb6-276"><a href="#cb6-276" aria-hidden="true" tabindex="-1"></a><span class="in">. twoway (scatter y1_hat baselinebmi), by(a1)</span></span>
+<span id="cb6-277"><a href="#cb6-277" aria-hidden="true" tabindex="-1"></a><span class="in">. twoway (scatter y1_hat parentbmi), by(a1)</span></span>
+<span id="cb6-278"><a href="#cb6-278" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-279"><a href="#cb6-279" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-280"><a href="#cb6-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-281"><a href="#cb6-281" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码20.5输出：基线体重指数以及父母体重指数与第一阶段干预的交互"}</span>
+<span id="cb6-282"><a href="#cb6-282" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb6-283"><a href="#cb6-283" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch20-image5.png)</span>{width="2.78731in" height="1.9685in"} <span class="al">![](images/ch20-image6.png)</span>{width="2.78731in" height="1.9685in"}</span>
+<span id="cb6-284"><a href="#cb6-284" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-285"><a href="#cb6-285" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb6-286"><a href="#cb6-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-287"><a href="#cb6-287" aria-hidden="true" tabindex="-1"></a><span class="fu">## 随时间变动的治疗和混杂</span></span>
+<span id="cb6-288"><a href="#cb6-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-289"><a href="#cb6-289" aria-hidden="true" tabindex="-1"></a>以上两步回归以顺序随机化的试验为背景，因此在正确执行随机化且处理失访后，各阶段治疗在既往历史条件下可比较。观察性纵向数据中，疾病状态和中间指标常同时影响后续治疗与结局，且这些指标又可能受到既往治疗影响，形成时间变化混杂；此时仅在常规回归、混合模型或广义估计方程中直接调整中间变量，通常不能估计所关心的动态策略总效应。</span>
+<span id="cb6-290"><a href="#cb6-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-291"><a href="#cb6-291" aria-hidden="true" tabindex="-1"></a>本书已介绍回归与倾向评分等控制混杂的方法；但当时间变化协变量既受既往治疗影响，又影响后续治疗和结局时，直接条件化可能产生两类问题：一是阻断既往治疗经该协变量作用于结局的路径，导致总效应估计改变；二是在不恰当的结构中条件化可引入选择偏倚。正确处理应先用因果图和时间顺序明确研究问题与估计目标，而不是机械地“把所有随访变量都调进去”。图号应为图20.3。</span>
+<span id="cb6-292"><a href="#cb6-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-293"><a href="#cb6-293" aria-hidden="true" tabindex="-1"></a>处理受既往治疗影响的时间变化混杂，需要详细的纵向治疗、协变量、结局和删失数据，并明确比较的静态或动态策略。逆概率加权边际结构模型、参数 g 公式与结构嵌套模型的 g 估计统称为 g 方法。它们在一致性、序贯可交换性、正值性和模型/估计器条件成立时，可用于估计“总是治疗/从不治疗”或“当 CD4 低于某阈值时开始治疗”等策略的反事实结局；这些假设不能仅由统计模型本身检验。</span>
+<span id="cb6-294"><a href="#cb6-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-295"><a href="#cb6-295" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>逆概率加权</span>
+<span id="cb6-296"><a href="#cb6-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-297"><a href="#cb6-297" aria-hidden="true" tabindex="-1"></a>研究随时间变动的治疗时，比较对象通常是完整的治疗策略，而非孤立的一次治疗。例如，“基线 BMI 大于35 时给予替餐，4个月后 BMI 小于35 时改为常规饮食”是一种动态策略。若案例20.1来自观察性数据，则应先明确每个策略的决策时点、允许治疗、测量频率与结局；随后可用逆概率加权、g 公式或其他适当方法控制时间变化混杂。</span>
+<span id="cb6-298"><a href="#cb6-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-299"><a href="#cb6-299" aria-hidden="true" tabindex="-1"></a>**公式20.8**</span>
+<span id="cb6-300"><a href="#cb6-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-301"><a href="#cb6-301" aria-hidden="true" tabindex="-1"></a>$$W^{\overline{A}} = \ \frac{1}{Pr(A_{1}|S_{1})}*\frac{1}{\Pr\left( A_{2} \middle| {S_{1}{,S}_{2},A}_{1} \right)}$$</span>
+<span id="cb6-302"><a href="#cb6-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-303"><a href="#cb6-303" aria-hidden="true" tabindex="-1"></a>$${SW}^{\overline{A}} = \ \frac{\Pr(A_{1})}{\Pr\left( A_{1} \middle| S_{1} \right)}*\frac{Pr(A_{2}{|A}_{1})}{Pr(A_{2}|{S_{1}{,S}_{2},A}_{1})}$$</span>
+<span id="cb6-304"><a href="#cb6-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-305"><a href="#cb6-305" aria-hidden="true" tabindex="-1"></a>上述权重可扩展至多个时间点，并通常包含治疗与删失机制。估计时应检查每个时点的治疗概率、权重分布和极端权重；极端或不稳定权重常提示正值性不足或模型错设。截尾、稳定化或改变目标人群可降低方差，但会改变估计目标或引入偏倚，必须预先说明并做敏感性分析。</span>
+<span id="cb6-306"><a href="#cb6-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-307"><a href="#cb6-307" aria-hidden="true" tabindex="-1"></a>**公式20.9**</span>
+<span id="cb6-308"><a href="#cb6-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-309"><a href="#cb6-309" aria-hidden="true" tabindex="-1"></a>$$W^{\overline{C}} = \frac{1}{Pr(C_{2}|{S_{1}{,S}_{2},A}_{1},A_{2})}$$</span>
+<span id="cb6-310"><a href="#cb6-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-311"><a href="#cb6-311" aria-hidden="true" tabindex="-1"></a>$${SW}^{\overline{C}} = \frac{Pr(C_{2}|A_{1},A_{2})}{Pr(C_{2}|{S_{1}{,S}_{2},A}_{1},A_{2})}$$</span>
+<span id="cb6-312"><a href="#cb6-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-313"><a href="#cb6-313" aria-hidden="true" tabindex="-1"></a>治疗与删失权重相乘可构造加权的伪总体；在正确的权重模型及识别假设下，既往测量的时间变化混杂在该伪总体中不再预测后续治疗分配。加权分析不是“没有混杂”的证明，仍须报告权重诊断、协变量平衡、有效样本量及对模型设定的敏感性。</span>
+<span id="cb6-314"><a href="#cb6-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-315"><a href="#cb6-315" aria-hidden="true" tabindex="-1"></a>为提高效率，可在加权的边际结构模型中纳入基线协变量，但不应再以会受既往治疗影响的随访协变量作为普通调整变量来估计策略总效应。置信区间可采用稳健/夹心方差或自助法；当存在克隆—删失—加权、重复入组或复杂抽样时，方差估计应与分析设计相匹配。</span>
+<span id="cb6-316"><a href="#cb6-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-317"><a href="#cb6-317" aria-hidden="true" tabindex="-1"></a>多中心艾滋病队列的经典示例显示，针对时间变化混杂的加权 Cox 模型与常规时间依赖 Cox 模型可给出不同的效应估计。差异本身并不能证明哪一个结果“天然正确”，而是提醒研究者：必须明确目标策略、检查权重和可比性，并将结果放在相应因果假设下解释。</span>
+<span id="cb6-318"><a href="#cb6-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-319"><a href="#cb6-319" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>参数G公式</span>
+<span id="cb6-320"><a href="#cb6-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-321"><a href="#cb6-321" aria-hidden="true" tabindex="-1"></a>参数 g 公式是一种基于纵向标准化与模型模拟的方法，用于估计每个预先规定治疗策略下的平均反事实结局。它需要建模随访期间协变量、治疗、删失和结局的条件分布，再在“所有参与者遵循某策略”的模拟世界中递推生成后续协变量与结局。可通过蒙特卡洛模拟得到风险、均值或生存概率，并通常用非参数自助法构建区间；其可靠性取决于模型设定、数据支持和识别假设。</span>
+<span id="cb6-322"><a href="#cb6-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-323"><a href="#cb6-323" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>G估计</span>
+<span id="cb6-324"><a href="#cb6-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-325"><a href="#cb6-325" aria-hidden="true" tabindex="-1"></a>g 估计通常用于结构嵌套均值模型或结构嵌套失效时间模型。其基本思想是寻找一个因果效应参数，使在“去除”既往治疗效应后的反事实结局与实际治疗分配在既往历史条件下独立。它可处理时间变化混杂，但需要明确结构模型和治疗模型，且结果解释与实现相对复杂。</span>
+<span id="cb6-326"><a href="#cb6-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-327"><a href="#cb6-327" aria-hidden="true" tabindex="-1"></a>g 估计的应用可用于在存在时间变化混杂时研究肥胖、代谢因素与冠心病等长期关系。与常规时间依赖回归估计不同的结果，往往反映两类方法对应的因果问题和调整方式不同；应报告目标策略、模型形式、诊断与敏感性分析，而不应把单一数值差异简单归因于“传统模型一定有偏”。</span>
+<span id="cb6-328"><a href="#cb6-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-329"><a href="#cb6-329" aria-hidden="true" tabindex="-1"></a>下表总结了三种G方法的优点和缺点。</span>
+<span id="cb6-330"><a href="#cb6-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-331"><a href="#cb6-331" aria-hidden="true" tabindex="-1"></a>**表20.1 三种G方法的优缺点**</span>
+<span id="cb6-332"><a href="#cb6-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-333"><a href="#cb6-333" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>   <span class="pp">|</span> 优点 <span class="pp">|</span> 缺点 <span class="pp">|</span></span>
+<span id="cb6-334"><a href="#cb6-334" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|:---|:---|</span></span>
+<span id="cb6-335"><a href="#cb6-335" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 逆概率加权 <span class="pp">|</span> 类似于常规的逆概率加权法，简单易懂；几乎所有的统计软件都有；当干预分配的原因是已知时（如，存在适应症混淆的情况）是有用的。 <span class="pp">|</span> 如果存在所有参与者都有的混杂因素，则不能使用；在存在极端权重的情况下不稳定；对于研究干预和时间变化的混杂物之间的交互作用不太有用。 <span class="pp">|</span></span>
+<span id="cb6-336"><a href="#cb6-336" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 参数G方程 <span class="pp">|</span> 研究对多个风险因素的联合干预和取决于变化的风险因素的干预措施（动态干预）的理想选择；可计算出相对风险比和风险差。 <span class="pp">|</span> 需耗费计算力，需要额外的编程，并可能导致拟合问题；需要混杂因素和结局的模型；受到G零悖论 的影响：在足够大的样本中，该方法拒绝零假设，即使真实情况下因果效应确实为零的，所以只能用于干预确实有效的情况。 <span class="pp">|</span></span>
+<span id="cb6-337"><a href="#cb6-337" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> G估计 <span class="pp">|</span> 即使存在所有参与者都有的混杂因素，也可以使用该方法；对于研究干预和时间变化的混杂物之间的交互作用很有用。 <span class="pp">|</span> 需耗费计算力，需要额外的编程，并可能导致拟合问题；方法和产生的效应变量有些难以理解 <span class="pp">|</span></span>
+<span id="cb6-338"><a href="#cb6-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-339"><a href="#cb6-339" aria-hidden="true" tabindex="-1"></a><span class="fu">## 计算性强化学习</span></span>
+<span id="cb6-340"><a href="#cb6-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-341"><a href="#cb6-341" aria-hidden="true" tabindex="-1"></a>统计学 Q-learning 常从两阶段例子讲起，但也可扩展到更多阶段；真正困难在于治疗历史、状态和行动空间随阶段数增长而迅速增大，简单参数回归可能不稳定或难以充分表达非线性与交互。计算性强化学习尝试用函数逼近、动态规划或深度学习处理高维、多阶段问题，但其预测能力不自动带来临床策略的因果有效性。</span>
+<span id="cb6-342"><a href="#cb6-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-343"><a href="#cb6-343" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>马科夫决策过程（Markov Decision Process）</span>
+<span id="cb6-344"><a href="#cb6-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-345"><a href="#cb6-345" aria-hidden="true" tabindex="-1"></a>强化学习的常用模型，马尔可夫决策过程是一个五元组，其中</span>
+<span id="cb6-346"><a href="#cb6-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-347"><a href="#cb6-347" aria-hidden="true" tabindex="-1"></a>S 是状态空间；在临床中可为离散状态，也可为连续、高维的患者历史表示；</span>
+<span id="cb6-348"><a href="#cb6-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-349"><a href="#cb6-349" aria-hidden="true" tabindex="-1"></a>A 是行动/治疗空间；应明确可行治疗、剂量范围与安全约束；</span>
+<span id="cb6-350"><a href="#cb6-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-351"><a href="#cb6-351" aria-hidden="true" tabindex="-1"></a>P 是状态转移机制，例如在时间 t 的状态为 S_t、采取行动 A_t 后进入 S<span class="sc">\_</span>{t+1} 的条件分布；</span>
+<span id="cb6-352"><a href="#cb6-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-353"><a href="#cb6-353" aria-hidden="true" tabindex="-1"></a>R 是状态转移后得到的即时奖励或其期望；奖励应反映患者重要获益与伤害；</span>
+<span id="cb6-354"><a href="#cb6-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-355"><a href="#cb6-355" aria-hidden="true" tabindex="-1"></a>γ 是折现系数，用于规定不同时间点回报的相对权重；临床分析中应由研究时限和临床价值设定，而不能仅为算法收敛方便而任意选择。</span>
+<span id="cb6-356"><a href="#cb6-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-357"><a href="#cb6-357" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>贝尔曼方程（Bellman function）</span>
+<span id="cb6-358"><a href="#cb6-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-359"><a href="#cb6-359" aria-hidden="true" tabindex="-1"></a>在给定策略下，可先评估状态—行动价值函数；再依据该函数选择当前状态下的候选行动。若用于临床，该优化还应受安全、可行性、公平性和不确定性约束，并与真实可实施的治疗规则一致。</span>
+<span id="cb6-360"><a href="#cb6-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-361"><a href="#cb6-361" aria-hidden="true" tabindex="-1"></a>Q-learning 通过贝尔曼最优性方程递推估计状态—行动的累计价值：即时奖励加上下一状态可获得的最优折现回报。该递推依赖状态表示足以概括与未来有关的历史；在医疗数据中这一假设常不完全满足，因此应明确历史窗口、缺失处理和部分可观测性带来的风险。</span>
+<span id="cb6-362"><a href="#cb6-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-363"><a href="#cb6-363" aria-hidden="true" tabindex="-1"></a>**公式20.10**</span>
+<span id="cb6-364"><a href="#cb6-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-365"><a href="#cb6-365" aria-hidden="true" tabindex="-1"></a>$$Q(S,A) = R_{t} + \gamma*maxQ(S_{t + 1},A_{t + 1})$$</span>
+<span id="cb6-366"><a href="#cb6-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-367"><a href="#cb6-367" aria-hidden="true" tabindex="-1"></a>折现因子 γ 体现即时与未来回报的相对权重。若状态和行动空间有限，表格型 Q-learning 可迭代更新 Q 表；但临床数据常具有连续、高维、缺失和不规则测量等特征，通常需要函数逼近。维度增加会使估计不稳定、加重分布外行动的外推风险，不能仅因算法收敛就认为策略安全有效。</span>
+<span id="cb6-368"><a href="#cb6-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-369"><a href="#cb6-369" aria-hidden="true" tabindex="-1"></a>计算性强化学习可处理多阶段、多治疗和高维数据，并已在重症、血液透析、HIV、抗凝和糖尿病等场景中被探索。此类研究多数属于回顾性方法学或决策支持探索；当训练数据中存在未测量混杂、治疗重叠不足、奖励错设或医院间流程差异时，学得策略可能不具备可迁移性。所需样本量取决于状态—行动空间、有效重叠和策略复杂度，不能以“数据量大”替代严格验证。</span>
+<span id="cb6-370"><a href="#cb6-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-371"><a href="#cb6-371" aria-hidden="true" tabindex="-1"></a><span class="fu">## 因果强化学习</span></span>
+<span id="cb6-372"><a href="#cb6-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-373"><a href="#cb6-373" aria-hidden="true" tabindex="-1"></a>传统强化学习侧重于从观察到的轨迹中优化状态—行动的预测价值，却不必然回答“若改用另一种治疗策略，结局会怎样”的因果问题。在医疗数据中，医生往往依据病情严重度、治疗偏好和难以测量的临床信息选择治疗，这些因素也影响结局；若不处理这种混杂，算法可能把临床处置模式误学为最优策略。</span>
+<span id="cb6-374"><a href="#cb6-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-375"><a href="#cb6-375" aria-hidden="true" tabindex="-1"></a>因果强化学习尝试将结构因果模型、目标试验或 g 方法的识别思想嵌入策略学习。例如，可明确治疗、时间变化协变量、删失与结局的因果图，再估计不同策略下的反事实价值。其关键不是在训练中加入一个“因果系数”，而是明确估计目标、处理时间顺序与混杂、检验数据支持并量化不确定性。</span>
+<span id="cb6-376"><a href="#cb6-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-377"><a href="#cb6-377" aria-hidden="true" tabindex="-1"></a>**公式20.11**</span>
+<span id="cb6-378"><a href="#cb6-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-379"><a href="#cb6-379" aria-hidden="true" tabindex="-1"></a>$$C\left( Y|do(X) \right) = P\left( Y|X = 1 \right) - P\left( Y|X = 0 \right)$$</span>
+<span id="cb6-380"><a href="#cb6-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-381"><a href="#cb6-381" aria-hidden="true" tabindex="-1"></a>$$= P(Y \cap X = 1)*P(X = 1) - P(Y \cap X = 0)*(1 - P(X = 1))$$</span>
+<span id="cb6-382"><a href="#cb6-382" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-383"><a href="#cb6-383" aria-hidden="true" tabindex="-1"></a>因果效应可在满足识别假设时用 g 公式、加权、双重稳健估计或结构嵌套模型等方法估计。因果效应估计为正并不能单凭数值“证明”存在因果关系；仍需依赖研究设计、无未测混杂/随机化、正值性、一致性以及模型诊断。离线因果强化学习在部署前还面临策略分布外外推、奖励错设和未观察混杂等挑战。</span>
+<span id="cb6-384"><a href="#cb6-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-385"><a href="#cb6-385" aria-hidden="true" tabindex="-1"></a><span class="fu">## 强化学习的策略评估</span></span>
+<span id="cb6-386"><a href="#cb6-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-387"><a href="#cb6-387" aria-hidden="true" tabindex="-1"></a>当强化学习方法给出候选干预策略后，必须评价其表现。医学中的大多数强化学习属于离线学习，无法直接观察“若所有患者都遵循该策略”的结局。离线策略评估（off-policy evaluation，OPE）应使用与策略学习分开的验证数据或嵌套交叉验证，并同时报告价值估计、置信区间、权重/重叠诊断及与临床现行策略的可比较性。</span>
+<span id="cb6-388"><a href="#cb6-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-389"><a href="#cb6-389" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>重要性加权（importance sampling，IS）</span>
+<span id="cb6-390"><a href="#cb6-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-391"><a href="#cb6-391" aria-hidden="true" tabindex="-1"></a>重要性采样（importance sampling，IS）借鉴逆概率加权思想，利用目标策略与历史行为策略在每个阶段采取实际行动的概率比，对观察到的轨迹回报重新加权。若行为策略概率被正确估计、满足正值性并具有适当的有限方差条件，IS 价值估计可具有无偏或渐近无偏性质；但当目标策略与历史医生策略差异大时，权重会高度不稳定，估计方差可能极大。</span>
+<span id="cb6-392"><a href="#cb6-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-393"><a href="#cb6-393" aria-hidden="true" tabindex="-1"></a>可计算算法策略 e 与历史行为/医生策略 b 所对应的加权平均回报差异。每阶段权重应基于在给定既往历史下，实际行动在目标策略和行为策略中的条件概率；连续剂量、多行动策略和确定性规则会使概率建模及重叠诊断更困难。</span>
+<span id="cb6-394"><a href="#cb6-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-395"><a href="#cb6-395" aria-hidden="true" tabindex="-1"></a>**公式20.12**</span>
+<span id="cb6-396"><a href="#cb6-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-397"><a href="#cb6-397" aria-hidden="true" tabindex="-1"></a>$$V^{e} = \frac{1}{N}\sum_{n = 1}^{N}{w_{n}^{e}R_{n}}\ \ \ \ \ \ \ \ w_{n}^{e} = \prod_{t = 1}^{k}\frac{1}{\Pr_{e}(A_{t}|S_{t})}$$</span>
+<span id="cb6-398"><a href="#cb6-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-399"><a href="#cb6-399" aria-hidden="true" tabindex="-1"></a>$$V^{b} = \frac{1}{N}\sum_{n = 1}^{N}{w_{n}^{b}R_{n}}\ \ \ \ \ \ \ \ \ w_{n}^{b} = \prod_{t = 1}^{k}\frac{1}{\Pr_{b}(A_{t}|S_{t})}$$</span>
+<span id="cb6-400"><a href="#cb6-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-401"><a href="#cb6-401" aria-hidden="true" tabindex="-1"></a>其中 N 为患者数；策略价值估计依赖于观察到的累计奖励、实际行动轨迹及目标/行为策略概率。应注意，行为策略概率通常需要从数据估计，不能把医生实际选择的频率直接当作充分的因果校正。</span>
+<span id="cb6-402"><a href="#cb6-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-403"><a href="#cb6-403" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>PU学习法</span>
+<span id="cb6-404"><a href="#cb6-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-405"><a href="#cb6-405" aria-hidden="true" tabindex="-1"></a>PU（positive-unlabeled）学习利用“已标记为阳性”和“未标记”样本进行半监督分类。它可在奖励为二分类、阳性结果稀少的特定设定下作为探索性工具，但不是临床离线策略评估的通用替代方法；其标签机制、类别先验、行为策略和因果识别假设均需明确。</span>
+<span id="cb6-406"><a href="#cb6-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-407"><a href="#cb6-407" aria-hidden="true" tabindex="-1"></a>在二分类奖励示例中，可将与成功结局相关的观察到行动称为“阳性”行动，将缺少成功标签的行动视为未标记。然而，观察到成功或失败不等于该行动必然导致成功或失败，因为患者基础风险、治疗选择和未测量因素可能不同。任何基于此类标签的策略推荐都应接受因果诊断与独立验证。</span>
+<span id="cb6-408"><a href="#cb6-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-409"><a href="#cb6-409" aria-hidden="true" tabindex="-1"></a><span class="fu">## 强化学习的局限性</span></span>
+<span id="cb6-410"><a href="#cb6-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-411"><a href="#cb6-411" aria-hidden="true" tabindex="-1"></a>强化学习在医疗研究中的应用增加，但其价值取决于问题定义、数据生成过程、因果识别与临床验证。以下问题尤其应在阅读文献和实际应用时透明报告与尽可能改进：</span>
+<span id="cb6-412"><a href="#cb6-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-413"><a href="#cb6-413" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>反馈的定义</span>
+<span id="cb6-414"><a href="#cb6-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-415"><a href="#cb6-415" aria-hidden="true" tabindex="-1"></a>将强化学习用于医疗的第一步，是在临床、患者和方法学团队共同参与下定义状态、治疗、决策时间点、奖励和安全边界。状态应区分基线信息、既往治疗、随访测量与缺失机制；未记录的医生判断、资源可及性或患者偏好都可能同时影响治疗与结局。连续剂量的离散化、测量频率与延迟、以及缺失值处理应预先规定并做敏感性分析。</span>
+<span id="cb6-416"><a href="#cb6-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-417"><a href="#cb6-417" aria-hidden="true" tabindex="-1"></a>奖励函数是最重要也最易被错设的环节之一。脓毒症等急危重症中，临床决策需在短期生理稳定、并发症、舒适度与长期生存之间权衡；若只使用单一长期终点，算法可能忽略有临床意义的中间伤害或产生不合常规的治疗建议。奖励应由临床专家和患者价值共同制定，明确各结局的方向与权重，并对不同合理定义进行敏感性分析。</span>
+<span id="cb6-418"><a href="#cb6-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-419"><a href="#cb6-419" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>治疗重叠性</span>
+<span id="cb6-420"><a href="#cb6-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-421"><a href="#cb6-421" aria-hidden="true" tabindex="-1"></a>与其他因果研究一样，正值性/重叠性是离线策略学习的基本限制：对每一种由策略可能推荐的状态—行动组合，数据中应有足够概率观察到相应行动。若严重低钠血症患者几乎总被给予高渗盐水，历史数据无法可靠估计“不给予高渗盐水”在相同状态下的后果。算法在缺乏数据支持的区域提出“不行动”等建议属于分布外外推，应通过限制策略空间、设定临床安全规则、报告重叠诊断或重新定义目标人群加以避免。</span>
+<span id="cb6-422"><a href="#cb6-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-423"><a href="#cb6-423" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>算法验证</span>
+<span id="cb6-424"><a href="#cb6-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-425"><a href="#cb6-425" aria-hidden="true" tabindex="-1"></a>在真实临床环境中部署前，必须系统评价所学策略。内部重抽样或外部数据上的 OPE 只能提供间接证据，且受行为策略建模、未测量混杂和分布漂移影响；不应把“估计总奖励高于医生策略”直接当作临床获益。应进行时间外和地域外验证，评估校准、重叠、亚组安全性、临床可行性与公平性。对高风险或会改变治疗标准的策略，最终需要在严格监督下开展前瞻性影响研究或随机化比较，并设置暂停规则和人工覆盖机制。</span>
+<span id="cb6-426"><a href="#cb6-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-427"><a href="#cb6-427" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>马科夫性质</span>
+<span id="cb6-428"><a href="#cb6-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-429"><a href="#cb6-429" aria-hidden="true" tabindex="-1"></a>贝尔曼方程常假设当前状态已充分概括与未来有关的历史（马尔可夫性质）。在游戏中这一假设可能近似成立；在医疗中，病程、既往治疗、累积毒性和未记录的临床判断常使其不成立。可通过纳入合理的历史窗口、状态表示学习或部分可观测马尔可夫决策过程缓解，但这些技术并不能恢复未记录的关键混杂信息。</span>
+<span id="cb6-430"><a href="#cb6-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-431"><a href="#cb6-431" aria-hidden="true" tabindex="-1"></a>多时点干预还面临时间变化混杂、治疗依从性、竞争事件和信息性删失。若算法只从观察性轨迹学习相关模式而不以目标试验和因果图界定比较策略，可能把“病情越重越接受强化治疗且结局越差”的关联误解为应避免强化治疗。因果强化学习应与纵向 g 方法、策略价值的敏感性分析及临床安全约束结合，而不能取代它们。</span>
+<span id="cb6-432"><a href="#cb6-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-433"><a href="#cb6-433" aria-hidden="true" tabindex="-1"></a>临床部署前还应建立完整的治理与监测流程：记录训练数据范围、决策逻辑、版本更新、人工覆盖、异常建议和患者结局；对新中心、新设备或临床路径变化进行再校准和再验证。策略的效益、伤害与不平等影响应持续监测，出现分布漂移或安全信号时应暂停或回退到标准治疗流程。</span>
+<span id="cb6-434"><a href="#cb6-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-435"><a href="#cb6-435" aria-hidden="true" tabindex="-1"></a>因此，动态治疗方案研究的推荐工作流是：先以目标试验形式明确目标人群、时间零点、决策节点、候选策略、结局与随访；再用因果图判断时间顺序和混杂；在训练集学习候选规则，在独立数据评价策略价值及不确定性；最后在可行时开展前瞻性影响评估。算法复杂度不能替代透明的研究设计、临床可解释性与患者安全。</span>
+<span id="cb6-436"><a href="#cb6-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-437"><a href="#cb6-437" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考文献 {.unnumbered}</span></span>
+<span id="cb6-438"><a href="#cb6-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-439"><a href="#cb6-439" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>王硕汝等. 强化学习离线策略评估研究综述. 计算机学报.</span>
+<span id="cb6-440"><a href="#cb6-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-441"><a href="#cb6-441" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Liu Y, Qiao N, Altinel Y. Reinforcement Learning in Neurocritical and Neurosurgical Care: Principles and Possible Applications. Comput Math Methods Med. 2021;2021:6657119. doi:10.1155/2021/6657119. PMID:33727970.</span>
+<span id="cb6-442"><a href="#cb6-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-443"><a href="#cb6-443" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Komorowski M, Celi LA, Badawi O, Gordon AC, Faisal AA. The Artificial Intelligence Clinician learns optimal treatment strategies for sepsis in intensive care. Nat Med. 2018;24(11):1716-1720. doi:10.1038/s41591-018-0213-5. PMID:30349085.</span>
+<span id="cb6-444"><a href="#cb6-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-445"><a href="#cb6-445" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Chakraborty B, Moodie E. Statistical Methods for Dynamic Treatment Regimes: Reinforcement Learning, Causal Inference, and Personalized Medicine. Springer; 2013.</span>
+<span id="cb6-446"><a href="#cb6-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-447"><a href="#cb6-447" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Murphy SA. A generalization error for Q-learning. J Mach Learn Res. 2005;6:1073-1097</span>
+<span id="cb6-448"><a href="#cb6-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-449"><a href="#cb6-449" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Chakraborty B, Murphy SA. Dynamic treatment regimes. Annu Rev Stat Appl. 2014;1:447-464. doi:10.1146/annurev-statistics-022513-115553. PMID:25401119.</span>
+<span id="cb6-450"><a href="#cb6-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-451"><a href="#cb6-451" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Collins LM, Nahum-Shani I, Almirall D. Optimization of behavioral dynamic treatment regimens based on the sequential, multiple assignment, randomized trial (SMART). Clin Trials. 2014;11(4):426-434. doi:10.1177/1740774514536795. PMID:24902922.</span>
+<span id="cb6-452"><a href="#cb6-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-453"><a href="#cb6-453" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>Hernán MA, Robins JM. Causal Inference: What If. Boca Raton: Chapman &amp; Hall/CRC; 2020.</span>
+<span id="cb6-454"><a href="#cb6-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-455"><a href="#cb6-455" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>Lendle SD, Schwab J, Petersen ML, van der Laan MJ. ltmle: An R Package Implementing Targeted Minimum Loss-Based Estimation for Longitudinal Data. J Stat Softw. 2017;81(1):1-21. doi:10.18637/jss.v081.i01.</span>
+<span id="cb6-456"><a href="#cb6-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-457"><a href="#cb6-457" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Tang S, Wiens J. Model Selection for Offline Reinforcement Learning: Practical Considerations for Healthcare Settings. Proc Mach Learn Res. 2021;149:2-35. PMID:35702420.</span>
+<span id="cb6-458"><a href="#cb6-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-459"><a href="#cb6-459" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Birnie K, Tomson C, Caskey FJ, et al. Comparative Effectiveness of Dynamic Treatment Strategies for Medication Use and Dosage: Emulating a Target Trial Using Observational Data. Epidemiology. 2023;34(6):879-887. doi:10.1097/EDE.0000000000001649. PMID:37757876.</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

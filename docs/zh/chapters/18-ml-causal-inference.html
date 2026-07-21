@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -220,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12-regression-discontinuity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归法</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -273,12 +302,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/21-causal-discovery.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">因果发现</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">参考文献</span></a>
   </div>
@@ -295,10 +318,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#机器学习模型纳入倾向评分的拟合" id="toc-机器学习模型纳入倾向评分的拟合" class="nav-link active" data-scroll-target="#机器学习模型纳入倾向评分的拟合"><span class="header-section-number">18.1</span> 机器学习模型纳入倾向评分的拟合</a></li>
   <li><a href="#双重稳健估计器" id="toc-双重稳健估计器" class="nav-link" data-scroll-target="#双重稳健估计器"><span class="header-section-number">18.2</span> 双重稳健估计器</a></li>
-  <li><a href="#因果推断中引入交叉验证" id="toc-因果推断中引入交叉验证" class="nav-link" data-scroll-target="#因果推断中引入交叉验证"><span class="header-section-number">18.3</span> 因果推断中引入交叉验证</a></li>
+  <li><a href="#因果推断中引入交叉验证" id="toc-因果推断中引入交叉验证" class="nav-link" data-scroll-target="#因果推断中引入交叉验证"><span class="header-section-number">18.3</span> 因果推断中引入交叉验证</a>
+  <ul class="collapse">
+  <li><a href="#样本分割" id="toc-样本分割" class="nav-link" data-scroll-target="#样本分割"><span class="header-section-number">18.3.1</span> 样本分割</a></li>
+  <li><a href="#交叉验证" id="toc-交叉验证" class="nav-link" data-scroll-target="#交叉验证"><span class="header-section-number">18.3.2</span> 交叉验证</a></li>
+  </ul></li>
   <li><a href="#因果森林算法" id="toc-因果森林算法" class="nav-link" data-scroll-target="#因果森林算法"><span class="header-section-number">18.4</span> 因果森林算法</a></li>
   <li><a href="#机器学习引入因果推断的局限性" id="toc-机器学习引入因果推断的局限性" class="nav-link" data-scroll-target="#机器学习引入因果推断的局限性"><span class="header-section-number">18.5</span> 机器学习引入因果推断的局限性</a></li>
-  <li><a href="#在机器学习中思考因果" id="toc-在机器学习中思考因果" class="nav-link" data-scroll-target="#在机器学习中思考因果"><span class="header-section-number">18.6</span> 在机器学习中思考因果</a></li>
+  <li><a href="#在机器学习中进行因果思考" id="toc-在机器学习中进行因果思考" class="nav-link" data-scroll-target="#在机器学习中进行因果思考"><span class="header-section-number">18.6</span> 在机器学习中进行因果思考</a>
+  <ul class="collapse">
+  <li><a href="#预测问题与因果问题不是同一问题" id="toc-预测问题与因果问题不是同一问题" class="nav-link" data-scroll-target="#预测问题与因果问题不是同一问题"><span class="header-section-number">18.6.1</span> 预测问题与因果问题不是同一问题</a></li>
+  <li><a href="#估计目标与可行动性" id="toc-估计目标与可行动性" class="nav-link" data-scroll-target="#估计目标与可行动性"><span class="header-section-number">18.6.2</span> 估计目标与可行动性</a></li>
+  <li><a href="#变量角色与时间顺序" id="toc-变量角色与时间顺序" class="nav-link" data-scroll-target="#变量角色与时间顺序"><span class="header-section-number">18.6.3</span> 变量角色与时间顺序</a></li>
+  <li><a href="#机器学习在因果分析中的合适位置" id="toc-机器学习在因果分析中的合适位置" class="nav-link" data-scroll-target="#机器学习在因果分析中的合适位置"><span class="header-section-number">18.6.4</span> 机器学习在因果分析中的合适位置</a></li>
+  <li><a href="#异质性治疗效应与个体化决策" id="toc-异质性治疗效应与个体化决策" class="nav-link" data-scroll-target="#异质性治疗效应与个体化决策"><span class="header-section-number">18.6.5</span> 异质性治疗效应与个体化决策</a></li>
+  <li><a href="#数据漂移选择偏倚与外部有效性" id="toc-数据漂移选择偏倚与外部有效性" class="nav-link" data-scroll-target="#数据漂移选择偏倚与外部有效性"><span class="header-section-number">18.6.6</span> 数据漂移、选择偏倚与外部有效性</a></li>
+  <li><a href="#公平性透明报告与临床评价" id="toc-公平性透明报告与临床评价" class="nav-link" data-scroll-target="#公平性透明报告与临床评价"><span class="header-section-number">18.6.7</span> 公平性、透明报告与临床评价</a></li>
+  <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结"><span class="header-section-number">18.6.8</span> 小结</a></li>
+  </ul></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献">参考文献</a></li>
   </ul>
 </nav>
     </div>
@@ -324,42 +362,567 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<section id="机器学习模型纳入倾向评分的拟合" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="机器学习模型纳入倾向评分的拟合"><span class="header-section-number">18.1</span> 机器学习模型纳入倾向评分的拟合</h2>
+<p>在真实世界研究中，干预相关协变量往往维度很高且关系复杂。若把所有变量的高阶项和交互项都放入传统参数模型，参数数目可能接近或超过样本量，导致倾向评分估计不稳定。机器学习可用于灵活估计倾向评分 <span class="math inline">\(e(X)=Pr(A=1\mid X)\)</span>，但其目标是控制混杂而不是单纯最大化治疗预测准确性；协变量选择应首先依据时间顺序和临床知识，避免纳入治疗后的变量、碰撞变量或仅为提高治疗预测而损害重叠性的变量。</p>
+<p>机器学习算法能够在高维协变量中拟合非线性和交互作用，可用于估计倾向评分、结局回归或删失模型等”干扰参数”。LASSO（least absolute shrinkage and selection operator）是在回归中同时进行收缩和变量选择的方法，可将部分系数压缩至0；随机森林、梯度提升和神经网络等也可用于该类预测任务。需要强调的是：用于因果估计时，模型选择和调参不能只看AUC、准确率或均方误差，还应检查加权/匹配后的协变量平衡、倾向评分分布与极端权重，并预先保留临床上重要的混杂因素。</p>
+<p>案例9.1中，以LASSO估计倾向评分，纳入较多基线变量。该示例用于说明流程；实际分析还应报告各变量的缺失处理、倾向评分重叠情况、权重分布及加权后的协变量平衡。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">注记</span>编写说明
+<span class="screen-reader-only">注记</span>代码18.1：LASSO 倾向评分建模
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>. lasso <span class="kw">logit</span> Treatment <span class="kw">k</span> age duration gh_base igf_base tumor_base</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>. lassocoef</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码18.1输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.1输出
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>本章内容整理中。可将已校订的 Word 书稿（<code>乔Book/</code> 目录）正文迁移至此，公式用 <code>$...$</code> / <code>$$...$$</code>，图片放 <code>images/</code>，代码用 <code>{r} 或</code>{python} 代码块。</p>
+<div class="text-center">
+<p><img src="images/ch18-image1.png" style="width:5.76806in;height:1.27153in"></p>
 </div>
 </div>
-<section id="机器学习模型纳入倾向评分的拟合" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="机器学习模型纳入倾向评分的拟合"><span class="header-section-number">18.1</span> 机器学习模型纳入倾向评分的拟合</h2>
-<p><em>待补充。</em></p>
+</div>
+<p>LASSO回归筛选出四个变量用于倾向评分建模。在更高维的场景中，LASSO可减少模型复杂度，但不能把”未被选择”直接解释为”不是混杂因素”；变量是否应纳入仍需结合因果图、测量时点与临床知识判断。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.2：基于倾向评分的逆概率加权
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> _pscore</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> _ipweight = 1/_pscore <span class="kw">if</span> Treatment == 1</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> _ipweight = 1/(1-_pscore) <span class="kw">if</span> Treatment == 0</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logistic</span> Outcome Treatment [<span class="kw">iweight</span> = _ipweight], <span class="kw">vce</span>(<span class="kw">robust</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码18.2输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.2输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch18-image2.png" style="width:5.76806in;height:1.86042in"></p>
+</div>
+</div>
+</div>
+<p>示例中得到的加权比值比为1.80。多种机器学习方法已被用于从电子病历中的高维、稀疏和纵向信息估计治疗机制；例如，可先将诊断、处方和实验室检查的历史编码为特征表示，再与基线信息共同用于估计每个时点的治疗或删失概率。无论采用何种表示学习方法，因果解释仍依赖于无未测混杂、正值性、一致性以及正确的时间顺序，而不能由模型的预测性能本身保证。</p>
 </section>
 <section id="双重稳健估计器" class="level2" data-number="18.2">
 <h2 data-number="18.2" class="anchored" data-anchor-id="双重稳健估计器"><span class="header-section-number">18.2</span> 双重稳健估计器</h2>
-<p><em>待补充。</em></p>
+<p>上一节的机器学习模型可用于估计倾向评分或结局回归，但把预测值直接代入因果效应公式常受正则化偏倚和过度拟合影响。增强逆概率加权（augmented inverse probability weighting，AIPW）将两类模型结合：在可交换性、正值性和一致性等识别假设成立时，只要倾向评分模型或结局回归模型中至少一个正确指定，估计量即可保持一致性，因此称为”双重稳健”。在高维或非参数场景，还应配合正交得分与交叉拟合，形成双重/去偏机器学习（double/debiased machine learning，DML），以支持有效的标准误和置信区间。</p>
+<p>令A为二分类干预，<span class="math inline">\(e(X)=Pr(A=1\mid X)\)</span>为倾向评分，<span class="math inline">\(m_a(X)=E(Y\mid A=a,X)\)</span>为结局回归。对每名研究对象，AIPW的两个潜在结局均值可写为：<span class="math inline">\(DR_1=m_1(X)+\frac{A}{e(X)}[Y-m_1(X)]\)</span>，<span class="math inline">\(DR_0=m_0(X)+\frac{1-A}{1-e(X)}[Y-m_0(X)]\)</span>；对<span class="math inline">\(DR_1\)</span>和<span class="math inline">\(DR_0\)</span>取样本均值即可得到两种干预策略下的风险估计（表18.1）。</p>
+<p><strong>表18.1 双重稳健估计器</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><em>DR<sub>1</sub></em></th>
+<th style="text-align: left;"><em>DR<sub>0</sub></em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">通用表达式</td>
+<td style="text-align: left;"><span class="math inline">\(\frac{Y^{X = 1}*X - \widehat{Y_{1}}*(X - PS)}{PS}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\frac{Y^{X = 0}*(1 - X) + \widehat{Y_{0}}*(X - PS)}{1 - PS}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">干预组</td>
+<td style="text-align: left;"><span class="math inline">\(\frac{Y^{X = 1} - \widehat{Y_{1}}*(1 - PS)}{PS}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\widehat{Y_{0}}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">对照组</td>
+<td style="text-align: left;"><span class="math inline">\(\widehat{Y_{1}}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\frac{Y^{X = 0} - \widehat{Y_{0}}*PS}{1 - PS}\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.3：估计干预组的双重稳健风险
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span> Outcome <span class="kw">k</span> age duration gh_base igf_base tumor_base</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt; <span class="kw">if</span> Treatment == 1</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> Y_hat_1</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span> Outcome <span class="kw">k</span> age duration gh_base igf_base tumor_base</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt; <span class="kw">if</span> Treatment == 0</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> Y_hat_0</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> DR_1 = Y_hat_1</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> DR_1 = Y_hat_1 + (Outcome - Y_hat_1)/_pscore <span class="kw">if</span> Treatment == 1</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> DR_0 = Y_hat_0</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> DR_0 = Y_hat_0 + (Outcome - Y_hat_0)/(1-_pscore) <span class="kw">if</span> Treatment == 0</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>. <span class="kw">summarize</span> DR_1 <span class="kw">if</span> Outcome != .</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码18.3输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.3输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch18-image3.png" style="width:5.76806in;height:0.59861in"></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.4：估计对照组的双重稳健风险
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">summarize</span> DR_0 <span class="kw">if</span> Outcome != .</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码18.4输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.4输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch18-image4.png" style="width:5.76806in;height:0.59861in"></p>
+</div>
+</div>
+</div>
+<p><em>DR1和DR0的点估计分别为0.550和0.411；两者之差为风险差0.139。由两种风险可进一步计算风险比或比值比，且应同时报告其95%置信区间。Stata的teffects aipw命令可在两个括号中分别指定结局回归与倾向评分模型；如需使用LASSO、随机森林等学习器，则应采用能够实现交叉拟合和稳健推断的专门程序，或自行进行可重复的样本分割、估计与合并。</em></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.5：Stata 的 AIPW 估计
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>. teffects aipw (Outcome age igf_base gh_base <span class="kw">k</span> duration, <span class="kw">logit</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt; (Treatment age igf_base gh_base <span class="kw">k</span> duration, <span class="kw">logit</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码18.5输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.5输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch18-image5.png" style="width:5.76806in;height:2.32639in"></p>
+</div>
+</div>
+</div>
 </section>
 <section id="因果推断中引入交叉验证" class="level2" data-number="18.3">
 <h2 data-number="18.3" class="anchored" data-anchor-id="因果推断中引入交叉验证"><span class="header-section-number">18.3</span> 因果推断中引入交叉验证</h2>
-<p><em>待补充。</em></p>
+<p>机器学习与双重稳健估计结合时，关键不只是常规预测意义上的交叉验证，而是交叉拟合（cross-fitting）。其目的在于让每名研究对象的倾向评分和结局回归预测都来自不包含该对象的训练样本，从而降低同一样本既训练又估计效应所造成的过拟合偏倚。DML进一步使用Neyman正交得分，使干扰参数的小误差对目标因果效应的一阶影响减弱；二者共同为有效推断提供条件，而不是自动消除未测混杂或正值性不足。</p>
+<section id="样本分割" class="level3" data-number="18.3.1">
+<h3 data-number="18.3.1" class="anchored" data-anchor-id="样本分割"><span class="header-section-number">18.3.1</span> 样本分割</h3>
+<p>样本分割可将研究对象随机分为训练样本和估计样本：在训练样本中拟合m_1(X)、m_0(X)和e(X)，再将这些模型应用于独立的估计样本，计算AIPW/正交得分。这样可避免对同一对象的结果信息重复使用；但单次二分法只在一半样本中估计最终效应，精度会下降，因此通常采用K折交叉拟合。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.6：第一折样本分割估计
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> <span class="fu">group</span> = runiformint(0,1)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span> Outcome <span class="kw">k</span> age duration gh_base igf_base tumor_base</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt; <span class="kw">if</span> (Treatment == 1 &amp; <span class="fu">group</span> == 0)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> Y_hat_1</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span> Outcome <span class="kw">k</span> age duration gh_base igf_base tumor_base</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt; <span class="kw">if</span> (Treatment == 0 &amp; <span class="fu">group</span> == 0)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> Y_hat_0</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>. lasso <span class="kw">logit</span> Treatment <span class="kw">k</span> age duration gh_base igf_base tumor_base <span class="kw">if</span> <span class="fu">group</span> == 0</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> _pscore</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> DR_1 = Y_hat_1</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> DR_1 = Y_hat_1 + (Outcome - Y_hat_1)/_pscore <span class="kw">if</span> Treatment == 1</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> DR_0 = Y_hat_0</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> DR_0 = Y_hat_0 + (Outcome - Y_hat_0)/(1-_pscore) <span class="kw">if</span> Treatment == 0</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>. <span class="kw">summarize</span> DR_1 <span class="kw">if</span> (Outcome != . &amp; <span class="fu">group</span> == 1)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码18.6输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.6输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch18-image6.png" style="width:5.76806in;height:0.55347in"></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.7：第一折的对照组风险汇总
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">summarize</span> DR_0 <span class="kw">if</span> (Outcome != . &amp; <span class="fu">group</span> == 1)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码18.7输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.7输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch18-image7.png" style="width:5.76806in;height:0.55347in"></p>
+</div>
+</div>
+</div>
+<p>在一半的样本中（377例），<em>DR<sub>1</sub></em> 和 <em>DR<sub>0</sub></em> 的点估计分别为0.508和0.400。</p>
+</section>
+<section id="交叉验证" class="level3" data-number="18.3.2">
+<h3 data-number="18.3.2" class="anchored" data-anchor-id="交叉验证"><span class="header-section-number">18.3.2</span> 交叉验证</h3>
+<p>为避免单次分割损失效率，可调换两部分样本的角色，或更常用地进行K折交叉拟合：每一折均用其余K−1折拟合干扰参数，再在保留折计算正交得分，最后合并所有折的得分。这里的”交叉拟合”不同于仅为选择超参数而进行的预测交叉验证；其核心是保证效应估计所用预测为样本外预测。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.8：第二折交叉拟合
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">drop</span> Y_hat_1 Y_hat_0 _pscore DR_1 DR_0</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span> Outcome <span class="kw">k</span> age duration gh_base igf_base tumor_base</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt; <span class="kw">if</span> (Treatment == 1 &amp; <span class="fu">group</span> == 1)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> Y_hat_1</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span> Outcome <span class="kw">k</span> age duration gh_base igf_base tumor_base</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt; <span class="kw">if</span> (Treatment == 0 &amp; <span class="fu">group</span> == 1)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> Y_hat_0</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>. lasso <span class="kw">logit</span> Treatment <span class="kw">k</span> age duration gh_base igf_base tumor_base <span class="kw">if</span> <span class="fu">group</span> == 1</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> _pscore</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> DR_1 = Y_hat_1</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> DR_1 = Y_hat_1 + (Outcome - Y_hat_1)/_pscore <span class="kw">if</span> Treatment == 1</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> DR_0 = Y_hat_0</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> DR_0 = Y_hat_0 + (Outcome - Y_hat_0)/(1-_pscore) <span class="kw">if</span> Treatment == 0</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>. <span class="kw">summarize</span> DR_1 <span class="kw">if</span> (Outcome != . &amp; <span class="fu">group</span> == 0)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码18.8输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.8输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch18-image8.png" style="width:5.76806in;height:0.55347in"></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.9：第二折的对照组风险汇总
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">summarize</span> DR_0 <span class="kw">if</span> (Outcome != . &amp; <span class="fu">group</span> == 0)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码18.9输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.9输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch18-image9.png" style="width:5.76806in;height:0.55347in"></p>
+</div>
+</div>
+</div>
+<p>在另一半的样本中（366例），<em>DR<sub>1</sub></em> 和 <em>DR<sub>0</sub></em> 的点估计分别为0.605和0.416。</p>
+<p>将各折的正交得分合并后，可得到整个研究人群的平均因果效应估计；本示例中DR1和DR0的点估计约为0.557和0.408。区间估计可由影响函数方差、适当的自助法或软件实现获得。应固定随机种子、报告折数和学习器调参规则，并在敏感性分析中考察不同学习器、截尾规则和折分方式对结论的影响。</p>
+</section>
 </section>
 <section id="因果森林算法" class="level2" data-number="18.4">
 <h2 data-number="18.4" class="anchored" data-anchor-id="因果森林算法"><span class="header-section-number">18.4</span> 因果森林算法</h2>
-<p><em>待补充。</em></p>
+<p>因果森林（causal forest）是随机森林在异质性治疗效应估计中的扩展，目标是条件平均治疗效应CATE：<span class="math inline">\(\tau(X)=E[Y(1)-Y(0)\mid X]\)</span>。它并非把普通聚类或普通预测树直接解释为因果分析；因果解释仍需在给定X后满足无未测混杂、正值性和一致性。森林可视为用树诱导的自适应邻域为每位患者寻找可比较的对照信息，再在这些邻域内估计治疗效应。</p>
+<p>因果森林通过大量树的加权邻域来估计治疗效应异质性，并在分裂时兼顾治疗组与对照组的样本量及可比性。叶节点不是天然的随机对照试验：若叶内仍存在未控制混杂、治疗组极少或协变量重叠不足，叶内差异仍可能有偏。总体平均效应可由森林的相应估计器获得；CATE预测则主要用于描述经预先规定并经验证的效应异质性。</p>
+<p>“诚实性”（honesty）是指在同一棵树内将抽样数据分为两部分：一部分用于选择分裂规则，另一部分用于叶内效应估计与推断。它不是完全禁止使用结局信息，也不等同于无混杂；其作用是降低因同一数据既寻找异质性又估计效应而产生的适应性偏倚。现代广义随机森林还可先对结局和治疗机制进行正交化，再在残差上学习异质性，并对不平衡分裂进行惩罚。</p>
+<p>下面以R语言grf软件包为例，结合结局与倾向评分的初步估计构建因果森林；Y为数值型结局、W为二分类干预、X为基线混杂因素。实际应用宜使用较多树、报告honesty与调参设置，并通过总体平均效应、校准检验、变量重要性和外部/时间验证综合评价，而不应只展示某一棵树。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.10：构建因果森林
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">library</span>(grf)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>. data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"a_impute_CF.csv"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>. Y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>Y <span class="sc">==</span> <span class="st">"Yes"</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>. W <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>T <span class="sc">==</span> <span class="st">"Endoscopy"</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>. X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(data[,<span class="st">"K"</span>],data[,<span class="st">"Age"</span>]),<span class="dv">743</span>,<span class="dv">2</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>. forest.Y <span class="ot">&lt;-</span> <span class="fu">regression_forest</span>(X, Y)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>. Y.hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(forest.Y)<span class="sc">$</span>predictions</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>. forest.W <span class="ot">&lt;-</span> <span class="fu">regression_forest</span>(X, W)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>. W.hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(forest.W)<span class="sc">$</span>predictions</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>. c.forest <span class="ot">&lt;-</span> <span class="fu">causal_forest</span>(X, Y, W, Y.hat, W.hat)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>. tau.hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(c.forest)<span class="sc">$</span>predictions</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>. mu.hat<span class="fl">.0</span> <span class="ot">&lt;-</span> Y.hat <span class="sc">-</span> W.hat <span class="sc">*</span> tau.hat</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>. mu.hat<span class="fl">.1</span> <span class="ot">&lt;-</span> Y.hat <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> W.hat) <span class="sc">*</span> tau.hat</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>. <span class="fu">summary</span>(mu.hat<span class="fl">.0</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码18.10输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.10输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch18-image10.png" style="width:5.76806in;height:0.38889in"></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.11：干预策略下的预测结局汇总
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">summary</span>(mu.hat<span class="fl">.1</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码18.11输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.11输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch18-image11.png" style="width:5.76806in;height:0.38889in"></p>
+</div>
+</div>
+</div>
+<p>计算比值比为</p>
+<p><span class="math display">\[OR = \frac{0.562/(1 - 0.562)}{0.411/(1 - 0.411)} = 1.84\]</span></p>
+<p>所得总体效应与上一节接近时，只能说明本数据和这些设定下的结果相似；它不是方法正确性的充分证据。可绘制单棵树帮助理解算法，但单棵树不稳定，不能据此作临床亚组结论。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.12：绘制因果树
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>. tree <span class="ot">&lt;-</span> <span class="fu">get_tree</span>(c.forest, <span class="dv">3</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>. <span class="fu">plot</span>(tree)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码18.12输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码18.12输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch18-image12.png" style="width:5.76806in;height:2.90833in"></p>
+</div>
+</div>
+</div>
+<p>因果树通过重复划分特征空间形成局部相似的患者邻域，但”相似”不等于已经无混杂。某叶中如侵袭性大于2级、年龄33至40岁的患者有36例，治疗比例和观察到的缓解率可用于描述该叶；若要把其中的差异解释为亚组因果效应，仍须检查叶内重叠、有效样本量、协变量平衡和不确定性，并在独立数据中验证。</p>
 </section>
 <section id="机器学习引入因果推断的局限性" class="level2" data-number="18.5">
 <h2 data-number="18.5" class="anchored" data-anchor-id="机器学习引入因果推断的局限性"><span class="header-section-number">18.5</span> 机器学习引入因果推断的局限性</h2>
-<p><em>待补充。</em></p>
+<p>机器学习可扩展因果分析中干扰参数的建模能力，并帮助探索效应异质性；但它并不替代研究设计和因果识别。应用前应先明确目标人群、干预策略、随访起点、结局、估计目标和可识别假设，再选择学习器与估计器。以下局限性尤其需要在方案、结果报告和临床解释中透明说明。</p>
+<p>第一，任何学习器都不能从观测数据中证明已控制全部混杂。临床上重要的混杂因素可能对治疗预测贡献有限，因而被纯数据驱动的选择过程忽略；反之，治疗后的变量、碰撞变量或某些工具变量可能被模型优先利用。应在建模前用临床知识和因果图界定候选混杂集，并把不同合理变量集作为敏感性分析。</p>
+<p>第二，直接把同一数据训练出的预测模型代入效应公式，确实可能使标准误和置信区间失效；但这并不意味着机器学习必然无法推断。采用正交得分、交叉拟合和适当的影响函数/自助法后，DML与广义随机森林可在其正则条件下给出有效推断。研究者仍需报告学习器、折分、随机种子、方差估计方法以及有限样本的不稳定性，避免把模型输出当作天然可信的置信区间。</p>
+<p>第三，时间变化治疗、时间依赖混杂、竞争风险与删失会显著增加建模和计算难度。纵向双重稳健、目标学习和因果生存森林等方法正在发展，但不应因复杂而忽略目标试验的时间零点、治疗策略、动态正值性和删失机制；在样本量或重叠不足时，较复杂的学习器可能比预先规定的简化模型更不稳定。</p>
+<p>第四，强学习器可能产生接近0或1的倾向评分，从而形成极端权重和高方差；这常提示目标人群中缺乏可比患者，而非单纯的算法故障。应展示倾向评分与权重分布，预先规定限制共同支持区、截尾/稳定化权重或改变目标人群的规则，并说明这些选择对估计目标的影响。不能在看到结果后任意删去”造成问题”的变量来追求更稳定的数值。</p>
 </section>
-<section id="在机器学习中思考因果" class="level2" data-number="18.6">
-<h2 data-number="18.6" class="anchored" data-anchor-id="在机器学习中思考因果"><span class="header-section-number">18.6</span> 在机器学习中思考因果</h2>
-<p><em>待补充。</em></p>
+<section id="在机器学习中进行因果思考" class="level2" data-number="18.6">
+<h2 data-number="18.6" class="anchored" data-anchor-id="在机器学习中进行因果思考"><span class="header-section-number">18.6</span> 在机器学习中进行因果思考</h2>
+<p>在临床医学中，预测模型与因果模型回答的问题不同。预测模型关心”在当前资料下谁更可能发生结局”；因果模型关心”若同一目标人群接受策略a而不是策略a′，结局会如何改变”。机器学习可以服务于两类问题，但不能把高预测准确性直接解释为治疗有效或某患者会从治疗中获益。</p>
+<section id="预测问题与因果问题不是同一问题" class="level3" data-number="18.6.1">
+<h3 data-number="18.6.1" class="anchored" data-anchor-id="预测问题与因果问题不是同一问题"><span class="header-section-number">18.6.1</span> 预测问题与因果问题不是同一问题</h3>
+<p>预测通常估计<span class="math inline">\(P(Y\mid X)\)</span>，其目的是在已观察到的环境中准确预测结局。例如，模型可利用治疗、检查频率或医院编码来预测死亡风险；这些变量即使提高预测性能，也可能是治疗后的结果、选择过程的标志或不可干预的代理变量。</p>
+<p>因果问题则要求比较潜在结局Y(a)与Y(a′)。若目标是评价某药物的疗效，应先规定治疗策略、时间零点、目标人群、随访、结局和效应尺度，再判断现有数据是否足以在合理假设下识别该比较。仅把治疗变量加入预测模型，或比较模型给出的两个预测值，并不能自动得到因果效应。</p>
+</section>
+<section id="估计目标与可行动性" class="level3" data-number="18.6.2">
+<h3 data-number="18.6.2" class="anchored" data-anchor-id="估计目标与可行动性"><span class="header-section-number">18.6.2</span> 估计目标与可行动性</h3>
+<p>因此，因果分析的起点应是可复现的研究方案或”目标试验”框架，而不是先运行算法。机器学习宜用于估计其中的干扰函数、处理高维协变量或探索经过约束的异质性；识别假设、变量的时间顺序和估计目标必须由研究问题与临床知识决定。</p>
+</section>
+<section id="变量角色与时间顺序" class="level3" data-number="18.6.3">
+<h3 data-number="18.6.3" class="anchored" data-anchor-id="变量角色与时间顺序"><span class="header-section-number">18.6.3</span> 变量角色与时间顺序</h3>
+<p>基线共同原因可作为混杂因素候选；治疗后变量不应被常规调整，因为它们可能是中介或碰撞变量。对于电子病历中的高维特征，应记录其测量时间、临床含义、缺失和生成过程，而不能只依据变量重要性或预测贡献决定是否调整。</p>
+<p>当存在未测混杂、选择进入队列的机制不清，或某些协变量组合下几乎只接受一种治疗时，再复杂的深度学习模型也无法从数据本身恢复不可识别的因果效应。此时应考虑补充测量、改变目标人群、工具变量/负对照设计或明确的敏感性分析。</p>
+</section>
+<section id="机器学习在因果分析中的合适位置" class="level3" data-number="18.6.4">
+<h3 data-number="18.6.4" class="anchored" data-anchor-id="机器学习在因果分析中的合适位置"><span class="header-section-number">18.6.4</span> 机器学习在因果分析中的合适位置</h3>
+<p>机器学习最适合承担倾向评分、结局回归、删失模型和高维特征表示等干扰参数的预测任务；随后用AIPW、TMLE、DML或适当的纵向估计器将这些预测嵌入预先定义的因果估计方程。这样既可利用非线性和交互作用，也能保留对目标效应、标准误和假设的清晰解释。</p>
+<p>无论使用LASSO、提升树、随机森林还是神经网络，都应预先说明候选学习器、调参和集成规则，使用样本外预测，并报告重叠、协变量平衡、权重和残差诊断。选择”预测最好”的单一算法并不等于选择”因果偏倚最小”的分析。</p>
+<p>交叉拟合与正交得分能缓解正则化和过拟合对估计的影响，但不能修复错误的因果图、错误的治疗时间零点或缺失的重要混杂信息。因果机器学习的可信度来自设计、诊断、敏感性分析与可重复性，而不是算法名称。</p>
+</section>
+<section id="异质性治疗效应与个体化决策" class="level3" data-number="18.6.5">
+<h3 data-number="18.6.5" class="anchored" data-anchor-id="异质性治疗效应与个体化决策"><span class="header-section-number">18.6.5</span> 异质性治疗效应与个体化决策</h3>
+<p>CATE描述的是在协变量X给定时的平均治疗效应，而不是可被无误观察到的单个患者”真实获益”。当数据量有限、治疗重叠差或同时搜索大量亚组时，CATE图形和单棵树的分裂极易产生偶然发现。</p>
+<p>若研究目的为个体化治疗，应区分探索和验证：先在训练数据中学习候选异质性，再在独立数据、外部队列或前瞻性研究中评价其校准、净获益与临床后果。除展示异质性图外，还应报告总体效应、亚组有效样本量、区间估计和治疗规则的决策曲线/价值评估。</p>
+</section>
+<section id="数据漂移选择偏倚与外部有效性" class="level3" data-number="18.6.6">
+<h3 data-number="18.6.6" class="anchored" data-anchor-id="数据漂移选择偏倚与外部有效性"><span class="header-section-number">18.6.6</span> 数据漂移、选择偏倚与外部有效性</h3>
+<p>训练集与目标临床人群在就诊路径、疾病严重度、编码规则、设备、治疗可及性或结局判定上不一致时，预测关系和因果效应都可能改变。样本量更大并不能自动消除这种数据漂移；选择进入数据库的过程本身可能引入选择偏倚。</p>
+<p>因此应明确来源人群和目标人群，优先开展时间外、地域外或机构外验证；比较关键协变量、治疗概率、随访和结局定义，并在必要时重新估计模型。若模型将用于指导治疗，还应监测模型部署后临床行为改变所造成的反馈效应。</p>
+</section>
+<section id="公平性透明报告与临床评价" class="level3" data-number="18.6.7">
+<h3 data-number="18.6.7" class="anchored" data-anchor-id="公平性透明报告与临床评价"><span class="header-section-number">18.6.7</span> 公平性、透明报告与临床评价</h3>
+<p>应按年龄、性别、种族/族群、疾病严重度和医疗可及性等相关亚组评估重叠、误差与治疗建议，避免把历史资源分配不均直接固化为算法建议。报告中应说明数据来源、时间窗、缺失处理、变量时间顺序、识别假设、学习器、调参与代码可获得性。</p>
+<p>真正的临床转化仍需评价因果机器学习辅助决策是否改善患者重要结局，而不仅是离线预测指标。对于高风险干预，应优先使用外部验证、前瞻性影响评估或嵌入式随机试验来检验安全性、有效性和公平性。</p>
+</section>
+<section id="小结" class="level3" data-number="18.6.8">
+<h3 data-number="18.6.8" class="anchored" data-anchor-id="小结"><span class="header-section-number">18.6.8</span> 小结</h3>
+<p>机器学习能增强因果分析的建模能力，却不能替代因果问题的定义、研究设计和识别假设。一个可信的工作流程是：先定义目标试验与估计目标；再根据因果图和时间顺序确定变量角色；用交叉拟合的正交估计器结合学习器；最后检查重叠、平衡、敏感性、外部有效性和临床影响。</p>
+</section>
+</section>
+<section id="参考文献" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="参考文献">参考文献</h2>
+<ol type="1">
+<li><p>Chernozhukov V, Chetverikov D, Demirer M, et al.&nbsp;Double/debiased machine learning for treatment and structural parameters. Econometrics Journal. 2018;21:C1-C68. doi:10.1111/ectj.12097.</p></li>
+<li><p>Wager S, Athey S. Estimation and inference of heterogeneous treatment effects using random forests. Journal of the American Statistical Association. 2018;113:1228-1242. doi:10.1080/01621459.2017.1319839.</p></li>
+<li><p>Athey S, Tibshirani J, Wager S. Generalized random forests. Annals of Statistics. 2019;47:1148-1178. doi:10.1214/18-AOS1709.</p></li>
+<li><p>McConnell KJ, Lindner S. Estimating treatment effects with machine learning. Health Services Research. 2019;54:1273-1282. doi:10.1111/1475-6773.13212. PMID:31602641.</p></li>
+<li><p>Feuerriegel S, Frauen D, Melnychuk V, et al.&nbsp;Causal machine learning for predicting treatment outcomes. Nature Medicine. 2024;30:958-968. doi:10.1038/s41591-024-02902-1. PMID:38641741.</p></li>
+<li><p>Dockès J, Varoquaux G, Poline JB. Preventing dataset shift from breaking machine-learning biomarkers. GigaScience. 2021;10:giab055. doi:10.1093/gigascience/giab055. PMID:34585237.</p></li>
+<li><p>Hernán MA, Robins JM. Causal Inference: What If. Boca Raton: Chapman &amp; Hall/CRC; 2020.</p></li>
+</ol>
 
 
 <!-- -->
@@ -830,36 +1393,372 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 因果推断与机器学习的交融</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## 编写说明</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>本章内容整理中。可将已校订的 Word 书稿（<span class="in">`乔Book/`</span> 目录）正文迁移至此，公式用 <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span>，图片放 <span class="in">`images/`</span>，代码用 ```{r} 或 ```{python} 代码块。</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 机器学习模型纳入倾向评分的拟合</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## 双重稳健估计器</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 因果推断中引入交叉验证</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 因果森林算法</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## 机器学习引入因果推断的局限性</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## 在机器学习中思考因果</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>_待补充。_</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 因果推断与机器学习的交融</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 机器学习模型纳入倾向评分的拟合</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>在真实世界研究中，干预相关协变量往往维度很高且关系复杂。若把所有变量的高阶项和交互项都放入传统参数模型，参数数目可能接近或超过样本量，导致倾向评分估计不稳定。机器学习可用于灵活估计倾向评分 $e(X)=Pr(A=1\mid X)$，但其目标是控制混杂而不是单纯最大化治疗预测准确性；协变量选择应首先依据时间顺序和临床知识，避免纳入治疗后的变量、碰撞变量或仅为提高治疗预测而损害重叠性的变量。</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>机器学习算法能够在高维协变量中拟合非线性和交互作用，可用于估计倾向评分、结局回归或删失模型等"干扰参数"。LASSO（least absolute shrinkage and selection operator）是在回归中同时进行收缩和变量选择的方法，可将部分系数压缩至0；随机森林、梯度提升和神经网络等也可用于该类预测任务。需要强调的是：用于因果估计时，模型选择和调参不能只看AUC、准确率或均方误差，还应检查加权/匹配后的协变量平衡、倾向评分分布与极端权重，并预先保留临床上重要的混杂因素。</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>案例9.1中，以LASSO估计倾向评分，纳入较多基线变量。该示例用于说明流程；实际分析还应报告各变量的缺失处理、倾向评分重叠情况、权重分布及加权后的协变量平衡。</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码18.1：LASSO 倾向评分建模</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="in">. lasso logit Treatment k age duration gh_base igf_base tumor_base</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="in">. lassocoef</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码18.1输出"}</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image1.png)</span>{width="5.768055555555556in" height="1.2715277777777778in"}</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>LASSO回归筛选出四个变量用于倾向评分建模。在更高维的场景中，LASSO可减少模型复杂度，但不能把"未被选择"直接解释为"不是混杂因素"；变量是否应纳入仍需结合因果图、测量时点与临床知识判断。</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码18.2：基于倾向评分的逆概率加权</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="in">. predict _pscore</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="in">. gen _ipweight = 1/_pscore if Treatment == 1</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="in">. replace _ipweight = 1/(1-_pscore) if Treatment == 0</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="in">. logistic Outcome Treatment [iweight = _ipweight], vce(robust)</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码18.2输出"}</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image2.png)</span>{width="5.768055555555556in" height="1.8604166666666666in"}</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>示例中得到的加权比值比为1.80。多种机器学习方法已被用于从电子病历中的高维、稀疏和纵向信息估计治疗机制；例如，可先将诊断、处方和实验室检查的历史编码为特征表示，再与基线信息共同用于估计每个时点的治疗或删失概率。无论采用何种表示学习方法，因果解释仍依赖于无未测混杂、正值性、一致性以及正确的时间顺序，而不能由模型的预测性能本身保证。</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## 双重稳健估计器</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>上一节的机器学习模型可用于估计倾向评分或结局回归，但把预测值直接代入因果效应公式常受正则化偏倚和过度拟合影响。增强逆概率加权（augmented inverse probability weighting，AIPW）将两类模型结合：在可交换性、正值性和一致性等识别假设成立时，只要倾向评分模型或结局回归模型中至少一个正确指定，估计量即可保持一致性，因此称为"双重稳健"。在高维或非参数场景，还应配合正交得分与交叉拟合，形成双重/去偏机器学习（double/debiased machine learning，DML），以支持有效的标准误和置信区间。</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>令A为二分类干预，$e(X)=Pr(A=1\mid X)$为倾向评分，$m_a(X)=E(Y\mid A=a,X)$为结局回归。对每名研究对象，AIPW的两个潜在结局均值可写为：$DR_1=m_1(X)+\frac{A}{e(X)}<span class="co">[</span><span class="ot">Y-m_1(X)</span><span class="co">]</span>$，$DR_0=m_0(X)+\frac{1-A}{1-e(X)}<span class="co">[</span><span class="ot">Y-m_0(X)</span><span class="co">]</span>$；对$DR_1$和$DR_0$取样本均值即可得到两种干预策略下的风险估计（表18.1）。</span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>**表18.1 双重稳健估计器**</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>   <span class="pp">|</span> *DR~1~* | *DR~0~* <span class="pp">|</span></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|:---|:---|</span></span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 通用表达式 <span class="pp">|</span> $\frac{Y^{X = 1}*X - \widehat{Y_{1}}*(X - PS)}{PS}$ | $\frac{Y^{X = 0}*(1 - X) + \widehat{Y_{0}}*(X - PS)}{1 - PS}$ <span class="pp">|</span></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 干预组 <span class="pp">|</span> $\frac{Y^{X = 1} - \widehat{Y_{1}}*(1 - PS)}{PS}$ <span class="pp">|</span> $\widehat{Y_{0}}$ <span class="pp">|</span></span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 对照组 <span class="pp">|</span> $\widehat{Y_{1}}$ <span class="pp">|</span> $\frac{Y^{X = 0} - \widehat{Y_{0}}*PS}{1 - PS}$ <span class="pp">|</span></span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码18.3：估计干预组的双重稳健风险</span></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a><span class="in">. logit Outcome k age duration gh_base igf_base tumor_base</span></span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a><span class="in">&gt;&gt;&gt; if Treatment == 1</span></span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a><span class="in">. predict Y_hat_1</span></span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a><span class="in">. logit Outcome k age duration gh_base igf_base tumor_base</span></span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a><span class="in">&gt;&gt;&gt; if Treatment == 0</span></span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a><span class="in">. predict Y_hat_0</span></span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a><span class="in">. gen DR_1 = Y_hat_1</span></span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a><span class="in">. replace DR_1 = Y_hat_1 + (Outcome - Y_hat_1)/_pscore if Treatment == 1</span></span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a><span class="in">. gen DR_0 = Y_hat_0</span></span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a><span class="in">. replace DR_0 = Y_hat_0 + (Outcome - Y_hat_0)/(1-_pscore) if Treatment == 0</span></span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a><span class="in">. summarize DR_1 if Outcome != .</span></span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码18.3输出"}</span>
+<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image3.png)</span>{width="5.768055555555556in" height="0.5986111111111111in"}</span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码18.4：估计对照组的双重稳健风险</span></span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a><span class="in">. summarize DR_0 if Outcome != .</span></span>
+<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码18.4输出"}</span>
+<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image4.png)</span>{width="5.768055555555556in" height="0.5986111111111111in"}</span>
+<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a>*DR1和DR0的点估计分别为0.550和0.411；两者之差为风险差0.139。由两种风险可进一步计算风险比或比值比，且应同时报告其95%置信区间。Stata的teffects aipw命令可在两个括号中分别指定结局回归与倾向评分模型；如需使用LASSO、随机森林等学习器，则应采用能够实现交叉拟合和稳健推断的专门程序，或自行进行可重复的样本分割、估计与合并。*</span>
+<span id="cb13-100"><a href="#cb13-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-101"><a href="#cb13-101" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb13-102"><a href="#cb13-102" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码18.5：Stata 的 AIPW 估计</span></span>
+<span id="cb13-103"><a href="#cb13-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-104"><a href="#cb13-104" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb13-105"><a href="#cb13-105" aria-hidden="true" tabindex="-1"></a><span class="in">. teffects aipw (Outcome age igf_base gh_base k duration, logit)</span></span>
+<span id="cb13-106"><a href="#cb13-106" aria-hidden="true" tabindex="-1"></a><span class="in">&gt;&gt;&gt; (Treatment age igf_base gh_base k duration, logit)</span></span>
+<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码18.5输出"}</span>
+<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image5.png)</span>{width="5.768055555555556in" height="2.326388888888889in"}</span>
+<span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## 因果推断中引入交叉验证</span></span>
+<span id="cb13-117"><a href="#cb13-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-118"><a href="#cb13-118" aria-hidden="true" tabindex="-1"></a>机器学习与双重稳健估计结合时，关键不只是常规预测意义上的交叉验证，而是交叉拟合（cross-fitting）。其目的在于让每名研究对象的倾向评分和结局回归预测都来自不包含该对象的训练样本，从而降低同一样本既训练又估计效应所造成的过拟合偏倚。DML进一步使用Neyman正交得分，使干扰参数的小误差对目标因果效应的一阶影响减弱；二者共同为有效推断提供条件，而不是自动消除未测混杂或正值性不足。</span>
+<span id="cb13-119"><a href="#cb13-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-120"><a href="#cb13-120" aria-hidden="true" tabindex="-1"></a><span class="fu">### 样本分割</span></span>
+<span id="cb13-121"><a href="#cb13-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-122"><a href="#cb13-122" aria-hidden="true" tabindex="-1"></a>样本分割可将研究对象随机分为训练样本和估计样本：在训练样本中拟合m_1(X)、m_0(X)和e(X)，再将这些模型应用于独立的估计样本，计算AIPW/正交得分。这样可避免对同一对象的结果信息重复使用；但单次二分法只在一半样本中估计最终效应，精度会下降，因此通常采用K折交叉拟合。</span>
+<span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码18.6：第一折样本分割估计</span></span>
+<span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb13-128"><a href="#cb13-128" aria-hidden="true" tabindex="-1"></a><span class="in">. gen group = runiformint(0,1)</span></span>
+<span id="cb13-129"><a href="#cb13-129" aria-hidden="true" tabindex="-1"></a><span class="in">. logit Outcome k age duration gh_base igf_base tumor_base</span></span>
+<span id="cb13-130"><a href="#cb13-130" aria-hidden="true" tabindex="-1"></a><span class="in">&gt;&gt;&gt; if (Treatment == 1 &amp; group == 0)</span></span>
+<span id="cb13-131"><a href="#cb13-131" aria-hidden="true" tabindex="-1"></a><span class="in">. predict Y_hat_1</span></span>
+<span id="cb13-132"><a href="#cb13-132" aria-hidden="true" tabindex="-1"></a><span class="in">. logit Outcome k age duration gh_base igf_base tumor_base</span></span>
+<span id="cb13-133"><a href="#cb13-133" aria-hidden="true" tabindex="-1"></a><span class="in">&gt;&gt;&gt; if (Treatment == 0 &amp; group == 0)</span></span>
+<span id="cb13-134"><a href="#cb13-134" aria-hidden="true" tabindex="-1"></a><span class="in">. predict Y_hat_0</span></span>
+<span id="cb13-135"><a href="#cb13-135" aria-hidden="true" tabindex="-1"></a><span class="in">. lasso logit Treatment k age duration gh_base igf_base tumor_base if group == 0</span></span>
+<span id="cb13-136"><a href="#cb13-136" aria-hidden="true" tabindex="-1"></a><span class="in">. predict _pscore</span></span>
+<span id="cb13-137"><a href="#cb13-137" aria-hidden="true" tabindex="-1"></a><span class="in">. gen DR_1 = Y_hat_1</span></span>
+<span id="cb13-138"><a href="#cb13-138" aria-hidden="true" tabindex="-1"></a><span class="in">. replace DR_1 = Y_hat_1 + (Outcome - Y_hat_1)/_pscore if Treatment == 1</span></span>
+<span id="cb13-139"><a href="#cb13-139" aria-hidden="true" tabindex="-1"></a><span class="in">. gen DR_0 = Y_hat_0</span></span>
+<span id="cb13-140"><a href="#cb13-140" aria-hidden="true" tabindex="-1"></a><span class="in">. replace DR_0 = Y_hat_0 + (Outcome - Y_hat_0)/(1-_pscore) if Treatment == 0</span></span>
+<span id="cb13-141"><a href="#cb13-141" aria-hidden="true" tabindex="-1"></a><span class="in">. summarize DR_1 if (Outcome != . &amp; group == 1)</span></span>
+<span id="cb13-142"><a href="#cb13-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-143"><a href="#cb13-143" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-144"><a href="#cb13-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-145"><a href="#cb13-145" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码18.6输出"}</span>
+<span id="cb13-146"><a href="#cb13-146" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb13-147"><a href="#cb13-147" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image6.png)</span>{width="5.768055555555556in" height="0.5534722222222223in"}</span>
+<span id="cb13-148"><a href="#cb13-148" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-149"><a href="#cb13-149" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb13-150"><a href="#cb13-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-151"><a href="#cb13-151" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb13-152"><a href="#cb13-152" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码18.7：第一折的对照组风险汇总</span></span>
+<span id="cb13-153"><a href="#cb13-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-154"><a href="#cb13-154" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb13-155"><a href="#cb13-155" aria-hidden="true" tabindex="-1"></a><span class="in">. summarize DR_0 if (Outcome != . &amp; group == 1)</span></span>
+<span id="cb13-156"><a href="#cb13-156" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-157"><a href="#cb13-157" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-158"><a href="#cb13-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-159"><a href="#cb13-159" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码18.7输出"}</span>
+<span id="cb13-160"><a href="#cb13-160" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb13-161"><a href="#cb13-161" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image7.png)</span>{width="5.768055555555556in" height="0.5534722222222223in"}</span>
+<span id="cb13-162"><a href="#cb13-162" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-163"><a href="#cb13-163" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb13-164"><a href="#cb13-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-165"><a href="#cb13-165" aria-hidden="true" tabindex="-1"></a>在一半的样本中（377例），*DR~1~* 和 *DR~0~* 的点估计分别为0.508和0.400。</span>
+<span id="cb13-166"><a href="#cb13-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-167"><a href="#cb13-167" aria-hidden="true" tabindex="-1"></a><span class="fu">### 交叉验证</span></span>
+<span id="cb13-168"><a href="#cb13-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-169"><a href="#cb13-169" aria-hidden="true" tabindex="-1"></a>为避免单次分割损失效率，可调换两部分样本的角色，或更常用地进行K折交叉拟合：每一折均用其余K−1折拟合干扰参数，再在保留折计算正交得分，最后合并所有折的得分。这里的"交叉拟合"不同于仅为选择超参数而进行的预测交叉验证；其核心是保证效应估计所用预测为样本外预测。</span>
+<span id="cb13-170"><a href="#cb13-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-171"><a href="#cb13-171" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb13-172"><a href="#cb13-172" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码18.8：第二折交叉拟合</span></span>
+<span id="cb13-173"><a href="#cb13-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-174"><a href="#cb13-174" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb13-175"><a href="#cb13-175" aria-hidden="true" tabindex="-1"></a><span class="in">. drop Y_hat_1 Y_hat_0 _pscore DR_1 DR_0</span></span>
+<span id="cb13-176"><a href="#cb13-176" aria-hidden="true" tabindex="-1"></a><span class="in">. logit Outcome k age duration gh_base igf_base tumor_base</span></span>
+<span id="cb13-177"><a href="#cb13-177" aria-hidden="true" tabindex="-1"></a><span class="in">&gt;&gt;&gt; if (Treatment == 1 &amp; group == 1)</span></span>
+<span id="cb13-178"><a href="#cb13-178" aria-hidden="true" tabindex="-1"></a><span class="in">. predict Y_hat_1</span></span>
+<span id="cb13-179"><a href="#cb13-179" aria-hidden="true" tabindex="-1"></a><span class="in">. logit Outcome k age duration gh_base igf_base tumor_base</span></span>
+<span id="cb13-180"><a href="#cb13-180" aria-hidden="true" tabindex="-1"></a><span class="in">&gt;&gt;&gt; if (Treatment == 0 &amp; group == 1)</span></span>
+<span id="cb13-181"><a href="#cb13-181" aria-hidden="true" tabindex="-1"></a><span class="in">. predict Y_hat_0</span></span>
+<span id="cb13-182"><a href="#cb13-182" aria-hidden="true" tabindex="-1"></a><span class="in">. lasso logit Treatment k age duration gh_base igf_base tumor_base if group == 1</span></span>
+<span id="cb13-183"><a href="#cb13-183" aria-hidden="true" tabindex="-1"></a><span class="in">. predict _pscore</span></span>
+<span id="cb13-184"><a href="#cb13-184" aria-hidden="true" tabindex="-1"></a><span class="in">. gen DR_1 = Y_hat_1</span></span>
+<span id="cb13-185"><a href="#cb13-185" aria-hidden="true" tabindex="-1"></a><span class="in">. replace DR_1 = Y_hat_1 + (Outcome - Y_hat_1)/_pscore if Treatment == 1</span></span>
+<span id="cb13-186"><a href="#cb13-186" aria-hidden="true" tabindex="-1"></a><span class="in">. gen DR_0 = Y_hat_0</span></span>
+<span id="cb13-187"><a href="#cb13-187" aria-hidden="true" tabindex="-1"></a><span class="in">. replace DR_0 = Y_hat_0 + (Outcome - Y_hat_0)/(1-_pscore) if Treatment == 0</span></span>
+<span id="cb13-188"><a href="#cb13-188" aria-hidden="true" tabindex="-1"></a><span class="in">. summarize DR_1 if (Outcome != . &amp; group == 0)</span></span>
+<span id="cb13-189"><a href="#cb13-189" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-190"><a href="#cb13-190" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-191"><a href="#cb13-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-192"><a href="#cb13-192" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码18.8输出"}</span>
+<span id="cb13-193"><a href="#cb13-193" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb13-194"><a href="#cb13-194" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image8.png)</span>{width="5.768055555555556in" height="0.5534722222222223in"}</span>
+<span id="cb13-195"><a href="#cb13-195" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-196"><a href="#cb13-196" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb13-197"><a href="#cb13-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-198"><a href="#cb13-198" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb13-199"><a href="#cb13-199" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码18.9：第二折的对照组风险汇总</span></span>
+<span id="cb13-200"><a href="#cb13-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-201"><a href="#cb13-201" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb13-202"><a href="#cb13-202" aria-hidden="true" tabindex="-1"></a><span class="in">. summarize DR_0 if (Outcome != . &amp; group == 0)</span></span>
+<span id="cb13-203"><a href="#cb13-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-204"><a href="#cb13-204" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-205"><a href="#cb13-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-206"><a href="#cb13-206" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码18.9输出"}</span>
+<span id="cb13-207"><a href="#cb13-207" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb13-208"><a href="#cb13-208" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image9.png)</span>{width="5.768055555555556in" height="0.5534722222222223in"}</span>
+<span id="cb13-209"><a href="#cb13-209" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-210"><a href="#cb13-210" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb13-211"><a href="#cb13-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-212"><a href="#cb13-212" aria-hidden="true" tabindex="-1"></a>在另一半的样本中（366例），*DR~1~* 和 *DR~0~* 的点估计分别为0.605和0.416。</span>
+<span id="cb13-213"><a href="#cb13-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-214"><a href="#cb13-214" aria-hidden="true" tabindex="-1"></a>将各折的正交得分合并后，可得到整个研究人群的平均因果效应估计；本示例中DR1和DR0的点估计约为0.557和0.408。区间估计可由影响函数方差、适当的自助法或软件实现获得。应固定随机种子、报告折数和学习器调参规则，并在敏感性分析中考察不同学习器、截尾规则和折分方式对结论的影响。</span>
+<span id="cb13-215"><a href="#cb13-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-216"><a href="#cb13-216" aria-hidden="true" tabindex="-1"></a><span class="fu">## 因果森林算法</span></span>
+<span id="cb13-217"><a href="#cb13-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-218"><a href="#cb13-218" aria-hidden="true" tabindex="-1"></a>因果森林（causal forest）是随机森林在异质性治疗效应估计中的扩展，目标是条件平均治疗效应CATE：$\tau(X)=E<span class="co">[</span><span class="ot">Y(1)-Y(0)\mid X</span><span class="co">]</span>$。它并非把普通聚类或普通预测树直接解释为因果分析；因果解释仍需在给定X后满足无未测混杂、正值性和一致性。森林可视为用树诱导的自适应邻域为每位患者寻找可比较的对照信息，再在这些邻域内估计治疗效应。</span>
+<span id="cb13-219"><a href="#cb13-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-220"><a href="#cb13-220" aria-hidden="true" tabindex="-1"></a>因果森林通过大量树的加权邻域来估计治疗效应异质性，并在分裂时兼顾治疗组与对照组的样本量及可比性。叶节点不是天然的随机对照试验：若叶内仍存在未控制混杂、治疗组极少或协变量重叠不足，叶内差异仍可能有偏。总体平均效应可由森林的相应估计器获得；CATE预测则主要用于描述经预先规定并经验证的效应异质性。</span>
+<span id="cb13-221"><a href="#cb13-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-222"><a href="#cb13-222" aria-hidden="true" tabindex="-1"></a>"诚实性"（honesty）是指在同一棵树内将抽样数据分为两部分：一部分用于选择分裂规则，另一部分用于叶内效应估计与推断。它不是完全禁止使用结局信息，也不等同于无混杂；其作用是降低因同一数据既寻找异质性又估计效应而产生的适应性偏倚。现代广义随机森林还可先对结局和治疗机制进行正交化，再在残差上学习异质性，并对不平衡分裂进行惩罚。</span>
+<span id="cb13-223"><a href="#cb13-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-224"><a href="#cb13-224" aria-hidden="true" tabindex="-1"></a>下面以R语言grf软件包为例，结合结局与倾向评分的初步估计构建因果森林；Y为数值型结局、W为二分类干预、X为基线混杂因素。实际应用宜使用较多树、报告honesty与调参设置，并通过总体平均效应、校准检验、变量重要性和外部/时间验证综合评价，而不应只展示某一棵树。</span>
+<span id="cb13-225"><a href="#cb13-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-226"><a href="#cb13-226" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb13-227"><a href="#cb13-227" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码18.10：构建因果森林</span></span>
+<span id="cb13-228"><a href="#cb13-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-229"><a href="#cb13-229" aria-hidden="true" tabindex="-1"></a><span class="in">``` r</span></span>
+<span id="cb13-230"><a href="#cb13-230" aria-hidden="true" tabindex="-1"></a>. <span class="fu">library</span>(grf)</span>
+<span id="cb13-231"><a href="#cb13-231" aria-hidden="true" tabindex="-1"></a>. data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"a_impute_CF.csv"</span>)</span>
+<span id="cb13-232"><a href="#cb13-232" aria-hidden="true" tabindex="-1"></a>. Y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>Y <span class="sc">==</span> <span class="st">"Yes"</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb13-233"><a href="#cb13-233" aria-hidden="true" tabindex="-1"></a>. W <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>T <span class="sc">==</span> <span class="st">"Endoscopy"</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb13-234"><a href="#cb13-234" aria-hidden="true" tabindex="-1"></a>. X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(data[,<span class="st">"K"</span>],data[,<span class="st">"Age"</span>]),<span class="dv">743</span>,<span class="dv">2</span>)</span>
+<span id="cb13-235"><a href="#cb13-235" aria-hidden="true" tabindex="-1"></a>. forest.Y <span class="ot">&lt;-</span> <span class="fu">regression_forest</span>(X, Y)</span>
+<span id="cb13-236"><a href="#cb13-236" aria-hidden="true" tabindex="-1"></a>. Y.hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(forest.Y)<span class="sc">$</span>predictions</span>
+<span id="cb13-237"><a href="#cb13-237" aria-hidden="true" tabindex="-1"></a>. forest.W <span class="ot">&lt;-</span> <span class="fu">regression_forest</span>(X, W)</span>
+<span id="cb13-238"><a href="#cb13-238" aria-hidden="true" tabindex="-1"></a>. W.hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(forest.W)<span class="sc">$</span>predictions</span>
+<span id="cb13-239"><a href="#cb13-239" aria-hidden="true" tabindex="-1"></a>. c.forest <span class="ot">&lt;-</span> <span class="fu">causal_forest</span>(X, Y, W, Y.hat, W.hat)</span>
+<span id="cb13-240"><a href="#cb13-240" aria-hidden="true" tabindex="-1"></a>. tau.hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(c.forest)<span class="sc">$</span>predictions</span>
+<span id="cb13-241"><a href="#cb13-241" aria-hidden="true" tabindex="-1"></a>. mu.hat<span class="fl">.0</span> <span class="ot">&lt;-</span> Y.hat <span class="sc">-</span> W.hat <span class="sc">*</span> tau.hat</span>
+<span id="cb13-242"><a href="#cb13-242" aria-hidden="true" tabindex="-1"></a>. mu.hat<span class="fl">.1</span> <span class="ot">&lt;-</span> Y.hat <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> W.hat) <span class="sc">*</span> tau.hat</span>
+<span id="cb13-243"><a href="#cb13-243" aria-hidden="true" tabindex="-1"></a>. <span class="fu">summary</span>(mu.hat<span class="fl">.0</span>)</span>
+<span id="cb13-244"><a href="#cb13-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-245"><a href="#cb13-245" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-246"><a href="#cb13-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-247"><a href="#cb13-247" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码18.10输出"}</span>
+<span id="cb13-248"><a href="#cb13-248" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb13-249"><a href="#cb13-249" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image10.png)</span>{width="5.768055555555556in" height="0.3888888888888889in"}</span>
+<span id="cb13-250"><a href="#cb13-250" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-251"><a href="#cb13-251" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb13-252"><a href="#cb13-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-253"><a href="#cb13-253" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb13-254"><a href="#cb13-254" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码18.11：干预策略下的预测结局汇总</span></span>
+<span id="cb13-255"><a href="#cb13-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-256"><a href="#cb13-256" aria-hidden="true" tabindex="-1"></a><span class="in">``` r</span></span>
+<span id="cb13-257"><a href="#cb13-257" aria-hidden="true" tabindex="-1"></a>. <span class="fu">summary</span>(mu.hat<span class="fl">.1</span>)</span>
+<span id="cb13-258"><a href="#cb13-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-259"><a href="#cb13-259" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-260"><a href="#cb13-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-261"><a href="#cb13-261" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码18.11输出"}</span>
+<span id="cb13-262"><a href="#cb13-262" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb13-263"><a href="#cb13-263" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image11.png)</span>{width="5.768055555555556in" height="0.3888888888888889in"}</span>
+<span id="cb13-264"><a href="#cb13-264" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-265"><a href="#cb13-265" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb13-266"><a href="#cb13-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-267"><a href="#cb13-267" aria-hidden="true" tabindex="-1"></a>计算比值比为</span>
+<span id="cb13-268"><a href="#cb13-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-269"><a href="#cb13-269" aria-hidden="true" tabindex="-1"></a>$$OR = \frac{0.562/(1 - 0.562)}{0.411/(1 - 0.411)} = 1.84$$</span>
+<span id="cb13-270"><a href="#cb13-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-271"><a href="#cb13-271" aria-hidden="true" tabindex="-1"></a>所得总体效应与上一节接近时，只能说明本数据和这些设定下的结果相似；它不是方法正确性的充分证据。可绘制单棵树帮助理解算法，但单棵树不稳定，不能据此作临床亚组结论。</span>
+<span id="cb13-272"><a href="#cb13-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-273"><a href="#cb13-273" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb13-274"><a href="#cb13-274" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码18.12：绘制因果树</span></span>
+<span id="cb13-275"><a href="#cb13-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-276"><a href="#cb13-276" aria-hidden="true" tabindex="-1"></a><span class="in">``` r</span></span>
+<span id="cb13-277"><a href="#cb13-277" aria-hidden="true" tabindex="-1"></a>. tree <span class="ot">&lt;-</span> <span class="fu">get_tree</span>(c.forest, <span class="dv">3</span>)</span>
+<span id="cb13-278"><a href="#cb13-278" aria-hidden="true" tabindex="-1"></a>. <span class="fu">plot</span>(tree)</span>
+<span id="cb13-279"><a href="#cb13-279" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-280"><a href="#cb13-280" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-281"><a href="#cb13-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-282"><a href="#cb13-282" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码18.12输出"}</span>
+<span id="cb13-283"><a href="#cb13-283" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb13-284"><a href="#cb13-284" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image12.png)</span>{width="5.768055555555556in" height="2.908333333333333in"}</span>
+<span id="cb13-285"><a href="#cb13-285" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-286"><a href="#cb13-286" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb13-287"><a href="#cb13-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-288"><a href="#cb13-288" aria-hidden="true" tabindex="-1"></a>因果树通过重复划分特征空间形成局部相似的患者邻域，但"相似"不等于已经无混杂。某叶中如侵袭性大于2级、年龄33至40岁的患者有36例，治疗比例和观察到的缓解率可用于描述该叶；若要把其中的差异解释为亚组因果效应，仍须检查叶内重叠、有效样本量、协变量平衡和不确定性，并在独立数据中验证。</span>
+<span id="cb13-289"><a href="#cb13-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-290"><a href="#cb13-290" aria-hidden="true" tabindex="-1"></a><span class="fu">## 机器学习引入因果推断的局限性</span></span>
+<span id="cb13-291"><a href="#cb13-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-292"><a href="#cb13-292" aria-hidden="true" tabindex="-1"></a>机器学习可扩展因果分析中干扰参数的建模能力，并帮助探索效应异质性；但它并不替代研究设计和因果识别。应用前应先明确目标人群、干预策略、随访起点、结局、估计目标和可识别假设，再选择学习器与估计器。以下局限性尤其需要在方案、结果报告和临床解释中透明说明。</span>
+<span id="cb13-293"><a href="#cb13-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-294"><a href="#cb13-294" aria-hidden="true" tabindex="-1"></a>第一，任何学习器都不能从观测数据中证明已控制全部混杂。临床上重要的混杂因素可能对治疗预测贡献有限，因而被纯数据驱动的选择过程忽略；反之，治疗后的变量、碰撞变量或某些工具变量可能被模型优先利用。应在建模前用临床知识和因果图界定候选混杂集，并把不同合理变量集作为敏感性分析。</span>
+<span id="cb13-295"><a href="#cb13-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-296"><a href="#cb13-296" aria-hidden="true" tabindex="-1"></a>第二，直接把同一数据训练出的预测模型代入效应公式，确实可能使标准误和置信区间失效；但这并不意味着机器学习必然无法推断。采用正交得分、交叉拟合和适当的影响函数/自助法后，DML与广义随机森林可在其正则条件下给出有效推断。研究者仍需报告学习器、折分、随机种子、方差估计方法以及有限样本的不稳定性，避免把模型输出当作天然可信的置信区间。</span>
+<span id="cb13-297"><a href="#cb13-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-298"><a href="#cb13-298" aria-hidden="true" tabindex="-1"></a>第三，时间变化治疗、时间依赖混杂、竞争风险与删失会显著增加建模和计算难度。纵向双重稳健、目标学习和因果生存森林等方法正在发展，但不应因复杂而忽略目标试验的时间零点、治疗策略、动态正值性和删失机制；在样本量或重叠不足时，较复杂的学习器可能比预先规定的简化模型更不稳定。</span>
+<span id="cb13-299"><a href="#cb13-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-300"><a href="#cb13-300" aria-hidden="true" tabindex="-1"></a>第四，强学习器可能产生接近0或1的倾向评分，从而形成极端权重和高方差；这常提示目标人群中缺乏可比患者，而非单纯的算法故障。应展示倾向评分与权重分布，预先规定限制共同支持区、截尾/稳定化权重或改变目标人群的规则，并说明这些选择对估计目标的影响。不能在看到结果后任意删去"造成问题"的变量来追求更稳定的数值。</span>
+<span id="cb13-301"><a href="#cb13-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-302"><a href="#cb13-302" aria-hidden="true" tabindex="-1"></a><span class="fu">## 在机器学习中进行因果思考</span></span>
+<span id="cb13-303"><a href="#cb13-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-304"><a href="#cb13-304" aria-hidden="true" tabindex="-1"></a>在临床医学中，预测模型与因果模型回答的问题不同。预测模型关心"在当前资料下谁更可能发生结局"；因果模型关心"若同一目标人群接受策略a而不是策略a′，结局会如何改变"。机器学习可以服务于两类问题，但不能把高预测准确性直接解释为治疗有效或某患者会从治疗中获益。</span>
+<span id="cb13-305"><a href="#cb13-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-306"><a href="#cb13-306" aria-hidden="true" tabindex="-1"></a><span class="fu">### 预测问题与因果问题不是同一问题</span></span>
+<span id="cb13-307"><a href="#cb13-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-308"><a href="#cb13-308" aria-hidden="true" tabindex="-1"></a>预测通常估计$P(Y\mid X)$，其目的是在已观察到的环境中准确预测结局。例如，模型可利用治疗、检查频率或医院编码来预测死亡风险；这些变量即使提高预测性能，也可能是治疗后的结果、选择过程的标志或不可干预的代理变量。</span>
+<span id="cb13-309"><a href="#cb13-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-310"><a href="#cb13-310" aria-hidden="true" tabindex="-1"></a>因果问题则要求比较潜在结局Y(a)与Y(a′)。若目标是评价某药物的疗效，应先规定治疗策略、时间零点、目标人群、随访、结局和效应尺度，再判断现有数据是否足以在合理假设下识别该比较。仅把治疗变量加入预测模型，或比较模型给出的两个预测值，并不能自动得到因果效应。</span>
+<span id="cb13-311"><a href="#cb13-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-312"><a href="#cb13-312" aria-hidden="true" tabindex="-1"></a><span class="fu">### 估计目标与可行动性</span></span>
+<span id="cb13-313"><a href="#cb13-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-314"><a href="#cb13-314" aria-hidden="true" tabindex="-1"></a>因此，因果分析的起点应是可复现的研究方案或"目标试验"框架，而不是先运行算法。机器学习宜用于估计其中的干扰函数、处理高维协变量或探索经过约束的异质性；识别假设、变量的时间顺序和估计目标必须由研究问题与临床知识决定。</span>
+<span id="cb13-315"><a href="#cb13-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-316"><a href="#cb13-316" aria-hidden="true" tabindex="-1"></a><span class="fu">### 变量角色与时间顺序</span></span>
+<span id="cb13-317"><a href="#cb13-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-318"><a href="#cb13-318" aria-hidden="true" tabindex="-1"></a>基线共同原因可作为混杂因素候选；治疗后变量不应被常规调整，因为它们可能是中介或碰撞变量。对于电子病历中的高维特征，应记录其测量时间、临床含义、缺失和生成过程，而不能只依据变量重要性或预测贡献决定是否调整。</span>
+<span id="cb13-319"><a href="#cb13-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-320"><a href="#cb13-320" aria-hidden="true" tabindex="-1"></a>当存在未测混杂、选择进入队列的机制不清，或某些协变量组合下几乎只接受一种治疗时，再复杂的深度学习模型也无法从数据本身恢复不可识别的因果效应。此时应考虑补充测量、改变目标人群、工具变量/负对照设计或明确的敏感性分析。</span>
+<span id="cb13-321"><a href="#cb13-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-322"><a href="#cb13-322" aria-hidden="true" tabindex="-1"></a><span class="fu">### 机器学习在因果分析中的合适位置</span></span>
+<span id="cb13-323"><a href="#cb13-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-324"><a href="#cb13-324" aria-hidden="true" tabindex="-1"></a>机器学习最适合承担倾向评分、结局回归、删失模型和高维特征表示等干扰参数的预测任务；随后用AIPW、TMLE、DML或适当的纵向估计器将这些预测嵌入预先定义的因果估计方程。这样既可利用非线性和交互作用，也能保留对目标效应、标准误和假设的清晰解释。</span>
+<span id="cb13-325"><a href="#cb13-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-326"><a href="#cb13-326" aria-hidden="true" tabindex="-1"></a>无论使用LASSO、提升树、随机森林还是神经网络，都应预先说明候选学习器、调参和集成规则，使用样本外预测，并报告重叠、协变量平衡、权重和残差诊断。选择"预测最好"的单一算法并不等于选择"因果偏倚最小"的分析。</span>
+<span id="cb13-327"><a href="#cb13-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-328"><a href="#cb13-328" aria-hidden="true" tabindex="-1"></a>交叉拟合与正交得分能缓解正则化和过拟合对估计的影响，但不能修复错误的因果图、错误的治疗时间零点或缺失的重要混杂信息。因果机器学习的可信度来自设计、诊断、敏感性分析与可重复性，而不是算法名称。</span>
+<span id="cb13-329"><a href="#cb13-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-330"><a href="#cb13-330" aria-hidden="true" tabindex="-1"></a><span class="fu">### 异质性治疗效应与个体化决策</span></span>
+<span id="cb13-331"><a href="#cb13-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-332"><a href="#cb13-332" aria-hidden="true" tabindex="-1"></a>CATE描述的是在协变量X给定时的平均治疗效应，而不是可被无误观察到的单个患者"真实获益"。当数据量有限、治疗重叠差或同时搜索大量亚组时，CATE图形和单棵树的分裂极易产生偶然发现。</span>
+<span id="cb13-333"><a href="#cb13-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-334"><a href="#cb13-334" aria-hidden="true" tabindex="-1"></a>若研究目的为个体化治疗，应区分探索和验证：先在训练数据中学习候选异质性，再在独立数据、外部队列或前瞻性研究中评价其校准、净获益与临床后果。除展示异质性图外，还应报告总体效应、亚组有效样本量、区间估计和治疗规则的决策曲线/价值评估。</span>
+<span id="cb13-335"><a href="#cb13-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-336"><a href="#cb13-336" aria-hidden="true" tabindex="-1"></a><span class="fu">### 数据漂移、选择偏倚与外部有效性</span></span>
+<span id="cb13-337"><a href="#cb13-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-338"><a href="#cb13-338" aria-hidden="true" tabindex="-1"></a>训练集与目标临床人群在就诊路径、疾病严重度、编码规则、设备、治疗可及性或结局判定上不一致时，预测关系和因果效应都可能改变。样本量更大并不能自动消除这种数据漂移；选择进入数据库的过程本身可能引入选择偏倚。</span>
+<span id="cb13-339"><a href="#cb13-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-340"><a href="#cb13-340" aria-hidden="true" tabindex="-1"></a>因此应明确来源人群和目标人群，优先开展时间外、地域外或机构外验证；比较关键协变量、治疗概率、随访和结局定义，并在必要时重新估计模型。若模型将用于指导治疗，还应监测模型部署后临床行为改变所造成的反馈效应。</span>
+<span id="cb13-341"><a href="#cb13-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-342"><a href="#cb13-342" aria-hidden="true" tabindex="-1"></a><span class="fu">### 公平性、透明报告与临床评价</span></span>
+<span id="cb13-343"><a href="#cb13-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-344"><a href="#cb13-344" aria-hidden="true" tabindex="-1"></a>应按年龄、性别、种族/族群、疾病严重度和医疗可及性等相关亚组评估重叠、误差与治疗建议，避免把历史资源分配不均直接固化为算法建议。报告中应说明数据来源、时间窗、缺失处理、变量时间顺序、识别假设、学习器、调参与代码可获得性。</span>
+<span id="cb13-345"><a href="#cb13-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-346"><a href="#cb13-346" aria-hidden="true" tabindex="-1"></a>真正的临床转化仍需评价因果机器学习辅助决策是否改善患者重要结局，而不仅是离线预测指标。对于高风险干预，应优先使用外部验证、前瞻性影响评估或嵌入式随机试验来检验安全性、有效性和公平性。</span>
+<span id="cb13-347"><a href="#cb13-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-348"><a href="#cb13-348" aria-hidden="true" tabindex="-1"></a><span class="fu">### 小结</span></span>
+<span id="cb13-349"><a href="#cb13-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-350"><a href="#cb13-350" aria-hidden="true" tabindex="-1"></a>机器学习能增强因果分析的建模能力，却不能替代因果问题的定义、研究设计和识别假设。一个可信的工作流程是：先定义目标试验与估计目标；再根据因果图和时间顺序确定变量角色；用交叉拟合的正交估计器结合学习器；最后检查重叠、平衡、敏感性、外部有效性和临床影响。</span>
+<span id="cb13-351"><a href="#cb13-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-352"><a href="#cb13-352" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考文献 {.unnumbered}</span></span>
+<span id="cb13-353"><a href="#cb13-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-354"><a href="#cb13-354" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Chernozhukov V, Chetverikov D, Demirer M, et al. Double/debiased machine learning for treatment and structural parameters. Econometrics Journal. 2018;21:C1-C68. doi:10.1111/ectj.12097.</span>
+<span id="cb13-355"><a href="#cb13-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-356"><a href="#cb13-356" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Wager S, Athey S. Estimation and inference of heterogeneous treatment effects using random forests. Journal of the American Statistical Association. 2018;113:1228-1242. doi:10.1080/01621459.2017.1319839.</span>
+<span id="cb13-357"><a href="#cb13-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-358"><a href="#cb13-358" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Athey S, Tibshirani J, Wager S. Generalized random forests. Annals of Statistics. 2019;47:1148-1178. doi:10.1214/18-AOS1709.</span>
+<span id="cb13-359"><a href="#cb13-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-360"><a href="#cb13-360" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>McConnell KJ, Lindner S. Estimating treatment effects with machine learning. Health Services Research. 2019;54:1273-1282. doi:10.1111/1475-6773.13212. PMID:31602641.</span>
+<span id="cb13-361"><a href="#cb13-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-362"><a href="#cb13-362" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Feuerriegel S, Frauen D, Melnychuk V, et al. Causal machine learning for predicting treatment outcomes. Nature Medicine. 2024;30:958-968. doi:10.1038/s41591-024-02902-1. PMID:38641741.</span>
+<span id="cb13-363"><a href="#cb13-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-364"><a href="#cb13-364" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Dockès J, Varoquaux G, Poline JB. Preventing dataset shift from breaking machine-learning biomarkers. GigaScience. 2021;10:giab055. doi:10.1093/gigascience/giab055. PMID:34585237.</span>
+<span id="cb13-365"><a href="#cb13-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-366"><a href="#cb13-366" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Hernán MA, Robins JM. Causal Inference: What If. Boca Raton: Chapman &amp; Hall/CRC; 2020.</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

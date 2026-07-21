@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "临床医学研究中的因果推断",
     "section": "",
-    "text": "前言\n因果推断（causal inference）是探究”原因是否产生结果、以及效应有多大”的科学方法体系。在医学研究中，几乎所有真正重要的问题都是因果问题：某一危险因素是否导致疾病？某种治疗能否改善患者的预后？某项公共卫生政策是否降低了人群的发病率？这些问题的答案直接决定临床决策与卫生政策，而它们都无法仅凭”相关性”来回答——正如本书反复强调的，相关并不意味着因果。随机对照试验（randomized controlled trial, RCT）被视为因果推断的金标准，但其代价高昂、周期漫长，且在许多情形下因伦理或可行性而无法开展。如何在非随机的真实世界数据中可靠地进行因果推断，已成为当代临床医学研究亟待解决的核心命题。\n近年来，以深度学习、大语言模型为代表的人工智能方法突飞猛进，在医学影像识别、疾病风险预测、文本与组学数据处理等任务上展现出惊人的能力。然而，人工智能的主流范式本质上是”预测”——从历史数据中学习输入与输出之间的统计关联，回答”会发生什么”。但临床医生真正需要回答的，往往是”如果我采取这一治疗，患者的结局会如何改变”这类干预性、反事实性的问题。一个预测准确的模型，未必能告诉我们改变某个变量会带来什么后果；在存在混杂与选择偏倚的数据中，纯预测模型甚至可能给出与真实因果效应方向相反的结论。因此，无论人工智能的预测能力多么强大，因果推断对于指导医学治疗与决策的意义都不可替代——二者解决的是根本不同层次的问题。可以说，预测告诉我们”病人会怎样”，而因果推断才能回答”我们该怎么做”。\n正因如此，人工智能与因果推断的交融，已成为方法学发展的重要方向，而这种结合首先体现在人工智能”为因果推断赋能”。传统因果推断方法在估计倾向评分、结果模型等”讨厌参数”（nuisance parameter）时，往往依赖研究者人工设定的参数模型，一旦模型设定错误便会引入偏倚；机器学习灵活的拟合能力恰好弥补了这一短板。双重稳健估计、双重/去偏机器学习（double/debiased machine learning）、目标最大似然估计（targeted maximum likelihood estimation, TMLE）等框架，将机器学习用于高维混杂因素的调整，同时保持因果效应估计的有效统计推断；因果森林（causal forest）等方法则把集成树模型用于刻画异质性治疗效应，回答”哪一类患者更可能从治疗中获益”。在序贯决策中，强化学习被用于学习随时间调整的动态治疗方案；在变量间关系未知时，基于条件约束与基于函数模型的因果发现算法借助机器学习，从数据中重构潜在的因果结构。新近的大语言模型也开始被用于文献证据合成、目标试验（target trial）方案的构建等环节。这些进展，使因果推断得以从低维、强假设的经典设定，走向高维、真实世界的复杂数据。\n反过来，因果推断也在深刻地推动人工智能的发展。当前以”曲线拟合”为核心的机器学习模型，普遍存在依赖虚假相关、在数据分布发生变化时性能骤降、难以解释、跨人群与跨场景迁移困难等问题，而这些问题的根源，往往在于模型只学到了关联而非因果机制。引入因果视角，有望让模型识别出稳定的、可迁移的因果特征，从而在分布外（out-of-distribution）泛化、稳健性、可解释性与算法公平性等方面取得突破：因果表征学习（causal representation learning）试图从原始数据中学习符合因果结构的表示，因果强化学习则帮助智能体在干预与反事实推理中做出更稳健的决策。Pearl 等学者提出的”因果之梯”——关联、干预、反事实三个层级——正是对这一愿景的凝练：要让人工智能从”看见”走向”行动”乃至”想象”，因果推断不可或缺。可以预见，因果推断与人工智能之间的双向促进，将成为下一阶段医学人工智能的重要引擎。\n基于上述背景，本书系统介绍当代临床医学研究中的因果推断方法，内容覆盖从传统随机对照试验，到基于因果图与结构因果模型、回归、倾向评分、工具变量、断点回归、时间序列分析等的真实世界研究，再到因果中介分析、异质性与个体因果效应、序贯决策、因果发现，以及机器学习与人工智能驱动的因果推断等前沿主题。本书力求理论与实践并重，结合临床案例与可复现的代码，帮助读者既理解方法背后的因果逻辑，又能在自己的研究中加以应用。\n本书可作为医学统计学的进阶读本，适合医学生、临床研究者，以及统计学、流行病学、人工智能等方向的研究者参考。作者此前曾出版《深度学习与医学大数据》（2020）与《医疗中的人工智能》（2024），本书在此基础上更进一步，专注于因果推断这一主题。\n\n\n\n\n\n\n注记关于本在线版\n\n\n\n本书提供中文与English两个版本，免费在线发布。配套数据集见仓库 data/ 目录，代码示例随各章给出。\n\n\n\n引用方式：乔霓丹. 临床医学研究中的因果推断. 在线版, 2026.（DOI 待补充）",
+    "text": "前言\n因果推断（causal inference）是探究”原因是否产生结果、以及效应有多大”的科学方法体系。在医学研究中，几乎所有真正重要的问题都是因果问题：某一危险因素是否导致疾病？某种治疗能否改善患者的预后？某项公共卫生政策是否降低了人群的发病率？这些问题的答案直接决定临床决策与卫生政策，而它们都无法仅凭”相关性”来回答——正如本书反复强调的，相关并不意味着因果。随机对照试验（randomized controlled trial, RCT）被视为因果推断的金标准，但其代价高昂、周期漫长，且在许多情形下因伦理或可行性而无法开展。如何在非随机的真实世界数据中可靠地进行因果推断，已成为当代临床医学研究亟待解决的核心命题。\n近年来，以深度学习、大语言模型为代表的人工智能方法突飞猛进，在医学影像识别、疾病风险预测、文本与组学数据处理等任务上展现出惊人的能力。然而，人工智能的主流范式本质上是”预测”——从历史数据中学习输入与输出之间的统计关联，回答”会发生什么”。但临床医生真正需要回答的，往往是”如果我采取这一治疗，患者的结局会如何改变”这类干预性、反事实性的问题。一个预测准确的模型，未必能告诉我们改变某个变量会带来什么后果；在存在混杂与选择偏倚的数据中，纯预测模型甚至可能给出与真实因果效应方向相反的结论。因此，无论人工智能的预测能力多么强大，因果推断对于指导医学治疗与决策的意义都不可替代——二者解决的是根本不同层次的问题。可以说，预测告诉我们”病人会怎样”，而因果推断才能回答”我们该怎么做”。\n正因如此，人工智能与因果推断的交融，已成为方法学发展的重要方向，而这种结合首先体现在人工智能”为因果推断赋能”。传统因果推断方法在估计倾向评分、结果模型等”讨厌参数”（nuisance parameter）时，往往依赖研究者人工设定的参数模型，一旦模型设定错误便会引入偏倚；机器学习灵活的拟合能力恰好弥补了这一短板。双重稳健估计、双重/去偏机器学习（double/debiased machine learning）、目标最大似然估计（targeted maximum likelihood estimation, TMLE）等框架，将机器学习用于高维混杂因素的调整，同时保持因果效应估计的有效统计推断；因果森林（causal forest）等方法则把集成树模型用于刻画异质性治疗效应，回答”哪一类患者更可能从治疗中获益”。在序贯决策中，强化学习被用于学习随时间调整的动态治疗方案；新近的大语言模型也开始被用于文献证据合成、目标试验（target trial）方案的构建等环节。这些进展，使因果推断得以从低维、强假设的经典设定，走向高维、真实世界的复杂数据。\n反过来，因果推断也在深刻地推动人工智能的发展。当前以”曲线拟合”为核心的机器学习模型，普遍存在依赖虚假相关、在数据分布发生变化时性能骤降、难以解释、跨人群与跨场景迁移困难等问题，而这些问题的根源，往往在于模型只学到了关联而非因果机制。引入因果视角，有望让模型识别出稳定的、可迁移的因果特征，从而在分布外（out-of-distribution）泛化、稳健性、可解释性与算法公平性等方面取得突破：因果表征学习（causal representation learning）试图从原始数据中学习符合因果结构的表示，因果强化学习则帮助智能体在干预与反事实推理中做出更稳健的决策。Pearl 等学者提出的”因果之梯”——关联、干预、反事实三个层级——正是对这一愿景的凝练：要让人工智能从”看见”走向”行动”乃至”想象”，因果推断不可或缺。可以预见，因果推断与人工智能之间的双向促进，将成为下一阶段医学人工智能的重要引擎。\n基于上述背景，本书系统介绍当代临床医学研究中的因果推断方法，内容覆盖从传统随机对照试验，到基于因果图与结构因果模型、回归、倾向评分、工具变量、断点回归、时间序列分析等的真实世界研究，再到因果中介分析、异质性与个体因果效应、序贯决策，以及机器学习与人工智能驱动的因果推断等前沿主题。本书力求理论与实践并重，结合临床案例与可复现的代码，帮助读者既理解方法背后的因果逻辑，又能在自己的研究中加以应用。\n本书可作为医学统计学的进阶读本，适合医学生、临床研究者，以及统计学、流行病学、人工智能等方向的研究者参考。作者此前曾出版《深度学习与医学大数据》（2020）与《医疗中的人工智能》（2024），本书在此基础上更进一步，专注于因果推断这一主题。\n\n\n\n\n\n\n注记关于本在线版\n\n\n\n本书提供中文与English两个版本，免费在线发布。配套数据集见仓库 data/ 目录，代码示例随各章给出。\n\n\n\n引用方式：乔霓丹. 临床医学研究中的因果推断. 在线版, 2026.（DOI 待补充）",
     "crumbs": [
       "前言"
     ]
@@ -630,33 +630,43 @@
     ]
   },
   {
-    "objectID": "chapters/10-propensity-score.html#直接将倾向评分加入到回归方程中",
-    "href": "chapters/10-propensity-score.html#直接将倾向评分加入到回归方程中",
-    "title": "10  基于倾向评分的方法",
-    "section": "10.2 直接将倾向评分加入到回归方程中",
-    "text": "10.2 直接将倾向评分加入到回归方程中\n待补充。",
+    "objectID": "chapters/10-propensity-score.html#倾向性评分propensity-score",
+    "href": "chapters/10-propensity-score.html#倾向性评分propensity-score",
+    "title": "10  基于倾向评分的因果推断方法",
+    "section": "",
+    "text": "注记代码10.1\n\n\n\n. psmatch2 Treatment k age, logit\n. psgraph, bin(40)\n\n\n\n\n\n\n\n\n注记代码10.1输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n图10.1 重叠性较好与较差的倾向性评分",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的方法</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的因果推断方法</span>"
     ]
   },
   {
-    "objectID": "chapters/10-propensity-score.html#利用倾向评分进行匹配",
-    "href": "chapters/10-propensity-score.html#利用倾向评分进行匹配",
-    "title": "10  基于倾向评分的方法",
-    "section": "10.4 利用倾向评分进行匹配",
-    "text": "10.4 利用倾向评分进行匹配\n倾向评分匹配从处理组与对照组中寻找具有相近处理概率的个体，再在匹配后的样本中估计效应。匹配不是“自动随机化”，也不天然优于回归：每个协变量仍须在匹配后检查平衡；必要时可在 PS 卡尺内再对关键协变量精确匹配。\n\n\n图10.3 倾向评分匹配的直观原理\n\n匹配方案需要预先说明匹配比例（如 1:1 或 1:\\(m\\)）、是否允许对照重复使用、最近邻搜索顺序、卡尺、处理未匹配者的方法以及目标人群。常用起点是在logit 倾向评分尺度上采用 0.2 个标准差的卡尺；它是模拟研究中对连续协变量场景表现良好的经验规则，不应替代具体数据的平衡诊断 (Austin 2011年)。\n\n\n\n\n\n\n注记代码10.4\n\n\n\npsmatch2 Treatment k age, logit outcome(Outcome) neighbor(1) caliper(0.01) ties\n\n\n\n\n\n\n\n\n注记代码10.4输出\n\n\n\n\n\n卡尺为0.01的1:1倾向评分匹配\n\n\n\n\n\n\n\n\n\n注记代码10.5\n\n\n\npsmatch2 Treatment k age, logit outcome(Outcome) neighbor(1) caliper(0.001) ties\n\n\n\n\n\n\n\n\n注记代码10.5输出\n\n\n\n\n\n更严格卡尺下的匹配\n\n\n\n较小卡尺通常提高相似性，却会增加未匹配人数并改变目标人群。因而，匹配后估计通常解释为实际被匹配的受治者中的效应，而非原始全部样本的效应。对匹配样本，方差与置信区间也必须使用与匹配设计相容的方法。匹配不是所有问题的默认首选：若研究目标是整个可比研究样本的 ATE，或希望尽量保留样本，可在重叠和权重稳定性可接受时考虑加权；最终应由 estimand、重叠程度、样本损失和匹配后平衡共同决定 (Deb 等 2016年; Elze 等 2017年)。\n\n\n\n\n\n\n注记代码10.6\n\n\n\npstest k age, both graph\n\n\n\n\n\n\n\n\n注记代码10.6输出\n\n\n\n\n\n匹配前后协变量平衡诊断\n\n\n\n图中应重点关注匹配后每个协变量的 SMD，而不是仅关注匹配后治疗效应的 \\(p\\) 值。若仍存在重要不平衡，应调整倾向评分模型或匹配方案，而不是直接进入结局分析。",
+    "objectID": "chapters/10-propensity-score.html#直接将倾向评分加入到回归方程",
+    "href": "chapters/10-propensity-score.html#直接将倾向评分加入到回归方程",
+    "title": "10  基于倾向评分的因果推断方法",
+    "section": "10.2 直接将倾向评分加入到回归方程",
+    "text": "10.2 直接将倾向评分加入到回归方程\n作为回归方程中的唯一协变量\n\n\n\n\n\n\n注记代码10.2\n\n\n\n. reg Outcome Treatment _pscore, or\n\n\n\n\n\n\n\n\n注记代码10.2输出\n\n\n\n\n\n\n\n\n回归结果提示内窥镜组显著增加内分泌缓解率，比值比为2.29，95%置信区间为1.62-3.22，p值0.000。此处报告的 OR 属于条件效应，未必等同于边际风险比或风险差；为便于临床解释，宜同时给出标准化后的绝对风险、风险差或风险比及其 95% 置信区间。",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的方法</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的因果推断方法</span>"
     ]
   },
   {
-    "objectID": "chapters/10-propensity-score.html#利用倾向评分进行逆概率加权",
-    "href": "chapters/10-propensity-score.html#利用倾向评分进行逆概率加权",
-    "title": "10  基于倾向评分的方法",
-    "section": "10.4 利用倾向评分进行逆概率加权",
-    "text": "10.4 利用倾向评分进行逆概率加权\n待补充。",
+    "objectID": "chapters/10-propensity-score.html#利用倾向性评分进行匹配",
+    "href": "chapters/10-propensity-score.html#利用倾向性评分进行匹配",
+    "title": "10  基于倾向评分的因果推断方法",
+    "section": "10.3 利用倾向性评分进行匹配",
+    "text": "10.3 利用倾向性评分进行匹配\n将倾向评分相同的干预组和对照组之间进行配对，在配对的新样本当中进行因果推断。利用倾向评分进行匹配的原理如图10.2所示，黑色小人代表干预组，黄色小人代表对照组。其倾向性评分在x轴上表示，靠近0代表被分配到干预组的概率很小，靠近1代表分配到干预组的概率较大。倾向性评分匹配第一步从干预组中抽取一个个体，计算其倾向性评分，在对照组中寻找倾向性评分与其最近的黄色小人，将这两个小人形成一个配对。利用同样的方法重复操作，反复进行配对。最后在匹配好的样本中进行因果效应估计。此过程可能会剩下一些没有匹配到的患者，比如说靠近倾向性评分为0附近的黄色小人没有匹配到。\n\n\n图10.2 倾向性评分匹配原理\n\n实际的配对操作中可能会遇到四个问题：\n一对一或一对多配对：一对一即干预组中的样本在对照组中寻找一个距离最近的样本与其匹配。一对多即干预组中的样本在对照组中寻找多个距离最近的样本与其匹配。一般而言，一对一匹配样本相似性比较好，但可能导致匹配后的样本量不足；而一对多匹配样本相似性没有较好满足，但匹配后的样本量充足。实际情况中，如果原始数据中对照组的样本量与干预组差距很大，可以选择一对多匹配。\n如何定义距离最近？定义卡尺（caliper），允许两个样本进行匹配的最大距离。可以想象一下两个样本距离多近才能够匹配，如果卡尺太小，就会导致许多样本无法得到匹配，如卡尺定为0.001，即两样本相差0.001距离才能被匹配，就可能导致许多样本无法匹配。卡尺定太大，就会导致许多样本距离很大，也会被匹配到，可交换性得不到满足。实务中常以 logit(PS) 标准差的 0.2 作为 1:1 最近邻匹配的起始卡尺，并需结合匹配后协变量平衡、样本损失与临床可比性调整，而不应机械套用单一数值。\n对照组中的个体是否可以重复匹配？如果原始数据中对照组的样本量远远小于治疗组，为了不损失治疗组的样本量，可以重复匹配对照组。\n如果对照组中有多个样本与需要匹配的干预组样本距离一致如何操作？一对一匹配的前提下可以随机选择其中一个，也可以全部纳入，指定每个样本的权重，计算多个样本的加权平均值。\n\n\n\n\n\n\n注记代码10.3\n\n\n\n. psmatch2 Treatment k age, logit outcome(Outcome) n(1) cal(0.01) ties\n\n\n\n\n\n\n\n\n注记代码10.3输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n注记代码10.4\n\n\n\n. psmatch2 Treatment k age, logit outcome(Outcome) n(1) cal(0.001) ties\n\n\n\n\n\n\n\n\n注记代码10.4输出\n\n\n\n\n\n\n\n\n卡尺定为0.01时只有3例患者无法匹配，而卡尺定为0.001时有75例无法匹配。需要指出的是匹配后的纳入样本往往和原始数据中的样本不同，因此基于匹配方法得到的因果效应估计也是针对匹配后的样本，称为干预组中的因果效应（Average treatment effect in the treated，ATT）。干预组中的缓解率为56.7%，对照组中的缓解率为37.6%，计算比值比为2.17。匹配会改变分析人群，故应明确此处估计的目标人群（通常为可匹配治疗者的 ATT），并报告未匹配者的数量与基线特征。\n配对分析后的检验如同随机对照临床研究一样需要给出配对后的干预组和对照组各个变量的分布情况，查看是否有变量存在不平衡。下表为输出，U 代表没有匹配的样本，M 代表匹配样本。侵袭度在没有匹配当的样本中，干预组是2.2，对照组为1.7， t检验的p值是0.000，代表两组之间有明显差别的。而在匹配的样本中干预组和对照组都为2.1，t检验的p值是1.000。匹配后的样本中，把侵袭性这样一个不均衡的指标给均衡了。同样倾向性评分方程中所有的指标在匹配以的样本中都均衡了。平衡诊断建议以每个协变量的绝对标准化均数差（absolute SMD）为主，常以 &lt;0.10 作为经验阈值；不应以 t 检验 P 值是否显著作为是否平衡的判据。\n\n\n\n\n\n\n注记代码10.5\n\n\n\n. pstest k age, both graph\n\n\n\n\n\n\n\n\n注记代码10.5输出",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的方法</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的因果推断方法</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10-propensity-score.html#利用倾向性评分进行逆概率加权inverse-probability-weighting-ipw",
+    "href": "chapters/10-propensity-score.html#利用倾向性评分进行逆概率加权inverse-probability-weighting-ipw",
+    "title": "10  基于倾向评分的因果推断方法",
+    "section": "10.4 利用倾向性评分进行逆概率加权（inverse probability weighting, IPW）",
+    "text": "10.4 利用倾向性评分进行逆概率加权（inverse probability weighting, IPW）\n给某每一个受试者分配一个权重，通过这样的一个权重我们就可以构建一个假人群，在这个假人群当中我们可以通过统计学的方法来证明不存在混杂效应，然后进行因果推断（图10.3）。例如，一个干预组中的患者，根据倾向性评分模型，只有25%的概率为干预组，所以这个患者的权重为4。理由是他不仅代表自己，还代表4个“类似”他的人。对于对照组中的患者，若根据倾向性评分模型，有90%的概率为干预组，则这个患者的权重为10。理由是他只有10%的概率为对照组，他还代表10个“类似”他的人。\n\n\n图10.3 逆概率加权原理\n\n如果研究的问题只包含两种治疗方式（干预或对照），那么权重方程又可写成：\n\\[w_{ki}^{T=1}=\\frac{1}{Pr(T=1\\mid k_i)},\\qquad w_{ki}^{T=0}=\\frac{1}{1-Pr(T=1\\mid k_i)}\\]\n计算权重后，将回归方程的权重指定为逆概率权重。\n\n\n\n\n\n\n注记代码10.6\n\n\n\n. gen ipweight = 1/_pscore if Treatment == 1\n. replace ipweight = 1/(1-_pscore) if Treatment == 0\n. logistic Outcome Treatment [iweight = ipweight], vce(robust)\n\n\n\n\n\n\n\n\n注记代码10.6输出\n\n\n\n\n\n\n\n\n然而，如果说某个样本的倾向性评分很小，其权重就会变得很大，从而导致因果效应估计引入了一个不稳定的因素，从而得出的推断方差较大。因此实践中，比较常用的是稳定的权重，给逆概率乘一个分子，即干预的总体概率（干预组）或者对照的总体概率（对照组），得出稳定的逆概率：稳定权重可缓和、但不能完全消除极端权重带来的不稳定性。应报告权重分布与有效样本量，并预先说明是否进行截尾、修剪或敏感性分析。\n\\[SW_{ki}^{T=1}=\\frac{Pr(T=1)}{Pr(T=1\\mid k_i)},\\qquad SW_{ki}^{T=0}=\\frac{1-Pr(T=1)}{1-Pr(T=1\\mid k_i)}\\]\n\n\n\n\n\n\n注记代码10.7\n\n\n\n. gen s_ipweight = (1/_pscore)*0.4516 if Treatment == 1\n. replace s_ipweight = 1/(1-_pscore)*0.5484 if Treatment == 0\n. logistic Outcome Treatment [iweight = s_ipweight], vce(robust) or\n\n\n\n\n\n\n\n\n注记代码10.7输出\n\n\n\n\n\n\n\n\n通过标化的均数差值（standardized mean difference，SMD）评估加权前后两组间协变量的差值。加权前两组的病例数分别为338和405，加权后为371.4和371.6。对于肿瘤侵袭性，加权前两组的差值为0.415，加权后为-0.002。一般，加权后的SMD需要控制在0.10之内。加权后病例数是加权伪样本量，并不等同于有效样本量。除 SMD 外，宜同时查看权重分布、有效样本量和协变量分布图。\n\n\n\n\n\n\n注记代码10.8\n\n\n\n. teffects ipw (Outcome) (Treatment k age, logit)\n. tebalance summarize\n\n\n\n\n\n\n\n\n注记代码10.8输出",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的因果推断方法</span>"
     ]
   },
   {
@@ -680,11 +690,41 @@
     ]
   },
   {
+    "objectID": "chapters/10-propensity-score.html#利用倾向性评分进行因果推断的局限性",
+    "href": "chapters/10-propensity-score.html#利用倾向性评分进行因果推断的局限性",
+    "title": "10  基于倾向评分的因果推断方法",
+    "section": "10.7 利用倾向性评分进行因果推断的局限性",
+    "text": "10.7 利用倾向性评分进行因果推断的局限性\n其局限性源于倾向性评分的方程，若估计错误会导致后续一系列的因果估计的错误。其次，存在未测量的混杂因素，利用倾向性评分也同样遗漏这些未测量的混杂因素，导致因果推断错误。第三、倾向性评分匹配需要考虑普适性问题，因为只有匹配的样本才能够被正确地估计因果效应，没有匹配的样本中的因果效应无法估计。未测量混杂无法由倾向评分修复，应结合领域知识、定量偏倚分析或 E-value 等敏感性分析讨论其潜在影响；外推到未匹配或缺乏重叠的人群时应谨慎。",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的因果推断方法</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10-propensity-score.html#参考文献",
+    "href": "chapters/10-propensity-score.html#参考文献",
+    "title": "10  基于倾向评分的因果推断方法",
+    "section": "10.8 参考文献",
+    "text": "10.8 参考文献\n\nRosenbaum PR, Rubin DB. The central role of the propensity score in observational studies for causal effects. Biometrika. 1983;70(1):41-55. doi:10.1093/biomet/70.1.41.\nBrookhart MA, Schneeweiss S, Rothman KJ, et al. Variable selection for propensity score models. Am J Epidemiol. 2006;163(12):1149-1156. doi:10.1093/aje/kwj149. PMID: 16624967.\nAustin PC. Balance diagnostics for comparing the distribution of baseline covariates between treatment groups in propensity-score matched samples. Stat Med. 2009;28(25):3083-3107. doi:10.1002/sim.3697. PMID: 19757444.\nAustin PC. Optimal caliper widths for propensity-score matching when estimating differences in means and differences in proportions in observational studies. Pharm Stat. 2011;10(2):150-161. doi:10.1002/pst.433. PMID: 20925139.\nAustin PC, Stuart EA. Moving towards best practice when using inverse probability of treatment weighting (IPTW) using the propensity score to estimate causal treatment effects in observational studies. Stat Med. 2015;34(28):3661-3679. doi:10.1002/sim.6607. PMID: 26238958.\nDeb S, Austin PC, Tu JV, et al. A review of propensity-score methods and their use in cardiovascular research. Can J Cardiol. 2016;32(2):259-265. doi:10.1016/j.cjca.2015.05.015. PMID: 26315351.\nLi F, Thomas LE, Li F. Addressing extreme propensity scores via the overlap weights. Am J Epidemiol. 2019;188(1):250-257. doi:10.1093/aje/kwy201. PMID: 30189042.\nElze MC, Gregson J, Baber U, et al. Comparison of propensity score methods and covariate adjustment: evaluation in 4 cardiovascular studies. J Am Coll Cardiol. 2017;69(3):345-357. doi:10.1016/j.jacc.2016.10.060. PMID: 28104076.\nGarrido MM, Kelley AS, Paris J, et al. Methods for constructing and assessing propensity scores. Health Serv Res. 2014;49(5):1701-1720. doi:10.1111/1475-6773.12182. PMID: 24779867.\nVanderWeele TJ, Ding P. Sensitivity analysis in observational research: introducing the E-value. Ann Intern Med. 2017;167(4):268-274. doi:10.7326/M16-2607. PMID: 28693043.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的因果推断方法</span>"
+    ]
+  },
+  {
     "objectID": "chapters/11-instrumental-variables.html",
     "href": "chapters/11-instrumental-variables.html",
     "title": "11  工具变量法",
     "section": "",
     "text": "11.1 工具变量法\n采用回归以及倾向性评分进行因果推断的最大局限性是存在未观察的混杂因素时，通过这两大类方法无法直接进行。 工具变量并不会自动消除未测量混杂；它把识别任务转化为对工具变量有效性的强假设。若这些假设不可信，IV 估计同样可能有偏。\n这时引入工具变量 Z，借此估计 X 到 Y 的因果关系。工具变量 Z 通过影响 X 而间接影响因变量 Y。如果工具变量 Z 和 X 密切相关，那么，只要工具变量 Z 有了变化，就必然会对 X 产生变化。如果 X 和 Y 之间真的存在因果关系，那么 Z 对 X 带来的冲击也就势必传递到 Y。这样，在一系列的假说之下，只要 Z 对 Y 的间接冲击能够被统计证明是显著的，我们就可以推断出 X 对 Y 有因果关系。利用对 Z 与 X 相关的估算，以及 Z 与 Y 相关的估算，就可以推导出 X 和 Y 之间真实关系的大小。 相关性本身只说明 Z 能预测 X，并不等于工具变量有效；因果解释还取决于独立性和排除限制。对于线性模型，单个有效工具变量的 Wald 比值可理解为 Z 对 Y 的效应除以 Z 对 X 的效应，但二者均需有足够精度。\n然而，工具变量的成立需要满足三个统计学假设：\n在随机对照研究中，工具变量可以理解为随机分配。案例9.1假设为随机对照试验，Z 是随机分配为内窥镜组和显微镜组，X 为实际接受内窥镜手术和显微镜手术，Y 是手术后内分泌缓解。随机对照研究中的意向性分析所得意向性效应即是 Z 对 Y 的效应，随机分配后不管受试者是否依从所分配的方案，只考虑随机的结果。而符合方案分析得出的符合方案效应就是 X 到 Y 的效应，如果随机分配后的依从性是100%，则符合方案效应等于意向性效应。非随机对照研究中的因果效应取决于所采用的工具变量、识别假设与目标 estimand，不能直接等同于随机试验中的符合方案效应。",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/11-instrumental-variables.html#工具变量法",
+    "href": "chapters/11-instrumental-variables.html#工具变量法",
+    "title": "11  工具变量法",
+    "section": "",
+    "text": "图11.1 工具变量法示意图\n\n\n\n工具变量与干预是相关的，即 Z 和 X 相关；\n工具变量对结局的影响只能通过干预来实现，Z 到 Y 的影响只能通过 A 来实现的，而不能通过其他路径去实现；\n工具变量与结局没有共同的原因，即 Z 和 Y 之间没有混杂因素。 在二元工具变量和二元处理的常用解释下，若希望把结果解释为“依从者”的局部平均处理效应（LATE），还需加入单调性假设：不存在因工具变量取值改变而总是反向接受处理的个体。Hernán 与 Robins（2006）及 Baiocchi 等（2014）强调，这些假设多数不能由数据本身证明。\n\n\n\n\n图11.2 随机分配作为工具变量",
     "crumbs": [
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
     ]
@@ -750,11 +790,41 @@
     ]
   },
   {
+    "objectID": "chapters/11-instrumental-variables.html#附录孟德尔随机化研究的关键评估清单",
+    "href": "chapters/11-instrumental-variables.html#附录孟德尔随机化研究的关键评估清单",
+    "title": "11  工具变量法",
+    "section": "11.8 附录：孟德尔随机化研究的关键评估清单",
+    "text": "11.8 附录：孟德尔随机化研究的关键评估清单\n\n11.8.1 孟德尔随机化的核心假设\n\n是否有足够的证据表明遗传变异与所关注的风险因素密切相关？\n遗传变异是否与潜在的混杂因素有关？是否介绍了这种关系？\n遗传变异是否有办法通过其他途径影响结果（横向多变性）？是否介绍了多种孟德尔随机化方法（如MR Egger、中位数和模式估计，或使用阴性对照人群），以更全面地调查这一问题？\n\n\n\n11.8.2 方法报告\n\n暴露和结果的效应和其他等位基因的编码方向是否相同？\n两样本的研究：两个样本是否取自同一人群？\n两样本是否独立？\n分析是否只限于独立的工具变量（即删除了遗传连锁不平衡的SNPs）或分析是否允许工具变量之间的相关性？\n\n\n\n11.8.3 数据展示\n\n是否将结果表述为遗传关联、工具变量估计，或两者都是？\n如果提供的是工具变量估计值，是否将其与传统的观察性估计值进行了比较？\n是否提供敏感性分析，如MR Egger、加权中位数和模式孟德尔随机化，或使用阴性对照人群？\n是否手动挑选哪些SNPs进入工具变量以解决多态性问题？如果是这样，其方法和理由是否清楚？\n是否在补充材料中提供了使用的数据（特别是在群体水平上进行的孟德尔随机化分析），以便研究人员复制他们的发现？\n\n\n\n11.8.4 解释\n\n如果孟德尔随机化估计值与观察估计值相似，并提供了支持因果效应的证据，是否是由于单一研究中的弱工具偏倚或通过横向多态性的混杂造成的？\n如果孟德尔随机化估计值与观察性估计值不同，并提供了因果效应的少量证据，是否是由于使用了弱工具造成的偏差或由于多态性造成的负向混杂？\n孟德尔随机化提供了风险因素在群体一生中的影响估计，对特定年龄段的干预措施有同样大小的效果吗？\n孟德尔随机化估计的95%置信区间是否足够精确，因果效应是否临床意义的差异？\n\n\n\n11.8.5 临床意义\n\n结果是否与其他形式的证据相互印证？能否像PCSK9抑制剂那样进行临床试验以提供明确的证据？\n如果随机临床试验不可行（如饮酒和心脏病风险的情况）或不可能在短期内进行（如降低BMI和心脏病风险的生活方式干预的情况），并且现有的证据来自多个孟德尔随机化研究和其他稳健的研究设计，趋向于一个类似的结果，并显示出关联的一致性，这些信息可以用来指导病人护理；例如，建议减肥以预防心脏病，或建议不要适度饮酒以预防心血管疾病。 在用于临床建议前，还应结合干预试验、机制研究、观察性研究和不同人群中的 MR 结果进行证据三角验证，并清楚区分遗传预测的终生暴露效应与可操作的短期干预效应。",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/11-instrumental-variables.html#本章参考文献",
+    "href": "chapters/11-instrumental-variables.html#本章参考文献",
+    "title": "11  工具变量法",
+    "section": "11.9 本章参考文献",
+    "text": "11.9 本章参考文献\n\nHernán MA, Robins JM. Instruments for causal inference: an epidemiologist’s dream? Epidemiology. 2006;17:360–372. PMID: 16755261\nBaiocchi M, Cheng J, Small DS. Instrumental variable methods for causal inference. Statistics in Medicine. 2014;33:2297–2340. PMID: 24599889\nLousdal ML. An introduction to instrumental variable assumptions, validation and estimation. Emerging Themes in Epidemiology. 2018;15:1. PMID: 29387137\nGarabedian LF, Chu P, Toh S, et al. Potential bias of instrumental variable analyses for observational comparative effectiveness research. Annals of Internal Medicine. 2014;161:131–138. PMID: 25023252\nBowden J, Davey Smith G, Burgess S. Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. International Journal of Epidemiology. 2015;44:512–525. PMID: 26050253\nBowden J, Davey Smith G, Haycock PC, Burgess S. Consistent estimation in Mendelian randomization with some invalid instruments using a weighted median estimator. Genetic Epidemiology. 2016;40:304–314. PMID: 27061298\nBurgess S, Davey Smith G, Davies NM, et al. Guidelines for performing Mendelian randomization investigations. Wellcome Open Research. 2020;4:186. PMID: 32760811\nSkrivankova VW, Richmond RC, Woolf BAR, et al. Strengthening the Reporting of Observational Studies in Epidemiology Using Mendelian Randomization: The STROBE-MR Statement. JAMA. 2021;326:1614–1621. PMID: 34698778",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
+    ]
+  },
+  {
     "objectID": "chapters/12-regression-discontinuity.html",
     "href": "chapters/12-regression-discontinuity.html",
     "title": "12  断点回归法",
     "section": "",
     "text": "12.1 精确断点与模糊断点\n断点回归（Regression discontinuity，RD）的设计思想是存在一个连续变量（控制变量）, 该变量能决定个体在某一临界点两侧接受干预的概率, 由于处理分配（精确断点）或处理概率（模糊断点）在该临界点处出现不连续跳跃, 因此个体针对干预的取值落入该临界点任意一侧是随机发生的, 即不存在人为操控使得个体落入某一侧的概率更大, 则在临界值附近构成了一个准自然实验。 更准确地说，RD 的识别依赖于：在没有处理的反事实下，潜在结局及预处理协变量随运行变量在临界点处平滑变化，并且个体不能精确操纵运行变量跨越阈值；它并不要求阈值两侧的处理本身“连续”。\n如果研究考上大学与否与工资收入的关系。假设上大学与否完全取决于高考成绩是否超过500分（图12.1灰色虚线），对于高考成绩为500分左右（495-505范围内）的考生，可以认为他们在各方面（包括可观测变量和不可观测变量）都没有系统差异。可以认为他们是否上大学只是由于“上帝之手”随机抽样的结果，考上大学的学生进入干预组（蓝色圆圈），而落榜的学生进入控制组（红色圆圈）。由此，由于存在假定的随机分组，故可估计在500分附近的平均效应（工资收入差异）。由于此效应只适用于部分学生或样本，故称为断点处的局部平均处理效应（local treatment effect at the cutoff）；在模糊断点的工具变量解释下，该局部效应通常才称为依从者局部平均处理效应（LATE）。\n模糊断点的特征是，在断点处，个体得到处理的概率从a跳跃到b，其中0&lt;a&lt;b&lt;1。当个体控制变量的值大于临界值时，个体接受B干预为主。当其小于临界值时，个体接受A干预为主，在临界值附近的结局差异可以较好地反映不同干预对结果的影响。\n此图显示控制变量为横轴，灰色虚线为临界点，左侧绝大部分的受试者都是采用了A干预（红色圆圈），灰色虚线右侧绝大部分的患者采用了B干预（蓝色圆圈）。实际上高考成绩上线并不能完全保证上大学，能否上大学还取决于填报志愿，甚至有些上线考生放弃上大学的机会；而即使成绩未上线，但也可能因某种特长而得到加分，从而得到上大学的机会。上大学的概率确实在分数线的位置上有一个不连续的跳跃。\n断点回归在对平均处理效应做出估计前，需要对一些关键假设做出检验：\n这些图形与检验可支持设计假设，却不能单独证明因果识别；还必须排除在同一阈值处同时改变的政策、服务可及性或测量规则。医学应用指南建议同时报告运行变量的分布、处理第一阶段、协变量连续性、带宽选择和稳健偏倚校正推断（Cattaneo、Keele 与 Titiunik，2023；Calonico 等，2024）。",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>断点回归法</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/12-regression-discontinuity.html#精确断点与模糊断点",
+    "href": "chapters/12-regression-discontinuity.html#精确断点与模糊断点",
+    "title": "12  断点回归法",
+    "section": "",
+    "text": "精确断点是指临界点左右接受不同干预措施的概率为 0 或 1\n\n\n\n\n图12.1 精确断点示意图\n\n\n模糊断点是指临界点左右接受不同干预措施的概率处于0-1之间\n\n\n\n\n\n图12.2 模糊断点示意图\n\n\n\n检验干预变量在断点c处是否存在跳跃（可通过绘图确认）；\n检验干预变量和结局变量在断点以外的其他点不存在跳跃；\n检验影响结果变量的其他变量在断点处不存在跳跃；\n检验干预变量在断点处的概率密度函数是连续的，也就是在断点附近，个体不能操控干预的取值，个体落入断点的左侧或右侧是随机发生的；\n检验平均处理效应不等于0。",
     "crumbs": [
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>断点回归法</span>"
     ]
@@ -800,11 +870,31 @@
     ]
   },
   {
+    "objectID": "chapters/12-regression-discontinuity.html#本章参考文献",
+    "href": "chapters/12-regression-discontinuity.html#本章参考文献",
+    "title": "12  断点回归法",
+    "section": "12.6 本章参考文献",
+    "text": "12.6 本章参考文献\n\nVenkataramani AS, Bor J, Jena AB. Regression discontinuity designs in healthcare research. BMJ. 2016;352:i1216. PMID: 26977086\nCattaneo MD, Keele L, Titiunik R. A guide to regression discontinuity designs in medical applications. Statistics in Medicine. 2023;42:4785–4805. PMID: 37528626\nCalonico S, Jawadekar N, Kezios K, et al. Regression discontinuity design studies: a guide for health researchers. BMJ. 2024;384:e072254. BMJ\nMoscoe E, Bor J, Bärnighausen T. Regression discontinuity designs are underutilized in medicine, epidemiology, and public health: a review of current and best practice. Journal of Clinical Epidemiology. 2015;68:122–133. PMID: 25579639\nImbens GW, Lemieux T. Regression discontinuity designs: a guide to practice. Journal of Econometrics. 2008;142:615–635. NBER",
+    "crumbs": [
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>断点回归法</span>"
+    ]
+  },
+  {
     "objectID": "chapters/13-time-series.html",
     "href": "chapters/13-time-series.html",
     "title": "13  时间序列分析",
     "section": "",
     "text": "13.1 简单中断时间序列\n时间序列是按时间顺序的一组数字序列，其随时间变化而变化。因为时间序列是某个指标数值长期变化的数值表现，所以时间序列数值变化背后必然蕴含着数值变换的规律性，这些规律性就是时间序列分析的切入点。\n给定一组时间序列数据，通常会研究一个或多个有关它的问题。依靠时间序列数据解决的主要问题取决于数据的上下文以及收集数据的原因，包括：\n描述：描述时间序列的主要特征，例如：序列是递增还是递减；是否有季节性模式（例如，夏季较高，冬季较低）？\n预测：从当前值预测时间序列的未来值，并量化这些预测中的不确定性，比如根据今天的气温预测未来几天的温度。\n分类：给定多个时间序列，将它们按照相似性进行分类。\n因果推断：检测时间序列行为何时发生变化，并评估与某项措施的因果关系。\n本章重点介绍通过时间序列分析进行因果推断的方法：中断时间序列设计。 ITS 不是只要在政策前后画出两条趋势线便可作因果解释；其核心是以干预前趋势构造反事实，并要求干预时点明确、结果测量方式稳定，且没有与干预同时发生并只影响研究对象的其他重大变化。(Kontopantelis 等 2015年; Taljaard 等 2014年)\n中断时间序列（interrupted time series, ITS）是评估干预前后回归趋势的变化，即通过比较和检验序列在干预前后两段回归线斜率改变，进而评价干预措施的有效性。分段回归是回归分析中最常用的一种方法，它通常以时间作为自变量，并以干预时点将时间轴划分为若干区间，对每个区间进行单独的线段拟合；其目标是每个线段的最小平方误差最小，从而使预测和真实结果之间的误差最小。分析中最基本、最常见的回归分析形式是线性回归法，即试图通过对观察到的数据拟合一个线性方程来建立两个变量之间的关系。当有一个参数出现非线性时，可使用非线性分段回归，但这样的模型可能难以解释。 分段回归可估计干预发生时的即时水平变化和干预后趋势（斜率）变化；仅比较两段斜率会遗漏可能存在的即时效应。\n进行中断时间序列必不可少地要考虑到自相关性带来的影响，实践中两种常见的解决方法是ARIMA 等时间序列模型，或采用适当误差结构（如 Newey–West 或广义最小二乘）的分段回归。对于干预前后数据点呈线性或近似线性的序列，中断时间序列分析采用分段线性回归，通常更灵活。\n公式 13.1\n\\[Y = \\beta_{0} + \\beta_{1}*T + \\beta_{2}*X + \\beta_{3}*X*T + \\varepsilon\\]\n上述公式中，Y 为结局变量，T 是等时间间隔，X 是干预变量，即政策开展前后（0值是前，1值是后）；T和X的交互项表示表示干预前后回归斜率的变化。通过回归计算后可得到上述公式中的回归系数，其中 β1 是指干预前 Y 的变化斜率，β1+β3 是指干预后 Y 的变化斜率，β3 是指干预前后Y变化趋势的斜率改变量。 β2 表示在假定即时起效时干预时点的水平变化；若干预存在滞后或逐步实施，模型应预先设定过渡期、滞后项或更合适的非线性函数，而不宜事后根据显著性选择。\n在此模型中，干预前的趋势被认为是线性的。随着时间的推移，趋势的线性需要被可视化的图像评估和确认。其次是通过适当的统计工具，才能使中断时间序列的分析结果具有可信度。然而，当干预前只有几个时间点时，验证线性可能是一个问题，此时开展此分析可能性不大。 数据点数没有普适的固定阈值：Cochrane EPOC 对 ITS 的最低设计标准是干预前后各至少3个时间点，但用于评估季节性、非线性和自相关通常需要远多于这一最低数量。(Cochrane Effective Practice and Organisation of Care (EPOC) 2017年; Lopez Bernal 等 2017年)\n案例13.1\n回想案例9.1中内窥镜与显微镜治疗生长激素型垂体腺瘤的疗效对比研究，内窥镜虽然从2010年即开始使用，但其大规模开展是在2016年1月以后。因此研究目的是比较内窥镜大规模开展之前的疾病缓解率和之后的疾病缓解率差异，即内窥镜大规模开展是否提高了疾病的缓解率。可以在原数据集的基础上计算每月、每半年或每年平均缓解率数据。此处我们计算了从2010年开始每季度的评价疾病缓解率记为Rate，并指定2016年第一季度开始为干预组（Treatment），Year_ID表示时间间隔变量，设为从1开始的连续变量。 将2016年第一季度定义为干预时点还需有明确的临床或管理依据，并检查同期是否伴随术者构成、影像技术、病例选择、随访或结局定义的变化；这些共时变化不能由单组 ITS 自动排除。\n案例13.1数据集\n分阶段回归将时间间隔与干预政策的交互项加入回归方程，提示时间间隔与干预政策分类变量交互项的系数为0.013，p值0.017，提示干预前后疾病缓解概率变化趋势的改变有显著差别。干预前每季度疾病缓解率增加0.004，干预后每季度疾病缓解增加率比干预前增加0.013，干预后每季度疾病缓解率增加0.017。 这些系数描述了模型内的水平或趋势差异；若未充分排除同期改变及模型设定错误，应表述为与内窥镜大规模开展相关的变化，而非直接认定为其因果效应。\n此外，还可以按照Stata中的面板数据格式进行分析。首先将数据声明为时间序列数据，时间变量为year_id。itsa命令进行参数估计，指定结局变量为rate，single表示单组设计，trperiod表示干预的时间，即从哪个year_id开展干预。\n该命令所得回归系数为0.013（_x_t21），p值0.009，与分段回归方法一致。干预后的系数为0.016。该命令可以直接得出中断时间序列的图形显示，每个点代表每个季度的平均缓解率，虚线左侧为2016年之前的手术，拟合的曲线提示该时期疾病缓解概率随时间变化不大。虚线右侧为2016年及之后的手术，内窥镜手术大量开展，拟合的曲线提示疾病缓解概率随时间变化显著提升。 图形应同时呈现观测值、拟合值及其不确定性，并明确”显著”来自何种已校正自相关和季节性的模型推断；仅凭图形不能判断因果关系。\n此外，自相关是时间序列的一个重要概念，指的是时间序列中某一个时刻的值和另一个时刻的值具有一定的相关性。自相关导致最小二乘法计算得到的预测区间不可靠。研究者需检验误差项的自相关，因为自相关滞后的期数对于模型的选择至关重要。本例通过自相关检验（原假设为不存在自相关），p值为0.929，故未能拒绝原假设；这并不证明不存在自相关，尤其在仅36个季度观测点时检验把握度有限。 除单一检验的 P 值外，还应检查残差 ACF/PACF、季节性与异方差，并报告所选误差结构或 Newey–West 滞后阶数的依据。(Zhang 等 2009年)\n然而，简单的中断时间序列模型的估计值没有对协变量进行控制。这些模型假设人群的特征在整个研究期间保持不变，而可能解释结果变化的基线数据没有被考虑进去。且没有对照来调整那些不应该归因于干预措施本身的变化的结果。 加入合适的未受干预对照序列可形成受控 ITS，帮助调整共同的时间冲击；但对照组仍需满足可比的干预前趋势、稳定的测量方式，并避免溢出效应或其自身同时发生政策变化。\n通过一些建模变化，可以评估干预措施是否与人群特征相关联而变化（多见于连续性结局变量，本例中二分类结局变量以季度为单位形成平均值，难以加入基线变量）。此外，估计的干预前斜率可以用来计算如果没有进行干预，结果在干预后的时间点上会是什么值。然后，这些估计值可以与特定时间点的观察值进行比较，并获得归因于干预的总体提升。 这类反事实预测应报告具体预设时间点的绝对差、相对差及置信区间，并说明它依赖于”若未干预，干预前趋势会继续”的外推假设。",
+    "crumbs": [
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>时间序列分析</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/13-time-series.html#简单中断时间序列",
+    "href": "chapters/13-time-series.html#简单中断时间序列",
+    "title": "13  时间序列分析",
+    "section": "",
+    "text": "Year\nRate\nYear_ID\nTreatment\n\n\n\n\n…\n…\n…\n…\n\n\n2015第一季度\n0.333\n17\n0\n\n\n2015第二季度\n0.333\n18\n0\n\n\n2015第三季度\n0.435\n19\n0\n\n\n2015第四季度\n0.346\n20\n0\n\n\n2016第一季度\n0.353\n21\n1\n\n\n2016第二季度\n0.429\n22\n1\n\n\n…\n…\n…\n…\n\n\n\n\n\n\n\n\n\n注记代码13.1\n\n\n\n. regress rate year_id i.treatment treatment#c.year_id\n\n\n\n\n\n\n\n\n注记代码13.1输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSource\nSS\ndf\nMS\nNumber of obs\n=\n36\n\n\n\n\nModel\n.303109333\n3\n.1010364\nF(3, 32)\n=\n16.37\n\n\nResidual\n.197548986\n32\n.0061734\nProb &gt; F\n=\n0.0000\n\n\nTotal\n.500658319\n35\n.0143045\nR-squared\n=\n0.6054\n\n\n\n\n\n\nAdj R-squared\n=\n0.5684\n\n\n\n\n\n\nRoot MSE\n=\n.07857\n\n\nrate\nCoefficient\nStd. err.\nt\nP&gt;|t|\n[95% conf. interval]\n\n\n\nyear_id\n.0039544\n.003291\n1.20\n0.238\n-.0027491\n.0106579\n\n\n1.treatment\n-.2879237\n.1167636\n-2.47\n0.019\n-.5257633\n-.050084\n\n\ntreatment#\n.0127956\n.0050952\n2.51\n0.017\n.002417\n.0231743\n\n\n\n\n\n\n\n\n\n\n\nc.year_id\n\n\n\n\n\n\n\n\n_cons\n.3369825\n.0375229\n8.98\n0.000\n.2605508\n.4134141\n\n\n\n\n\n\n\n\n\n\n\n\n\n注记代码13.2\n\n\n\n. tsset year_id\n\n. itsa rate, single trperiod(21) fig posttrend\n\n\n\n\n\n\n\n\n注记代码13.2输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRegression with Newey–West standard errors\nNumber of obs\n=\n36\n\n\n\n\n\n\n\nMaximum lag = 0\nF(3, 32)\n=\n14.24\n\n\n\n\n\n\n\n\n\nProb &gt; F\n=\n0.0000\n\n\n\nCoef.\nNewey-West\nt\nP&gt;|t|\n[95% Conf. Interval]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStd. Err.\n\n\n\n\n\n\n_t\n.0029534\n.0025593\n1.15\n0.257\n-.0022598\n.0081666\n\n\n_x21\n.004313\n.0400688\n0.11\n0.915\n-.0773044\n.0859304\n\n\n_x_t21\n.0128451\n.0046241\n2.78\n0.009\n.0034262\n.0222641\n\n\n_cons\n.3469429\n.0335119\n10.35\n0.000\n.2786813\n.4152044\n\n\n\n\n\n\nPostintervention Linear Trend: 21\n\n\n\n\n\n\n\nTreated: _b[_t]+_b[_x_t21]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLinear Trend\nCoef.\nStd. Err.\nt\nP&gt;|t|\n[95% Conf. Interval]\n\n\n\n\nTreated\n.0157985\n.0038512\n4.10\n0.000\n.0079539 .0236432\n\n\n\n\n\n\n\n代码13.2输出：中断时间序列的图形显示\n\n\n\n\n\n\n\n\n\n注记代码13.3\n\n\n\n. actest, lags()\n\n\n\n\n\n\n\n\n注记代码13.3输出\n\n\n\n\n\n\nCumby-Huizinga test for autocorrelation (Breusch-Godfrey)\n\n\n\n\n\n\n\nH0: variable is MA process up to order q\n\n\n\n\n\nHA: serial correlation present at specified lags &gt;q\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nH0: q=0 (serially uncorrelated)\nH0: q=specified lag-1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHA: s.c. present at range specified\nHA: s.c. present at lag specified\n\n\n\n\n\n\n\n\nlags\nchi2\ndf\np val\nlag\nchi2\ndf\np val\n\n\n1-1\n0.008\n1\n0.9280\n1\n0.008\n1\n0.9280\n\n\n\n\n\n\nTest allows predetermined regressors/instruments\n\n\n\n\n\n\n\nTest requires conditional homoskedasticity",
     "crumbs": [
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>时间序列分析</span>"
     ]
@@ -850,6 +940,16 @@
     ]
   },
   {
+    "objectID": "chapters/14-sensitivity-analysis.html#观察性研究的敏感性分析",
+    "href": "chapters/14-sensitivity-analysis.html#观察性研究的敏感性分析",
+    "title": "14  观察性研究的敏感性分析",
+    "section": "",
+    "text": "14.1.1 干预的定义\n多数观察性研究根据干预与否分为干预组和非干预组进行比较；但如果干预是可以量化的，比如某个指标的水平，或者用药的剂量等，可以根据不同的干预水平/剂量分组，比较组间结局发生率的关系，是否存在剂量依赖关系（剂量越高，疗效越好）。\n剂量或连续暴露的敏感性分析宜预先设定有临床意义的阈值，并同时以连续形式（例如限制性立方样条）检验非线性；任意分组可能丢失信息并制造阈值效应。\n\n\n14.1.2 结局的定义\n敏感性分析可以通过改变研究结局的定义来看研究结果的稳健性。比如肿瘤的发生，可以通过病历中的诊断，可以通过病理的结果，还可以通过影像学的结果等等。案例9.1中内分泌缓解的定义可以通过生长激素指标判断，亦可以通过胰岛素样生长因素判断，如果这两种判断方法得出的结论一致，则可增加研究的稳健性。\n替代结局定义应尽量基于预先验证的算法，并报告诊断窗口、测量误差和各定义下事件数；结论一致支持稳健性，但不能排除两种定义共享的系统性偏倚。\n\n\n14.1.3 数据的来源\n目前大规模的观察性研究大多基于已有的注册登记库数据开展，甚至有些研究会通过整合多个这样数据库进行分析，这时，数据的来源可以作为敏感性分析的一个切入口，可以既在不同的亚群中进行数据分析，也进行综合分析，查看研究结果的敏感性。\n除重复分析外，还应比较各数据源的纳入标准、时间零点、变量编码、缺失模式与随访方式；数据源不同并不自动意味着偏倚更小。\n\n\n14.1.4 协变量的定义\n尤其那些连续分布的协变量（如年龄），通常研究者会将其以连续分布变量的形式纳入多因素分析模型中，但其实这些变量与结局之间不一定是线性关系，这时如果把这些协变量划分成不同的层（如年龄层），再放入多因素分析模型中进行分析，来查看研究结果的敏感性。\n对连续协变量，优先比较合理的非线性函数（如样条）与线性设定；仅把变量切成若干层通常不能充分检验模型设定，并可能降低统计效率。\n\n\n14.1.5 分析方法\n可采用多种控制混杂因素的方法，包括回归，倾向性评分配对，逆概率加权。若可获得工具变量，还可使用工具变量方法。存在时间因素可选择中断时间序列方法。如果数据存在缺失，亦可采用多种缺失数据插补方法以检验缺失数据对结果的敏感性。\n这些分析应围绕同一因果问题和预先规定的估计目标进行；不同方法得到相近结果可增强可信度，但不能单独证明不存在残余混杂、选择偏倚或模型错设。",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>观察性研究的敏感性分析</span>"
+    ]
+  },
+  {
     "objectID": "chapters/14-sensitivity-analysis.html#未测量混杂因素",
     "href": "chapters/14-sensitivity-analysis.html#未测量混杂因素",
     "title": "14  观察性研究的敏感性分析",
@@ -870,6 +970,16 @@
     ]
   },
   {
+    "objectID": "chapters/14-sensitivity-analysis.html#参考文献",
+    "href": "chapters/14-sensitivity-analysis.html#参考文献",
+    "title": "14  观察性研究的敏感性分析",
+    "section": "参考文献",
+    "text": "参考文献\n\n\nBaron, Reuben M., and David A. Kenny. 1986. “The\nModerator–Mediator Variable Distinction in Social Psychological\nResearch: Conceptual, Strategic, and Statistical Considerations.”\nJournal of Personality and Social Psychology 51 (6): 1173–82.\nhttps://doi.org/10.1037/0022-3514.51.6.1173.\n\n\nCinelli, Carlos, and Chad Hazlett. 2020. “Making Sense of\nSensitivity: Extending Omitted Variable Bias.” Journal of the\nRoyal Statistical Society: Series B (Statistical Methodology) 82\n(1): 39–67. https://doi.org/10.1111/rssb.12348.\n\n\nCochrane Effective Practice and Organisation of Care (EPOC). 2017.\nWhat Study Designs Should Be Included in an EPOC Review\nand What Should They Be Called? Guidance document. https://epoc.cochrane.org/sites/epoc.cochrane.org/files/uploads/Resources-for-authors2017/what_study_designs_should_be_included_in_an_epoc_review.pdf.\n\n\nCruz, Maricela, Miriam Bender, and Hernando Ombao. 2017. “A Robust\nInterrupted Time Series Model for Analyzing Complex Health Care\nIntervention Data.” Statistics in Medicine 36 (29):\n4660–76. https://doi.org/10.1002/sim.7443.\n\n\nDickerman, Barbra A., Xabier García-Albéniz, Roger W. Logan, Spiros\nDenaxas, and Miguel A. Hernán. 2019. “Avoidable Flaws in\nObservational Analyses: An Application to Statins and Cancer.”\nNature Medicine 25 (10): 1601–6. https://doi.org/10.1038/s41591-019-0595-5.\n\n\nDing, Peng, and Tyler J. VanderWeele. 2016. “Sensitivity Analysis\nWithout Assumptions.” Epidemiology 27 (3): 368–77. https://doi.org/10.1097/EDE.0000000000000457.\n\n\nGreenland, Sander. 1996. “Basic Methods for Sensitivity Analysis\nof Biases.” International Journal of Epidemiology 25\n(6): 1107–16. https://doi.org/10.1093/ije/25.6.1107.\n\n\nHernán, Miguel A., and James M. Robins. 2017. “Per-Protocol\nAnalyses of Pragmatic Trials.” New England Journal of\nMedicine 377 (14): 1391–98. https://doi.org/10.1056/NEJMsm1605385.\n\n\nHernán, Miguel A., and James M. Robins. 2020. Causal Inference: What\nIf. Chapman & Hall/CRC.\n\n\nInternational Council for Harmonisation of Technical Requirements for\nPharmaceuticals for Human Use. 2020. ICH E9(R1)\nAddendum on Estimands and Sensitivity Analysis in Clinical Trials to the\nGuideline on Statistical Principles for Clinical Trials. Guideline.\nhttps://www.ema.europa.eu/en/documents/scientific-guideline/ich-e9-r1-addendum-estimands-and-sensitivity-analysis-clinical-trials-guideline-statistical-principles-clinical-trials-step-5_en.pdf.\n\n\nKim, Hye Jin, and Kijun Song. 2026. “Linear Mixed-Effects Models\nfor Analysis of Longitudinal Repeated Measures: A Conceptual Framework\nfor Clinical Researchers.” Korean Journal of\nAnesthesiology, ahead of print. https://doi.org/10.4097/kja.25877.\n\n\nKontopantelis, Evangelos, Tim Doran, David A. Springate, Iain Buchan,\nand David Reeves. 2015. “Regression Based Quasi-Experimental\nApproach When Randomisation Is Not an Option: Interrupted Time Series\nAnalysis.” BMJ 350: h2750. https://doi.org/10.1136/bmj.h2750.\n\n\nLee, Hopin, Aidan G. Cashin, Sarah E. Lamb, et al. 2021. “A\nGuideline for Reporting Mediation Analyses of Randomized Trials and\nObservational Studies: The AGReMA Statement.”\nJAMA 326 (11): 1045–56. https://doi.org/10.1001/jama.2021.14075.\n\n\nLennon, Hannah, Sarah Kelly, Matthew Sperrin, et al. 2018.\n“Framework to Construct and Interpret Latent Class Trajectory\nModelling.” BMJ Open 8 (7): e020683. https://doi.org/10.1136/bmjopen-2017-020683.\n\n\nLi, Yihan, Dai Feng, Yunxia Sui, et al. 2022. “Analyzing\nLongitudinal Binary Data in Clinical Studies.” Contemporary\nClinical Trials 115: 106717. https://doi.org/10.1016/j.cct.2022.106717.\n\n\nLiang, Kung-Yee, and Scott L. Zeger. 1986. “Longitudinal Data\nAnalysis Using Generalized Linear Models.” Biometrika 73\n(1): 13–22. https://doi.org/10.1093/biomet/73.1.13.\n\n\nLipsitch, Marc, Eric Tchetgen Tchetgen, and Ted Cohen. 2010.\n“Negative Controls: A Tool for Detecting Confounding and Bias in\nObservational Studies.” Epidemiology 21 (3): 383–88. https://doi.org/10.1097/EDE.0b013e3181d61eeb.\n\n\nLopez Bernal, James, Steven Cummins, and Antonio Gasparrini. 2017.\n“Interrupted Time Series Regression for the Evaluation of Public\nHealth Interventions: A Tutorial.” International Journal of\nEpidemiology 46 (1): 348–55. https://doi.org/10.1093/ije/dyw098.\n\n\nLopez Bernal, James, Steven Cummins, and Antonio Gasparrini. 2019.\n“Difference in Difference, Controlled Interrupted Time Series and\nSynthetic Controls.” International Journal of\nEpidemiology 48 (6): 2062–63. https://doi.org/10.1093/ije/dyz050.\n\n\nNagin, Daniel S., and Candice L. Odgers. 2010. “Group-Based\nTrajectory Modeling in Clinical Research.” Annual Review of\nClinical Psychology 6: 109–38. https://doi.org/10.1146/annurev.clinpsy.121208.131413.\n\n\nPenning de Vries, Bas B. L., and Rolf H. H. Groenwold. 2023.\n“Negative Controls: Concepts and Caveats.” Statistical\nMethods in Medical Research 32 (8): 1576–87. https://doi.org/10.1177/09622802231181230.\n\n\nRimawi, M., and S. G. Hilsenbeck. 2012. “Making Sense of Clinical\nTrial Data: Is Inverse Probability of Censoring Weighted Analysis the\nAnswer to Crossover Bias?” Journal of Clinical Oncology\n30 (4): 453–58. https://doi.org/10.1200/JCO.2011.38.7074.\n\n\nSterne, Jonathan A. C., Ian R. White, John B. Carlin, et al. 2009.\n“Multiple Imputation for Missing Data in Epidemiological and\nClinical Research: Potential and Pitfalls.” BMJ 338:\nb2393. https://doi.org/10.1136/bmj.b2393.\n\n\nSurén, Pål, Christine Roth, Michaeline Bresnahan, et al. 2013.\n“Association Between Maternal Use of Folic Acid Supplements and\nRisk of Autism Spectrum Disorders in Children.” JAMA 309\n(6): 570–77. https://doi.org/10.1001/jama.2012.155925.\n\n\nTaljaard, Monica, Joanne E. McKenzie, Craig R. Ramsay, and Jeremy M.\nGrimshaw. 2014. “The Use of Segmented Regression in Analysing\nInterrupted Time Series Studies: An Example in Pre-Hospital Ambulance\nCare.” Implementation Science 9: 77. https://doi.org/10.1186/1748-5908-9-77.\n\n\nValeri, Linda, and Tyler J. VanderWeele. 2013. “Mediation Analysis\nAllowing for Exposure-Mediator Interactions and Causal Interpretation:\nTheoretical Assumptions and Implementation with SAS and\nSPSS Macros.” Psychological Methods 18 (2):\n137–50. https://doi.org/10.1037/a0031034.\n\n\nVanderWeele, Tyler J., and Peng Ding. 2017. “Sensitivity Analysis\nin Observational Research: Introducing the E-Value.”\nAnnals of Internal Medicine 167 (4): 268–74. https://doi.org/10.7326/M16-2607.\n\n\nVanderWeele, Tyler J., Stijn Vansteelandt, and James M. Robins. 2014.\n“Effect Decomposition in the Presence of an Exposure-Induced\nMediator-Outcome Confounder.” Epidemiology 25 (2):\n300–306. https://doi.org/10.1097/EDE.0000000000000034.\n\n\nZhang, Fang, Anita K. Wagner, Stephen B. Soumerai, and Dennis\nRoss-Degnan. 2009. “Methods for Estimating Confidence Intervals in\nInterrupted Time Series Analyses of Health Interventions.”\nJournal of Clinical Epidemiology 62 (2): 143–48. https://doi.org/10.1016/j.jclinepi.2008.08.007.",
+    "crumbs": [
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>观察性研究的敏感性分析</span>"
+    ]
+  },
+  {
     "objectID": "chapters/15-mediation.html",
     "href": "chapters/15-mediation.html",
     "title": "15  因果中介分析",
@@ -880,11 +990,11 @@
     ]
   },
   {
-    "objectID": "chapters/15-mediation.html#因果中介效应的定义",
-    "href": "chapters/15-mediation.html#因果中介效应的定义",
+    "objectID": "chapters/15-mediation.html#因果中介效应定义",
+    "href": "chapters/15-mediation.html#因果中介效应定义",
     "title": "15  因果中介分析",
-    "section": "15.2 因果中介效应的定义",
-    "text": "15.2 因果中介效应的定义\n待补充。",
+    "section": "15.2 因果中介效应定义",
+    "text": "15.2 因果中介效应定义\n因果中介分析澄清了传统中介分析中出现的模糊之处，基于反事实框架，并将因果效应定义与因果效应估计区分开来。因果效应定义的一个优点是它们是非参数性的，因此可以应用于任何类型的中介模型，以得出因果效应估计值。这包括具有干预中介交互作用的模型和具有非连续中介变量或非连续结果变量的模型。 自然直接效应与自然间接效应涉及”同一个体在不同干预情形下本会出现的中介值”，属于交叉世界反事实量；其因果解释依赖较强且不可由数据完全检验的假设。\n当因果效应被运用到中介模型时，结局的平均潜在结果可基于不同的中介取值以及不同的干预取值来定义和估计。也就是说，E[Y(T, M)] 表示将个体固定在预定的中介值M时，在T组中观察到的个体的结局，对于中介变量和干预变量都为二分类的情况，两者皆可取0或1。因此，因果直接效应、间接效应和总效应被定义为两种潜在结果之间的差异，具体如下： 以下定义同时区分以对照组中介分布为参照的自然直接效应和以干预组中介分布为参照的总体直接效应；报告时应写明所选参照值及效应尺度，而不宜把不同定义混用。\n① 总体间接效应（TIE，total indirect effect），表示干预组中 T 通过 M 对 Y 的影响：\n\\[TIE = \\ E\\left\\lbrack Y\\left( 1,M(1) \\right) \\right\\rbrack - E\\left\\lbrack Y\\left( 1,M(0) \\right) \\right\\rbrack\\ \\]\n② 自然间接效应（NIE，natural indirect effect），表示对照组中 T 通过 M 对 Y 的影响：\n\\[NIE = \\ E\\left\\lbrack Y\\left( 0,M(1) \\right) \\right\\rbrack - E\\left\\lbrack Y\\left( 0,M(0) \\right) \\right\\rbrack\\ \\]\n③ 总体直接效应（TDE，total direct effect），表示个体的中介变量被固定在1时，T 对 Y 的效应；\n\\[TDE = \\ E\\left\\lbrack Y\\left( 1,M(1) \\right) \\right\\rbrack - E\\left\\lbrack Y\\left( 0,M(1) \\right) \\right\\rbrack\\ \\]\n④ 自然直接效应（NDE，natural direct effect），表示个体的中介变量被固定在0时，T 对 Y 的效应；\n\\[NDE = \\ E\\left\\lbrack Y\\left( 1,M(0) \\right) \\right\\rbrack - E\\left\\lbrack Y\\left( 0,M(0) \\right) \\right\\rbrack\\ \\]\n⑤ 控制直接效应（CDE，controlled direct effect），表示个体的中介变量被控制时，T 对 Y 的效应，是将个体的干预值从0改为1，同时保持中介值不变的直接效应；\n\\[CDE = \\ E\\left\\lbrack Y(1,M) \\right\\rbrack - E\\left\\lbrack Y(0,M) \\right\\rbrack\\ \\]\n⑥ 总效应（TE，total effect），表示不考虑中介效应时，T 对 Y 的效应。\n\\[TE = \\ E\\left\\lbrack Y(T = 1) \\right\\rbrack - E\\left\\lbrack Y(T = 0) \\right\\rbrack = TIE + NDE = NIE + TDE\\ \\]\n对于线性模型，交互效应为0时，\n\\(NDE = TDE\\)，\n\\(NIE = TIE\\)。\n对于结局变量为二元变量：\n自然直接效应（NDE，natural direct effect）定义为：\n\\[{OR}^{NDE} = \\frac{P(Y_{1,M = 0} = 1)/P(Y_{1,M = 0} = 0)}{P(Y_{0,M = 0} = 1)/P(Y_{0,M = 0} = 0)}\\]\n自然间接效应（NIE，natural indirect effect）定义为：\n\\[{OR}^{NIE} = \\frac{P(Y_{1,M = 1} = 1)/P(Y_{1,M = 1} = 0)}{P(Y_{1,M = 0} = 1)/P(Y_{1,M = 0} = 0)}\\]\n总效应：\n\\[{OR}^{TE} = {OR}^{NDE}*{OR}^{NIE}\\]",
     "crumbs": [
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>因果中介分析</span>"
     ]
@@ -930,11 +1040,31 @@
     ]
   },
   {
+    "objectID": "chapters/15-mediation.html#参考文献",
+    "href": "chapters/15-mediation.html#参考文献",
+    "title": "15  因果中介分析",
+    "section": "参考文献",
+    "text": "参考文献\n\n\nBaron, Reuben M., 和 David A. Kenny. 1986年. 《The moderator–mediator variable distinction in social psychological research: Conceptual, strategic, and statistical considerations》. Journal of Personality and Social Psychology 51 (6): 1173～82. https://doi.org/10.1037/0022-3514.51.6.1173.\n\n\nLee, Hopin, Aidan G. Cashin, Sarah E. Lamb, 等. 2021年. 《A Guideline for Reporting Mediation Analyses of Randomized Trials and Observational Studies: The AGReMA Statement》. JAMA 326 (11): 1045～56. https://doi.org/10.1001/jama.2021.14075.\n\n\nValeri, Linda, 和 Tyler J. VanderWeele. 2013年. 《Mediation analysis allowing for exposure-mediator interactions and causal interpretation: Theoretical assumptions and implementation with SAS and SPSS macros》. Psychological Methods 18 (2): 137～50. https://doi.org/10.1037/a0031034.\n\n\nVanderWeele, Tyler J., Stijn Vansteelandt, 和 James M. Robins. 2014年. 《Effect decomposition in the presence of an exposure-induced mediator-outcome confounder》. Epidemiology 25 (2): 300～306. https://doi.org/10.1097/EDE.0000000000000034.",
+    "crumbs": [
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>因果中介分析</span>"
+    ]
+  },
+  {
     "objectID": "chapters/16-repeated-measures.html",
     "href": "chapters/16-repeated-measures.html",
     "title": "16  重复测量数据的统计分析",
     "section": "",
     "text": "16.1 传统方法\n本书前几章介绍的大多数分析中，每个研究的结局变量都是有单一的衡量标准，通常使用适合结果数据类型的回归方法，如连续变量结局采用线性回归、二分法结局采用逻辑回归。然而，在临床医学研究中，一些干预研究经常会涉及到同一研究对象的多次观察，并记录资料，产生的数据称为重复测量数据。对于重复测量数据，开展统计分析有若干方法。",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>重复测量数据的统计分析</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/16-repeated-measures.html#传统方法",
+    "href": "chapters/16-repeated-measures.html#传统方法",
+    "title": "16  重复测量数据的统计分析",
+    "section": "",
+    "text": "16.1.1 简单回归\n偶尔，研究人员汇集来自多个受试者的多个记录，然后使用传统的回归方法将结局事件对干预以及时间轴做回归。每个受试者的每个观察点被视为一个单独的记录。尽管系数估计值对于类似参照总体中的参数可能是无偏倚的，但不建议使用此方法，计算出的标准误差估计值有非常大的偏差，基于此的统计显著性检验也是如此。每个受试者自身的自相关被完全忽略，且此方法严重违反了观测值独立的假设。此外，使用这种方法可能会掩盖效应，因为样本内部和样本之间的关系可能不同。 更准确地说，未处理个体内相关性通常会使标准误与置信区间失真，并可能夸大统计学显著性；若研究问题关注随时间的平均变化或个体轨迹，应使用能够明确处理聚类相关性的纵向模型。\n\n\n16.1.2 协方差分析\n协方差（analysis of covariance，ANCOVA）模型是将那些对结局指标 Y 有影响的变量 X 作为协变量，建立应变量 Y 随协变量 X 变化的线性回归关系，并利用这种回归关系把 X 值化为相等后再进行各组 Y 的修正均数间比较的假设检验。其结局指标必须为连续变量。经典的重复测量ANCOVA适用于部分纵向研究设计，这些设计通常平衡良好，每个受试者具有相同的，相对较少且通常均匀分布的时间点，并且没有缺失值。\n重复测量协方差分析的一个常见问题是，样本的重复观测之间的相关性违反了方差分析的重要假设，即观察结果不相关。如果受试者的多次测量结果与时间无关，则此问题通常不重要。然而，纵向研究中通常存在的问题是受试者多次测量与时间相关，相邻测量值相关性普遍比非相邻测量值相关性高。\n用于纵向研究的协方差分析最大缺点是仅限于某些情况，如，几个时间点（通常&lt;10）的平衡数据，多次测量的时间点一致。大多数软件算法不允许存在缺失值。 重复测量方差分析还依赖球形性等较强假设；即使采用校正，也难以解决不平衡随访和可能与结局相关的失访问题，因此在临床纵向研究中通常更适合作为受限情形下的补充分析。\n\n\n16.1.3 分析结局事件的变化\n在这种方法中，分析纵向数据通过计算结局事件的纵向变化幅度，然后可以使用任何传统的统计方法。例如，对于每个受试者，可以计算随访评分减去基线评分的差值，然后对这些差值进行t检验，比较治疗组与对照组的差别。这不是一种好的纵向分析方法，因为每个受试者只使用了两个可用的信息点，并没有考虑其他时间点的差异。\n以上所有这些分析方法都存在缺陷，临床研究中无法推荐其中的任何一种。但作为一种快速的探索性方法，可为更复杂但不太直观的方法提供一些信息。",
     "crumbs": [
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>重复测量数据的统计分析</span>"
     ]
@@ -970,11 +1100,31 @@
     ]
   },
   {
+    "objectID": "chapters/16-repeated-measures.html#参考文献",
+    "href": "chapters/16-repeated-measures.html#参考文献",
+    "title": "16  重复测量数据的统计分析",
+    "section": "参考文献",
+    "text": "参考文献\n\n\nKim, Hye Jin, 和 Kijun Song. 2026年. 《Linear mixed-effects models for analysis of longitudinal repeated measures: a conceptual framework for clinical researchers》. Korean Journal of Anesthesiology, 网络首发. https://doi.org/10.4097/kja.25877.\n\n\nLennon, Hannah, Sarah Kelly, Matthew Sperrin, 等. 2018年. 《Framework to construct and interpret latent class trajectory modelling》. BMJ Open 8 (7): e020683. https://doi.org/10.1136/bmjopen-2017-020683.\n\n\nLi, Yihan, Dai Feng, Yunxia Sui, 等. 2022年. 《Analyzing longitudinal binary data in clinical studies》. Contemporary Clinical Trials 115: 106717. https://doi.org/10.1016/j.cct.2022.106717.\n\n\nLiang, Kung-Yee, 和 Scott L. Zeger. 1986年. 《Longitudinal data analysis using generalized linear models》. Biometrika 73 (1): 13～22. https://doi.org/10.1093/biomet/73.1.13.\n\n\nNagin, Daniel S., 和 Candice L. Odgers. 2010年. 《Group-based trajectory modeling in clinical research》. Annual Review of Clinical Psychology 6: 109～38. https://doi.org/10.1146/annurev.clinpsy.121208.131413.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>重复测量数据的统计分析</span>"
+    ]
+  },
+  {
     "objectID": "chapters/17-missing-data.html",
     "href": "chapters/17-missing-data.html",
     "title": "17  缺失数据",
     "section": "",
     "text": "17.1 数据缺失的机制\n数据缺失是指研究数据中由于缺少信息而造成的数据的不完整。它指的是现有数据集中某个或某些属性的值是不完全的。数据缺失与生存分析中的删失不同，删失的概念是指可以观察到受试者在一定时间内未出现结局事件，而数据缺失是指在随访期间既不知道受试者有没有出现结局事件，也不知道他是否没有出现结局事件。",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>缺失数据</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/17-missing-data.html#数据缺失的机制",
+    "href": "chapters/17-missing-data.html#数据缺失的机制",
+    "title": "17  缺失数据",
+    "section": "",
+    "text": "17.1.1 完全随机缺失（missing completely at random，MCAR）\n所缺失的数据发生的概率既与已观察到的数据无关，也与未观察到的数据无关。MCAR是很强的机制假设；在相应分析模型正确时，完整病例分析可避免由缺失机制本身引入的选择偏倚，但仍会降低精度。(Sterne 等 2009年)比较缺失者与非缺失者的已观测特征只能描述差异，不能证明MCAR，因为缺失值及其与未观测量的关系无法由数据直接检验。\n\n\n17.1.2 随机缺失（missing at random，MAR）\n假设缺失数据发生的概率与所观察到的变量是有关的，而与未观察到的数据的特征是无关的。数据缺失不是完全随机的，即该类数据的缺失依赖于其他完全变量，如入院患者的体重缺失与病情的轻重有关，病情严重的患者无法测量体重； MAR同样是条件性、不可由观测数据完全检验的假设：若已纳入病情严重程度等相关已观测信息，缺失概率可不再额外依赖未观测的体重；遗漏关键预测因素时，表面上的MAR分析仍可能有偏。\n\n\n17.1.3 非随机缺失（missing not at random，MNAR）\n如果数据的缺失既依赖于完全变量又依赖于不完全变量本身，这种缺失即为不可忽略的缺失。数据的缺失与不完全变量自身的取值有关，如人群不原意提供家庭收入。",
     "crumbs": [
       "<span class='chapter-number'>17</span>  <span class='chapter-title'>缺失数据</span>"
     ]
@@ -1010,11 +1160,31 @@
     ]
   },
   {
+    "objectID": "chapters/17-missing-data.html#参考文献",
+    "href": "chapters/17-missing-data.html#参考文献",
+    "title": "17  缺失数据",
+    "section": "参考文献",
+    "text": "参考文献\n\n\nDickerman, Barbra A., Xabier García-Albéniz, Roger W. Logan, Spiros Denaxas, 和 Miguel A. Hernán. 2019年. 《Avoidable flaws in observational analyses: an application to statins and cancer》. Nature Medicine 25 (10): 1601～6. https://doi.org/10.1038/s41591-019-0595-5.\n\n\nHernán, Miguel A., 和 James M. Robins. 2017年. 《Per-protocol analyses of pragmatic trials》. New England Journal of Medicine 377 (14): 1391～98. https://doi.org/10.1056/NEJMsm1605385.\n\n\nHernán, Miguel A., 和 James M. Robins. 2020年. Causal Inference: What If. Chapman & Hall/CRC.\n\n\nInternational Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use. 2020年. ICH E9(R1) Addendum on Estimands and Sensitivity Analysis in Clinical Trials to the Guideline on Statistical Principles for Clinical Trials. Guideline. https://www.ema.europa.eu/en/documents/scientific-guideline/ich-e9-r1-addendum-estimands-and-sensitivity-analysis-clinical-trials-guideline-statistical-principles-clinical-trials-step-5_en.pdf.\n\n\nRimawi, M., 和 S. G. Hilsenbeck. 2012年. 《Making sense of clinical trial data: is inverse probability of censoring weighted analysis the answer to crossover bias?》 Journal of Clinical Oncology 30 (4): 453～58. https://doi.org/10.1200/JCO.2011.38.7074.\n\n\nSterne, Jonathan A. C., Ian R. White, John B. Carlin, 等. 2009年. 《Multiple imputation for missing data in epidemiological and clinical research: potential and pitfalls》. BMJ 338: b2393. https://doi.org/10.1136/bmj.b2393.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>缺失数据</span>"
+    ]
+  },
+  {
     "objectID": "chapters/18-ml-causal-inference.html",
     "href": "chapters/18-ml-causal-inference.html",
     "title": "18  因果推断与机器学习的交融",
     "section": "",
-    "text": "18.1 机器学习模型纳入倾向评分的拟合\n待补充。",
+    "text": "18.1 机器学习模型纳入倾向评分的拟合\n在真实世界研究中，干预相关协变量往往维度很高且关系复杂。若把所有变量的高阶项和交互项都放入传统参数模型，参数数目可能接近或超过样本量，导致倾向评分估计不稳定。机器学习可用于灵活估计倾向评分 \\(e(X)=Pr(A=1\\mid X)\\)，但其目标是控制混杂而不是单纯最大化治疗预测准确性；协变量选择应首先依据时间顺序和临床知识，避免纳入治疗后的变量、碰撞变量或仅为提高治疗预测而损害重叠性的变量。\n机器学习算法能够在高维协变量中拟合非线性和交互作用，可用于估计倾向评分、结局回归或删失模型等”干扰参数”。LASSO（least absolute shrinkage and selection operator）是在回归中同时进行收缩和变量选择的方法，可将部分系数压缩至0；随机森林、梯度提升和神经网络等也可用于该类预测任务。需要强调的是：用于因果估计时，模型选择和调参不能只看AUC、准确率或均方误差，还应检查加权/匹配后的协变量平衡、倾向评分分布与极端权重，并预先保留临床上重要的混杂因素。\n案例9.1中，以LASSO估计倾向评分，纳入较多基线变量。该示例用于说明流程；实际分析还应报告各变量的缺失处理、倾向评分重叠情况、权重分布及加权后的协变量平衡。\nLASSO回归筛选出四个变量用于倾向评分建模。在更高维的场景中，LASSO可减少模型复杂度，但不能把”未被选择”直接解释为”不是混杂因素”；变量是否应纳入仍需结合因果图、测量时点与临床知识判断。\n示例中得到的加权比值比为1.80。多种机器学习方法已被用于从电子病历中的高维、稀疏和纵向信息估计治疗机制；例如，可先将诊断、处方和实验室检查的历史编码为特征表示，再与基线信息共同用于估计每个时点的治疗或删失概率。无论采用何种表示学习方法，因果解释仍依赖于无未测混杂、正值性、一致性以及正确的时间顺序，而不能由模型的预测性能本身保证。",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>因果推断与机器学习的交融</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/18-ml-causal-inference.html#机器学习模型纳入倾向评分的拟合",
+    "href": "chapters/18-ml-causal-inference.html#机器学习模型纳入倾向评分的拟合",
+    "title": "18  因果推断与机器学习的交融",
+    "section": "",
+    "text": "注记代码18.1：LASSO 倾向评分建模\n\n\n\n\n\n. lasso logit Treatment k age duration gh_base igf_base tumor_base\n. lassocoef\n\n\n\n\n\n\n\n\n\n注记代码18.1输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n注记代码18.2：基于倾向评分的逆概率加权\n\n\n\n\n\n. predict _pscore\n. gen _ipweight = 1/_pscore if Treatment == 1\n. replace _ipweight = 1/(1-_pscore) if Treatment == 0\n. logistic Outcome Treatment [iweight = _ipweight], vce(robust)\n\n\n\n\n\n\n\n\n\n注记代码18.2输出",
     "crumbs": [
       "<span class='chapter-number'>18</span>  <span class='chapter-title'>因果推断与机器学习的交融</span>"
     ]
@@ -1024,7 +1194,7 @@
     "href": "chapters/18-ml-causal-inference.html#双重稳健估计器",
     "title": "18  因果推断与机器学习的交融",
     "section": "18.2 双重稳健估计器",
-    "text": "18.2 双重稳健估计器\n待补充。",
+    "text": "18.2 双重稳健估计器\n上一节的机器学习模型可用于估计倾向评分或结局回归，但把预测值直接代入因果效应公式常受正则化偏倚和过度拟合影响。增强逆概率加权（augmented inverse probability weighting，AIPW）将两类模型结合：在可交换性、正值性和一致性等识别假设成立时，只要倾向评分模型或结局回归模型中至少一个正确指定，估计量即可保持一致性，因此称为”双重稳健”。在高维或非参数场景，还应配合正交得分与交叉拟合，形成双重/去偏机器学习（double/debiased machine learning，DML），以支持有效的标准误和置信区间。\n令A为二分类干预，\\(e(X)=Pr(A=1\\mid X)\\)为倾向评分，\\(m_a(X)=E(Y\\mid A=a,X)\\)为结局回归。对每名研究对象，AIPW的两个潜在结局均值可写为：\\(DR_1=m_1(X)+\\frac{A}{e(X)}[Y-m_1(X)]\\)，\\(DR_0=m_0(X)+\\frac{1-A}{1-e(X)}[Y-m_0(X)]\\)；对\\(DR_1\\)和\\(DR_0\\)取样本均值即可得到两种干预策略下的风险估计（表18.1）。\n表18.1 双重稳健估计器\n\n\n\n\n\n\n\n\n\nDR1\nDR0\n\n\n\n\n通用表达式\n\\(\\frac{Y^{X = 1}*X - \\widehat{Y_{1}}*(X - PS)}{PS}\\)\n\\(\\frac{Y^{X = 0}*(1 - X) + \\widehat{Y_{0}}*(X - PS)}{1 - PS}\\)\n\n\n干预组\n\\(\\frac{Y^{X = 1} - \\widehat{Y_{1}}*(1 - PS)}{PS}\\)\n\\(\\widehat{Y_{0}}\\)\n\n\n对照组\n\\(\\widehat{Y_{1}}\\)\n\\(\\frac{Y^{X = 0} - \\widehat{Y_{0}}*PS}{1 - PS}\\)\n\n\n\n\n\n\n\n\n\n注记代码18.3：估计干预组的双重稳健风险\n\n\n\n\n\n. logit Outcome k age duration gh_base igf_base tumor_base\n&gt;&gt;&gt; if Treatment == 1\n. predict Y_hat_1\n. logit Outcome k age duration gh_base igf_base tumor_base\n&gt;&gt;&gt; if Treatment == 0\n. predict Y_hat_0\n. gen DR_1 = Y_hat_1\n. replace DR_1 = Y_hat_1 + (Outcome - Y_hat_1)/_pscore if Treatment == 1\n. gen DR_0 = Y_hat_0\n. replace DR_0 = Y_hat_0 + (Outcome - Y_hat_0)/(1-_pscore) if Treatment == 0\n. summarize DR_1 if Outcome != .\n\n\n\n\n\n\n\n\n\n注记代码18.3输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n注记代码18.4：估计对照组的双重稳健风险\n\n\n\n\n\n. summarize DR_0 if Outcome != .\n\n\n\n\n\n\n\n\n\n注记代码18.4输出\n\n\n\n\n\n\n\n\nDR1和DR0的点估计分别为0.550和0.411；两者之差为风险差0.139。由两种风险可进一步计算风险比或比值比，且应同时报告其95%置信区间。Stata的teffects aipw命令可在两个括号中分别指定结局回归与倾向评分模型；如需使用LASSO、随机森林等学习器，则应采用能够实现交叉拟合和稳健推断的专门程序，或自行进行可重复的样本分割、估计与合并。\n\n\n\n\n\n\n注记代码18.5：Stata 的 AIPW 估计\n\n\n\n\n\n. teffects aipw (Outcome age igf_base gh_base k duration, logit)\n&gt;&gt;&gt; (Treatment age igf_base gh_base k duration, logit)\n\n\n\n\n\n\n\n\n\n注记代码18.5输出",
     "crumbs": [
       "<span class='chapter-number'>18</span>  <span class='chapter-title'>因果推断与机器学习的交融</span>"
     ]
@@ -1034,7 +1204,7 @@
     "href": "chapters/18-ml-causal-inference.html#因果推断中引入交叉验证",
     "title": "18  因果推断与机器学习的交融",
     "section": "18.3 因果推断中引入交叉验证",
-    "text": "18.3 因果推断中引入交叉验证\n待补充。",
+    "text": "18.3 因果推断中引入交叉验证\n机器学习与双重稳健估计结合时，关键不只是常规预测意义上的交叉验证，而是交叉拟合（cross-fitting）。其目的在于让每名研究对象的倾向评分和结局回归预测都来自不包含该对象的训练样本，从而降低同一样本既训练又估计效应所造成的过拟合偏倚。DML进一步使用Neyman正交得分，使干扰参数的小误差对目标因果效应的一阶影响减弱；二者共同为有效推断提供条件，而不是自动消除未测混杂或正值性不足。\n\n18.3.1 样本分割\n样本分割可将研究对象随机分为训练样本和估计样本：在训练样本中拟合m_1(X)、m_0(X)和e(X)，再将这些模型应用于独立的估计样本，计算AIPW/正交得分。这样可避免对同一对象的结果信息重复使用；但单次二分法只在一半样本中估计最终效应，精度会下降，因此通常采用K折交叉拟合。\n\n\n\n\n\n\n注记代码18.6：第一折样本分割估计\n\n\n\n\n\n. gen group = runiformint(0,1)\n. logit Outcome k age duration gh_base igf_base tumor_base\n&gt;&gt;&gt; if (Treatment == 1 & group == 0)\n. predict Y_hat_1\n. logit Outcome k age duration gh_base igf_base tumor_base\n&gt;&gt;&gt; if (Treatment == 0 & group == 0)\n. predict Y_hat_0\n. lasso logit Treatment k age duration gh_base igf_base tumor_base if group == 0\n. predict _pscore\n. gen DR_1 = Y_hat_1\n. replace DR_1 = Y_hat_1 + (Outcome - Y_hat_1)/_pscore if Treatment == 1\n. gen DR_0 = Y_hat_0\n. replace DR_0 = Y_hat_0 + (Outcome - Y_hat_0)/(1-_pscore) if Treatment == 0\n. summarize DR_1 if (Outcome != . & group == 1)\n\n\n\n\n\n\n\n\n\n注记代码18.6输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n注记代码18.7：第一折的对照组风险汇总\n\n\n\n\n\n. summarize DR_0 if (Outcome != . & group == 1)\n\n\n\n\n\n\n\n\n\n注记代码18.7输出\n\n\n\n\n\n\n\n\n在一半的样本中（377例），DR1 和 DR0 的点估计分别为0.508和0.400。\n\n\n18.3.2 交叉验证\n为避免单次分割损失效率，可调换两部分样本的角色，或更常用地进行K折交叉拟合：每一折均用其余K−1折拟合干扰参数，再在保留折计算正交得分，最后合并所有折的得分。这里的”交叉拟合”不同于仅为选择超参数而进行的预测交叉验证；其核心是保证效应估计所用预测为样本外预测。\n\n\n\n\n\n\n注记代码18.8：第二折交叉拟合\n\n\n\n\n\n. drop Y_hat_1 Y_hat_0 _pscore DR_1 DR_0\n. logit Outcome k age duration gh_base igf_base tumor_base\n&gt;&gt;&gt; if (Treatment == 1 & group == 1)\n. predict Y_hat_1\n. logit Outcome k age duration gh_base igf_base tumor_base\n&gt;&gt;&gt; if (Treatment == 0 & group == 1)\n. predict Y_hat_0\n. lasso logit Treatment k age duration gh_base igf_base tumor_base if group == 1\n. predict _pscore\n. gen DR_1 = Y_hat_1\n. replace DR_1 = Y_hat_1 + (Outcome - Y_hat_1)/_pscore if Treatment == 1\n. gen DR_0 = Y_hat_0\n. replace DR_0 = Y_hat_0 + (Outcome - Y_hat_0)/(1-_pscore) if Treatment == 0\n. summarize DR_1 if (Outcome != . & group == 0)\n\n\n\n\n\n\n\n\n\n注记代码18.8输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n注记代码18.9：第二折的对照组风险汇总\n\n\n\n\n\n. summarize DR_0 if (Outcome != . & group == 0)\n\n\n\n\n\n\n\n\n\n注记代码18.9输出\n\n\n\n\n\n\n\n\n在另一半的样本中（366例），DR1 和 DR0 的点估计分别为0.605和0.416。\n将各折的正交得分合并后，可得到整个研究人群的平均因果效应估计；本示例中DR1和DR0的点估计约为0.557和0.408。区间估计可由影响函数方差、适当的自助法或软件实现获得。应固定随机种子、报告折数和学习器调参规则，并在敏感性分析中考察不同学习器、截尾规则和折分方式对结论的影响。",
     "crumbs": [
       "<span class='chapter-number'>18</span>  <span class='chapter-title'>因果推断与机器学习的交融</span>"
     ]
@@ -1044,7 +1214,7 @@
     "href": "chapters/18-ml-causal-inference.html#因果森林算法",
     "title": "18  因果推断与机器学习的交融",
     "section": "18.4 因果森林算法",
-    "text": "18.4 因果森林算法\n待补充。",
+    "text": "18.4 因果森林算法\n因果森林（causal forest）是随机森林在异质性治疗效应估计中的扩展，目标是条件平均治疗效应CATE：\\(\\tau(X)=E[Y(1)-Y(0)\\mid X]\\)。它并非把普通聚类或普通预测树直接解释为因果分析；因果解释仍需在给定X后满足无未测混杂、正值性和一致性。森林可视为用树诱导的自适应邻域为每位患者寻找可比较的对照信息，再在这些邻域内估计治疗效应。\n因果森林通过大量树的加权邻域来估计治疗效应异质性，并在分裂时兼顾治疗组与对照组的样本量及可比性。叶节点不是天然的随机对照试验：若叶内仍存在未控制混杂、治疗组极少或协变量重叠不足，叶内差异仍可能有偏。总体平均效应可由森林的相应估计器获得；CATE预测则主要用于描述经预先规定并经验证的效应异质性。\n“诚实性”（honesty）是指在同一棵树内将抽样数据分为两部分：一部分用于选择分裂规则，另一部分用于叶内效应估计与推断。它不是完全禁止使用结局信息，也不等同于无混杂；其作用是降低因同一数据既寻找异质性又估计效应而产生的适应性偏倚。现代广义随机森林还可先对结局和治疗机制进行正交化，再在残差上学习异质性，并对不平衡分裂进行惩罚。\n下面以R语言grf软件包为例，结合结局与倾向评分的初步估计构建因果森林；Y为数值型结局、W为二分类干预、X为基线混杂因素。实际应用宜使用较多树、报告honesty与调参设置，并通过总体平均效应、校准检验、变量重要性和外部/时间验证综合评价，而不应只展示某一棵树。\n\n\n\n\n\n\n注记代码18.10：构建因果森林\n\n\n\n\n\n. library(grf)\n. data &lt;- read.csv(\"a_impute_CF.csv\")\n. Y &lt;- ifelse(data$Y == \"Yes\",1,0)\n. W &lt;- ifelse(data$T == \"Endoscopy\",1,0)\n. X &lt;- matrix(c(data[,\"K\"],data[,\"Age\"]),743,2)\n. forest.Y &lt;- regression_forest(X, Y)\n. Y.hat &lt;- predict(forest.Y)$predictions\n. forest.W &lt;- regression_forest(X, W)\n. W.hat &lt;- predict(forest.W)$predictions\n. c.forest &lt;- causal_forest(X, Y, W, Y.hat, W.hat)\n. tau.hat &lt;- predict(c.forest)$predictions\n. mu.hat.0 &lt;- Y.hat - W.hat * tau.hat\n. mu.hat.1 &lt;- Y.hat + (1 - W.hat) * tau.hat\n. summary(mu.hat.0)\n\n\n\n\n\n\n\n\n\n注记代码18.10输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n注记代码18.11：干预策略下的预测结局汇总\n\n\n\n\n\n. summary(mu.hat.1)\n\n\n\n\n\n\n\n\n\n注记代码18.11输出\n\n\n\n\n\n\n\n\n计算比值比为\n\\[OR = \\frac{0.562/(1 - 0.562)}{0.411/(1 - 0.411)} = 1.84\\]\n所得总体效应与上一节接近时，只能说明本数据和这些设定下的结果相似；它不是方法正确性的充分证据。可绘制单棵树帮助理解算法，但单棵树不稳定，不能据此作临床亚组结论。\n\n\n\n\n\n\n注记代码18.12：绘制因果树\n\n\n\n\n\n. tree &lt;- get_tree(c.forest, 3)\n. plot(tree)\n\n\n\n\n\n\n\n\n\n注记代码18.12输出\n\n\n\n\n\n\n\n\n因果树通过重复划分特征空间形成局部相似的患者邻域，但”相似”不等于已经无混杂。某叶中如侵袭性大于2级、年龄33至40岁的患者有36例，治疗比例和观察到的缓解率可用于描述该叶；若要把其中的差异解释为亚组因果效应，仍须检查叶内重叠、有效样本量、协变量平衡和不确定性，并在独立数据中验证。",
     "crumbs": [
       "<span class='chapter-number'>18</span>  <span class='chapter-title'>因果推断与机器学习的交融</span>"
     ]
@@ -1054,17 +1224,27 @@
     "href": "chapters/18-ml-causal-inference.html#机器学习引入因果推断的局限性",
     "title": "18  因果推断与机器学习的交融",
     "section": "18.5 机器学习引入因果推断的局限性",
-    "text": "18.5 机器学习引入因果推断的局限性\n待补充。",
+    "text": "18.5 机器学习引入因果推断的局限性\n机器学习可扩展因果分析中干扰参数的建模能力，并帮助探索效应异质性；但它并不替代研究设计和因果识别。应用前应先明确目标人群、干预策略、随访起点、结局、估计目标和可识别假设，再选择学习器与估计器。以下局限性尤其需要在方案、结果报告和临床解释中透明说明。\n第一，任何学习器都不能从观测数据中证明已控制全部混杂。临床上重要的混杂因素可能对治疗预测贡献有限，因而被纯数据驱动的选择过程忽略；反之，治疗后的变量、碰撞变量或某些工具变量可能被模型优先利用。应在建模前用临床知识和因果图界定候选混杂集，并把不同合理变量集作为敏感性分析。\n第二，直接把同一数据训练出的预测模型代入效应公式，确实可能使标准误和置信区间失效；但这并不意味着机器学习必然无法推断。采用正交得分、交叉拟合和适当的影响函数/自助法后，DML与广义随机森林可在其正则条件下给出有效推断。研究者仍需报告学习器、折分、随机种子、方差估计方法以及有限样本的不稳定性，避免把模型输出当作天然可信的置信区间。\n第三，时间变化治疗、时间依赖混杂、竞争风险与删失会显著增加建模和计算难度。纵向双重稳健、目标学习和因果生存森林等方法正在发展，但不应因复杂而忽略目标试验的时间零点、治疗策略、动态正值性和删失机制；在样本量或重叠不足时，较复杂的学习器可能比预先规定的简化模型更不稳定。\n第四，强学习器可能产生接近0或1的倾向评分，从而形成极端权重和高方差；这常提示目标人群中缺乏可比患者，而非单纯的算法故障。应展示倾向评分与权重分布，预先规定限制共同支持区、截尾/稳定化权重或改变目标人群的规则，并说明这些选择对估计目标的影响。不能在看到结果后任意删去”造成问题”的变量来追求更稳定的数值。",
     "crumbs": [
       "<span class='chapter-number'>18</span>  <span class='chapter-title'>因果推断与机器学习的交融</span>"
     ]
   },
   {
-    "objectID": "chapters/18-ml-causal-inference.html#在机器学习中思考因果",
-    "href": "chapters/18-ml-causal-inference.html#在机器学习中思考因果",
+    "objectID": "chapters/18-ml-causal-inference.html#在机器学习中进行因果思考",
+    "href": "chapters/18-ml-causal-inference.html#在机器学习中进行因果思考",
     "title": "18  因果推断与机器学习的交融",
-    "section": "18.6 在机器学习中思考因果",
-    "text": "18.6 在机器学习中思考因果\n待补充。",
+    "section": "18.6 在机器学习中进行因果思考",
+    "text": "18.6 在机器学习中进行因果思考\n在临床医学中，预测模型与因果模型回答的问题不同。预测模型关心”在当前资料下谁更可能发生结局”；因果模型关心”若同一目标人群接受策略a而不是策略a′，结局会如何改变”。机器学习可以服务于两类问题，但不能把高预测准确性直接解释为治疗有效或某患者会从治疗中获益。\n\n18.6.1 预测问题与因果问题不是同一问题\n预测通常估计\\(P(Y\\mid X)\\)，其目的是在已观察到的环境中准确预测结局。例如，模型可利用治疗、检查频率或医院编码来预测死亡风险；这些变量即使提高预测性能，也可能是治疗后的结果、选择过程的标志或不可干预的代理变量。\n因果问题则要求比较潜在结局Y(a)与Y(a′)。若目标是评价某药物的疗效，应先规定治疗策略、时间零点、目标人群、随访、结局和效应尺度，再判断现有数据是否足以在合理假设下识别该比较。仅把治疗变量加入预测模型，或比较模型给出的两个预测值，并不能自动得到因果效应。\n\n\n18.6.2 估计目标与可行动性\n因此，因果分析的起点应是可复现的研究方案或”目标试验”框架，而不是先运行算法。机器学习宜用于估计其中的干扰函数、处理高维协变量或探索经过约束的异质性；识别假设、变量的时间顺序和估计目标必须由研究问题与临床知识决定。\n\n\n18.6.3 变量角色与时间顺序\n基线共同原因可作为混杂因素候选；治疗后变量不应被常规调整，因为它们可能是中介或碰撞变量。对于电子病历中的高维特征，应记录其测量时间、临床含义、缺失和生成过程，而不能只依据变量重要性或预测贡献决定是否调整。\n当存在未测混杂、选择进入队列的机制不清，或某些协变量组合下几乎只接受一种治疗时，再复杂的深度学习模型也无法从数据本身恢复不可识别的因果效应。此时应考虑补充测量、改变目标人群、工具变量/负对照设计或明确的敏感性分析。\n\n\n18.6.4 机器学习在因果分析中的合适位置\n机器学习最适合承担倾向评分、结局回归、删失模型和高维特征表示等干扰参数的预测任务；随后用AIPW、TMLE、DML或适当的纵向估计器将这些预测嵌入预先定义的因果估计方程。这样既可利用非线性和交互作用，也能保留对目标效应、标准误和假设的清晰解释。\n无论使用LASSO、提升树、随机森林还是神经网络，都应预先说明候选学习器、调参和集成规则，使用样本外预测，并报告重叠、协变量平衡、权重和残差诊断。选择”预测最好”的单一算法并不等于选择”因果偏倚最小”的分析。\n交叉拟合与正交得分能缓解正则化和过拟合对估计的影响，但不能修复错误的因果图、错误的治疗时间零点或缺失的重要混杂信息。因果机器学习的可信度来自设计、诊断、敏感性分析与可重复性，而不是算法名称。\n\n\n18.6.5 异质性治疗效应与个体化决策\nCATE描述的是在协变量X给定时的平均治疗效应，而不是可被无误观察到的单个患者”真实获益”。当数据量有限、治疗重叠差或同时搜索大量亚组时，CATE图形和单棵树的分裂极易产生偶然发现。\n若研究目的为个体化治疗，应区分探索和验证：先在训练数据中学习候选异质性，再在独立数据、外部队列或前瞻性研究中评价其校准、净获益与临床后果。除展示异质性图外，还应报告总体效应、亚组有效样本量、区间估计和治疗规则的决策曲线/价值评估。\n\n\n18.6.6 数据漂移、选择偏倚与外部有效性\n训练集与目标临床人群在就诊路径、疾病严重度、编码规则、设备、治疗可及性或结局判定上不一致时，预测关系和因果效应都可能改变。样本量更大并不能自动消除这种数据漂移；选择进入数据库的过程本身可能引入选择偏倚。\n因此应明确来源人群和目标人群，优先开展时间外、地域外或机构外验证；比较关键协变量、治疗概率、随访和结局定义，并在必要时重新估计模型。若模型将用于指导治疗，还应监测模型部署后临床行为改变所造成的反馈效应。\n\n\n18.6.7 公平性、透明报告与临床评价\n应按年龄、性别、种族/族群、疾病严重度和医疗可及性等相关亚组评估重叠、误差与治疗建议，避免把历史资源分配不均直接固化为算法建议。报告中应说明数据来源、时间窗、缺失处理、变量时间顺序、识别假设、学习器、调参与代码可获得性。\n真正的临床转化仍需评价因果机器学习辅助决策是否改善患者重要结局，而不仅是离线预测指标。对于高风险干预，应优先使用外部验证、前瞻性影响评估或嵌入式随机试验来检验安全性、有效性和公平性。\n\n\n18.6.8 小结\n机器学习能增强因果分析的建模能力，却不能替代因果问题的定义、研究设计和识别假设。一个可信的工作流程是：先定义目标试验与估计目标；再根据因果图和时间顺序确定变量角色；用交叉拟合的正交估计器结合学习器；最后检查重叠、平衡、敏感性、外部有效性和临床影响。",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>因果推断与机器学习的交融</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/18-ml-causal-inference.html#参考文献",
+    "href": "chapters/18-ml-causal-inference.html#参考文献",
+    "title": "18  因果推断与机器学习的交融",
+    "section": "参考文献",
+    "text": "参考文献\n\nChernozhukov V, Chetverikov D, Demirer M, et al. Double/debiased machine learning for treatment and structural parameters. Econometrics Journal. 2018;21:C1-C68. doi:10.1111/ectj.12097.\nWager S, Athey S. Estimation and inference of heterogeneous treatment effects using random forests. Journal of the American Statistical Association. 2018;113:1228-1242. doi:10.1080/01621459.2017.1319839.\nAthey S, Tibshirani J, Wager S. Generalized random forests. Annals of Statistics. 2019;47:1148-1178. doi:10.1214/18-AOS1709.\nMcConnell KJ, Lindner S. Estimating treatment effects with machine learning. Health Services Research. 2019;54:1273-1282. doi:10.1111/1475-6773.13212. PMID:31602641.\nFeuerriegel S, Frauen D, Melnychuk V, et al. Causal machine learning for predicting treatment outcomes. Nature Medicine. 2024;30:958-968. doi:10.1038/s41591-024-02902-1. PMID:38641741.\nDockès J, Varoquaux G, Poline JB. Preventing dataset shift from breaking machine-learning biomarkers. GigaScience. 2021;10:giab055. doi:10.1093/gigascience/giab055. PMID:34585237.\nHernán MA, Robins JM. Causal Inference: What If. Boca Raton: Chapman & Hall/CRC; 2020.",
     "crumbs": [
       "<span class='chapter-number'>18</span>  <span class='chapter-title'>因果推断与机器学习的交融</span>"
     ]
@@ -1074,7 +1254,7 @@
     "href": "chapters/19-heterogeneity.html",
     "title": "19  异质性与个体因果效应",
     "section": "",
-    "text": "19.1 亚组分析\n待补充。",
+    "text": "19.1 亚组分析\n异质性治疗效应广泛存在，但要证明其存在并量化其规模十分困难。关键原因是：同一患者在同一时点不可能既接受治疗又不接受治疗，因此不能直接观察其两种潜在结局之差。例如，一名接受干预后存活的重症 COVID-19 患者，其未接受该干预时是存活还是死亡仍不可知。\n随机对照研究通常提供接受治疗组与对照组之间的平均治疗效应。将这一平均效应直接用于某一患者，隐含了治疗效应在相关人群中近似同质的假设；这一假设常不成立。异质性治疗效应（heterogeneous treatment effect，HTE）通常指随基线特征而变化的条件平均治疗效应（conditional average treatment effect，CATE）。应特别注意：模型可以估计给定协变量条件下的平均效应，但单个患者的真实个体治疗效应（individual treatment effect，ITE）仍不能被直接观察或逐例验证。\n探讨治疗效果是否因人而异的传统做法，是分别估计不同患者亚组的治疗效应，例如按性别、年龄或疾病严重程度分层。亚组内的平均效应有时比总体平均效应更贴近临床决策，但亚组分析只能描述预先定义人群中的平均治疗效应，并不等同于识别某一具体患者的真实获益。亚组结果常以森林图呈现；理解其统计学局限性是正确解读异质性治疗效应的基础。\n评估异质性治疗效应应检验治疗与基线变量的交互作用（参见本书第九章），并在预先说明的效应尺度上报告各亚组效应及其置信区间。不能仅因“一个亚组的 P 值显著、另一个亚组不显著”便声称存在亚组差异；真正需要比较的是交互作用。多数试验的样本量和统计效能是为总体平均效应设计的，检验交互作用通常效能较低，且亚组不平衡会进一步加剧不确定性。若在多个变量、多个切点和多个结局中反复探索，偶然发现的风险很高。因此，亚组分析应尽量预先设定、具有临床或生物学依据，并对多重比较和估计精度保持谨慎。\n个体化医疗的重要前提是：治疗效应的差异可能具有系统性，而非纯属随机波动。传统亚组分析一次只考察一个变量，但患者往往在多种预后因素上同时不同；仅做单变量分层可能遗漏具有临床意义的效应模式。将多个预后因素整合为风险评分，或在严格验证条件下使用治疗效应模型，可作为补充性的探索工具，但不能以复杂模型取代预先定义和可重复验证。\n如本书第三章所述，亚组分析应事先充分定义，以临床推理或既往证据为基础，采用交互作用检验，并完整报告估计值和不确定性。除统计学问题外，还应关注研究结论的可推广性：即使某个亚组在试验中显示出差异，其定义、治疗可及性和基线风险在目标临床人群中是否相似，仍需单独判断。",
     "crumbs": [
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>异质性与个体因果效应</span>"
     ]
@@ -1084,7 +1264,7 @@
     "href": "chapters/19-heterogeneity.html#风险建模",
     "title": "19  异质性与个体因果效应",
     "section": "19.2 风险建模",
-    "text": "19.2 风险建模\n待补充。",
+    "text": "19.2 风险建模\n异质性治疗效应的风险建模旨在克服单变量、逐次亚组分析的局限。其核心是先基于多个基线变量刻画患者的预后风险，再考察不同风险水平患者的绝对获益与危害，从而帮助回答在两种或多种治疗方案中哪一种对某类患者更合适。\n风险建模是利用多变量预后模型对试验患者进行风险分层，再估计各风险层内的治疗效应。模型可以是外部已验证的风险评分，也可以在研究数据中开发。许多临床结局的预测风险分布并不均匀：多数患者风险较低，少数患者风险很高。因此，即使相对治疗效应近似恒定，绝对风险降低也可能在高风险患者中更大；当治疗同时带来危害或负担时，风险分层尤其有助于权衡净获益。\n对于二分类结局，风险分层常比逐一检验大量“治疗×协变量”交互项更稳定。即使预后模型的判别能力只是中等，只要其校准合理，也可能揭示绝对获益随基线风险变化的模式。不过，这一发现仍应报告为风险层内的平均效应，并在独立数据中检验其可重复性。\n风险模型可在临床研究数据中内部开发，但构建预后模型时原则上不应使用治疗分配信息，而应仅利用治疗前可获得的基线变量预测结局。随机试验中，随后在风险层内比较各治疗组可得到有效的治疗效应估计。应通过重抽样、交叉验证或样本分割减少过度拟合，并报告模型的校准与风险分布；若要用于临床实践，还需在不同时间、中心或人群中进行外部验证。",
     "crumbs": [
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>异质性与个体因果效应</span>"
     ]
@@ -1094,7 +1274,7 @@
     "href": "chapters/19-heterogeneity.html#治疗效果建模增益建模",
     "title": "19  异质性与个体因果效应",
     "section": "19.3 治疗效果建模（增益建模）",
-    "text": "19.3 治疗效果建模（增益建模）\n待补充。",
+    "text": "19.3 治疗效果建模（增益建模）\n治疗效果建模（亦常称增益建模）直接利用试验数据预测两种治疗条件下的结局风险，并以其差值作为给定协变量下的预测治疗效应。例如，可分别预测患者在接受与不接受某治疗时的结局风险，再计算两者之差。该差值是模型估计的 CATE 或预测获益，而不是可以在该患者身上被直接观察到的真实 ITE。\n传统回归模型可依据先验临床知识纳入治疗变量、基线变量及治疗×基线变量交互项，以估计治疗效应随协变量变化的模式。交互项不应仅凭单次显著性检验机械地全部保留或删除；大量交互项极易过度拟合并造成治疗错误分配。可采用惩罚回归、样本分割或交叉拟合，并在独立数据中检验校准、区分度和临床决策价值。\n以内窥镜与显微镜治疗生长激素型垂体腺瘤为例，若在理想的反事实框架下每位患者都能接受两种治疗并观察结局，则可将患者概念性地分为四类：仅内窥镜能缓解、两种治疗均能缓解、两种治疗均不能缓解，以及仅显微镜能缓解。现实中每位患者只能观察到其中一种治疗下的结局，图示用于说明估计目标，而非可直接观察到的患者分类。\n\n\n图19.1 治疗效应建模的目标人群\n\n因此，某种干预未必对所有患者具有相同的临床价值。前面章节主要评估总体平均因果效应，即内窥镜相较显微镜在研究人群中的平均效果。若内窥镜资源有限，临床上更关心的是：在可比较且符合治疗条件的患者中，哪些特征所定义的人群可能具有更大的预期绝对获益，哪些患者使用显微镜可能已足够。此时的分析目标是比较治疗 A 与治疗 B 在给定基线特征条件下的预测结局差异（增益），并同时考虑可及性、手术风险和患者偏好。\n异质性治疗效应通常以条件平均因果效应表示，即在具有相同或相似测量协变量的人群中比较不同治疗的平均结果。不能把单个患者简单视为一个可验证的“亚组”：患者层面的两种潜在结局不能同时观察。近年来的机器学习方法能够更灵活地寻找预测变量和交互模式，但其输出仍是基于已测量协变量的模型化 CATE；其可信度取决于随机化或无混杂、可交换性、阳性性、模型稳定性和外部验证。",
     "crumbs": [
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>异质性与个体因果效应</span>"
     ]
@@ -1104,7 +1284,7 @@
     "href": "chapters/19-heterogeneity.html#以回归算法为基础的增益建模",
     "title": "19  异质性与个体因果效应",
     "section": "19.4 以回归算法为基础的增益建模",
-    "text": "19.4 以回归算法为基础的增益建模\n待补充。",
+    "text": "19.4 以回归算法为基础的增益建模\n\n19.4.1 S-learner\nS-learner 较为简单：用治疗变量和基线变量共同拟合一个结局预测模型。对同一患者分别将治疗变量设为接受治疗和未接受治疗，即可得到两种模型预测结局；两者之差构成该患者协变量条件下的预测治疗效应。模型输出应称为预测 CATE 或预测增益，而不宜表述为已经观察到的个体因果效应。\n公式19.1\n\\[Y=f(X,U)\\]\n\\[ITE=\\widehat{Y}^{x=1}-\\widehat{Y}^{x=0}=f\\left(Y^{x=1},U\\right)-f\\left(Y^{x=0},U\\right)\\]\n\n\n\n\n\n\n注记代码19.1\n\n\n\n\n\n. gen Treatment = (t == \"Endoscopy\")\n. gen Outcome = 1 if y == \"Yes\"\n. replace Outcome = 0 if y == \"No\"\n. lasso logit Outcome Treatment age k\n. replace Treatment = 1\n. predict Outcome_x1, pr penalized\n. replace Treatment = 0\n. predict Outcome_x0, pr penalized\n. gen ITE = Outcome_x1 - Outcome_x0\n. summarize ITE\n\n\n\n\n\n\n\n\n\n注记代码19.1输出\n\n\n\n\n\n\nVariable\nObs\nMean\nStd. dev.\nMin\nMax\n\n\n\n\nITE\n899\n.1535538\n.0351515\n0.0670325\n.194139\n\n\n\n\n\n模型预测的治疗效应从 0.07 至 0.19，均值为 0.15，计算尺度为风险差（risk difference）。这些数值反映模型在本示例数据中的预测增益，是否符合临床经验仍需结合机制、估计不确定性和验证数据判断。临床上，内窥镜相对显微镜的潜在优势可能来自更好的术中照明和假包膜切除；对侵袭性很强的肿瘤，即使使用内窥镜也未必能够完全切除，预期增益可能有限；对很小的肿瘤，显微镜本身疗效已较好，绝对增益也可能较小。因而，中等侵袭程度患者是否具有较大获益，应作为可检验的假设而非既定结论（参见第九章第4节边际效应）。\n可进一步查看不同肿瘤侵袭性条件下的预测治疗效应分布（以小提琴图展示）。图中 K=4 代表侵袭性较大的情况，预测增益较低；K=0 代表较小肿瘤，预测增益亦有限；K=1～3 的预测增益较高。该模式仅为模型在当前数据中的描述，需结合置信区间、重抽样稳定性及独立验证后，方可用于治疗分配建议。\n\n\n\n\n\n\n注记代码19.2\n\n\n\n\n\n. vioplot ITE, over(k) ylabel(-0.1(0.1)0.4)\n\n\n\n\n\n\n\n\n\n注记代码19.2输出：S-Learner个体治疗效应随侵袭性分布\n\n\n\n\n\n（横轴为侵袭性、纵轴为个体治疗效应）\n\n\n\n\n\n19.4.2 T-learner\nT-learner 与 S-learner 不同：它分别在治疗组和对照组建立结局预测模型，再将两个模型应用于同一目标人群，分别预测两种治疗条件下的结局，二者之差即为预测治疗效应。该方法在两组结局函数明显不同且每组样本充足时较灵活，但仍需避免将模型预测误认为逐例可观察的个体效应。\n公式19.2\n\\[Y_1=f^{X=1}(U)\\]\n\\[Y_0=f^{X=0}(U)\\]\n\\[ITE=\\widehat{Y}^{X=1}-\\widehat{Y}^{X=0}=f^{X=1}(U)-f^{X=0}(U)\\]\n\n\n\n\n\n\n注记代码19.3\n\n\n\n\n\n. lasso logit Outcome age k if Treatment == 1\n. predict Outcome_x1, pr penalized\n. lasso logit Outcome age k if Treatment == 0\n. predict Outcome_x0, pr penalized\n. gen ITE = Outcome_x1 - Outcome_x0\n. summarize ITE\n\n\n\n\n\n\n\n\n\n注记代码19.3输出\n\n\n\n\n\n\nVariable\nObs\nMean\nStd. dev.\nMin\nMax\n\n\n\n\nITE\n899\n.1566132\n.0695787\n-.0283419\n.3432962\n\n\n\n\n\nT-learner 的局限是双模型误差会累积；当治疗组与对照组样本量不平衡或其中一组预测困难时，估计可能不稳定。本示例中预测治疗效应从 -0.03 至 0.34，均值为 0.16。使用相同的作图代码绘制预测效应随肿瘤侵袭性的分布，可见 K=4 时预测增益较小，K=1～3 时较高；这一现象应在留出样本或外部数据中复核。\n\n\n\n\n\n\n注记代码19.4输出：T-learner 预测治疗效应随侵袭性分布\n\n\n\n\n\n（横轴为侵袭性、纵轴为个体治疗效应）\n\n\n\n\n\n19.4.3 X-learner\nX-learner 与 T-learner 一样先分别拟合两组的结局模型，但随后进行交叉预测：用治疗组模型预测对照组、用对照组模型预测治疗组，构造伪效应后再进行建模，并结合倾向评分加权。其目标仍是估计协变量条件下的平均治疗效应；在观察性数据中还必须谨慎建模倾向评分并检查重叠性。\n公式19.3\n\\[Y_1=f^{X=1}(U)\\]\n\\[Y_0=f^{X=0}(U)\\]\n\\[D_1=Y_1-\\widehat{Y}_0=Y^{X=1}-f^{X=0}(U)\\]\n\\[D_0=\\widehat{Y}_1-Y_0=f^{X=1}(U)-Y^{X=0}\\]\n\\[D_1=f^{x=1}(U)\\]\n\\[D_0=f^{x=0}(U)\\]\n\\[ITE=PS*d_0+(1-PS)*d_1\\]\n\n\n\n\n\n\n注记代码19.5\n\n\n\n\n\n. lasso logit Outcome age k if Treatment == 1\n. predict Outcome_x1, pr penalized\n. lasso logit Outcome age k if Treatment == 0\n. predict Outcome_x0, pr penalized\n. gen D1 = Outcome - Outcome_x0 if Treatment == 1\n. gen D0 = Outcome_x1 - Outcome if Treatment == 0\n. reg D1 age k\n. predict D1_hat\n. reg D0 age k\n. predict D0_hat\n. logit Treatment age k\n. predict _pscore, pr\n. gen ITE = _pscore*D0_hat + (1-_pscore)*D1_hat\n. summarize ITE\n\n\n\n\n\n\n\n\n\n注记代码19.5输出\n\n\n\n\n\n\nVariable\nObs\nMean\nStd. dev.\nMin\nMax\n\n\n\n\nITE\n899\n.1629466\n.0599442\n-.0194199\n.3257553\n\n\n\n\n\nX-learner 在两组样本量不平衡时可能较有优势，但其估计过程涉及多个模型，误差亦可能累积。本示例中预测治疗效应从 -0.02 至 0.33，均值为 0.16；按侵袭性分层的图形提示 K=4 时内窥镜预测增益较小。对于小肿瘤的增益模式，不同算法可能给出不同结论，这正说明需要以验证集的校准和临床效用，而非单一图形来选择模型。\n\n\n\n\n\n\n注记代码19.6输出：X-learner 预测治疗效应随侵袭性分布\n\n\n\n\n\n（横轴为侵袭性、纵轴为个体治疗效应）",
     "crumbs": [
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>异质性与个体因果效应</span>"
     ]
@@ -1114,17 +1294,27 @@
     "href": "chapters/19-heterogeneity.html#以决策树算法为基础的增益建模",
     "title": "19  异质性与个体因果效应",
     "section": "19.5 以决策树算法为基础的增益建模",
-    "text": "19.5 以决策树算法为基础的增益建模\n待补充。",
+    "text": "19.5 以决策树算法为基础的增益建模\n我们可以采用第18章介绍的因果树与因果森林算法估计给定协变量条件下的治疗效应。因果森林通过大量“诚实”因果树聚合，可同时给出 CATE 估计及其不确定性；其结果仍应解释为具有相似协变量患者的平均预测增益，而非单个患者已知的反事实差异。\n\n\n\n\n\n\n注记代码19.7\n\n\n\n\n\nlibrary(grf)\ndata &lt;- read.csv(\"a_impute_CF.csv\")\nY &lt;- ifelse(data$Y == \"Yes\",1,0)\nW &lt;- ifelse(data$T == \"Endoscopy\",1,0)\nX &lt;- data.frame(data$K, data$Age, data$Duration, data$IGF_base,\n                data$GH_base, data$Tumor_base)\nforest.Y &lt;- regression_forest(X, Y)\nY.hat &lt;- predict(forest.Y)$predictions\nforest.W &lt;- regression_forest(X, W)\nW.hat &lt;- predict(forest.W)$predictions\nc.forest &lt;- causal_forest(X, Y, W, Y.hat, W.hat)\ntau.hat &lt;- predict(c.forest)$predictions\nmu.hat.0 &lt;- Y.hat - W.hat * tau.hat\nmu.hat.1 &lt;- Y.hat + (1 - W.hat) * tau.hat\nITE = mu.hat.1 - mu.hat.0。\nsummary(ITE)\n\n\n\n\n\n\n\n\n\n注记代码19.7输出\n\n\n\n\n\n\nMin.\n1st Qu.\nMedian\nMean\n3rd Qu.\nMax.\n\n\n\n\n0.01964\n0.11074\n0.13454\n0.14557\n0.18774\n0.29163\n\n\n\n\n\n此处预测治疗效应从 0.02 至 0.29，均值为 0.15。与 X-learner 相比，因果森林可能给出不同的区间宽度；区间变窄不必然代表估计更可靠，还需检查样本重叠、诚实估计设置和验证表现。按肿瘤侵袭性分层，K=4 的预测增益较小，K=1～2 的预测增益较高。年龄与预测增益的关系也可作为探索结果呈现（参见第九章边际效应），但不应据此直接作出未经验证的个体化推荐。\n\n\n\n\n\n\n注记代码19.8\n\n\n\n\n\n. vioplot ite, over(k) ylabel(-0.1(0.1)0.4)\n. twoway (scatter ite age)\n\n\n\n\n\n\n\n\n\n注记代码19.8输出：因果森林的预测治疗效应随侵袭性分布\n\n\n\n\n\n（横轴为侵袭性、纵轴为个体治疗效应）\n\n\n\n\n\n\n\n\n\n注记代码19.9输出：因果森林的预测治疗效应随年龄分布\n\n\n\n\n\n（横轴为年龄、纵轴为个体治疗效应）",
     "crumbs": [
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>异质性与个体因果效应</span>"
     ]
   },
   {
-    "objectID": "chapters/19-heterogeneity.html#增益建模的验证",
-    "href": "chapters/19-heterogeneity.html#增益建模的验证",
+    "objectID": "chapters/19-heterogeneity.html#增益模型的评估与临床决策价值",
+    "href": "chapters/19-heterogeneity.html#增益模型的评估与临床决策价值",
     "title": "19  异质性与个体因果效应",
-    "section": "19.6 增益建模的验证",
-    "text": "19.6 增益建模的验证\n待补充。",
+    "section": "19.6 增益模型的评估与临床决策价值",
+    "text": "19.6 增益模型的评估与临床决策价值\n与标准预后预测模型不同，增益模型没有可逐例观测的“真实治疗效应”标签：每位患者只观察到其实际接受治疗下的一个结局。因此，不能以预测概率模型的常规方法直接验证 ITE。评价应在独立的随机试验数据，或满足无混杂等因果识别条件的观察性数据中进行，并明确评估的是给定协变量下的预测 CATE。\n第一类评估关注临床决策价值。假设内窥镜资源有限，只能为一定数量的患者提供治疗；可将基于预测增益选择患者的策略，与治疗全部患者、治疗无人、随机分配或其他临床规则进行比较。比较必须在开发模型之外的留出集、交叉验证框架或外部队列中完成，且应估计各策略下的结局、治疗危害、资源消耗和不确定性。仅在建模数据内按预测增益排序后再计算累计“增益”，会产生乐观偏倚，不能证明模型可改善实际结局。\n\n\n\n\n\n\n注记代码19.10\n\n\n\n\n\n. gsort -ITE\n. gen cum_ITE = sum(ITE)\n. list cum_ITE in 50\n. gen order_random = runiform()\n. gsort order_random\n. gen cum_ITE_random = sum(ITE)\n. list cum_ITE_random in 50\n\n\n\n下表列出给予 50、100 和 200 名患者治疗时的示例性累计增益。随机策略下不同模型的结果接近总体平均治疗效应乘以治疗人数；按模型排序的策略在本数据中显示出更高的表观增益。但这些数值来自演示性数据，若排序与结局在同一数据中形成，只能作为开发阶段的表观性能，不能据此认定 T-learner 优于其他模型或已经具备临床应用价值。应在独立验证数据中同时报告策略效应及其置信区间。\n\n\n\n\n\n\n注记代码19.10输出\n\n\n\n\n\n\n增益模型策略\nS-learner\nT-learner\nX-learner\nCausal forest\n\n\n\n\n50例\n9.74\n15.09\n14.07\n12.81\n\n\n100例\n19.45\n28.25\n26.55\n24.15\n\n\n200例\n38.58\n51.88\n48.77\n44.05\n\n\n随机策略\n\n\n\n\n\n\n50例\n7.56\n7.37\n8.20\n7.40\n\n\n100例\n15.53\n16.34\n16.14\n15.20\n\n\n200例\n31.04\n32.51\n32.53\n29.49\n\n\n\n\n\n第二类评估考察预测获益的校准和区分度。校准可按预测增益分组，在每一组内比较随机治疗组与对照组的观察结局差异，并绘制预测获益与观察平均获益的关系。区分度可采用 c-for-benefit：在治疗分配不同、但基线特征相近的患者对中构造观察获益，再检验模型是否能把观察获益较大的患者对赋予更高预测获益。此指标依赖匹配方式和结局定义，且配对观察获益本身存在随机误差；因此应报告匹配规则、置信区间和敏感性分析。c-for-benefit 反映排序能力，不能单独证明模型具有临床净获益。\n除校准与区分度外，还应评估临床应用后的净获益。可在预先设定的资源阈值下，比较“按模型优先治疗”“全部治疗”“均不治疗”等策略的预期结局，并将并发症、费用、可及性和患者偏好纳入决策权衡。若模型拟用于真实临床流程，最好进一步开展时间外、地域外验证，并在条件允许时进行前瞻性影响研究。\n异质性分析还应检查公平性与可推广性：在不同年龄、性别、疾病严重程度和医疗中心中，治疗重叠性是否充分，预测获益是否校准，模型驱动的分配是否可能扩大不公平。缺乏重叠或验证不足时，模型应限制在数据支持的患者范围内使用，而不应对所有符合入组标准者作外推。",
+    "crumbs": [
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>异质性与个体因果效应</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/19-heterogeneity.html#参考文献",
+    "href": "chapters/19-heterogeneity.html#参考文献",
+    "title": "19  异质性与个体因果效应",
+    "section": "参考文献",
+    "text": "参考文献\n\nKent DM, Steyerberg EW, van Klaveren D. Personalized evidence based medicine: predictive approaches to heterogeneous treatment effects. BMJ. 2018;363:k4245. doi:10.1136/bmj.k4245. PMID:30530757.\nRekkas A, Paulus JK, Raman G, et al. Predictive approaches to heterogeneous treatment effects: a scoping review. BMC Med Res Methodol. 2020;20:264. doi:10.1186/s12874-020-01145-1. PMID:33096986.\nWager S, Athey S. Estimation and inference of heterogeneous treatment effects using random forests. J Am Stat Assoc. 2018;113(523):1228-1242. doi:10.1080/01621459.2017.1319839.\nKent DM, Paulus JK, van Klaveren D, et al. The Predictive Approaches to Treatment effect Heterogeneity (PATH) Statement. Ann Intern Med. 2020;172(1):35-45. doi:10.7326/M18-3667. PMID:31711134.\nKünzel SR, Sekhon JS, Bickel PJ, Yu B. Metalearners for estimating heterogeneous treatment effects using machine learning. Proc Natl Acad Sci U S A. 2019;116(10):4156-4165. doi:10.1073/pnas.1804597116. PMID:30770453.\nvan Klaveren D, Steyerberg EW, Serruys PW, Kent DM. The proposed concordance-statistic for benefit provided a useful metric when modeling heterogeneous treatment effects. J Clin Epidemiol. 2018;100:132-141. doi:10.1016/j.jclinepi.2017.10.021. PMID:29132832.\nvan Klaveren D, Balan TA, Steyerberg EW, Kent DM. Models with interactions overestimated heterogeneity of treatment effects and were prone to treatment mistargeting. J Clin Epidemiol. 2019;114:72-83. PMID:31195109.",
     "crumbs": [
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>异质性与个体因果效应</span>"
     ]
@@ -1134,17 +1324,27 @@
     "href": "chapters/20-sequential-decisions.html",
     "title": "20  序贯决策方案",
     "section": "",
-    "text": "20.1 强化学习的基本概念\n待补充。",
+    "text": "20.1 强化学习的基本概念\n序贯决策（动态治疗方案，dynamic treatment regime，DTR）是由一系列按时间顺序执行的决策规则组成的策略：每一阶段的治疗选择依赖于该时点及既往可获得的患者信息，同时又可能改变后续状态、治疗选择和最终结局。临床问题的目标不是在每个时点孤立地选择“当下最好”的治疗，而是在预先定义的患者重要结局、治疗负担和安全约束下，使整个治疗轨迹的预期净获益最大。DTR 可作为临床决策支持的一种形式，但必须以清晰的临床问题、可识别的因果效应和可验证的策略表现为基础，而非仅由既往医疗经验或算法预测性能决定。\n例如，外伤性颅脑损伤患者出现颅内压增高时，临床可考虑高渗盐水、机械通气或镇静等措施。医生会依据患者在不同阶段的神经状态、生命体征、既往治疗和不良反应决定下一步方案；早期选择还可能影响之后的状态与可选治疗。因此，序贯治疗策略应明确每个决策时点、可用信息、候选治疗、升级/停药规则及兼顾短期稳定与长期预后的结局。\n在计算机科学中，强化学习（reinforcement learning，RL）研究如何通过与环境交互学习连续决策策略。智能体依据状态选择行动、获得奖励并据此更新策略，目标是优化预先定义的累计回报。临床 DTR 与强化学习在“多阶段、依赖历史信息的决策”上相通，但二者并不等同：临床研究还必须处理治疗分配的因果识别、时间变化混杂、缺失与删失、可行性及患者安全。\n强化学习可借助“状态—行动—奖励—策略”的框架描述连续决策，但临床应用不应把患者简单视为可反复试错的环境。其目标不是仅预测下一步会发生什么，而是在明确的因果假设和临床约束下，比较不同治疗策略下的预期结局。应用于临床医学时，通常至少需要明确以下要素：\n患者在时间 t 的状态或可用历史：H_t（可包括 S_t 及既往治疗、反应和测量信息）\n患者在时间 t 接受的治疗或行动：A_t\n治疗后的即时反馈或奖励：R_t\n动态治疗策略：π，即由 H_t 映射到行动 A_t 的规则\nS_t 可理解为某一时点的患者指标集合，如生命体征、实验室检查和症状；H_t 则更完整地包含截至该时点的可用历史。A_t 是该时点实际接受的一种或多种治疗；R_t 是治疗后的即时反应或预先规定的奖励。策略 π 是根据 H_t 推荐 A_t 的规则。临床策略的“奖励”应由患者重要结局、治疗伤害和资源负担共同定义，而不能只由易获得的代理指标决定。\n强化学习根据数据来源可以分为以下两类：\n在线学习指策略在部署过程中依据新获得的数据不断更新。直接在患者身上探索治疗的风险和伦理约束很高，通常只可能在严格方案、监测规则和伦理审查下实施。适应性临床试验或反应适应性随机化可以借鉴其思想，但其设计、随机化概率更新和推断方法必须预先规定，不能简单理解为“根据前一位患者的结局决定下一位患者的治疗”。\n离线学习（off-policy learning）利用既往随机试验或观察性数据学习策略，而不在学习阶段改变患者治疗。它更贴近多数临床数据库研究，但只能在数据支持的状态—治疗组合内可靠学习；若历史治疗选择受未测量因素影响，或某些治疗几乎从未给予特定患者，离线算法的价值估计和推荐可能产生严重偏倚。\n根据训练的方法又可以将强化学习分为以下几类：\n基于策略的方法直接参数化或搜索决策规则，并输出不同干预的选择概率或确定性推荐；其效果取决于策略空间、约束和价值评估是否合理。\n基于价值的方法估计状态—行动价值函数，再选择预期累计回报最高的行动；Q-learning 属于这一类。价值函数的高低不是观察到的因果效应本身，而是在模型、数据和识别假设下对策略价值的估计。\n无模型方法不显式建立状态转移和奖励生成机制，而是直接从经验轨迹估计价值或策略；这并不免除对数据质量、重叠性和因果识别的要求。\n有模型方法显式估计状态转移与奖励机制，并在模型中模拟不同干预路径以比较策略。模型错设、未测量变量和分布漂移会使模拟结果偏离真实临床后果，因此应进行模型诊断、敏感性分析和外部验证。",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>序贯决策方案</span>"
     ]
   },
   {
-    "objectID": "chapters/20-sequential-decisions.html#统计性强化学习",
-    "href": "chapters/20-sequential-decisions.html#统计性强化学习",
+    "objectID": "chapters/20-sequential-decisions.html#强化学习的基本概念",
+    "href": "chapters/20-sequential-decisions.html#强化学习的基本概念",
     "title": "20  序贯决策方案",
-    "section": "20.2 统计性强化学习",
-    "text": "20.2 统计性强化学习\n待补充。",
+    "section": "",
+    "text": "图20.2 强化学习基本概念\n\n\n\n\n在线学习（On-Policy）\n\n\n\n离线学习（Off-Policy）\n\n\n\n\n基于策略的强化学习（Policy based）\n\n\n\n基于值的强化学习（Value based）\n\n\n\n无模型的强化学习\n\n\n\n有模型的强化学习",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>序贯决策方案</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/20-sequential-decisions.html#统计学强化学习",
+    "href": "chapters/20-sequential-decisions.html#统计学强化学习",
+    "title": "20  序贯决策方案",
+    "section": "20.2 统计学强化学习",
+    "text": "20.2 统计学强化学习\n统计学中的动态治疗方案方法将单阶段治疗比较扩展到多阶段决策。顺序多重分配随机试验（sequential multiple assignment randomized trial，SMART）在预先规定的关键节点对符合条件的患者再次随机分配，可高效比较嵌入式 DTR。Q-learning、A-learning、边际结构模型、g 公式和结构嵌套模型等方法可用于随机或观察性纵向数据；在观察性数据中，结论还依赖序贯可交换性、正值性、一致性及正确处理删失等假设。\nQ 函数可理解为在给定历史 H_t 下采取行动 A_t，并在之后遵循某一策略时的预期累计临床回报。在单阶段研究中，它可退化为给定协变量下不同治疗的预期结局；在多阶段研究中，Q 值必须纳入后续最优或规定策略下的回报，因而不能把它简单等同于某一次治疗的孤立因果效应。\n公式20.1\n\\[Q^{opt}(H,A) = E\\lbrack Y|H,A\\rbrack\\]\n多阶段干预的目标是在预先定义的时间范围内选择使策略价值最大的治疗序列。对每个阶段，比较的不是该阶段即时 Q 值，而是该阶段行动及后续行动共同决定的累计回报；这也是通常采用从最后阶段向前递推（backward induction）的原因。\n在两阶段随机或观察性研究中（图20.3），可记第一阶段的基线/历史、治疗与阶段性反应为 H_1、A_1、R_1，第二阶段的历史、治疗与结局为 H_2、A_2、Y。H_2 应包括截至第二次决策前可获得的基线状态、第一阶段治疗和中间反应/测量。随机试验中，各阶段随机化使相应治疗在已知历史条件下可比较；观察性研究中，若 A_2 同时受既往治疗、病情变化和医生判断影响，则这些共同原因必须被充分测量并纳入序贯混杂控制。\n两阶段的序贯决策规则记为 d_1、d_2。最后阶段的规则选择使给定 H_2 时预期结局最优的 A_2；第一阶段规则则选择使第一阶段后、并在其后遵循 d_2 时的预期累计回报最优的 A_1。据此可定义两阶段的 Q 方程：\n公式20.2\n\\[Q_{2}^{opt}\\left( H_{2},A_{2} \\right) = E\\lbrack Y_{2}|H_{2},A_{2}\\rbrack\\]\n\\[Q_{1}^{opt}\\left( H_{1},A_{1} \\right) = E\\lbrack Y_{1} + \\max_{A_{2}}Q_{2}^{opt}(H_{2},A_{2})|H_{1},A_{1}\\rbrack\\]\n若两个 Q 方程已知或被可靠估计，可在每个可观测历史下选择 Q 值最大的行动，组成候选最优治疗策略。应同时报告策略的适用范围、估计不确定性和对未测量混杂/模型设定的敏感性。\n公式20.3\n\\[d_{1}^{opt} = arg\\max_{A_{1}}{Q_{1}^{opt}(H_{1},A_{1})}\\]\n\\[d_{2}^{opt} = arg\\max_{A_{2}}{Q_{2}^{opt}(H_{2},A_{2})}\\]\n\n\n图20.3 多阶段干预的混杂\n\n\n20.2.1 案例20.1\n这是一个序贯多重分配随机试验，基线状况记录受试者的性别（gender）、种族（race）、体重指数（baselineBMI）以及父母体重指数（parentBMI）。该实验分两个阶段，第一阶段首先将患者随机分配到为干预组（A1表示，替餐组，MR）和对照组（A2表示，常规饮食组，CD），四个月后记录受试者的体重指数（month4BMI）；第二阶段重新进行随机分配，十二个月后记录受试者的体重指数（month12BMI）。\n\n\n20.2.2 案例20.1数据表\n\n\n\n\n\n\n\n\n\n\n\n\n\ngender\nrace\nparentBMI\nbaselineBMI\nmonth4BMI\nmonth12BMI\nA1\nA2\n\n\n\n\n0\n1\n31.5968318\n35.8400506\n34.2271673\n34.2726268\nCD\nMR\n\n\n1\n0\n30.1756357\n37.3039587\n36.3801392\n36.3840057\nCD\nMR\n\n\n1\n0\n30.2791806\n36.8388927\n34.4216825\n34.4144739\nMR\nCD\n\n\n1\n0\n27.492564\n36.7067889\n32.5201128\n32.5239747\nCD\nCD\n\n\n1\n1\n26.4235031\n34.8420685\n33.7292175\n33.735464\nCD\nCD\n\n\n…\n…\n…\n…\n…\n…\n…\n…\n\n\n\n临床问题是第一阶段和第二阶段采用何种干预措施才能使体重指数得到明显下降。统计学强化学习采用两步回归方法，首先将第二阶段结局（12个月体重指数与4个月体重指数变化幅度，正值代表减重、负值代表增重）对第二阶段决策以及第二阶段患者的治疗历史回归。\n公式20.4\n\\[Y_{2} = \\varepsilon_{0} + \\beta_{21}*A_{1} + \\beta_{22}*A_{1}*S_{1} + \\beta_{23}*A_{2} + \\beta_{24}*A_{2}*S_{2} + \\beta_{25}*S_{1} + \\beta_{26}*S_{2}\\]\n纳入第一阶段随机分配与基线和第二阶段随机分配治疗与第二次分配前基线的交互项。回归模型建立后代入第二阶段治疗的值计算第二阶段的最大Q值，并加上第一阶段随机分配后的结局以计算第一阶段随机分配后的假结局：\n公式20.5\n\\[{\\widehat{Y}}_{1} = Y_{1} + \\widehat{Y_{2}} = Y_{1} +\\]\n\\[\\max_{{Treatment}_{2}}\\begin{array}{r}\n\\left( \\varepsilon_{0} + \\beta_{21}*A_{1} + \\beta_{22}*A_{1}*S_{1} + \\beta_{23}*A_{2} + \\beta_{24}*A_{2}*S_{2} + \\beta_{25}*S_{1} + \\beta_{26}*S_{2} \\right)\n\\end{array}\\]\n用第一的假结局对第一次治疗历史做回归：\n公式20.6\n\\[{\\widehat{Y}}_{1} = \\varepsilon_{0} + \\beta_{11}*A_{1} + \\beta_{12}*A_{1}*S_{1} + \\beta_{13}*S_{1}\\]\n最后得出第一次和第二次治疗的最优策略：\n公式20.7\n\\[d_{2}^{opt} = \\underset{{Treatment}_{2}}{argmax}\\widehat{Y_{2}}\\]\n\\[d_{1}^{opt} = \\underset{{Treatment}_{1}}{argmax}\\widehat{Y_{1}}\\]\n\n\n\n\n\n\n注记代码20.1\n\n\n\n\n\n. gen y12 = -100*(month12bmi - month4bmi)/month4bmi\n. gen A1 = (a1 == \"MR\")\n. gen A2 = (a2 == \"MR\")\n. reg y12 A2 A1 A2#c.month4bmi A1#c.baselinebmi c.month4bmi c.baselinebmi\n\n\n\n\n\n\n\n\n\n注记代码20.1输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSource\nSS\ndf\nMS\nNumber of obs\n=\n210\n\n\n\n\nModel\n12.3427503\n6\n2.057125\nF(3, 32)\n=\n90.80\n\n\nResidual\n.4.60417904\n203\n.02268068\nProb &gt; F\n=\n0.0000\n\n\nTotal\n16.9469294\n209\n.08108578\nR-squared\n=\n0.7283\n\n\n\n\n\n\nAdj R-squared\n=\n0.7203\n\n\n\n\n\n\nRoot MSE\n=\n.1506\n\n\nrate\nCoefficient\nStd. err.\nt\nP&gt;|t|\n[95% conf. interval]\n\n\n\nA2\n-4.201988\n.1825362\n-23.02\n0.000\n-4.56189\n-3.84207\n\n\nA1\n-.1950291\n.2126561\n-0.92\n0.360\n-.6143272\n.224269\n\n\nA2#\nc.month4bmi\n.1176601\n.0051116\n23.02\n0.000\n.1075816\n.1277387\n\n\nA1#\nc.baselinebmi\n.0057149\n.0055766\n1.02\n0.307\n-.0052807\n.0167104\n\n\nmonth4bmi\n-.0570188\n.0043428\n-13.13\n0.000\n-.0655816\n-.048456\n\n\nbaselinebmi\n.0005309\n.0047231\n0.11\n0.911\n-.0087816\n.0098434\n\n\n_cons\n1.963313\n.174191\n11.27\n0.000\n1.619858\n2.306769\n\n\n\n\n\n结果提示：在该回归模型和示例数据中，第二阶段替餐相对常规饮食与更大的体重指数下降相关（A2 系数为 -4.2，P&lt;0.001）；4 个月时体重指数与之后体重变化有关（month4BMI 系数为 -0.06，P&lt;0.001）。A2 与 month4BMI 的交互项系数为 0.12（P&lt;0.001），提示第二阶段治疗效应可能随 4 个月时体重指数而变化。这里的终点是 4 至 12 个月的体重指数变化，而不是“12周”的变化；具体临床解释还应与变量编码及结局方向一致。\n可进一步观察两种第二阶段治疗下，4 个月时体重指数与随后体重变化的模型预测关系。图形提示在当前模型中，4 个月时体重指数约低于 35 的受试者在常规饮食下的预测变化较优，而高于 35 者在替餐下的预测变化较优。该阈值来自示例性模型，不应视为可直接推广的临床切点；应在独立数据中评估其稳定性和策略价值。\n\n\n\n\n\n\n注记代码20.2\n\n\n\n\n\n. twoway (scatter y12 month4bmi), by(a2)\n\n\n\n\n\n\n\n\n\n注记代码20.2输出：第二阶段干预措施与4周体重指数的交互\n\n\n\n\n\n\n\n\n第二步，将第二阶段回归模型分别代入替餐和常规饮食的取值，计算两种行动下的预测体重变化，并取较优值作为第二阶段的预测最优 Q 值；再与第一阶段至第二阶段的变化合并，构造第一阶段的伪结局。此递推过程要求结局方向、治疗编码与“较优”的定义保持一致。\n\n\n\n\n\n\n注记代码20.3\n\n\n\n\n\n. replace A2=1\n. predict y1_A2_1\n. replace A2=0\n. predict y1_A2_0\n. gen y01 = -100*(month4bmi - baselinebmi)/baselinebmi\n. gen y1_hat = y01 + max(y1_A2_1, y1_A2_0)\n\n\n\n最后，将第一阶段伪结局对第一阶段治疗、基线变量及预先规定的交互项进行回归，以估计第一阶段的候选决策规则。\n\n\n\n\n\n\n注记代码20.4\n\n\n\n\n\n. reg y1_hat A1 A1#c.parentbmi A1#c.baselinebmi c.parentbmi c.baselinebmi\n\n\n\n\n\n\n\n\n\n注记代码20.4输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSource\nSS\ndf\nMS\nNumber of obs\n=\n210\n\n\n\n\nModel\n6623.3245\n5\n1324.6649\nF(3, 32)\n=\n46.22\n\n\nResidual\n5846.1556\n204\n28.657625\nProb &gt; F\n=\n0.0000\n\n\nTotal\n12469.480\n209\n59.662584\nR-squared\n=\n0.5312\n\n\n\n\n\n\nAdj R-squared\n=\n0.5197\n\n\n\n\n\n\nRoot MSE\n=\n5.3333\n\n\nrate\nCoefficient\nStd. err.\nt\nP&gt;|t|\n[95% conf. interval]\n\n\n\nA1\n9.741562\n7.707874\n1.26\n0.208\n-5.455751\n24.93888\n\n\nA1#\nc.parentbmi\n-1.241542\n.1411901\n-8.79\n0.000\n-1.519921\n-.963163\n\n\nA1#\nc.baselinebmi\n.7835519\n.214443\n3.65\n0.000\n.3607431\n1.206361\n\n\nparentbmi\n-.0758288\n.1061661\n-0.71\n0.476\n-.2851524\n.1334947\n\n\nbaselinebmi\n.3243268\n.1440423\n2.25\n0.025\n.0403241\n.6083294\n\n\n_cons\n-1.801225\n5.032545\n-0.36\n0.721\n-11.7237\n8.121247\n\n\n\n\n\n结果提示：在该模型中，第一阶段治疗的总体主效应没有统计学证据；但基线体重指数和父母体重指数与治疗的交互项具有统计学证据。交互项的发现应结合效应大小、区间估计、模型选择过程和独立验证解释，不能仅以 P 值决定个体化治疗。\n可分别观察两种第一阶段治疗下，基线体重指数及父母体重指数与伪结局的模型预测关系。当前示例提示基线体重指数较高时替餐的预测效果较好，而父母体重指数较高时替餐的预测效果较差。该结论是本样本、该模型和该结局定义下的候选规则；在临床使用前需进行样本外验证并评估可操作性与潜在伤害。\n\n\n\n\n\n\n注记代码20.5\n\n\n\n\n\n. twoway (scatter y1_hat baselinebmi), by(a1)\n. twoway (scatter y1_hat parentbmi), by(a1)\n\n\n\n\n\n\n\n\n\n注记代码20.5输出：基线体重指数以及父母体重指数与第一阶段干预的交互",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>序贯决策方案</span>"
     ]
@@ -1154,7 +1354,7 @@
     "href": "chapters/20-sequential-decisions.html#随时间变动的治疗和混杂",
     "title": "20  序贯决策方案",
     "section": "20.3 随时间变动的治疗和混杂",
-    "text": "20.3 随时间变动的治疗和混杂\n待补充。",
+    "text": "20.3 随时间变动的治疗和混杂\n以上两步回归以顺序随机化的试验为背景，因此在正确执行随机化且处理失访后，各阶段治疗在既往历史条件下可比较。观察性纵向数据中，疾病状态和中间指标常同时影响后续治疗与结局，且这些指标又可能受到既往治疗影响，形成时间变化混杂；此时仅在常规回归、混合模型或广义估计方程中直接调整中间变量，通常不能估计所关心的动态策略总效应。\n本书已介绍回归与倾向评分等控制混杂的方法；但当时间变化协变量既受既往治疗影响，又影响后续治疗和结局时，直接条件化可能产生两类问题：一是阻断既往治疗经该协变量作用于结局的路径，导致总效应估计改变；二是在不恰当的结构中条件化可引入选择偏倚。正确处理应先用因果图和时间顺序明确研究问题与估计目标，而不是机械地“把所有随访变量都调进去”。图号应为图20.3。\n处理受既往治疗影响的时间变化混杂，需要详细的纵向治疗、协变量、结局和删失数据，并明确比较的静态或动态策略。逆概率加权边际结构模型、参数 g 公式与结构嵌套模型的 g 估计统称为 g 方法。它们在一致性、序贯可交换性、正值性和模型/估计器条件成立时，可用于估计“总是治疗/从不治疗”或“当 CD4 低于某阈值时开始治疗”等策略的反事实结局；这些假设不能仅由统计模型本身检验。\n\n逆概率加权\n\n研究随时间变动的治疗时，比较对象通常是完整的治疗策略，而非孤立的一次治疗。例如，“基线 BMI 大于35 时给予替餐，4个月后 BMI 小于35 时改为常规饮食”是一种动态策略。若案例20.1来自观察性数据，则应先明确每个策略的决策时点、允许治疗、测量频率与结局；随后可用逆概率加权、g 公式或其他适当方法控制时间变化混杂。\n公式20.8\n\\[W^{\\overline{A}} = \\ \\frac{1}{Pr(A_{1}|S_{1})}*\\frac{1}{\\Pr\\left( A_{2} \\middle| {S_{1}{,S}_{2},A}_{1} \\right)}\\]\n\\[{SW}^{\\overline{A}} = \\ \\frac{\\Pr(A_{1})}{\\Pr\\left( A_{1} \\middle| S_{1} \\right)}*\\frac{Pr(A_{2}{|A}_{1})}{Pr(A_{2}|{S_{1}{,S}_{2},A}_{1})}\\]\n上述权重可扩展至多个时间点，并通常包含治疗与删失机制。估计时应检查每个时点的治疗概率、权重分布和极端权重；极端或不稳定权重常提示正值性不足或模型错设。截尾、稳定化或改变目标人群可降低方差，但会改变估计目标或引入偏倚，必须预先说明并做敏感性分析。\n公式20.9\n\\[W^{\\overline{C}} = \\frac{1}{Pr(C_{2}|{S_{1}{,S}_{2},A}_{1},A_{2})}\\]\n\\[{SW}^{\\overline{C}} = \\frac{Pr(C_{2}|A_{1},A_{2})}{Pr(C_{2}|{S_{1}{,S}_{2},A}_{1},A_{2})}\\]\n治疗与删失权重相乘可构造加权的伪总体；在正确的权重模型及识别假设下，既往测量的时间变化混杂在该伪总体中不再预测后续治疗分配。加权分析不是“没有混杂”的证明，仍须报告权重诊断、协变量平衡、有效样本量及对模型设定的敏感性。\n为提高效率，可在加权的边际结构模型中纳入基线协变量，但不应再以会受既往治疗影响的随访协变量作为普通调整变量来估计策略总效应。置信区间可采用稳健/夹心方差或自助法；当存在克隆—删失—加权、重复入组或复杂抽样时，方差估计应与分析设计相匹配。\n多中心艾滋病队列的经典示例显示，针对时间变化混杂的加权 Cox 模型与常规时间依赖 Cox 模型可给出不同的效应估计。差异本身并不能证明哪一个结果“天然正确”，而是提醒研究者：必须明确目标策略、检查权重和可比性，并将结果放在相应因果假设下解释。\n\n参数G公式\n\n参数 g 公式是一种基于纵向标准化与模型模拟的方法，用于估计每个预先规定治疗策略下的平均反事实结局。它需要建模随访期间协变量、治疗、删失和结局的条件分布，再在“所有参与者遵循某策略”的模拟世界中递推生成后续协变量与结局。可通过蒙特卡洛模拟得到风险、均值或生存概率，并通常用非参数自助法构建区间；其可靠性取决于模型设定、数据支持和识别假设。\n\nG估计\n\ng 估计通常用于结构嵌套均值模型或结构嵌套失效时间模型。其基本思想是寻找一个因果效应参数，使在“去除”既往治疗效应后的反事实结局与实际治疗分配在既往历史条件下独立。它可处理时间变化混杂，但需要明确结构模型和治疗模型，且结果解释与实现相对复杂。\ng 估计的应用可用于在存在时间变化混杂时研究肥胖、代谢因素与冠心病等长期关系。与常规时间依赖回归估计不同的结果，往往反映两类方法对应的因果问题和调整方式不同；应报告目标策略、模型形式、诊断与敏感性分析，而不应把单一数值差异简单归因于“传统模型一定有偏”。\n下表总结了三种G方法的优点和缺点。\n表20.1 三种G方法的优缺点\n\n\n\n\n\n\n\n\n\n优点\n缺点\n\n\n\n\n逆概率加权\n类似于常规的逆概率加权法，简单易懂；几乎所有的统计软件都有；当干预分配的原因是已知时（如，存在适应症混淆的情况）是有用的。\n如果存在所有参与者都有的混杂因素，则不能使用；在存在极端权重的情况下不稳定；对于研究干预和时间变化的混杂物之间的交互作用不太有用。\n\n\n参数G方程\n研究对多个风险因素的联合干预和取决于变化的风险因素的干预措施（动态干预）的理想选择；可计算出相对风险比和风险差。\n需耗费计算力，需要额外的编程，并可能导致拟合问题；需要混杂因素和结局的模型；受到G零悖论 的影响：在足够大的样本中，该方法拒绝零假设，即使真实情况下因果效应确实为零的，所以只能用于干预确实有效的情况。\n\n\nG估计\n即使存在所有参与者都有的混杂因素，也可以使用该方法；对于研究干预和时间变化的混杂物之间的交互作用很有用。\n需耗费计算力，需要额外的编程，并可能导致拟合问题；方法和产生的效应变量有些难以理解",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>序贯决策方案</span>"
     ]
@@ -1164,7 +1364,7 @@
     "href": "chapters/20-sequential-decisions.html#计算性强化学习",
     "title": "20  序贯决策方案",
     "section": "20.4 计算性强化学习",
-    "text": "20.4 计算性强化学习\n待补充。",
+    "text": "20.4 计算性强化学习\n统计学 Q-learning 常从两阶段例子讲起，但也可扩展到更多阶段；真正困难在于治疗历史、状态和行动空间随阶段数增长而迅速增大，简单参数回归可能不稳定或难以充分表达非线性与交互。计算性强化学习尝试用函数逼近、动态规划或深度学习处理高维、多阶段问题，但其预测能力不自动带来临床策略的因果有效性。\n\n马科夫决策过程（Markov Decision Process）\n\n强化学习的常用模型，马尔可夫决策过程是一个五元组，其中\nS 是状态空间；在临床中可为离散状态，也可为连续、高维的患者历史表示；\nA 是行动/治疗空间；应明确可行治疗、剂量范围与安全约束；\nP 是状态转移机制，例如在时间 t 的状态为 S_t、采取行动 A_t 后进入 S_{t+1} 的条件分布；\nR 是状态转移后得到的即时奖励或其期望；奖励应反映患者重要获益与伤害；\nγ 是折现系数，用于规定不同时间点回报的相对权重；临床分析中应由研究时限和临床价值设定，而不能仅为算法收敛方便而任意选择。\n\n贝尔曼方程（Bellman function）\n\n在给定策略下，可先评估状态—行动价值函数；再依据该函数选择当前状态下的候选行动。若用于临床，该优化还应受安全、可行性、公平性和不确定性约束，并与真实可实施的治疗规则一致。\nQ-learning 通过贝尔曼最优性方程递推估计状态—行动的累计价值：即时奖励加上下一状态可获得的最优折现回报。该递推依赖状态表示足以概括与未来有关的历史；在医疗数据中这一假设常不完全满足，因此应明确历史窗口、缺失处理和部分可观测性带来的风险。\n公式20.10\n\\[Q(S,A) = R_{t} + \\gamma*maxQ(S_{t + 1},A_{t + 1})\\]\n折现因子 γ 体现即时与未来回报的相对权重。若状态和行动空间有限，表格型 Q-learning 可迭代更新 Q 表；但临床数据常具有连续、高维、缺失和不规则测量等特征，通常需要函数逼近。维度增加会使估计不稳定、加重分布外行动的外推风险，不能仅因算法收敛就认为策略安全有效。\n计算性强化学习可处理多阶段、多治疗和高维数据，并已在重症、血液透析、HIV、抗凝和糖尿病等场景中被探索。此类研究多数属于回顾性方法学或决策支持探索；当训练数据中存在未测量混杂、治疗重叠不足、奖励错设或医院间流程差异时，学得策略可能不具备可迁移性。所需样本量取决于状态—行动空间、有效重叠和策略复杂度，不能以“数据量大”替代严格验证。",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>序贯决策方案</span>"
     ]
@@ -1174,7 +1374,7 @@
     "href": "chapters/20-sequential-decisions.html#因果强化学习",
     "title": "20  序贯决策方案",
     "section": "20.5 因果强化学习",
-    "text": "20.5 因果强化学习\n待补充。",
+    "text": "20.5 因果强化学习\n传统强化学习侧重于从观察到的轨迹中优化状态—行动的预测价值，却不必然回答“若改用另一种治疗策略，结局会怎样”的因果问题。在医疗数据中，医生往往依据病情严重度、治疗偏好和难以测量的临床信息选择治疗，这些因素也影响结局；若不处理这种混杂，算法可能把临床处置模式误学为最优策略。\n因果强化学习尝试将结构因果模型、目标试验或 g 方法的识别思想嵌入策略学习。例如，可明确治疗、时间变化协变量、删失与结局的因果图，再估计不同策略下的反事实价值。其关键不是在训练中加入一个“因果系数”，而是明确估计目标、处理时间顺序与混杂、检验数据支持并量化不确定性。\n公式20.11\n\\[C\\left( Y|do(X) \\right) = P\\left( Y|X = 1 \\right) - P\\left( Y|X = 0 \\right)\\]\n\\[= P(Y \\cap X = 1)*P(X = 1) - P(Y \\cap X = 0)*(1 - P(X = 1))\\]\n因果效应可在满足识别假设时用 g 公式、加权、双重稳健估计或结构嵌套模型等方法估计。因果效应估计为正并不能单凭数值“证明”存在因果关系；仍需依赖研究设计、无未测混杂/随机化、正值性、一致性以及模型诊断。离线因果强化学习在部署前还面临策略分布外外推、奖励错设和未观察混杂等挑战。",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>序贯决策方案</span>"
     ]
@@ -1184,7 +1384,7 @@
     "href": "chapters/20-sequential-decisions.html#强化学习的策略评估",
     "title": "20  序贯决策方案",
     "section": "20.6 强化学习的策略评估",
-    "text": "20.6 强化学习的策略评估\n待补充。",
+    "text": "20.6 强化学习的策略评估\n当强化学习方法给出候选干预策略后，必须评价其表现。医学中的大多数强化学习属于离线学习，无法直接观察“若所有患者都遵循该策略”的结局。离线策略评估（off-policy evaluation，OPE）应使用与策略学习分开的验证数据或嵌套交叉验证，并同时报告价值估计、置信区间、权重/重叠诊断及与临床现行策略的可比较性。\n\n重要性加权（importance sampling，IS）\n\n重要性采样（importance sampling，IS）借鉴逆概率加权思想，利用目标策略与历史行为策略在每个阶段采取实际行动的概率比，对观察到的轨迹回报重新加权。若行为策略概率被正确估计、满足正值性并具有适当的有限方差条件，IS 价值估计可具有无偏或渐近无偏性质；但当目标策略与历史医生策略差异大时，权重会高度不稳定，估计方差可能极大。\n可计算算法策略 e 与历史行为/医生策略 b 所对应的加权平均回报差异。每阶段权重应基于在给定既往历史下，实际行动在目标策略和行为策略中的条件概率；连续剂量、多行动策略和确定性规则会使概率建模及重叠诊断更困难。\n公式20.12\n\\[V^{e} = \\frac{1}{N}\\sum_{n = 1}^{N}{w_{n}^{e}R_{n}}\\ \\ \\ \\ \\ \\ \\ \\ w_{n}^{e} = \\prod_{t = 1}^{k}\\frac{1}{\\Pr_{e}(A_{t}|S_{t})}\\]\n\\[V^{b} = \\frac{1}{N}\\sum_{n = 1}^{N}{w_{n}^{b}R_{n}}\\ \\ \\ \\ \\ \\ \\ \\ \\ w_{n}^{b} = \\prod_{t = 1}^{k}\\frac{1}{\\Pr_{b}(A_{t}|S_{t})}\\]\n其中 N 为患者数；策略价值估计依赖于观察到的累计奖励、实际行动轨迹及目标/行为策略概率。应注意，行为策略概率通常需要从数据估计，不能把医生实际选择的频率直接当作充分的因果校正。\n\nPU学习法\n\nPU（positive-unlabeled）学习利用“已标记为阳性”和“未标记”样本进行半监督分类。它可在奖励为二分类、阳性结果稀少的特定设定下作为探索性工具，但不是临床离线策略评估的通用替代方法；其标签机制、类别先验、行为策略和因果识别假设均需明确。\n在二分类奖励示例中，可将与成功结局相关的观察到行动称为“阳性”行动，将缺少成功标签的行动视为未标记。然而，观察到成功或失败不等于该行动必然导致成功或失败，因为患者基础风险、治疗选择和未测量因素可能不同。任何基于此类标签的策略推荐都应接受因果诊断与独立验证。",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>序贯决策方案</span>"
     ]
@@ -1194,429 +1394,19 @@
     "href": "chapters/20-sequential-decisions.html#强化学习的局限性",
     "title": "20  序贯决策方案",
     "section": "20.7 强化学习的局限性",
-    "text": "20.7 强化学习的局限性\n待补充。",
+    "text": "20.7 强化学习的局限性\n强化学习在医疗研究中的应用增加，但其价值取决于问题定义、数据生成过程、因果识别与临床验证。以下问题尤其应在阅读文献和实际应用时透明报告与尽可能改进：\n\n反馈的定义\n\n将强化学习用于医疗的第一步，是在临床、患者和方法学团队共同参与下定义状态、治疗、决策时间点、奖励和安全边界。状态应区分基线信息、既往治疗、随访测量与缺失机制；未记录的医生判断、资源可及性或患者偏好都可能同时影响治疗与结局。连续剂量的离散化、测量频率与延迟、以及缺失值处理应预先规定并做敏感性分析。\n奖励函数是最重要也最易被错设的环节之一。脓毒症等急危重症中，临床决策需在短期生理稳定、并发症、舒适度与长期生存之间权衡；若只使用单一长期终点，算法可能忽略有临床意义的中间伤害或产生不合常规的治疗建议。奖励应由临床专家和患者价值共同制定，明确各结局的方向与权重，并对不同合理定义进行敏感性分析。\n\n治疗重叠性\n\n与其他因果研究一样，正值性/重叠性是离线策略学习的基本限制：对每一种由策略可能推荐的状态—行动组合，数据中应有足够概率观察到相应行动。若严重低钠血症患者几乎总被给予高渗盐水，历史数据无法可靠估计“不给予高渗盐水”在相同状态下的后果。算法在缺乏数据支持的区域提出“不行动”等建议属于分布外外推，应通过限制策略空间、设定临床安全规则、报告重叠诊断或重新定义目标人群加以避免。\n\n算法验证\n\n在真实临床环境中部署前，必须系统评价所学策略。内部重抽样或外部数据上的 OPE 只能提供间接证据，且受行为策略建模、未测量混杂和分布漂移影响；不应把“估计总奖励高于医生策略”直接当作临床获益。应进行时间外和地域外验证，评估校准、重叠、亚组安全性、临床可行性与公平性。对高风险或会改变治疗标准的策略，最终需要在严格监督下开展前瞻性影响研究或随机化比较，并设置暂停规则和人工覆盖机制。\n\n马科夫性质\n\n贝尔曼方程常假设当前状态已充分概括与未来有关的历史（马尔可夫性质）。在游戏中这一假设可能近似成立；在医疗中，病程、既往治疗、累积毒性和未记录的临床判断常使其不成立。可通过纳入合理的历史窗口、状态表示学习或部分可观测马尔可夫决策过程缓解，但这些技术并不能恢复未记录的关键混杂信息。\n多时点干预还面临时间变化混杂、治疗依从性、竞争事件和信息性删失。若算法只从观察性轨迹学习相关模式而不以目标试验和因果图界定比较策略，可能把“病情越重越接受强化治疗且结局越差”的关联误解为应避免强化治疗。因果强化学习应与纵向 g 方法、策略价值的敏感性分析及临床安全约束结合，而不能取代它们。\n临床部署前还应建立完整的治理与监测流程：记录训练数据范围、决策逻辑、版本更新、人工覆盖、异常建议和患者结局；对新中心、新设备或临床路径变化进行再校准和再验证。策略的效益、伤害与不平等影响应持续监测，出现分布漂移或安全信号时应暂停或回退到标准治疗流程。\n因此，动态治疗方案研究的推荐工作流是：先以目标试验形式明确目标人群、时间零点、决策节点、候选策略、结局与随访；再用因果图判断时间顺序和混杂；在训练集学习候选规则，在独立数据评价策略价值及不确定性；最后在可行时开展前瞻性影响评估。算法复杂度不能替代透明的研究设计、临床可解释性与患者安全。",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>序贯决策方案</span>"
     ]
   },
   {
-    "objectID": "chapters/21-causal-discovery.html",
-    "href": "chapters/21-causal-discovery.html",
-    "title": "21  因果发现",
-    "section": "",
-    "text": "21.1 因果发现算法及其假设\n待补充。",
-    "crumbs": [
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>因果发现</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/21-causal-discovery.html#基于条件约束的因果发现算法",
-    "href": "chapters/21-causal-discovery.html#基于条件约束的因果发现算法",
-    "title": "21  因果发现",
-    "section": "21.2 基于条件约束的因果发现算法",
-    "text": "21.2 基于条件约束的因果发现算法\n待补充。",
-    "crumbs": [
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>因果发现</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/21-causal-discovery.html#基于模型的因果发现算法",
-    "href": "chapters/21-causal-discovery.html#基于模型的因果发现算法",
-    "title": "21  因果发现",
-    "section": "21.3 基于模型的因果发现算法",
-    "text": "21.3 基于模型的因果发现算法\n待补充。",
-    "crumbs": [
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>因果发现</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/21-causal-discovery.html#基于约束和基于函数混合型方法",
-    "href": "chapters/21-causal-discovery.html#基于约束和基于函数混合型方法",
-    "title": "21  因果发现",
-    "section": "21.4 基于约束和基于函数混合型方法",
-    "text": "21.4 基于约束和基于函数混合型方法\n待补充。",
-    "crumbs": [
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>因果发现</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/21-causal-discovery.html#实例",
-    "href": "chapters/21-causal-discovery.html#实例",
-    "title": "21  因果发现",
-    "section": "21.5 实例",
-    "text": "21.5 实例\n待补充。",
-    "crumbs": [
-      "<span class='chapter-number'>21</span>  <span class='chapter-title'>因果发现</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/10-propensity-score.html#从因果问题到倾向评分设计",
-    "href": "chapters/10-propensity-score.html#从因果问题到倾向评分设计",
-    "title": "10  基于倾向评分的方法",
-    "section": "",
-    "text": "条件可交换性：给定所有足以控制混杂的基线协变量 \\(X\\) 后，潜在结局与实际治疗分配独立；\n重叠性（positivity）：在每个有临床意义的 \\(X\\) 水平，接受两种处理的概率均大于零；\n一致性：处理策略定义明确，观察到的结局等于实际接受该策略下的潜在结局。",
-    "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的方法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/10-propensity-score.html#倾向评分的估计与诊断",
-    "href": "chapters/10-propensity-score.html#倾向评分的估计与诊断",
-    "title": "10  基于倾向评分的方法",
-    "section": "10.2 倾向评分的估计与诊断",
-    "text": "10.2 倾向评分的估计与诊断\n逻辑回归是估计二分类处理倾向评分的常见起点；也可用广义加性模型、随机森林、梯度提升等灵活模型。模型的评价重点不是对治疗分配的预测准确率或 \\(c\\) 统计量，而是调整后协变量是否平衡、是否存在足够重叠，以及权重是否稳定 (Garrido 等 2014年)。\n\n\n\n\n\n\n注记代码10.1\n\n\n\nlogit Treatment k age\npredict ps, pr\n\n\n\n\n\n\n\n\n注记代码10.1输出\n\n\n\n\n\n倾向评分逻辑回归模型\n\n\n\n\n\n\n\n\n\n注记代码10.2\n\n\n\npsmatch2 Treatment k age, logit\npsgraph, bin(40)\n\n\n\n\n\n\n\n\n注记代码10.2输出\n\n\n\n\n\n两组倾向评分的分布\n\n\n\n图10.1中两组的倾向评分主要落在相同区间，提示存在可比较的共同支持区域；但图形只能用于诊断，不能替代协变量平衡检查。若两组分布几乎不重叠，则数据本身不能支持对这些患者进行可靠的因果比较。此时应限制研究人群、改变临床问题，或明确报告效应无法由现有数据识别，而不是依赖外推模型。\n\n\n图10.2 倾向评分重叠较好（左）与较差（右）的情形\n\n协变量选择应由因果知识而非单变量 \\(p\\) 值决定。通常应纳入处理前的共同原因和强结局预测因子；仅强烈预测治疗、却不预测结局的工具变量可能放大极端倾向评分并降低精度。变量的函数形式、非线性项及临床上可信的交互项也应在设计阶段考虑。协变量选择会同时影响偏倚、方差与均方误差 (Brookhart 等 2006年)。\n无论采用何种倾向评分方法，都应报告调整前后的协变量平衡。连续变量可使用标准化均数差（standardized mean difference, SMD），二分类变量可使用标准化比例差，并同时检查方差比与倾向评分分布。实践中常以绝对 SMD 小于 0.10 作为经验性提示阈值，但它不是因果有效性的证明，也不应以治疗组间的显著性检验 \\(p\\) 值代替平衡诊断 (Austin 2009年)。",
-    "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的方法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/10-propensity-score.html#直接将倾向评分加入结局模型",
-    "href": "chapters/10-propensity-score.html#直接将倾向评分加入结局模型",
-    "title": "10  基于倾向评分的方法",
-    "section": "10.3 直接将倾向评分加入结局模型",
-    "text": "10.3 直接将倾向评分加入结局模型\n将倾向评分作为结局模型的协变量是四种经典用法之一。它应被看作一种结局回归调整：需要恰当处理倾向评分与结局的函数关系，通常至少考虑样条或非线性项；只线性加入一个 PS 而不检查平衡，不能保证混杂已被充分控制。对于二分类结局，建议同时报告标准化后的风险、风险差或风险比，避免把条件优势比误解为边际因果效应。\n\n\n\n\n\n\n注记代码10.3\n\n\n\nlogit Outcome Treatment c.ps c.ps#c.ps, vce(robust)\nmargins Treatment\nmargins r.Treatment, pwcompare(effects)\n\n\n\n\n\n\n\n\n注记代码10.3输出\n\n\n\n\n\n在倾向评分上调整后的结局模型\n\n\n\n该策略保留全部样本，但模型仍需正确指定；其估计对象取决于结局模型和标准化方式。若重叠差或效应修饰明显，单纯以 PS 作协变量的模型常不如以明确 estimand 为导向的匹配、加权或双重稳健估计透明。",
-    "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的方法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/10-propensity-score.html#逆概率治疗加权",
-    "href": "chapters/10-propensity-score.html#逆概率治疗加权",
-    "title": "10  基于倾向评分的方法",
-    "section": "10.5 逆概率治疗加权",
-    "text": "10.5 逆概率治疗加权\n逆概率治疗加权（inverse probability of treatment weighting, IPTW）为每位受试者赋予其实际接受治疗概率的倒数权重，从而构造一个协变量分布在两组间相似的伪总体。以 ATE 为目标时，二分类处理的非稳定权重为：\n公式 10.2　ATE 的逆概率权重：处理组\n\\[w_i^{T=1}=\\frac{1}{e(X_i)}\\]\n公式 10.3　ATE 的逆概率权重：对照组\n\\[w_i^{T=0}=\\frac{1}{1-e(X_i)}\\]\n\n\n图10.4 逆概率加权的原理：低概率接受实际治疗者获得较大权重\n\n若某些 PS 接近 0 或 1，IPTW 会产生极大权重，导致有效样本量下降、方差扩大及结果受少数观察值支配。稳定化权重保留相同目标人群，但以总体处理概率作为分子，常可减小方差：\n公式 10.4　ATE 的稳定化权重：处理组\n\\[SW_i^{T=1}=\\frac{P(T=1)}{e(X_i)}\\]\n公式 10.5　ATE 的稳定化权重：对照组\n\\[SW_i^{T=0}=\\frac{P(T=0)}{1-e(X_i)}\\]\n\n\n\n\n\n\n注记代码10.7\n\n\n\nsummarize Treatment\nscalar p_treat = r(mean)\ngen sw = p_treat/ps if Treatment == 1\nreplace sw = (1-p_treat)/(1-ps) if Treatment == 0\nlogit Outcome Treatment [pw=sw], vce(robust)\n\n\n\n\n\n\n\n\n注记代码10.7输出（常规权重）\n\n\n\n\n\n常规逆概率加权的结局模型\n\n\n\n\n\n\n\n\n\n注记代码10.7输出（稳定化权重）\n\n\n\n\n\n稳定化逆概率加权的结局模型\n\n\n\n权重分析前后均应报告：权重的最小值、分位数与最大值，截尾或修剪规则，权重后的有效样本量，以及每个协变量的平衡。IPTW 估计有效的必要条件是加权后不存在残余的系统性基线差异；若此条件不满足，应回到设计阶段修改 PS 模型 (Austin 和 Stuart 2015年)。\n\n\n\n\n\n\n注记代码10.8\n\n\n\nteffects ipw (Outcome) (Treatment k age, logit), ate\ntebalance summarize\n\n\n\n\n\n\n\n\n注记代码10.8输出\n\n\n\n\n\n加权前后协变量平衡汇总\n\n\n\n当结局模型与倾向评分模型同时建模时，可进一步采用增广逆概率加权（AIPW）等双重稳健方法：若两者中至少一个模型正确指定，估计可保持一致性；但“双重稳健”不意味着可以忽略重叠、变量测量质量或未测量混杂。",
-    "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的方法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/10-propensity-score.html#其他以倾向评分为基础的加权方法",
-    "href": "chapters/10-propensity-score.html#其他以倾向评分为基础的加权方法",
-    "title": "10  基于倾向评分的方法",
-    "section": "10.6 其他以倾向评分为基础的加权方法",
-    "text": "10.6 其他以倾向评分为基础的加权方法\n不同权重对应不同的目标人群。选择方法时应先问“临床上希望比较谁”，再决定权重，而不是依据哪个效应最显著。\n\n10.6.1 重叠加权\n重叠加权（overlap weighting）使处理组权重为 \\(1-e(X)\\)，对照组权重为 \\(e(X)\\)；它连续地下调 PS 接近 0 或 1 的个体，目标是临床上两种治疗都具有合理可能性的重叠人群。该方法可缓解极端 IPTW 权重，但回答的问题不同于全样本 ATE；其目标效应通常称为重叠人群平均治疗效应（ATO） (Li 等 2019年)。与 IPTW 或匹配得到的点估计不同时，首先应检查目标人群是否改变，而不能仅将数值的高低解释为治疗效应“上升”或“下降”。\n公式 10.6　重叠加权\n\\[w_i^{T=1}=1-e(X_i),\\qquad w_i^{T=0}=e(X_i)\\]\n\n\n\n\n\n\n注记代码10.9\n\n\n\ngen ow = 1-ps if Treatment == 1\nreplace ow = ps if Treatment == 0\nlogit Outcome Treatment [pw=ow], vce(robust)\n\n\n\n\n\n\n\n\n注记代码10.9输出\n\n\n\n\n\n重叠加权的结局模型\n\n\n\n\n\n10.6.2 匹配加权与精细分层加权\n匹配加权使用两组概率中较小者作为分子：\n公式 10.7　匹配加权\n\\[w_i^{T=1}=\\frac{\\min\\{e(X_i),1-e(X_i)\\}}{e(X_i)},\\qquad\nw_i^{T=0}=\\frac{\\min\\{e(X_i),1-e(X_i)\\}}{1-e(X_i)}\\]\n它同样限制极端权重，并把推断集中于两组可比较的患者。匹配加权的具体目标人群会随样本构成和倾向评分重叠形态而变化，因此报告时不应只以“接近 ATE”或“接近 ATT”代替对目标分布的说明。精细分层加权则先按倾向评分建立很多窄分层，在每层内以处理与对照人数构造权重；它可在 PS 模型存在一定误设时提供较稳健的平衡，但仍须检查每层是否同时包含两种处理 (Garrido 等 2014年; Deb 等 2016年)。\n\n\n\n\n\n\n注记代码10.10\n\n\n\ngen mw = min(ps, 1-ps)/ps if Treatment == 1\nreplace mw = min(ps, 1-ps)/(1-ps) if Treatment == 0\nlogit Outcome Treatment [pw=mw], vce(robust)\n\n\n\n\n\n\n\n\n注记代码10.10输出\n\n\n\n\n\n匹配加权的结局模型\n\n\n\n\n\n10.6.3 标准化死亡率比加权\n若问题是“在实际受治者人群中，若他们改用对照会如何”，可采用以 ATT 为目标的标准化死亡率比加权（SMR weighting）：处理组权重为1，对照组权重为 \\(e(X)/(1-e(X))\\)。它仍可能出现大权重，需诊断重叠与权重分布。\n公式 10.8　SMR加权\n\\[w_i^{T=1}=1,\\qquad w_i^{T=0}=\\frac{e(X_i)}{1-e(X_i)}\\]\n\n\n\n\n\n\n注记代码10.11\n\n\n\ngen smr = 1 if Treatment == 1\nreplace smr = ps/(1-ps) if Treatment == 0\nlogit Outcome Treatment [pw=smr], vce(robust)\n\n\n\n\n\n\n\n\n注记代码10.11输出\n\n\n\n\n\nSMR加权的结局模型",
-    "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的方法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/10-propensity-score.html#方法选择与报告清单",
-    "href": "chapters/10-propensity-score.html#方法选择与报告清单",
-    "title": "10  基于倾向评分的方法",
-    "section": "10.7 方法选择与报告清单",
-    "text": "10.7 方法选择与报告清单\n\n\n\n\n\n\n\n\n\n方法\n常见目标人群\n主要优点\n主要风险\n\n\n\n\nPS 结局回归\n依标准化方式而定\n实现简洁、保留样本\n对结局模型形式敏感，PS 单独线性调整不足\n\n\n卡尺匹配\n匹配成功的受治者（常近似 ATT）\n设计直观、可排除不重叠区域\n丢弃样本，改变目标人群，需匹配后推断\n\n\nIPTW / 稳定化 IPTW\nATE\n保留多数样本、直接构造总体伪样本\n极端权重、低有效样本量、重叠不足\n\n\n重叠/匹配加权\n临床均势的重叠人群\n降低极端权重，常有优良平衡\nestimand 不再是全样本 ATE\n\n\nSMR 加权\nATT\n直接回答受治者中的对照反事实\n对照组极端权重与重叠问题\n\n\n\n一份可复核的倾向评分分析至少应报告：\n\n目标试验与 estimand：纳入标准、治疗策略、零时点、随访、结局和目标人群；\nPS 模型：所有处理前协变量、变量形式、缺失值处理、建模方法与预先设定的交互项；\n重叠与平衡：两组 PS 分布、未匹配或被修剪人数、加权前后每个协变量的 SMD、权重分布和有效样本量；\n效应估计与不确定性：所用结局模型、方差估计、效应尺度及95%置信区间；\n稳健性：替代 PS 模型、不同合理修剪规则、未测量混杂敏感性分析（如 E-value），以及与临床知识的一致性 (VanderWeele 和 Ding 2017年)。\n\n倾向评分不能替代好的研究设计。若关键混杂因素未测量、重叠严重不足，或处理定义与零时点含糊，复杂算法只会使不确定性看起来更精确。此时应回到目标试验的设计问题，明确限制可识别的人群与结论边界。",
-    "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的方法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/10-propensity-score.html#参考文献",
-    "href": "chapters/10-propensity-score.html#参考文献",
-    "title": "10  基于倾向评分的因果推断方法",
-    "section": "10.8 参考文献",
-    "text": "10.8 参考文献\n\nRosenbaum PR, Rubin DB. The central role of the propensity score in observational studies for causal effects. Biometrika. 1983;70(1):41-55. doi:10.1093/biomet/70.1.41.\nBrookhart MA, Schneeweiss S, Rothman KJ, et al. Variable selection for propensity score models. Am J Epidemiol. 2006;163(12):1149-1156. doi:10.1093/aje/kwj149. PMID: 16624967.\nAustin PC. Balance diagnostics for comparing the distribution of baseline covariates between treatment groups in propensity-score matched samples. Stat Med. 2009;28(25):3083-3107. doi:10.1002/sim.3697. PMID: 19757444.\nAustin PC. Optimal caliper widths for propensity-score matching when estimating differences in means and differences in proportions in observational studies. Pharm Stat. 2011;10(2):150-161. doi:10.1002/pst.433. PMID: 20925139.\nAustin PC, Stuart EA. Moving towards best practice when using inverse probability of treatment weighting (IPTW) using the propensity score to estimate causal treatment effects in observational studies. Stat Med. 2015;34(28):3661-3679. doi:10.1002/sim.6607. PMID: 26238958.\nDeb S, Austin PC, Tu JV, et al. A review of propensity-score methods and their use in cardiovascular research. Can J Cardiol. 2016;32(2):259-265. doi:10.1016/j.cjca.2015.05.015. PMID: 26315351.\nLi F, Thomas LE, Li F. Addressing extreme propensity scores via the overlap weights. Am J Epidemiol. 2019;188(1):250-257. doi:10.1093/aje/kwy201. PMID: 30189042.\nElze MC, Gregson J, Baber U, et al. Comparison of propensity score methods and covariate adjustment: evaluation in 4 cardiovascular studies. J Am Coll Cardiol. 2017;69(3):345-357. doi:10.1016/j.jacc.2016.10.060. PMID: 28104076.\nGarrido MM, Kelley AS, Paris J, et al. Methods for constructing and assessing propensity scores. Health Serv Res. 2014;49(5):1701-1720. doi:10.1111/1475-6773.12182. PMID: 24779867.\nVanderWeele TJ, Ding P. Sensitivity analysis in observational research: introducing the E-value. Ann Intern Med. 2017;167(4):268-274. doi:10.7326/M16-2607. PMID: 28693043.",
-    "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的因果推断方法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/11-instrumental-variables.html#从未测量混杂到工具变量",
-    "href": "chapters/11-instrumental-variables.html#从未测量混杂到工具变量",
-    "title": "11  工具变量法",
-    "section": "",
-    "text": "图11.1 工具变量的基本因果结构：\\(Z\\) 影响治疗 \\(A\\)，未测量因素 \\(U\\) 同时影响 \\(A\\) 与 \\(Y\\)\n\n\n\n相关性（relevance）：\\(Z\\) 能够改变实际处理 \\(A\\) 的概率；\n独立性／交换性（independence）：在必要的基线协变量 \\(C\\) 条件下，\\(Z\\) 与潜在结局没有共同原因；\n排除限制（exclusion restriction）：\\(Z\\) 对 \\(Y\\) 的任何影响均通过 \\(A\\) 传递，不能存在 \\(Z\\rightarrow Y\\) 的直接路径或其他中介路径；\n单调性：不存在“恰好因为被工具鼓励而反向选择处理”的人（defier）。",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/11-instrumental-variables.html#随机分配依从性与估计对象",
-    "href": "chapters/11-instrumental-variables.html#随机分配依从性与估计对象",
-    "title": "11  工具变量法",
-    "section": "11.2 随机分配、依从性与估计对象",
-    "text": "11.2 随机分配、依从性与估计对象\n随机对照试验中的随机分配可作为理想工具变量：\\(Z\\) 是分配方案，\\(A\\) 是实际接受治疗，\\(Y\\) 是结局。意向治疗（ITT）效应回答“被分配到某策略”的效应；IV 则在额外假设下，利用分配导致的实际治疗变化估计实际治疗的效应。\n\n\n图11.2 随机分配可作为实际治疗的工具变量；不依从使 ITT 与实际治疗效应不同\n\n对二分类 \\(Z\\) 和二分类 \\(A\\)，在独立性、排除限制与单调性成立时，Wald 比值识别的是依从者局部平均处理效应（local average treatment effect，LATE），也称 complier average causal effect：\n公式 11.1　Wald 估计量\n\\[\\widehat{\\tau}_{\\mathrm{Wald}}=\n\\frac{\\widehat{E}(Y\\mid Z=1)-\\widehat{E}(Y\\mid Z=0)}\n{\\widehat{E}(A\\mid Z=1)-\\widehat{E}(A\\mid Z=0)}\\]\n它不是“所有患者的平均效应”。其目标人群是治疗选择会因 \\(Z\\) 改变的人，即依从者；永远接受治疗者、永远不接受治疗者以及违背单调性的个体不构成该 estimand。报告 IV 结果时必须说明工具是什么、依从者在临床上可能是谁、以及这一局部人群与目标临床人群的差异。",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/11-instrumental-variables.html#候选工具变量及其风险",
-    "href": "chapters/11-instrumental-variables.html#候选工具变量及其风险",
-    "title": "11  工具变量法",
-    "section": "11.3 候选工具变量及其风险",
-    "text": "11.3 候选工具变量及其风险\n候选工具变量常来自随机分配、医师或机构偏好、地理距离、政策或供给冲击、自然现象，及遗传变异。其来源本身绝不构成有效性的保证；每一种工具都必须逐条绘制和讨论 \\(Z\\) 到 \\(Y\\) 的替代路径。\n\n11.3.1 遗传和生物学变异\n例如，酒精代谢相关基因型可能影响饮酒量，并被用于研究饮酒与冠心病的关系。它仍可能通过与暴露不同的生物学途径影响结局（水平多效性），也可能因祖源结构而与社会经济、环境因素相关。\n\n\n图11.3 以酒精代谢相关遗传变异为候选工具的结构；每条替代路径都需接受审查\n\n\n\n11.3.2 年历时间、机构偏好与地理距离\n本章示例可把“某一技术推广后的时期”视为候选工具：后期患者更可能接受内窥镜手术。然而年历时间通常也伴随影像诊断、围手术期管理、术者经验和病例选择的变化；因此它很容易直接或间接影响缓解和住院时长。年历时间最多是需要严密论证的候选工具，不能仅因第一阶段显著便视为有效。\n\n\n图11.4 年历时间可能同时携带技术进步、病例组合变化等通向结局的路径\n\n自然现象也同样需要审查。降雨量可能影响儿童在室内停留和观看电视的时间，但也可能与地区、季节、感染、教育资源或家庭行为模式有关；“看似随机”不是排除限制的证据。\n\n\n图11.5 自然现象作为工具变量时，仍需排除地区与季节等共同原因",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/11-instrumental-variables.html#连续结局wald-与两阶段最小二乘",
-    "href": "chapters/11-instrumental-variables.html#连续结局wald-与两阶段最小二乘",
-    "title": "11  工具变量法",
-    "section": "11.4 连续结局：Wald 与两阶段最小二乘",
-    "text": "11.4 连续结局：Wald 与两阶段最小二乘\n当结局是连续变量，且线性结构模型适合研究问题时，两阶段最小二乘（two-stage least squares，2SLS）是常用估计方法。第一阶段预测实际处理，第二阶段用该预测的处理变异估计结局变化；应由一个完整的 IV 程序一次完成，以获得正确的标准误，而不是手工把预测值当作普通协变量。\n公式 11.2　第一阶段\n\\[A_i=\\pi_0+\\pi_1Z_i+\\pi_2^{\\mathsf{T}}C_i+\\varepsilon_i\\]\n公式 11.3　第二阶段（线性结局）\n\\[Y_i=\\beta_0+\\tau\\widehat{A}_i+\\beta_2^{\\mathsf{T}}C_i+\\eta_i\\]\n在仅有一个二分类工具、没有协变量时，2SLS 与公式11.1的 Wald 比值等价。加入 \\(C\\) 是为了使“给定 \\(C\\) 的工具独立性”更可信，也可提升精度；但不能通过加入处理后变量来修复一个无效工具。\n本例可先检查年历阶段与手术方式的关系。下列结果仅展示工具相关性，不验证排除限制或独立性。\n\n\n\n\n\n\n注记代码11.1\n\n\n\ngen year_post = year &gt; 2016\ntab Treatment year_post, row\n\n\n\n\n\n\n\n\n注记代码11.1输出（2016年及以前）\n\n\n\n\n\n早期年历阶段的手术方式比例\n\n\n\n\n\n\n\n\n\n注记代码11.1输出（2017年及以后）\n\n\n\n\n\n后期年历阶段的手术方式比例\n\n\n\n若后期内窥镜手术比例明显升高，说明候选工具与治疗有关；同时还必须比较不同年历阶段的病例构成，并明确处理技术、诊断和随访改变所造成的替代路径。\n\n\n\n\n\n\n注记代码11.2\n\n\n\nivregress 2sls los (Treatment = year_post) k age, vce(robust)\nestat firststage\n\n\n\n\n\n\n\n\n注记代码11.2输出\n\n\n\n\n\n以年历阶段为候选工具的 2SLS 住院时长模型\n\n\n\n若模型识别假设可信，Treatment 的系数解释为依从者中内窥镜手术相对于显微镜手术造成的平均住院天数差，而非“所有患者都转换手术方式”的总体效应。",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/11-instrumental-variables.html#二分类和生存结局不能机械套用-2sls",
-    "href": "chapters/11-instrumental-variables.html#二分类和生存结局不能机械套用-2sls",
-    "title": "11  工具变量法",
-    "section": "11.5 二分类和生存结局：不能机械套用 2SLS",
-    "text": "11.5 二分类和生存结局：不能机械套用 2SLS\n对于二分类结局，线性概率 2SLS 可以估计风险差，但可能给出超出 \\([0,1]\\) 的预测概率；ivprobit 估计的是潜在正态尺度上的结构参数。它的系数不能像逻辑回归系数一样直接指数化为 OR，也不应据此宣称一个边际风险比。对非线性、时间结局或竞争风险，所需识别假设和 estimand 取决于具体模型；可考虑结构均值模型、两阶段残差纳入等方法，但必须在分析计划中预先定义效应尺度并使用适合该模型的推断。\n\n\n\n\n\n\n注记代码11.3\n\n\n\nivprobit Outcome (Treatment = year_post) k age, twostep\nmargins, dydx(Treatment)\n\n\n\n\n\n\n\n\n注记代码11.3输出\n\n\n\n\n\n二分类缓解结局的 IV-probit 示例；应以边际效应而非系数指数化解释\n\n\n\n这里的图示结果来自简化示例，并不使年历时间自动成为有效工具。医学研究中的 IV 分析应先明确目标试验、时间零点、随访、处理策略及结局尺度，再选择模型；不同方法不可因为“都使用工具变量”而互换解释。",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/11-instrumental-variables.html#工具强度可检验部分与敏感性分析",
-    "href": "chapters/11-instrumental-variables.html#工具强度可检验部分与敏感性分析",
-    "title": "11  工具变量法",
-    "section": "11.6 工具强度、可检验部分与敏感性分析",
-    "text": "11.6 工具强度、可检验部分与敏感性分析\n弱工具会使有限样本偏倚、置信区间和显著性检验变得不可靠。对单个内生变量的线性 IV，第一阶段的部分 \\(F\\) 统计量常被用作初步诊断；“\\(F&gt;10\\)”只是历史经验规则，不是有效性的通行证。在存在异方差、多个工具或多个内生变量时，应报告稳健弱工具诊断（如 Kleibergen–Paap 统计量）并参考适用的临界值。\n\n\n\n\n\n\n注记代码11.4\n\n\n\nivreg2 los (Treatment = year_post) k age, robust first\n\n\n\n\n\n\n\n\n注记代码11.4输出\n\n\n\n\n\n第一阶段与弱工具诊断示例\n\n\n\n若有多个候选工具，过度识别检验可以检测“所有工具都有效”的联合假设是否与数据矛盾；检验不显著不能证明每个工具有效，检验显著也不能指出哪一项假设或哪一个工具失效。更重要的是预先说明：工具如何影响治疗、哪些变量可能混杂 \\(Z\\) 与 \\(Y\\)、哪些直接路径最令人担忧，以及将如何进行负向对照、替代工具和删去某一工具的敏感性分析。Garabedian 等（2014）发现，许多比较效果研究的常见工具变量都可能存在未调整的工具—结局混杂。",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/11-instrumental-variables.html#如何寻找并论证工具变量",
-    "href": "chapters/11-instrumental-variables.html#如何寻找并论证工具变量",
-    "title": "11  工具变量法",
-    "section": "11.7 如何寻找并论证工具变量",
-    "text": "11.7 如何寻找并论证工具变量\n一个较好的实践顺序是：\n\n用目标试验描述谁会在何时接受何种策略，以及希望估计 ATE、ATT 还是依从者效应；\n在查看结局结果前提出候选工具，并绘制包含已测量及未测量共同原因的因果图；\n说明相关性的机制与第一阶段效应，并报告其精度；\n对排除限制逐一列出可能的替代路径及其可观察证据，而不是只写“理论上无直接影响”；\n描述 LATE 的目标人群、单调性是否可信、结果对不同合理工具和模型的敏感性；\n同时报告常规调整分析，解释不一致是不同 estimand、未测量混杂、工具无效还是模型误设所致。\n\n医师偏好、机构偏好、地理距离、处方集限制、床位或设备可及性及政策改革都可能是候选来源，但它们常与患者社会经济状况、地区医疗资源、病例严重程度或同期医疗质量相连。候选工具的可信度来自一套可审查的设计论证，而非其名称。",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/11-instrumental-variables.html#报告与解读清单",
-    "href": "chapters/11-instrumental-variables.html#报告与解读清单",
-    "title": "11  工具变量法",
-    "section": "11.9 报告与解读清单",
-    "text": "11.9 报告与解读清单\n一份可复核的 IV 或 MR 研究至少应说明：\n\n目标试验、处理策略、效应尺度、目标人群与所估 estimand；\n工具的定义、测量时间、理论机制及候选工具数量；\n第一阶段效应、部分 \\(R^2\\)、弱工具诊断及其置信区间；\n支持或质疑独立性与排除限制的因果图、外部知识、协变量平衡、负向对照和敏感性分析；\n单调性与 LATE 的临床解释，以及何种患者可能构成依从者；\n采用的估计模型、稳健／聚类标准误、缺失数据和样本选择处理；\n多工具时的过度识别、删去工具、替代工具和模型设定分析；\nMR 中 SNP 选择、LD 处理、等位基因协调、GWAS 人群、样本重叠、异质性和多效性诊断；\n结果对 IV 假设可能违背的敏感程度，以及与随机试验和其他设计证据的一致性。",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/11-instrumental-variables.html#参考资料",
-    "href": "chapters/11-instrumental-variables.html#参考资料",
-    "title": "11  工具变量法",
-    "section": "11.10 参考资料",
-    "text": "11.10 参考资料\n\nHernán MA, Robins JM. Instruments for causal inference: an epidemiologist’s dream? Epidemiology. 2006;17:360–372. PMID: 16755261\nLousdal ML. An introduction to instrumental variable assumptions, validation and estimation. Emerg Themes Epidemiol. 2018;15:1. PMID: 29387137\nGarabedian LF, Chu P, Toh S, et al. Potential bias of instrumental variable analyses for observational comparative effectiveness research. Ann Intern Med. 2014;161:131–138. PMID: 25023252\nSwanson SA. Instrumental Variable Analyses in Pharmacoepidemiology: What Target Trials Do We Emulate? Curr Epidemiol Rep. 2017;4:281–287. PMID: 29226066\nSwanson SA, Hernán MA, Miller M, et al. The challenging interpretation of instrumental variable estimates under monotonicity. Int J Epidemiol. 2018;47:1289–1297. PMID: 28379526\nBowden J, Davey Smith G, Burgess S. Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. Int J Epidemiol. 2015;44:512–525. PMID: 26050253\nBowden J, Davey Smith G, Haycock PC, Burgess S. Consistent estimation in Mendelian randomization with some invalid instruments using a weighted median estimator. Genet Epidemiol. 2016;40:304–314. PMID: 27061298\nBurgess S, Davey Smith G, Davies NM, et al. Guidelines for performing Mendelian randomization investigations: update for summer 2023. Wellcome Open Res. 2023;4:186. PMID: 32760811\nSkrivankova VW, Richmond RC, Woolf BAR, et al. Strengthening the Reporting of Observational Studies in Epidemiology Using Mendelian Randomization: The STROBE-MR Statement. JAMA. 2021;326:1614–1621. PMID: 34698778",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
-    ]
-  },
-  {
-    "objectID": "references.html",
-    "href": "references.html",
-    "title": "参考文献",
-    "section": "",
-    "text": "Austin, Peter C. 2009. “Balance Diagnostics for Comparing the\nDistribution of Baseline Covariates Between Treatment Groups in\nPropensity-Score Matched Samples.” Statistics in\nMedicine 28 (25): 3083–107. https://doi.org/10.1002/sim.3697.\n\n\nAustin, Peter C. 2011. “Optimal Caliper Widths for\nPropensity-Score Matching When Estimating Differences in Means and\nDifferences in Proportions in Observational Studies.”\nPharmaceutical Statistics 10 (2): 150–61. https://doi.org/10.1002/pst.433.\n\n\nAustin, Peter C., and Elizabeth A. Stuart. 2015. “Moving Towards\nBest Practice When Using Inverse Probability of Treatment Weighting\n(IPTW) Using the Propensity Score to Estimate Causal\nTreatment Effects in Observational Studies.” Statistics in\nMedicine 34 (28): 3661–79. https://doi.org/10.1002/sim.6607.\n\n\nBrookhart, M. Alan, Sebastian Schneeweiss, Kenneth J. Rothman, Robert J.\nGlynn, Jerry Avorn, and Til Stürmer. 2006. “Variable Selection for\nPropensity Score Models.” American Journal of\nEpidemiology 163 (12): 1149–56. https://doi.org/10.1093/aje/kwj149.\n\n\nGarrido, Melissa M., Amy S. Kelley, Julia Paris, et al. 2014.\n“Methods for Constructing and Assessing Propensity Scores.”\nHealth Services Research 49 (5): 1701–20. https://doi.org/10.1111/1475-6773.12182.\n\n\nLi, Fan, Laine E. Thomas, and Fan Li. 2019. “Addressing Extreme\nPropensity Scores via the Overlap Weights.” American Journal\nof Epidemiology 188 (1): 250–57. https://doi.org/10.1093/aje/kwy201.\n\n\nRosenbaum, Paul R., and Donald B. Rubin. 1983. “The Central Role\nof the Propensity Score in Observational Studies for Causal\nEffects.” Biometrika 70 (1): 41–55. https://doi.org/10.1093/biomet/70.1.41.\n\n\nVanderWeele, Tyler J., and Peng Ding. 2017. “Sensitivity Analysis\nin Observational Research: Introducing the E-Value.”\nAnnals of Internal Medicine 167 (4): 268–74. https://doi.org/10.7326/M16-2607.",
-    "crumbs": [
-      "参考文献"
-    ]
-  },
-  {
-    "objectID": "chapters/10-propensity-score.html#倾向性评分propensity-score",
-    "href": "chapters/10-propensity-score.html#倾向性评分propensity-score",
-    "title": "10  基于倾向评分的因果推断方法",
-    "section": "",
-    "text": "注记代码10.1\n\n\n\n. psmatch2 Treatment k age, logit\n. psgraph, bin(40)\n\n\n\n\n\n\n\n\n注记代码10.1输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n图10.1 重叠性较好与较差的倾向性评分",
-    "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的因果推断方法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/10-propensity-score.html#直接将倾向评分加入到回归方程",
-    "href": "chapters/10-propensity-score.html#直接将倾向评分加入到回归方程",
-    "title": "10  基于倾向评分的因果推断方法",
-    "section": "10.2 直接将倾向评分加入到回归方程",
-    "text": "10.2 直接将倾向评分加入到回归方程\n作为回归方程中的唯一协变量\n\n\n\n\n\n\n注记代码10.2\n\n\n\n. reg Outcome Treatment _pscore, or\n\n\n\n\n\n\n\n\n注记代码10.2输出\n\n\n\n\n\n\n\n\n回归结果提示内窥镜组显著增加内分泌缓解率，比值比为2.29，95%置信区间为1.62-3.22，p值0.000。此处报告的 OR 属于条件效应，未必等同于边际风险比或风险差；为便于临床解释，宜同时给出标准化后的绝对风险、风险差或风险比及其 95% 置信区间。",
-    "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的因果推断方法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/10-propensity-score.html#利用倾向性评分进行匹配",
-    "href": "chapters/10-propensity-score.html#利用倾向性评分进行匹配",
-    "title": "10  基于倾向评分的因果推断方法",
-    "section": "10.3 利用倾向性评分进行匹配",
-    "text": "10.3 利用倾向性评分进行匹配\n将倾向评分相同的干预组和对照组之间进行配对，在配对的新样本当中进行因果推断。利用倾向评分进行匹配的原理如图10.2所示，黑色小人代表干预组，黄色小人代表对照组。其倾向性评分在x轴上表示，靠近0代表被分配到干预组的概率很小，靠近1代表分配到干预组的概率较大。倾向性评分匹配第一步从干预组中抽取一个个体，计算其倾向性评分，在对照组中寻找倾向性评分与其最近的黄色小人，将这两个小人形成一个配对。利用同样的方法重复操作，反复进行配对。最后在匹配好的样本中进行因果效应估计。此过程可能会剩下一些没有匹配到的患者，比如说靠近倾向性评分为0附近的黄色小人没有匹配到。\n\n\n图10.2 倾向性评分匹配原理\n\n实际的配对操作中可能会遇到四个问题：\n一对一或一对多配对：一对一即干预组中的样本在对照组中寻找一个距离最近的样本与其匹配。一对多即干预组中的样本在对照组中寻找多个距离最近的样本与其匹配。一般而言，一对一匹配样本相似性比较好，但可能导致匹配后的样本量不足；而一对多匹配样本相似性没有较好满足，但匹配后的样本量充足。实际情况中，如果原始数据中对照组的样本量与干预组差距很大，可以选择一对多匹配。\n如何定义距离最近？定义卡尺（caliper），允许两个样本进行匹配的最大距离。可以想象一下两个样本距离多近才能够匹配，如果卡尺太小，就会导致许多样本无法得到匹配，如卡尺定为0.001，即两样本相差0.001距离才能被匹配，就可能导致许多样本无法匹配。卡尺定太大，就会导致许多样本距离很大，也会被匹配到，可交换性得不到满足。实务中常以 logit(PS) 标准差的 0.2 作为 1:1 最近邻匹配的起始卡尺，并需结合匹配后协变量平衡、样本损失与临床可比性调整，而不应机械套用单一数值。\n对照组中的个体是否可以重复匹配？如果原始数据中对照组的样本量远远小于治疗组，为了不损失治疗组的样本量，可以重复匹配对照组。\n如果对照组中有多个样本与需要匹配的干预组样本距离一致如何操作？一对一匹配的前提下可以随机选择其中一个，也可以全部纳入，指定每个样本的权重，计算多个样本的加权平均值。\n\n\n\n\n\n\n注记代码10.3\n\n\n\n. psmatch2 Treatment k age, logit outcome(Outcome) n(1) cal(0.01) ties\n\n\n\n\n\n\n\n\n注记代码10.3输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n注记代码10.4\n\n\n\n. psmatch2 Treatment k age, logit outcome(Outcome) n(1) cal(0.001) ties\n\n\n\n\n\n\n\n\n注记代码10.4输出\n\n\n\n\n\n\n\n\n卡尺定为0.01时只有3例患者无法匹配，而卡尺定为0.001时有75例无法匹配。需要指出的是匹配后的纳入样本往往和原始数据中的样本不同，因此基于匹配方法得到的因果效应估计也是针对匹配后的样本，称为干预组中的因果效应（Average treatment effect in the treated，ATT）。干预组中的缓解率为56.7%，对照组中的缓解率为37.6%，计算比值比为2.17。匹配会改变分析人群，故应明确此处估计的目标人群（通常为可匹配治疗者的 ATT），并报告未匹配者的数量与基线特征。\n配对分析后的检验如同随机对照临床研究一样需要给出配对后的干预组和对照组各个变量的分布情况，查看是否有变量存在不平衡。下表为输出，U 代表没有匹配的样本，M 代表匹配样本。侵袭度在没有匹配当的样本中，干预组是2.2，对照组为1.7， t检验的p值是0.000，代表两组之间有明显差别的。而在匹配的样本中干预组和对照组都为2.1，t检验的p值是1.000。匹配后的样本中，把侵袭性这样一个不均衡的指标给均衡了。同样倾向性评分方程中所有的指标在匹配以的样本中都均衡了。平衡诊断建议以每个协变量的绝对标准化均数差（absolute SMD）为主，常以 &lt;0.10 作为经验阈值；不应以 t 检验 P 值是否显著作为是否平衡的判据。\n\n\n\n\n\n\n注记代码10.5\n\n\n\n. pstest k age, both graph\n\n\n\n\n\n\n\n\n注记代码10.5输出",
-    "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的因果推断方法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/10-propensity-score.html#利用倾向性评分进行逆概率加权inverse-probability-weighting-ipw",
-    "href": "chapters/10-propensity-score.html#利用倾向性评分进行逆概率加权inverse-probability-weighting-ipw",
-    "title": "10  基于倾向评分的因果推断方法",
-    "section": "10.4 利用倾向性评分进行逆概率加权（inverse probability weighting, IPW）",
-    "text": "10.4 利用倾向性评分进行逆概率加权（inverse probability weighting, IPW）\n给某每一个受试者分配一个权重，通过这样的一个权重我们就可以构建一个假人群，在这个假人群当中我们可以通过统计学的方法来证明不存在混杂效应，然后进行因果推断（图10.3）。例如，一个干预组中的患者，根据倾向性评分模型，只有25%的概率为干预组，所以这个患者的权重为4。理由是他不仅代表自己，还代表4个“类似”他的人。对于对照组中的患者，若根据倾向性评分模型，有90%的概率为干预组，则这个患者的权重为10。理由是他只有10%的概率为对照组，他还代表10个“类似”他的人。\n\n\n图10.3 逆概率加权原理\n\n如果研究的问题只包含两种治疗方式（干预或对照），那么权重方程又可写成：\n\\[w_{ki}^{T=1}=\\frac{1}{Pr(T=1\\mid k_i)},\\qquad w_{ki}^{T=0}=\\frac{1}{1-Pr(T=1\\mid k_i)}\\]\n计算权重后，将回归方程的权重指定为逆概率权重。\n\n\n\n\n\n\n注记代码10.6\n\n\n\n. gen ipweight = 1/_pscore if Treatment == 1\n. replace ipweight = 1/(1-_pscore) if Treatment == 0\n. logistic Outcome Treatment [iweight = ipweight], vce(robust)\n\n\n\n\n\n\n\n\n注记代码10.6输出\n\n\n\n\n\n\n\n\n然而，如果说某个样本的倾向性评分很小，其权重就会变得很大，从而导致因果效应估计引入了一个不稳定的因素，从而得出的推断方差较大。因此实践中，比较常用的是稳定的权重，给逆概率乘一个分子，即干预的总体概率（干预组）或者对照的总体概率（对照组），得出稳定的逆概率：稳定权重可缓和、但不能完全消除极端权重带来的不稳定性。应报告权重分布与有效样本量，并预先说明是否进行截尾、修剪或敏感性分析。\n\\[SW_{ki}^{T=1}=\\frac{Pr(T=1)}{Pr(T=1\\mid k_i)},\\qquad SW_{ki}^{T=0}=\\frac{1-Pr(T=1)}{1-Pr(T=1\\mid k_i)}\\]\n\n\n\n\n\n\n注记代码10.7\n\n\n\n. gen s_ipweight = (1/_pscore)*0.4516 if Treatment == 1\n. replace s_ipweight = 1/(1-_pscore)*0.5484 if Treatment == 0\n. logistic Outcome Treatment [iweight = s_ipweight], vce(robust) or\n\n\n\n\n\n\n\n\n注记代码10.7输出\n\n\n\n\n\n\n\n\n通过标化的均数差值（standardized mean difference，SMD）评估加权前后两组间协变量的差值。加权前两组的病例数分别为338和405，加权后为371.4和371.6。对于肿瘤侵袭性，加权前两组的差值为0.415，加权后为-0.002。一般，加权后的SMD需要控制在0.10之内。加权后病例数是加权伪样本量，并不等同于有效样本量。除 SMD 外，宜同时查看权重分布、有效样本量和协变量分布图。\n\n\n\n\n\n\n注记代码10.8\n\n\n\n. teffects ipw (Outcome) (Treatment k age, logit)\n. tebalance summarize\n\n\n\n\n\n\n\n\n注记代码10.8输出",
-    "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的因果推断方法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/10-propensity-score.html#利用倾向性评分进行因果推断的局限性",
-    "href": "chapters/10-propensity-score.html#利用倾向性评分进行因果推断的局限性",
-    "title": "10  基于倾向评分的因果推断方法",
-    "section": "10.7 利用倾向性评分进行因果推断的局限性",
-    "text": "10.7 利用倾向性评分进行因果推断的局限性\n其局限性源于倾向性评分的方程，若估计错误会导致后续一系列的因果估计的错误。其次，存在未测量的混杂因素，利用倾向性评分也同样遗漏这些未测量的混杂因素，导致因果推断错误。第三、倾向性评分匹配需要考虑普适性问题，因为只有匹配的样本才能够被正确地估计因果效应，没有匹配的样本中的因果效应无法估计。未测量混杂无法由倾向评分修复，应结合领域知识、定量偏倚分析或 E-value 等敏感性分析讨论其潜在影响；外推到未匹配或缺乏重叠的人群时应谨慎。",
-    "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>基于倾向评分的因果推断方法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/11-instrumental-variables.html#工具变量法",
-    "href": "chapters/11-instrumental-variables.html#工具变量法",
-    "title": "11  工具变量法",
-    "section": "",
-    "text": "图11.1 工具变量法示意图\n\n\n\n工具变量与干预是相关的，即 Z 和 X 相关；\n工具变量对结局的影响只能通过干预来实现，Z 到 Y 的影响只能通过 A 来实现的，而不能通过其他路径去实现；\n工具变量与结局没有共同的原因，即 Z 和 Y 之间没有混杂因素。 在二元工具变量和二元处理的常用解释下，若希望把结果解释为“依从者”的局部平均处理效应（LATE），还需加入单调性假设：不存在因工具变量取值改变而总是反向接受处理的个体。Hernán 与 Robins（2006）及 Baiocchi 等（2014）强调，这些假设多数不能由数据本身证明。\n\n\n\n\n图11.2 随机分配作为工具变量",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/11-instrumental-variables.html#附录孟德尔随机化研究的关键评估清单",
-    "href": "chapters/11-instrumental-variables.html#附录孟德尔随机化研究的关键评估清单",
-    "title": "11  工具变量法",
-    "section": "11.8 附录：孟德尔随机化研究的关键评估清单",
-    "text": "11.8 附录：孟德尔随机化研究的关键评估清单\n\n11.8.1 孟德尔随机化的核心假设\n\n是否有足够的证据表明遗传变异与所关注的风险因素密切相关？\n遗传变异是否与潜在的混杂因素有关？是否介绍了这种关系？\n遗传变异是否有办法通过其他途径影响结果（横向多变性）？是否介绍了多种孟德尔随机化方法（如MR Egger、中位数和模式估计，或使用阴性对照人群），以更全面地调查这一问题？\n\n\n\n11.8.2 方法报告\n\n暴露和结果的效应和其他等位基因的编码方向是否相同？\n两样本的研究：两个样本是否取自同一人群？\n两样本是否独立？\n分析是否只限于独立的工具变量（即删除了遗传连锁不平衡的SNPs）或分析是否允许工具变量之间的相关性？\n\n\n\n11.8.3 数据展示\n\n是否将结果表述为遗传关联、工具变量估计，或两者都是？\n如果提供的是工具变量估计值，是否将其与传统的观察性估计值进行了比较？\n是否提供敏感性分析，如MR Egger、加权中位数和模式孟德尔随机化，或使用阴性对照人群？\n是否手动挑选哪些SNPs进入工具变量以解决多态性问题？如果是这样，其方法和理由是否清楚？\n是否在补充材料中提供了使用的数据（特别是在群体水平上进行的孟德尔随机化分析），以便研究人员复制他们的发现？\n\n\n\n11.8.4 解释\n\n如果孟德尔随机化估计值与观察估计值相似，并提供了支持因果效应的证据，是否是由于单一研究中的弱工具偏倚或通过横向多态性的混杂造成的？\n如果孟德尔随机化估计值与观察性估计值不同，并提供了因果效应的少量证据，是否是由于使用了弱工具造成的偏差或由于多态性造成的负向混杂？\n孟德尔随机化提供了风险因素在群体一生中的影响估计，对特定年龄段的干预措施有同样大小的效果吗？\n孟德尔随机化估计的95%置信区间是否足够精确，因果效应是否临床意义的差异？\n\n\n\n11.8.5 临床意义\n\n结果是否与其他形式的证据相互印证？能否像PCSK9抑制剂那样进行临床试验以提供明确的证据？\n如果随机临床试验不可行（如饮酒和心脏病风险的情况）或不可能在短期内进行（如降低BMI和心脏病风险的生活方式干预的情况），并且现有的证据来自多个孟德尔随机化研究和其他稳健的研究设计，趋向于一个类似的结果，并显示出关联的一致性，这些信息可以用来指导病人护理；例如，建议减肥以预防心脏病，或建议不要适度饮酒以预防心血管疾病。 在用于临床建议前，还应结合干预试验、机制研究、观察性研究和不同人群中的 MR 结果进行证据三角验证，并清楚区分遗传预测的终生暴露效应与可操作的短期干预效应。",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/11-instrumental-variables.html#本章参考文献",
-    "href": "chapters/11-instrumental-variables.html#本章参考文献",
-    "title": "11  工具变量法",
-    "section": "11.9 本章参考文献",
-    "text": "11.9 本章参考文献\n\nHernán MA, Robins JM. Instruments for causal inference: an epidemiologist’s dream? Epidemiology. 2006;17:360–372. PMID: 16755261\nBaiocchi M, Cheng J, Small DS. Instrumental variable methods for causal inference. Statistics in Medicine. 2014;33:2297–2340. PMID: 24599889\nLousdal ML. An introduction to instrumental variable assumptions, validation and estimation. Emerging Themes in Epidemiology. 2018;15:1. PMID: 29387137\nGarabedian LF, Chu P, Toh S, et al. Potential bias of instrumental variable analyses for observational comparative effectiveness research. Annals of Internal Medicine. 2014;161:131–138. PMID: 25023252\nBowden J, Davey Smith G, Burgess S. Mendelian randomization with invalid instruments: effect estimation and bias detection through Egger regression. International Journal of Epidemiology. 2015;44:512–525. PMID: 26050253\nBowden J, Davey Smith G, Haycock PC, Burgess S. Consistent estimation in Mendelian randomization with some invalid instruments using a weighted median estimator. Genetic Epidemiology. 2016;40:304–314. PMID: 27061298\nBurgess S, Davey Smith G, Davies NM, et al. Guidelines for performing Mendelian randomization investigations. Wellcome Open Research. 2020;4:186. PMID: 32760811\nSkrivankova VW, Richmond RC, Woolf BAR, et al. Strengthening the Reporting of Observational Studies in Epidemiology Using Mendelian Randomization: The STROBE-MR Statement. JAMA. 2021;326:1614–1621. PMID: 34698778",
-    "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>工具变量法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/12-regression-discontinuity.html#精确断点与模糊断点",
-    "href": "chapters/12-regression-discontinuity.html#精确断点与模糊断点",
-    "title": "12  断点回归法",
-    "section": "",
-    "text": "精确断点是指临界点左右接受不同干预措施的概率为 0 或 1\n\n\n\n\n图12.1 精确断点示意图\n\n\n模糊断点是指临界点左右接受不同干预措施的概率处于0-1之间\n\n\n\n\n\n图12.2 模糊断点示意图\n\n\n\n检验干预变量在断点c处是否存在跳跃（可通过绘图确认）；\n检验干预变量和结局变量在断点以外的其他点不存在跳跃；\n检验影响结果变量的其他变量在断点处不存在跳跃；\n检验干预变量在断点处的概率密度函数是连续的，也就是在断点附近，个体不能操控干预的取值，个体落入断点的左侧或右侧是随机发生的；\n检验平均处理效应不等于0。",
-    "crumbs": [
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>断点回归法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/12-regression-discontinuity.html#本章参考文献",
-    "href": "chapters/12-regression-discontinuity.html#本章参考文献",
-    "title": "12  断点回归法",
-    "section": "12.6 本章参考文献",
-    "text": "12.6 本章参考文献\n\nVenkataramani AS, Bor J, Jena AB. Regression discontinuity designs in healthcare research. BMJ. 2016;352:i1216. PMID: 26977086\nCattaneo MD, Keele L, Titiunik R. A guide to regression discontinuity designs in medical applications. Statistics in Medicine. 2023;42:4785–4805. PMID: 37528626\nCalonico S, Jawadekar N, Kezios K, et al. Regression discontinuity design studies: a guide for health researchers. BMJ. 2024;384:e072254. BMJ\nMoscoe E, Bor J, Bärnighausen T. Regression discontinuity designs are underutilized in medicine, epidemiology, and public health: a review of current and best practice. Journal of Clinical Epidemiology. 2015;68:122–133. PMID: 25579639\nImbens GW, Lemieux T. Regression discontinuity designs: a guide to practice. Journal of Econometrics. 2008;142:615–635. NBER",
-    "crumbs": [
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>断点回归法</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/13-time-series.html#简单中断时间序列",
-    "href": "chapters/13-time-series.html#简单中断时间序列",
-    "title": "13  时间序列分析",
-    "section": "",
-    "text": "Year\nRate\nYear_ID\nTreatment\n\n\n\n\n…\n…\n…\n…\n\n\n2015第一季度\n0.333\n17\n0\n\n\n2015第二季度\n0.333\n18\n0\n\n\n2015第三季度\n0.435\n19\n0\n\n\n2015第四季度\n0.346\n20\n0\n\n\n2016第一季度\n0.353\n21\n1\n\n\n2016第二季度\n0.429\n22\n1\n\n\n…\n…\n…\n…\n\n\n\n\n\n\n\n\n\n注记代码13.1\n\n\n\n. regress rate year_id i.treatment treatment#c.year_id\n\n\n\n\n\n\n\n\n注记代码13.1输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSource\nSS\ndf\nMS\nNumber of obs\n=\n36\n\n\n\n\nModel\n.303109333\n3\n.1010364\nF(3, 32)\n=\n16.37\n\n\nResidual\n.197548986\n32\n.0061734\nProb &gt; F\n=\n0.0000\n\n\nTotal\n.500658319\n35\n.0143045\nR-squared\n=\n0.6054\n\n\n\n\n\n\nAdj R-squared\n=\n0.5684\n\n\n\n\n\n\nRoot MSE\n=\n.07857\n\n\nrate\nCoefficient\nStd. err.\nt\nP&gt;|t|\n[95% conf. interval]\n\n\n\nyear_id\n.0039544\n.003291\n1.20\n0.238\n-.0027491\n.0106579\n\n\n1.treatment\n-.2879237\n.1167636\n-2.47\n0.019\n-.5257633\n-.050084\n\n\ntreatment#\n.0127956\n.0050952\n2.51\n0.017\n.002417\n.0231743\n\n\n\n\n\n\n\n\n\n\n\nc.year_id\n\n\n\n\n\n\n\n\n_cons\n.3369825\n.0375229\n8.98\n0.000\n.2605508\n.4134141\n\n\n\n\n\n\n\n\n\n\n\n\n\n注记代码13.2\n\n\n\n. tsset year_id\n\n. itsa rate, single trperiod(21) fig posttrend\n\n\n\n\n\n\n\n\n注记代码13.2输出\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRegression with Newey–West standard errors\nNumber of obs\n=\n36\n\n\n\n\n\n\n\nMaximum lag = 0\nF(3, 32)\n=\n14.24\n\n\n\n\n\n\n\n\n\nProb &gt; F\n=\n0.0000\n\n\n\nCoef.\nNewey-West\nt\nP&gt;|t|\n[95% Conf. Interval]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStd. Err.\n\n\n\n\n\n\n_t\n.0029534\n.0025593\n1.15\n0.257\n-.0022598\n.0081666\n\n\n_x21\n.004313\n.0400688\n0.11\n0.915\n-.0773044\n.0859304\n\n\n_x_t21\n.0128451\n.0046241\n2.78\n0.009\n.0034262\n.0222641\n\n\n_cons\n.3469429\n.0335119\n10.35\n0.000\n.2786813\n.4152044\n\n\n\n\n\n\nPostintervention Linear Trend: 21\n\n\n\n\n\n\n\nTreated: _b[_t]+_b[_x_t21]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLinear Trend\nCoef.\nStd. Err.\nt\nP&gt;|t|\n[95% Conf. Interval]\n\n\n\n\nTreated\n.0157985\n.0038512\n4.10\n0.000\n.0079539 .0236432\n\n\n\n\n\n\n\n代码13.2输出：中断时间序列的图形显示\n\n\n\n\n\n\n\n\n\n注记代码13.3\n\n\n\n. actest, lags()\n\n\n\n\n\n\n\n\n注记代码13.3输出\n\n\n\n\n\n\nCumby-Huizinga test for autocorrelation (Breusch-Godfrey)\n\n\n\n\n\n\n\nH0: variable is MA process up to order q\n\n\n\n\n\nHA: serial correlation present at specified lags &gt;q\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nH0: q=0 (serially uncorrelated)\nH0: q=specified lag-1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHA: s.c. present at range specified\nHA: s.c. present at lag specified\n\n\n\n\n\n\n\n\nlags\nchi2\ndf\np val\nlag\nchi2\ndf\np val\n\n\n1-1\n0.008\n1\n0.9280\n1\n0.008\n1\n0.9280\n\n\n\n\n\n\nTest allows predetermined regressors/instruments\n\n\n\n\n\n\n\nTest requires conditional homoskedasticity",
-    "crumbs": [
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>时间序列分析</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/14-sensitivity-analysis.html#观察性研究的敏感性分析",
-    "href": "chapters/14-sensitivity-analysis.html#观察性研究的敏感性分析",
-    "title": "14  观察性研究的敏感性分析",
-    "section": "",
-    "text": "14.1.1 干预的定义\n多数观察性研究根据干预与否分为干预组和非干预组进行比较；但如果干预是可以量化的，比如某个指标的水平，或者用药的剂量等，可以根据不同的干预水平/剂量分组，比较组间结局发生率的关系，是否存在剂量依赖关系（剂量越高，疗效越好）。\n剂量或连续暴露的敏感性分析宜预先设定有临床意义的阈值，并同时以连续形式（例如限制性立方样条）检验非线性；任意分组可能丢失信息并制造阈值效应。\n\n\n14.1.2 结局的定义\n敏感性分析可以通过改变研究结局的定义来看研究结果的稳健性。比如肿瘤的发生，可以通过病历中的诊断，可以通过病理的结果，还可以通过影像学的结果等等。案例9.1中内分泌缓解的定义可以通过生长激素指标判断，亦可以通过胰岛素样生长因素判断，如果这两种判断方法得出的结论一致，则可增加研究的稳健性。\n替代结局定义应尽量基于预先验证的算法，并报告诊断窗口、测量误差和各定义下事件数；结论一致支持稳健性，但不能排除两种定义共享的系统性偏倚。\n\n\n14.1.3 数据的来源\n目前大规模的观察性研究大多基于已有的注册登记库数据开展，甚至有些研究会通过整合多个这样数据库进行分析，这时，数据的来源可以作为敏感性分析的一个切入口，可以既在不同的亚群中进行数据分析，也进行综合分析，查看研究结果的敏感性。\n除重复分析外，还应比较各数据源的纳入标准、时间零点、变量编码、缺失模式与随访方式；数据源不同并不自动意味着偏倚更小。\n\n\n14.1.4 协变量的定义\n尤其那些连续分布的协变量（如年龄），通常研究者会将其以连续分布变量的形式纳入多因素分析模型中，但其实这些变量与结局之间不一定是线性关系，这时如果把这些协变量划分成不同的层（如年龄层），再放入多因素分析模型中进行分析，来查看研究结果的敏感性。\n对连续协变量，优先比较合理的非线性函数（如样条）与线性设定；仅把变量切成若干层通常不能充分检验模型设定，并可能降低统计效率。\n\n\n14.1.5 分析方法\n可采用多种控制混杂因素的方法，包括回归，倾向性评分配对，逆概率加权。若可获得工具变量，还可使用工具变量方法。存在时间因素可选择中断时间序列方法。如果数据存在缺失，亦可采用多种缺失数据插补方法以检验缺失数据对结果的敏感性。\n这些分析应围绕同一因果问题和预先规定的估计目标进行；不同方法得到相近结果可增强可信度，但不能单独证明不存在残余混杂、选择偏倚或模型错设。",
-    "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>观察性研究的敏感性分析</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/14-sensitivity-analysis.html#参考文献",
-    "href": "chapters/14-sensitivity-analysis.html#参考文献",
-    "title": "14  观察性研究的敏感性分析",
+    "objectID": "chapters/20-sequential-decisions.html#参考文献",
+    "href": "chapters/20-sequential-decisions.html#参考文献",
+    "title": "20  序贯决策方案",
     "section": "参考文献",
-    "text": "参考文献\n\n\nCinelli, Carlos, 和 Chad Hazlett. 2020年. 《Making Sense of Sensitivity: Extending Omitted Variable Bias》. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 82 (1): 39～67. https://doi.org/10.1111/rssb.12348.\n\n\nDing, Peng, 和 Tyler J. VanderWeele. 2016年. 《Sensitivity Analysis Without Assumptions》. Epidemiology 27 (3): 368～77. https://doi.org/10.1097/EDE.0000000000000457.\n\n\nGreenland, Sander. 1996年. 《Basic methods for sensitivity analysis of biases》. International Journal of Epidemiology 25 (6): 1107～16. https://doi.org/10.1093/ije/25.6.1107.\n\n\nLipsitch, Marc, Eric Tchetgen Tchetgen, 和 Ted Cohen. 2010年. 《Negative controls: a tool for detecting confounding and bias in observational studies》. Epidemiology 21 (3): 383～88. https://doi.org/10.1097/EDE.0b013e3181d61eeb.\n\n\nPenning de Vries, Bas B. L., 和 Rolf H. H. Groenwold. 2023年. 《Negative controls: Concepts and caveats》. Statistical Methods in Medical Research 32 (8): 1576～87. https://doi.org/10.1177/09622802231181230.\n\n\nSurén, Pål, Christine Roth, Michaeline Bresnahan, 等. 2013年. 《Association Between Maternal Use of Folic Acid Supplements and Risk of Autism Spectrum Disorders in Children》. JAMA 309 (6): 570～77. https://doi.org/10.1001/jama.2012.155925.\n\n\nVanderWeele, Tyler J., 和 Peng Ding. 2017年. 《Sensitivity analysis in observational research: Introducing the E-value》. Annals of Internal Medicine 167 (4): 268～74. https://doi.org/10.7326/M16-2607.",
+    "text": "参考文献\n\n王硕汝等. 强化学习离线策略评估研究综述. 计算机学报.\nLiu Y, Qiao N, Altinel Y. Reinforcement Learning in Neurocritical and Neurosurgical Care: Principles and Possible Applications. Comput Math Methods Med. 2021;2021:6657119. doi:10.1155/2021/6657119. PMID:33727970.\nKomorowski M, Celi LA, Badawi O, Gordon AC, Faisal AA. The Artificial Intelligence Clinician learns optimal treatment strategies for sepsis in intensive care. Nat Med. 2018;24(11):1716-1720. doi:10.1038/s41591-018-0213-5. PMID:30349085.\nChakraborty B, Moodie E. Statistical Methods for Dynamic Treatment Regimes: Reinforcement Learning, Causal Inference, and Personalized Medicine. Springer; 2013.\nMurphy SA. A generalization error for Q-learning. J Mach Learn Res. 2005;6:1073-1097\nChakraborty B, Murphy SA. Dynamic treatment regimes. Annu Rev Stat Appl. 2014;1:447-464. doi:10.1146/annurev-statistics-022513-115553. PMID:25401119.\nCollins LM, Nahum-Shani I, Almirall D. Optimization of behavioral dynamic treatment regimens based on the sequential, multiple assignment, randomized trial (SMART). Clin Trials. 2014;11(4):426-434. doi:10.1177/1740774514536795. PMID:24902922.\nHernán MA, Robins JM. Causal Inference: What If. Boca Raton: Chapman & Hall/CRC; 2020.\nLendle SD, Schwab J, Petersen ML, van der Laan MJ. ltmle: An R Package Implementing Targeted Minimum Loss-Based Estimation for Longitudinal Data. J Stat Softw. 2017;81(1):1-21. doi:10.18637/jss.v081.i01.\nTang S, Wiens J. Model Selection for Offline Reinforcement Learning: Practical Considerations for Healthcare Settings. Proc Mach Learn Res. 2021;149:2-35. PMID:35702420.\nBirnie K, Tomson C, Caskey FJ, et al. Comparative Effectiveness of Dynamic Treatment Strategies for Medication Use and Dosage: Emulating a Target Trial Using Observational Data. Epidemiology. 2023;34(6):879-887. doi:10.1097/EDE.0000000000001649. PMID:37757876.",
     "crumbs": [
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>观察性研究的敏感性分析</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/15-mediation.html#传统中介分析",
-    "href": "chapters/15-mediation.html#传统中介分析",
-    "title": "15  因果中介分析",
-    "section": "",
-    "text": "\\(Y = \\ \\beta_{0}^{‘} + \\beta_{1}^{‘}*\\ T + \\beta_{2}^{’}*M\\)",
-    "crumbs": [
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>因果中介分析</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/15-mediation.html#因果中介效应定义",
-    "href": "chapters/15-mediation.html#因果中介效应定义",
-    "title": "15  因果中介分析",
-    "section": "15.2 因果中介效应定义",
-    "text": "15.2 因果中介效应定义\n因果中介分析澄清了传统中介分析中出现的模糊之处，基于反事实框架，并将因果效应定义与因果效应估计区分开来。因果效应定义的一个优点是它们是非参数性的，因此可以应用于任何类型的中介模型，以得出因果效应估计值。这包括具有干预中介交互作用的模型和具有非连续中介变量或非连续结果变量的模型。 自然直接效应与自然间接效应涉及”同一个体在不同干预情形下本会出现的中介值”，属于交叉世界反事实量；其因果解释依赖较强且不可由数据完全检验的假设。\n当因果效应被运用到中介模型时，结局的平均潜在结果可基于不同的中介取值以及不同的干预取值来定义和估计。也就是说，E[Y(T, M)] 表示将个体固定在预定的中介值M时，在T组中观察到的个体的结局，对于中介变量和干预变量都为二分类的情况，两者皆可取0或1。因此，因果直接效应、间接效应和总效应被定义为两种潜在结果之间的差异，具体如下： 以下定义同时区分以对照组中介分布为参照的自然直接效应和以干预组中介分布为参照的总体直接效应；报告时应写明所选参照值及效应尺度，而不宜把不同定义混用。\n① 总体间接效应（TIE，total indirect effect），表示干预组中 T 通过 M 对 Y 的影响：\n\\[TIE = \\ E\\left\\lbrack Y\\left( 1,M(1) \\right) \\right\\rbrack - E\\left\\lbrack Y\\left( 1,M(0) \\right) \\right\\rbrack\\ \\]\n② 自然间接效应（NIE，natural indirect effect），表示对照组中 T 通过 M 对 Y 的影响：\n\\[NIE = \\ E\\left\\lbrack Y\\left( 0,M(1) \\right) \\right\\rbrack - E\\left\\lbrack Y\\left( 0,M(0) \\right) \\right\\rbrack\\ \\]\n③ 总体直接效应（TDE，total direct effect），表示个体的中介变量被固定在1时，T 对 Y 的效应；\n\\[TDE = \\ E\\left\\lbrack Y\\left( 1,M(1) \\right) \\right\\rbrack - E\\left\\lbrack Y\\left( 0,M(1) \\right) \\right\\rbrack\\ \\]\n④ 自然直接效应（NDE，natural direct effect），表示个体的中介变量被固定在0时，T 对 Y 的效应；\n\\[NDE = \\ E\\left\\lbrack Y\\left( 1,M(0) \\right) \\right\\rbrack - E\\left\\lbrack Y\\left( 0,M(0) \\right) \\right\\rbrack\\ \\]\n⑤ 控制直接效应（CDE，controlled direct effect），表示个体的中介变量被控制时，T 对 Y 的效应，是将个体的干预值从0改为1，同时保持中介值不变的直接效应；\n\\[CDE = \\ E\\left\\lbrack Y(1,M) \\right\\rbrack - E\\left\\lbrack Y(0,M) \\right\\rbrack\\ \\]\n⑥ 总效应（TE，total effect），表示不考虑中介效应时，T 对 Y 的效应。\n\\[TE = \\ E\\left\\lbrack Y(T = 1) \\right\\rbrack - E\\left\\lbrack Y(T = 0) \\right\\rbrack = TIE + NDE = NIE + TDE\\ \\]\n对于线性模型，交互效应为0时，\n\\(NDE = TDE\\)，\n\\(NIE = TIE\\)。\n对于结局变量为二元变量：\n自然直接效应（NDE，natural direct effect）定义为：\n\\[{OR}^{NDE} = \\frac{P(Y_{1,M = 0} = 1)/P(Y_{1,M = 0} = 0)}{P(Y_{0,M = 0} = 1)/P(Y_{0,M = 0} = 0)}\\]\n自然间接效应（NIE，natural indirect effect）定义为：\n\\[{OR}^{NIE} = \\frac{P(Y_{1,M = 1} = 1)/P(Y_{1,M = 1} = 0)}{P(Y_{1,M = 0} = 1)/P(Y_{1,M = 0} = 0)}\\]\n总效应：\n\\[{OR}^{TE} = {OR}^{NDE}*{OR}^{NIE}\\]",
-    "crumbs": [
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>因果中介分析</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/15-mediation.html#参考文献",
-    "href": "chapters/15-mediation.html#参考文献",
-    "title": "15  因果中介分析",
-    "section": "参考文献",
-    "text": "参考文献\n\n\nBaron, Reuben M., 和 David A. Kenny. 1986年. 《The moderator–mediator variable distinction in social psychological research: Conceptual, strategic, and statistical considerations》. Journal of Personality and Social Psychology 51 (6): 1173～82. https://doi.org/10.1037/0022-3514.51.6.1173.\n\n\nLee, Hopin, Aidan G. Cashin, Sarah E. Lamb, 等. 2021年. 《A Guideline for Reporting Mediation Analyses of Randomized Trials and Observational Studies: The AGReMA Statement》. JAMA 326 (11): 1045～56. https://doi.org/10.1001/jama.2021.14075.\n\n\nValeri, Linda, 和 Tyler J. VanderWeele. 2013年. 《Mediation analysis allowing for exposure-mediator interactions and causal interpretation: Theoretical assumptions and implementation with SAS and SPSS macros》. Psychological Methods 18 (2): 137～50. https://doi.org/10.1037/a0031034.\n\n\nVanderWeele, Tyler J., Stijn Vansteelandt, 和 James M. Robins. 2014年. 《Effect decomposition in the presence of an exposure-induced mediator-outcome confounder》. Epidemiology 25 (2): 300～306. https://doi.org/10.1097/EDE.0000000000000034.",
-    "crumbs": [
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>因果中介分析</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/16-repeated-measures.html#传统方法",
-    "href": "chapters/16-repeated-measures.html#传统方法",
-    "title": "16  重复测量数据的统计分析",
-    "section": "",
-    "text": "16.1.1 简单回归\n偶尔，研究人员汇集来自多个受试者的多个记录，然后使用传统的回归方法将结局事件对干预以及时间轴做回归。每个受试者的每个观察点被视为一个单独的记录。尽管系数估计值对于类似参照总体中的参数可能是无偏倚的，但不建议使用此方法，计算出的标准误差估计值有非常大的偏差，基于此的统计显著性检验也是如此。每个受试者自身的自相关被完全忽略，且此方法严重违反了观测值独立的假设。此外，使用这种方法可能会掩盖效应，因为样本内部和样本之间的关系可能不同。 更准确地说，未处理个体内相关性通常会使标准误与置信区间失真，并可能夸大统计学显著性；若研究问题关注随时间的平均变化或个体轨迹，应使用能够明确处理聚类相关性的纵向模型。\n\n\n16.1.2 协方差分析\n协方差（analysis of covariance，ANCOVA）模型是将那些对结局指标 Y 有影响的变量 X 作为协变量，建立应变量 Y 随协变量 X 变化的线性回归关系，并利用这种回归关系把 X 值化为相等后再进行各组 Y 的修正均数间比较的假设检验。其结局指标必须为连续变量。经典的重复测量ANCOVA适用于部分纵向研究设计，这些设计通常平衡良好，每个受试者具有相同的，相对较少且通常均匀分布的时间点，并且没有缺失值。\n重复测量协方差分析的一个常见问题是，样本的重复观测之间的相关性违反了方差分析的重要假设，即观察结果不相关。如果受试者的多次测量结果与时间无关，则此问题通常不重要。然而，纵向研究中通常存在的问题是受试者多次测量与时间相关，相邻测量值相关性普遍比非相邻测量值相关性高。\n用于纵向研究的协方差分析最大缺点是仅限于某些情况，如，几个时间点（通常&lt;10）的平衡数据，多次测量的时间点一致。大多数软件算法不允许存在缺失值。 重复测量方差分析还依赖球形性等较强假设；即使采用校正，也难以解决不平衡随访和可能与结局相关的失访问题，因此在临床纵向研究中通常更适合作为受限情形下的补充分析。\n\n\n16.1.3 分析结局事件的变化\n在这种方法中，分析纵向数据通过计算结局事件的纵向变化幅度，然后可以使用任何传统的统计方法。例如，对于每个受试者，可以计算随访评分减去基线评分的差值，然后对这些差值进行t检验，比较治疗组与对照组的差别。这不是一种好的纵向分析方法，因为每个受试者只使用了两个可用的信息点，并没有考虑其他时间点的差异。\n以上所有这些分析方法都存在缺陷，临床研究中无法推荐其中的任何一种。但作为一种快速的探索性方法，可为更复杂但不太直观的方法提供一些信息。",
-    "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>重复测量数据的统计分析</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/16-repeated-measures.html#参考文献",
-    "href": "chapters/16-repeated-measures.html#参考文献",
-    "title": "16  重复测量数据的统计分析",
-    "section": "参考文献",
-    "text": "参考文献\n\n\nKim, Hye Jin, 和 Kijun Song. 2026年. 《Linear mixed-effects models for analysis of longitudinal repeated measures: a conceptual framework for clinical researchers》. Korean Journal of Anesthesiology, 网络首发. https://doi.org/10.4097/kja.25877.\n\n\nLennon, Hannah, Sarah Kelly, Matthew Sperrin, 等. 2018年. 《Framework to construct and interpret latent class trajectory modelling》. BMJ Open 8 (7): e020683. https://doi.org/10.1136/bmjopen-2017-020683.\n\n\nLi, Yihan, Dai Feng, Yunxia Sui, 等. 2022年. 《Analyzing longitudinal binary data in clinical studies》. Contemporary Clinical Trials 115: 106717. https://doi.org/10.1016/j.cct.2022.106717.\n\n\nLiang, Kung-Yee, 和 Scott L. Zeger. 1986年. 《Longitudinal data analysis using generalized linear models》. Biometrika 73 (1): 13～22. https://doi.org/10.1093/biomet/73.1.13.\n\n\nNagin, Daniel S., 和 Candice L. Odgers. 2010年. 《Group-based trajectory modeling in clinical research》. Annual Review of Clinical Psychology 6: 109～38. https://doi.org/10.1146/annurev.clinpsy.121208.131413.",
-    "crumbs": [
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>重复测量数据的统计分析</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/17-missing-data.html#数据缺失的机制",
-    "href": "chapters/17-missing-data.html#数据缺失的机制",
-    "title": "17  缺失数据",
-    "section": "",
-    "text": "17.1.1 完全随机缺失（missing completely at random，MCAR）\n所缺失的数据发生的概率既与已观察到的数据无关，也与未观察到的数据无关。MCAR是很强的机制假设；在相应分析模型正确时，完整病例分析可避免由缺失机制本身引入的选择偏倚，但仍会降低精度。(Sterne 等 2009年)比较缺失者与非缺失者的已观测特征只能描述差异，不能证明MCAR，因为缺失值及其与未观测量的关系无法由数据直接检验。\n\n\n17.1.2 随机缺失（missing at random，MAR）\n假设缺失数据发生的概率与所观察到的变量是有关的，而与未观察到的数据的特征是无关的。数据缺失不是完全随机的，即该类数据的缺失依赖于其他完全变量，如入院患者的体重缺失与病情的轻重有关，病情严重的患者无法测量体重； MAR同样是条件性、不可由观测数据完全检验的假设：若已纳入病情严重程度等相关已观测信息，缺失概率可不再额外依赖未观测的体重；遗漏关键预测因素时，表面上的MAR分析仍可能有偏。\n\n\n17.1.3 非随机缺失（missing not at random，MNAR）\n如果数据的缺失既依赖于完全变量又依赖于不完全变量本身，这种缺失即为不可忽略的缺失。数据的缺失与不完全变量自身的取值有关，如人群不原意提供家庭收入。",
-    "crumbs": [
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>缺失数据</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/17-missing-data.html#参考文献",
-    "href": "chapters/17-missing-data.html#参考文献",
-    "title": "17  缺失数据",
-    "section": "参考文献",
-    "text": "参考文献\n\n\nDickerman, Barbra A., Xabier García-Albéniz, Roger W. Logan, Spiros Denaxas, 和 Miguel A. Hernán. 2019年. 《Avoidable flaws in observational analyses: an application to statins and cancer》. Nature Medicine 25 (10): 1601～6. https://doi.org/10.1038/s41591-019-0595-5.\n\n\nHernán, Miguel A., 和 James M. Robins. 2017年. 《Per-protocol analyses of pragmatic trials》. New England Journal of Medicine 377 (14): 1391～98. https://doi.org/10.1056/NEJMsm1605385.\n\n\nHernán, Miguel A., 和 James M. Robins. 2020年. Causal Inference: What If. Chapman & Hall/CRC.\n\n\nInternational Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use. 2020年. ICH E9(R1) Addendum on Estimands and Sensitivity Analysis in Clinical Trials to the Guideline on Statistical Principles for Clinical Trials. Guideline. https://www.ema.europa.eu/en/documents/scientific-guideline/ich-e9-r1-addendum-estimands-and-sensitivity-analysis-clinical-trials-guideline-statistical-principles-clinical-trials-step-5_en.pdf.\n\n\nRimawi, M., 和 S. G. Hilsenbeck. 2012年. 《Making sense of clinical trial data: is inverse probability of censoring weighted analysis the answer to crossover bias?》 Journal of Clinical Oncology 30 (4): 453～58. https://doi.org/10.1200/JCO.2011.38.7074.\n\n\nSterne, Jonathan A. C., Ian R. White, John B. Carlin, 等. 2009年. 《Multiple imputation for missing data in epidemiological and clinical research: potential and pitfalls》. BMJ 338: b2393. https://doi.org/10.1136/bmj.b2393.",
-    "crumbs": [
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>缺失数据</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>序贯决策方案</span>"
     ]
   }
 ]

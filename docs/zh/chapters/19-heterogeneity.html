@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -220,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/12-regression-discontinuity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">断点回归法</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -273,12 +302,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/21-causal-discovery.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">因果发现</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">参考文献</span></a>
   </div>
@@ -296,9 +319,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#亚组分析" id="toc-亚组分析" class="nav-link active" data-scroll-target="#亚组分析"><span class="header-section-number">19.1</span> 亚组分析</a></li>
   <li><a href="#风险建模" id="toc-风险建模" class="nav-link" data-scroll-target="#风险建模"><span class="header-section-number">19.2</span> 风险建模</a></li>
   <li><a href="#治疗效果建模增益建模" id="toc-治疗效果建模增益建模" class="nav-link" data-scroll-target="#治疗效果建模增益建模"><span class="header-section-number">19.3</span> 治疗效果建模（增益建模）</a></li>
-  <li><a href="#以回归算法为基础的增益建模" id="toc-以回归算法为基础的增益建模" class="nav-link" data-scroll-target="#以回归算法为基础的增益建模"><span class="header-section-number">19.4</span> 以回归算法为基础的增益建模</a></li>
+  <li><a href="#以回归算法为基础的增益建模" id="toc-以回归算法为基础的增益建模" class="nav-link" data-scroll-target="#以回归算法为基础的增益建模"><span class="header-section-number">19.4</span> 以回归算法为基础的增益建模</a>
+  <ul class="collapse">
+  <li><a href="#s-learner" id="toc-s-learner" class="nav-link" data-scroll-target="#s-learner"><span class="header-section-number">19.4.1</span> S-learner</a></li>
+  <li><a href="#t-learner" id="toc-t-learner" class="nav-link" data-scroll-target="#t-learner"><span class="header-section-number">19.4.2</span> T-learner</a></li>
+  <li><a href="#x-learner" id="toc-x-learner" class="nav-link" data-scroll-target="#x-learner"><span class="header-section-number">19.4.3</span> X-learner</a></li>
+  </ul></li>
   <li><a href="#以决策树算法为基础的增益建模" id="toc-以决策树算法为基础的增益建模" class="nav-link" data-scroll-target="#以决策树算法为基础的增益建模"><span class="header-section-number">19.5</span> 以决策树算法为基础的增益建模</a></li>
-  <li><a href="#增益建模的验证" id="toc-增益建模的验证" class="nav-link" data-scroll-target="#增益建模的验证"><span class="header-section-number">19.6</span> 增益建模的验证</a></li>
+  <li><a href="#增益模型的评估与临床决策价值" id="toc-增益模型的评估与临床决策价值" class="nav-link" data-scroll-target="#增益模型的评估与临床决策价值"><span class="header-section-number">19.6</span> 增益模型的评估与临床决策价值</a></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献">参考文献</a></li>
   </ul>
 </nav>
     </div>
@@ -324,42 +353,544 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">注记</span>编写说明
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>本章内容整理中。可将已校订的 Word 书稿（<code>乔Book/</code> 目录）正文迁移至此，公式用 <code>$...$</code> / <code>$$...$$</code>，图片放 <code>images/</code>，代码用 <code>{r} 或</code>{python} 代码块。</p>
-</div>
-</div>
+<p>异质性治疗效应广泛存在，但要证明其存在并量化其规模十分困难。关键原因是：同一患者在同一时点不可能既接受治疗又不接受治疗，因此不能直接观察其两种潜在结局之差。例如，一名接受干预后存活的重症 COVID-19 患者，其未接受该干预时是存活还是死亡仍不可知。</p>
+<p>随机对照研究通常提供接受治疗组与对照组之间的平均治疗效应。将这一平均效应直接用于某一患者，隐含了治疗效应在相关人群中近似同质的假设；这一假设常不成立。异质性治疗效应（heterogeneous treatment effect，HTE）通常指随基线特征而变化的条件平均治疗效应（conditional average treatment effect，CATE）。应特别注意：模型可以估计给定协变量条件下的平均效应，但单个患者的真实个体治疗效应（individual treatment effect，ITE）仍不能被直接观察或逐例验证。</p>
 <section id="亚组分析" class="level2" data-number="19.1">
 <h2 data-number="19.1" class="anchored" data-anchor-id="亚组分析"><span class="header-section-number">19.1</span> 亚组分析</h2>
-<p><em>待补充。</em></p>
+<p>探讨治疗效果是否因人而异的传统做法，是分别估计不同患者亚组的治疗效应，例如按性别、年龄或疾病严重程度分层。亚组内的平均效应有时比总体平均效应更贴近临床决策，但亚组分析只能描述预先定义人群中的平均治疗效应，并不等同于识别某一具体患者的真实获益。亚组结果常以森林图呈现；理解其统计学局限性是正确解读异质性治疗效应的基础。</p>
+<p>评估异质性治疗效应应检验治疗与基线变量的交互作用（参见本书第九章），并在预先说明的效应尺度上报告各亚组效应及其置信区间。不能仅因“一个亚组的 P 值显著、另一个亚组不显著”便声称存在亚组差异；真正需要比较的是交互作用。多数试验的样本量和统计效能是为总体平均效应设计的，检验交互作用通常效能较低，且亚组不平衡会进一步加剧不确定性。若在多个变量、多个切点和多个结局中反复探索，偶然发现的风险很高。因此，亚组分析应尽量预先设定、具有临床或生物学依据，并对多重比较和估计精度保持谨慎。</p>
+<p>个体化医疗的重要前提是：治疗效应的差异可能具有系统性，而非纯属随机波动。传统亚组分析一次只考察一个变量，但患者往往在多种预后因素上同时不同；仅做单变量分层可能遗漏具有临床意义的效应模式。将多个预后因素整合为风险评分，或在严格验证条件下使用治疗效应模型，可作为补充性的探索工具，但不能以复杂模型取代预先定义和可重复验证。</p>
+<p>如本书第三章所述，亚组分析应事先充分定义，以临床推理或既往证据为基础，采用交互作用检验，并完整报告估计值和不确定性。除统计学问题外，还应关注研究结论的可推广性：即使某个亚组在试验中显示出差异，其定义、治疗可及性和基线风险在目标临床人群中是否相似，仍需单独判断。</p>
 </section>
 <section id="风险建模" class="level2" data-number="19.2">
 <h2 data-number="19.2" class="anchored" data-anchor-id="风险建模"><span class="header-section-number">19.2</span> 风险建模</h2>
-<p><em>待补充。</em></p>
+<p>异质性治疗效应的风险建模旨在克服单变量、逐次亚组分析的局限。其核心是先基于多个基线变量刻画患者的预后风险，再考察不同风险水平患者的绝对获益与危害，从而帮助回答在两种或多种治疗方案中哪一种对某类患者更合适。</p>
+<p>风险建模是利用多变量预后模型对试验患者进行风险分层，再估计各风险层内的治疗效应。模型可以是外部已验证的风险评分，也可以在研究数据中开发。许多临床结局的预测风险分布并不均匀：多数患者风险较低，少数患者风险很高。因此，即使相对治疗效应近似恒定，绝对风险降低也可能在高风险患者中更大；当治疗同时带来危害或负担时，风险分层尤其有助于权衡净获益。</p>
+<p>对于二分类结局，风险分层常比逐一检验大量“治疗×协变量”交互项更稳定。即使预后模型的判别能力只是中等，只要其校准合理，也可能揭示绝对获益随基线风险变化的模式。不过，这一发现仍应报告为风险层内的平均效应，并在独立数据中检验其可重复性。</p>
+<p>风险模型可在临床研究数据中内部开发，但构建预后模型时原则上不应使用治疗分配信息，而应仅利用治疗前可获得的基线变量预测结局。随机试验中，随后在风险层内比较各治疗组可得到有效的治疗效应估计。应通过重抽样、交叉验证或样本分割减少过度拟合，并报告模型的校准与风险分布；若要用于临床实践，还需在不同时间、中心或人群中进行外部验证。</p>
 </section>
 <section id="治疗效果建模增益建模" class="level2" data-number="19.3">
 <h2 data-number="19.3" class="anchored" data-anchor-id="治疗效果建模增益建模"><span class="header-section-number">19.3</span> 治疗效果建模（增益建模）</h2>
-<p><em>待补充。</em></p>
+<p>治疗效果建模（亦常称增益建模）直接利用试验数据预测两种治疗条件下的结局风险，并以其差值作为给定协变量下的预测治疗效应。例如，可分别预测患者在接受与不接受某治疗时的结局风险，再计算两者之差。该差值是模型估计的 CATE 或预测获益，而不是可以在该患者身上被直接观察到的真实 ITE。</p>
+<p>传统回归模型可依据先验临床知识纳入治疗变量、基线变量及治疗×基线变量交互项，以估计治疗效应随协变量变化的模式。交互项不应仅凭单次显著性检验机械地全部保留或删除；大量交互项极易过度拟合并造成治疗错误分配。可采用惩罚回归、样本分割或交叉拟合，并在独立数据中检验校准、区分度和临床决策价值。</p>
+<p>以内窥镜与显微镜治疗生长激素型垂体腺瘤为例，若在理想的反事实框架下每位患者都能接受两种治疗并观察结局，则可将患者概念性地分为四类：仅内窥镜能缓解、两种治疗均能缓解、两种治疗均不能缓解，以及仅显微镜能缓解。现实中每位患者只能观察到其中一种治疗下的结局，图示用于说明估计目标，而非可直接观察到的患者分类。</p>
+<div class="text-center">
+<p><img src="images/ch19-image1.png" class="img-fluid" style="width:3.18in"></p>
+<p>图19.1 治疗效应建模的目标人群</p>
+</div>
+<p>因此，某种干预未必对所有患者具有相同的临床价值。前面章节主要评估总体平均因果效应，即内窥镜相较显微镜在研究人群中的平均效果。若内窥镜资源有限，临床上更关心的是：在可比较且符合治疗条件的患者中，哪些特征所定义的人群可能具有更大的预期绝对获益，哪些患者使用显微镜可能已足够。此时的分析目标是比较治疗 A 与治疗 B 在给定基线特征条件下的预测结局差异（增益），并同时考虑可及性、手术风险和患者偏好。</p>
+<p>异质性治疗效应通常以条件平均因果效应表示，即在具有相同或相似测量协变量的人群中比较不同治疗的平均结果。不能把单个患者简单视为一个可验证的“亚组”：患者层面的两种潜在结局不能同时观察。近年来的机器学习方法能够更灵活地寻找预测变量和交互模式，但其输出仍是基于已测量协变量的模型化 CATE；其可信度取决于随机化或无混杂、可交换性、阳性性、模型稳定性和外部验证。</p>
 </section>
 <section id="以回归算法为基础的增益建模" class="level2" data-number="19.4">
 <h2 data-number="19.4" class="anchored" data-anchor-id="以回归算法为基础的增益建模"><span class="header-section-number">19.4</span> 以回归算法为基础的增益建模</h2>
-<p><em>待补充。</em></p>
+<section id="s-learner" class="level3" data-number="19.4.1">
+<h3 data-number="19.4.1" class="anchored" data-anchor-id="s-learner"><span class="header-section-number">19.4.1</span> S-learner</h3>
+<p>S-learner 较为简单：用治疗变量和基线变量共同拟合一个结局预测模型。对同一患者分别将治疗变量设为接受治疗和未接受治疗，即可得到两种模型预测结局；两者之差构成该患者协变量条件下的预测治疗效应。模型输出应称为预测 CATE 或预测增益，而不宜表述为已经观察到的个体因果效应。</p>
+<p><strong>公式19.1</strong></p>
+<p><span class="math display">\[Y=f(X,U)\]</span></p>
+<p><span class="math display">\[ITE=\widehat{Y}^{x=1}-\widehat{Y}^{x=0}=f\left(Y^{x=1},U\right)-f\left(Y^{x=0},U\right)\]</span></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> Treatment = (t == <span class="st">"Endoscopy"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> Outcome = 1 <span class="kw">if</span> <span class="fu">y</span> == <span class="st">"Yes"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> Outcome = 0 <span class="kw">if</span> <span class="fu">y</span> == <span class="st">"No"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>. lasso <span class="kw">logit</span> Outcome Treatment age <span class="kw">k</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> Treatment = 1</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> Outcome_x1, pr penalized</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> Treatment = 0</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> Outcome_x0, pr penalized</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> ITE = Outcome_x1 - Outcome_x0</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>. <span class="kw">summarize</span> ITE</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码19.1输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.1输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Obs</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Std. dev.</th>
+<th style="text-align: right;">Min</th>
+<th style="text-align: right;">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ITE</td>
+<td style="text-align: right;">899</td>
+<td style="text-align: right;">.1535538</td>
+<td style="text-align: right;">.0351515</td>
+<td style="text-align: right;">0.0670325</td>
+<td style="text-align: right;">.194139</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>模型预测的治疗效应从 0.07 至 0.19，均值为 0.15，计算尺度为风险差（risk difference）。这些数值反映模型在本示例数据中的预测增益，是否符合临床经验仍需结合机制、估计不确定性和验证数据判断。临床上，内窥镜相对显微镜的潜在优势可能来自更好的术中照明和假包膜切除；对侵袭性很强的肿瘤，即使使用内窥镜也未必能够完全切除，预期增益可能有限；对很小的肿瘤，显微镜本身疗效已较好，绝对增益也可能较小。因而，中等侵袭程度患者是否具有较大获益，应作为可检验的假设而非既定结论（参见第九章第4节边际效应）。</p>
+<p>可进一步查看不同肿瘤侵袭性条件下的预测治疗效应分布（以小提琴图展示）。图中 K=4 代表侵袭性较大的情况，预测增益较低；K=0 代表较小肿瘤，预测增益亦有限；K=1～3 的预测增益较高。该模式仅为模型在当前数据中的描述，需结合置信区间、重抽样稳定性及独立验证后，方可用于治疗分配建议。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. vioplot ITE, <span class="bn">over</span>(<span class="kw">k</span>) <span class="kw">ylabel</span>(-0.1(0.1)0.4)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码19.2输出：S-Learner个体治疗效应随侵袭性分布">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.2输出：S-Learner个体治疗效应随侵袭性分布
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch19-image2.png" class="img-fluid" style="width:5.77in"></p>
+<p>（横轴为侵袭性、纵轴为个体治疗效应）</p>
+</div>
+</div>
+</div>
+</section>
+<section id="t-learner" class="level3" data-number="19.4.2">
+<h3 data-number="19.4.2" class="anchored" data-anchor-id="t-learner"><span class="header-section-number">19.4.2</span> T-learner</h3>
+<p>T-learner 与 S-learner 不同：它分别在治疗组和对照组建立结局预测模型，再将两个模型应用于同一目标人群，分别预测两种治疗条件下的结局，二者之差即为预测治疗效应。该方法在两组结局函数明显不同且每组样本充足时较灵活，但仍需避免将模型预测误认为逐例可观察的个体效应。</p>
+<p><strong>公式19.2</strong></p>
+<p><span class="math display">\[Y_1=f^{X=1}(U)\]</span></p>
+<p><span class="math display">\[Y_0=f^{X=0}(U)\]</span></p>
+<p><span class="math display">\[ITE=\widehat{Y}^{X=1}-\widehat{Y}^{X=0}=f^{X=1}(U)-f^{X=0}(U)\]</span></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.3
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. lasso <span class="kw">logit</span> Outcome age <span class="kw">k</span> <span class="kw">if</span> Treatment == 1</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> Outcome_x1, pr penalized</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>. lasso <span class="kw">logit</span> Outcome age <span class="kw">k</span> <span class="kw">if</span> Treatment == 0</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> Outcome_x0, pr penalized</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> ITE = Outcome_x1 - Outcome_x0</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>. <span class="kw">summarize</span> ITE</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码19.3输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.3输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Obs</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Std. dev.</th>
+<th style="text-align: right;">Min</th>
+<th style="text-align: right;">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ITE</td>
+<td style="text-align: right;">899</td>
+<td style="text-align: right;">.1566132</td>
+<td style="text-align: right;">.0695787</td>
+<td style="text-align: right;">-.0283419</td>
+<td style="text-align: right;">.3432962</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>T-learner 的局限是双模型误差会累积；当治疗组与对照组样本量不平衡或其中一组预测困难时，估计可能不稳定。本示例中预测治疗效应从 -0.03 至 0.34，均值为 0.16。使用相同的作图代码绘制预测效应随肿瘤侵袭性的分布，可见 K=4 时预测增益较小，K=1～3 时较高；这一现象应在留出样本或外部数据中复核。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码19.4输出：T-learner 预测治疗效应随侵袭性分布">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.4输出：T-learner 预测治疗效应随侵袭性分布
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch19-image3.png" class="img-fluid" style="width:5.77in"></p>
+<p>（横轴为侵袭性、纵轴为个体治疗效应）</p>
+</div>
+</div>
+</div>
+</section>
+<section id="x-learner" class="level3" data-number="19.4.3">
+<h3 data-number="19.4.3" class="anchored" data-anchor-id="x-learner"><span class="header-section-number">19.4.3</span> X-learner</h3>
+<p>X-learner 与 T-learner 一样先分别拟合两组的结局模型，但随后进行交叉预测：用治疗组模型预测对照组、用对照组模型预测治疗组，构造伪效应后再进行建模，并结合倾向评分加权。其目标仍是估计协变量条件下的平均治疗效应；在观察性数据中还必须谨慎建模倾向评分并检查重叠性。</p>
+<p><strong>公式19.3</strong></p>
+<p><span class="math display">\[Y_1=f^{X=1}(U)\]</span></p>
+<p><span class="math display">\[Y_0=f^{X=0}(U)\]</span></p>
+<p><span class="math display">\[D_1=Y_1-\widehat{Y}_0=Y^{X=1}-f^{X=0}(U)\]</span></p>
+<p><span class="math display">\[D_0=\widehat{Y}_1-Y_0=f^{X=1}(U)-Y^{X=0}\]</span></p>
+<p><span class="math display">\[D_1=f^{x=1}(U)\]</span></p>
+<p><span class="math display">\[D_0=f^{x=0}(U)\]</span></p>
+<p><span class="math display">\[ITE=PS*d_0+(1-PS)*d_1\]</span></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.5
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. lasso <span class="kw">logit</span> Outcome age <span class="kw">k</span> <span class="kw">if</span> Treatment == 1</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> Outcome_x1, pr penalized</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>. lasso <span class="kw">logit</span> Outcome age <span class="kw">k</span> <span class="kw">if</span> Treatment == 0</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> Outcome_x0, pr penalized</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> D1 = Outcome - Outcome_x0 <span class="kw">if</span> Treatment == 1</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> D0 = Outcome_x1 - Outcome <span class="kw">if</span> Treatment == 0</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>. <span class="kw">reg</span> D1 age <span class="kw">k</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> D1_hat</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>. <span class="kw">reg</span> D0 age <span class="kw">k</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> D0_hat</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span> Treatment age <span class="kw">k</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> _pscore, pr</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> ITE = _pscore*D0_hat + (1-_pscore)*D1_hat</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>. <span class="kw">summarize</span> ITE</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码19.5输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.5输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Obs</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Std. dev.</th>
+<th style="text-align: right;">Min</th>
+<th style="text-align: right;">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ITE</td>
+<td style="text-align: right;">899</td>
+<td style="text-align: right;">.1629466</td>
+<td style="text-align: right;">.0599442</td>
+<td style="text-align: right;">-.0194199</td>
+<td style="text-align: right;">.3257553</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>X-learner 在两组样本量不平衡时可能较有优势，但其估计过程涉及多个模型，误差亦可能累积。本示例中预测治疗效应从 -0.02 至 0.33，均值为 0.16；按侵袭性分层的图形提示 K=4 时内窥镜预测增益较小。对于小肿瘤的增益模式，不同算法可能给出不同结论，这正说明需要以验证集的校准和临床效用，而非单一图形来选择模型。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码19.6输出：X-learner 预测治疗效应随侵袭性分布">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.6输出：X-learner 预测治疗效应随侵袭性分布
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch19-image4.png" class="img-fluid" style="width:5.77in"></p>
+<p>（横轴为侵袭性、纵轴为个体治疗效应）</p>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="以决策树算法为基础的增益建模" class="level2" data-number="19.5">
 <h2 data-number="19.5" class="anchored" data-anchor-id="以决策树算法为基础的增益建模"><span class="header-section-number">19.5</span> 以决策树算法为基础的增益建模</h2>
-<p><em>待补充。</em></p>
+<p>我们可以采用第18章介绍的因果树与因果森林算法估计给定协变量条件下的治疗效应。因果森林通过大量“诚实”因果树聚合，可同时给出 CATE 估计及其不确定性；其结果仍应解释为具有相似协变量患者的平均预测增益，而非单个患者已知的反事实差异。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.7
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grf)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"a_impute_CF.csv"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>Y <span class="sc">==</span> <span class="st">"Yes"</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>W <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>T <span class="sc">==</span> <span class="st">"Endoscopy"</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(data<span class="sc">$</span>K, data<span class="sc">$</span>Age, data<span class="sc">$</span>Duration, data<span class="sc">$</span>IGF_base,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                data<span class="sc">$</span>GH_base, data<span class="sc">$</span>Tumor_base)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>forest.Y <span class="ot">&lt;-</span> <span class="fu">regression_forest</span>(X, Y)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>Y.hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(forest.Y)<span class="sc">$</span>predictions</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>forest.W <span class="ot">&lt;-</span> <span class="fu">regression_forest</span>(X, W)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>W.hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(forest.W)<span class="sc">$</span>predictions</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>c.forest <span class="ot">&lt;-</span> <span class="fu">causal_forest</span>(X, Y, W, Y.hat, W.hat)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>tau.hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(c.forest)<span class="sc">$</span>predictions</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>mu.hat<span class="fl">.0</span> <span class="ot">&lt;-</span> Y.hat <span class="sc">-</span> W.hat <span class="sc">*</span> tau.hat</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>mu.hat<span class="fl">.1</span> <span class="ot">&lt;-</span> Y.hat <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> W.hat) <span class="sc">*</span> tau.hat</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>ITE <span class="ot">=</span> mu.hat<span class="fl">.1</span> <span class="sc">-</span> mu.hat<span class="fl">.0</span>。</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ITE)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码19.7输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.7输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Min.</th>
+<th style="text-align: right;">1st Qu.</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">3rd Qu.</th>
+<th style="text-align: right;">Max.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.01964</td>
+<td style="text-align: right;">0.11074</td>
+<td style="text-align: right;">0.13454</td>
+<td style="text-align: right;">0.14557</td>
+<td style="text-align: right;">0.18774</td>
+<td style="text-align: right;">0.29163</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>此处预测治疗效应从 0.02 至 0.29，均值为 0.15。与 X-learner 相比，因果森林可能给出不同的区间宽度；区间变窄不必然代表估计更可靠，还需检查样本重叠、诚实估计设置和验证表现。按肿瘤侵袭性分层，K=4 的预测增益较小，K=1～2 的预测增益较高。年龄与预测增益的关系也可作为探索结果呈现（参见第九章边际效应），但不应据此直接作出未经验证的个体化推荐。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.8
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>. vioplot ite, <span class="bn">over</span>(<span class="kw">k</span>) <span class="kw">ylabel</span>(-0.1(0.1)0.4)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> ite age)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码19.8输出：因果森林的预测治疗效应随侵袭性分布">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.8输出：因果森林的预测治疗效应随侵袭性分布
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch19-image5.png" class="img-fluid" style="width:5.77in"></p>
+<p>（横轴为侵袭性、纵轴为个体治疗效应）</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码19.9输出：因果森林的预测治疗效应随年龄分布">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.9输出：因果森林的预测治疗效应随年龄分布
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="text-center">
+<p><img src="images/ch19-image6.png" class="img-fluid" style="width:5.77in"></p>
+<p>（横轴为年龄、纵轴为个体治疗效应）</p>
+</div>
+</div>
+</div>
 </section>
-<section id="增益建模的验证" class="level2" data-number="19.6">
-<h2 data-number="19.6" class="anchored" data-anchor-id="增益建模的验证"><span class="header-section-number">19.6</span> 增益建模的验证</h2>
-<p><em>待补充。</em></p>
+<section id="增益模型的评估与临床决策价值" class="level2" data-number="19.6">
+<h2 data-number="19.6" class="anchored" data-anchor-id="增益模型的评估与临床决策价值"><span class="header-section-number">19.6</span> 增益模型的评估与临床决策价值</h2>
+<p>与标准预后预测模型不同，增益模型没有可逐例观测的“真实治疗效应”标签：每位患者只观察到其实际接受治疗下的一个结局。因此，不能以预测概率模型的常规方法直接验证 ITE。评价应在独立的随机试验数据，或满足无混杂等因果识别条件的观察性数据中进行，并明确评估的是给定协变量下的预测 CATE。</p>
+<p>第一类评估关注临床决策价值。假设内窥镜资源有限，只能为一定数量的患者提供治疗；可将基于预测增益选择患者的策略，与治疗全部患者、治疗无人、随机分配或其他临床规则进行比较。比较必须在开发模型之外的留出集、交叉验证框架或外部队列中完成，且应估计各策略下的结局、治疗危害、资源消耗和不确定性。仅在建模数据内按预测增益排序后再计算累计“增益”，会产生乐观偏倚，不能证明模型可改善实际结局。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.10
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gsort</span> -ITE</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> cum_ITE = <span class="kw">sum</span>(ITE)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>. <span class="ot">list</span> cum_ITE <span class="kw">in</span> 50</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> order_random = runiform()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gsort</span> order_random</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> cum_ITE_random = <span class="kw">sum</span>(ITE)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>. <span class="ot">list</span> cum_ITE_random <span class="kw">in</span> 50</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<p>下表列出给予 50、100 和 200 名患者治疗时的示例性累计增益。随机策略下不同模型的结果接近总体平均治疗效应乘以治疗人数；按模型排序的策略在本数据中显示出更高的表观增益。但这些数值来自演示性数据，若排序与结局在同一数据中形成，只能作为开发阶段的表观性能，不能据此认定 T-learner 优于其他模型或已经具备临床应用价值。应在独立验证数据中同时报告策略效应及其置信区间。</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="代码19.10输出">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>代码19.10输出
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">增益模型策略</th>
+<th style="text-align: right;">S-learner</th>
+<th style="text-align: right;">T-learner</th>
+<th style="text-align: right;">X-learner</th>
+<th style="text-align: right;">Causal forest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">50例</td>
+<td style="text-align: right;">9.74</td>
+<td style="text-align: right;">15.09</td>
+<td style="text-align: right;">14.07</td>
+<td style="text-align: right;">12.81</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">100例</td>
+<td style="text-align: right;">19.45</td>
+<td style="text-align: right;">28.25</td>
+<td style="text-align: right;">26.55</td>
+<td style="text-align: right;">24.15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">200例</td>
+<td style="text-align: right;">38.58</td>
+<td style="text-align: right;">51.88</td>
+<td style="text-align: right;">48.77</td>
+<td style="text-align: right;">44.05</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">随机策略</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">50例</td>
+<td style="text-align: right;">7.56</td>
+<td style="text-align: right;">7.37</td>
+<td style="text-align: right;">8.20</td>
+<td style="text-align: right;">7.40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">100例</td>
+<td style="text-align: right;">15.53</td>
+<td style="text-align: right;">16.34</td>
+<td style="text-align: right;">16.14</td>
+<td style="text-align: right;">15.20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">200例</td>
+<td style="text-align: right;">31.04</td>
+<td style="text-align: right;">32.51</td>
+<td style="text-align: right;">32.53</td>
+<td style="text-align: right;">29.49</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>第二类评估考察预测获益的校准和区分度。校准可按预测增益分组，在每一组内比较随机治疗组与对照组的观察结局差异，并绘制预测获益与观察平均获益的关系。区分度可采用 c-for-benefit：在治疗分配不同、但基线特征相近的患者对中构造观察获益，再检验模型是否能把观察获益较大的患者对赋予更高预测获益。此指标依赖匹配方式和结局定义，且配对观察获益本身存在随机误差；因此应报告匹配规则、置信区间和敏感性分析。c-for-benefit 反映排序能力，不能单独证明模型具有临床净获益。</p>
+<p>除校准与区分度外，还应评估临床应用后的净获益。可在预先设定的资源阈值下，比较“按模型优先治疗”“全部治疗”“均不治疗”等策略的预期结局，并将并发症、费用、可及性和患者偏好纳入决策权衡。若模型拟用于真实临床流程，最好进一步开展时间外、地域外验证，并在条件允许时进行前瞻性影响研究。</p>
+<p>异质性分析还应检查公平性与可推广性：在不同年龄、性别、疾病严重程度和医疗中心中，治疗重叠性是否充分，预测获益是否校准，模型驱动的分配是否可能扩大不公平。缺乏重叠或验证不足时，模型应限制在数据支持的患者范围内使用，而不应对所有符合入组标准者作外推。</p>
+</section>
+<section id="参考文献" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="参考文献">参考文献</h2>
+<ol type="1">
+<li><p>Kent DM, Steyerberg EW, van Klaveren D. Personalized evidence based medicine: predictive approaches to heterogeneous treatment effects. <em>BMJ</em>. 2018;363:k4245. doi:10.1136/bmj.k4245. PMID:30530757.</p></li>
+<li><p>Rekkas A, Paulus JK, Raman G, et al.&nbsp;Predictive approaches to heterogeneous treatment effects: a scoping review. <em>BMC Med Res Methodol</em>. 2020;20:264. doi:10.1186/s12874-020-01145-1. PMID:33096986.</p></li>
+<li><p>Wager S, Athey S. Estimation and inference of heterogeneous treatment effects using random forests. <em>J Am Stat Assoc</em>. 2018;113(523):1228-1242. doi:10.1080/01621459.2017.1319839.</p></li>
+<li><p>Kent DM, Paulus JK, van Klaveren D, et al.&nbsp;The Predictive Approaches to Treatment effect Heterogeneity (PATH) Statement. <em>Ann Intern Med</em>. 2020;172(1):35-45. doi:10.7326/M18-3667. PMID:31711134.</p></li>
+<li><p>Künzel SR, Sekhon JS, Bickel PJ, Yu B. Metalearners for estimating heterogeneous treatment effects using machine learning. <em>Proc Natl Acad Sci U S A</em>. 2019;116(10):4156-4165. doi:10.1073/pnas.1804597116. PMID:30770453.</p></li>
+<li><p>van Klaveren D, Steyerberg EW, Serruys PW, Kent DM. The proposed concordance-statistic for benefit provided a useful metric when modeling heterogeneous treatment effects. <em>J Clin Epidemiol</em>. 2018;100:132-141. doi:10.1016/j.jclinepi.2017.10.021. PMID:29132832.</p></li>
+<li><p>van Klaveren D, Balan TA, Steyerberg EW, Kent DM. Models with interactions overestimated heterogeneity of treatment effects and were prone to treatment mistargeting. <em>J Clin Epidemiol</em>. 2019;114:72-83. PMID:31195109.</p></li>
+</ol>
 
 
 <!-- -->
@@ -830,36 +1361,320 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 异质性与个体因果效应</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## 编写说明</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>本章内容整理中。可将已校订的 Word 书稿（<span class="in">`乔Book/`</span> 目录）正文迁移至此，公式用 <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span>，图片放 <span class="in">`images/`</span>，代码用 ```{r} 或 ```{python} 代码块。</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 亚组分析</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## 风险建模</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 治疗效果建模（增益建模）</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 以回归算法为基础的增益建模</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## 以决策树算法为基础的增益建模</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_待补充。_</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## 增益建模的验证</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>_待补充。_</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 异质性与个体因果效应</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>异质性治疗效应广泛存在，但要证明其存在并量化其规模十分困难。关键原因是：同一患者在同一时点不可能既接受治疗又不接受治疗，因此不能直接观察其两种潜在结局之差。例如，一名接受干预后存活的重症 COVID-19 患者，其未接受该干预时是存活还是死亡仍不可知。</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>随机对照研究通常提供接受治疗组与对照组之间的平均治疗效应。将这一平均效应直接用于某一患者，隐含了治疗效应在相关人群中近似同质的假设；这一假设常不成立。异质性治疗效应（heterogeneous treatment effect，HTE）通常指随基线特征而变化的条件平均治疗效应（conditional average treatment effect，CATE）。应特别注意：模型可以估计给定协变量条件下的平均效应，但单个患者的真实个体治疗效应（individual treatment effect，ITE）仍不能被直接观察或逐例验证。</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 亚组分析</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>探讨治疗效果是否因人而异的传统做法，是分别估计不同患者亚组的治疗效应，例如按性别、年龄或疾病严重程度分层。亚组内的平均效应有时比总体平均效应更贴近临床决策，但亚组分析只能描述预先定义人群中的平均治疗效应，并不等同于识别某一具体患者的真实获益。亚组结果常以森林图呈现；理解其统计学局限性是正确解读异质性治疗效应的基础。</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>评估异质性治疗效应应检验治疗与基线变量的交互作用（参见本书第九章），并在预先说明的效应尺度上报告各亚组效应及其置信区间。不能仅因“一个亚组的 P 值显著、另一个亚组不显著”便声称存在亚组差异；真正需要比较的是交互作用。多数试验的样本量和统计效能是为总体平均效应设计的，检验交互作用通常效能较低，且亚组不平衡会进一步加剧不确定性。若在多个变量、多个切点和多个结局中反复探索，偶然发现的风险很高。因此，亚组分析应尽量预先设定、具有临床或生物学依据，并对多重比较和估计精度保持谨慎。</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>个体化医疗的重要前提是：治疗效应的差异可能具有系统性，而非纯属随机波动。传统亚组分析一次只考察一个变量，但患者往往在多种预后因素上同时不同；仅做单变量分层可能遗漏具有临床意义的效应模式。将多个预后因素整合为风险评分，或在严格验证条件下使用治疗效应模型，可作为补充性的探索工具，但不能以复杂模型取代预先定义和可重复验证。</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>如本书第三章所述，亚组分析应事先充分定义，以临床推理或既往证据为基础，采用交互作用检验，并完整报告估计值和不确定性。除统计学问题外，还应关注研究结论的可推广性：即使某个亚组在试验中显示出差异，其定义、治疗可及性和基线风险在目标临床人群中是否相似，仍需单独判断。</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## 风险建模</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>异质性治疗效应的风险建模旨在克服单变量、逐次亚组分析的局限。其核心是先基于多个基线变量刻画患者的预后风险，再考察不同风险水平患者的绝对获益与危害，从而帮助回答在两种或多种治疗方案中哪一种对某类患者更合适。</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>风险建模是利用多变量预后模型对试验患者进行风险分层，再估计各风险层内的治疗效应。模型可以是外部已验证的风险评分，也可以在研究数据中开发。许多临床结局的预测风险分布并不均匀：多数患者风险较低，少数患者风险很高。因此，即使相对治疗效应近似恒定，绝对风险降低也可能在高风险患者中更大；当治疗同时带来危害或负担时，风险分层尤其有助于权衡净获益。</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>对于二分类结局，风险分层常比逐一检验大量“治疗×协变量”交互项更稳定。即使预后模型的判别能力只是中等，只要其校准合理，也可能揭示绝对获益随基线风险变化的模式。不过，这一发现仍应报告为风险层内的平均效应，并在独立数据中检验其可重复性。</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>风险模型可在临床研究数据中内部开发，但构建预后模型时原则上不应使用治疗分配信息，而应仅利用治疗前可获得的基线变量预测结局。随机试验中，随后在风险层内比较各治疗组可得到有效的治疗效应估计。应通过重抽样、交叉验证或样本分割减少过度拟合，并报告模型的校准与风险分布；若要用于临床实践，还需在不同时间、中心或人群中进行外部验证。</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## 治疗效果建模（增益建模）</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>治疗效果建模（亦常称增益建模）直接利用试验数据预测两种治疗条件下的结局风险，并以其差值作为给定协变量下的预测治疗效应。例如，可分别预测患者在接受与不接受某治疗时的结局风险，再计算两者之差。该差值是模型估计的 CATE 或预测获益，而不是可以在该患者身上被直接观察到的真实 ITE。</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>传统回归模型可依据先验临床知识纳入治疗变量、基线变量及治疗×基线变量交互项，以估计治疗效应随协变量变化的模式。交互项不应仅凭单次显著性检验机械地全部保留或删除；大量交互项极易过度拟合并造成治疗错误分配。可采用惩罚回归、样本分割或交叉拟合，并在独立数据中检验校准、区分度和临床决策价值。</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>以内窥镜与显微镜治疗生长激素型垂体腺瘤为例，若在理想的反事实框架下每位患者都能接受两种治疗并观察结局，则可将患者概念性地分为四类：仅内窥镜能缓解、两种治疗均能缓解、两种治疗均不能缓解，以及仅显微镜能缓解。现实中每位患者只能观察到其中一种治疗下的结局，图示用于说明估计目标，而非可直接观察到的患者分类。</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>:::: {.content-visible when-format="html"}</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch19-image1.png)</span>{width="3.18in"}</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>图19.1 治疗效应建模的目标人群</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>因此，某种干预未必对所有患者具有相同的临床价值。前面章节主要评估总体平均因果效应，即内窥镜相较显微镜在研究人群中的平均效果。若内窥镜资源有限，临床上更关心的是：在可比较且符合治疗条件的患者中，哪些特征所定义的人群可能具有更大的预期绝对获益，哪些患者使用显微镜可能已足够。此时的分析目标是比较治疗 A 与治疗 B 在给定基线特征条件下的预测结局差异（增益），并同时考虑可及性、手术风险和患者偏好。</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>异质性治疗效应通常以条件平均因果效应表示，即在具有相同或相似测量协变量的人群中比较不同治疗的平均结果。不能把单个患者简单视为一个可验证的“亚组”：患者层面的两种潜在结局不能同时观察。近年来的机器学习方法能够更灵活地寻找预测变量和交互模式，但其输出仍是基于已测量协变量的模型化 CATE；其可信度取决于随机化或无混杂、可交换性、阳性性、模型稳定性和外部验证。</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## 以回归算法为基础的增益建模</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### S-learner</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>S-learner 较为简单：用治疗变量和基线变量共同拟合一个结局预测模型。对同一患者分别将治疗变量设为接受治疗和未接受治疗，即可得到两种模型预测结局；两者之差构成该患者协变量条件下的预测治疗效应。模型输出应称为预测 CATE 或预测增益，而不宜表述为已经观察到的个体因果效应。</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>**公式19.1**</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>$$Y=f(X,U)$$</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>$$ITE=\widehat{Y}^{x=1}-\widehat{Y}^{x=0}=f\left(Y^{x=1},U\right)-f\left(Y^{x=0},U\right)$$</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码19.1</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a><span class="in">. gen Treatment = (t == "Endoscopy")</span></span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a><span class="in">. gen Outcome = 1 if y == "Yes"</span></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a><span class="in">. replace Outcome = 0 if y == "No"</span></span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a><span class="in">. lasso logit Outcome Treatment age k</span></span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a><span class="in">. replace Treatment = 1</span></span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a><span class="in">. predict Outcome_x1, pr penalized</span></span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a><span class="in">. replace Treatment = 0</span></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a><span class="in">. predict Outcome_x0, pr penalized</span></span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a><span class="in">. gen ITE = Outcome_x1 - Outcome_x0</span></span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a><span class="in">. summarize ITE</span></span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码19.1输出"}</span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Variable <span class="pp">|</span> Obs <span class="pp">|</span>     Mean <span class="pp">|</span> Std. dev. <span class="pp">|</span>       Min <span class="pp">|</span>     Max <span class="pp">|</span></span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---------|----:|---------:|----------:|----------:|--------:|</span></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ITE      <span class="pp">|</span> 899 <span class="pp">|</span> .1535538 <span class="pp">|</span>  .0351515 <span class="pp">|</span> 0.0670325 <span class="pp">|</span> .194139 <span class="pp">|</span></span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a>模型预测的治疗效应从 0.07 至 0.19，均值为 0.15，计算尺度为风险差（risk difference）。这些数值反映模型在本示例数据中的预测增益，是否符合临床经验仍需结合机制、估计不确定性和验证数据判断。临床上，内窥镜相对显微镜的潜在优势可能来自更好的术中照明和假包膜切除；对侵袭性很强的肿瘤，即使使用内窥镜也未必能够完全切除，预期增益可能有限；对很小的肿瘤，显微镜本身疗效已较好，绝对增益也可能较小。因而，中等侵袭程度患者是否具有较大获益，应作为可检验的假设而非既定结论（参见第九章第4节边际效应）。</span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>可进一步查看不同肿瘤侵袭性条件下的预测治疗效应分布（以小提琴图展示）。图中 K=4 代表侵袭性较大的情况，预测增益较低；K=0 代表较小肿瘤，预测增益亦有限；K=1～3 的预测增益较高。该模式仅为模型在当前数据中的描述，需结合置信区间、重抽样稳定性及独立验证后，方可用于治疗分配建议。</span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码19.2</span></span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a><span class="in">. vioplot ITE, over(k) ylabel(-0.1(0.1)0.4)</span></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码19.2输出：S-Learner个体治疗效应随侵袭性分布"}</span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch19-image2.png)</span>{width="5.77in"}</span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a>（横轴为侵袭性、纵轴为个体治疗效应）</span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a><span class="fu">### T-learner</span></span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a>T-learner 与 S-learner 不同：它分别在治疗组和对照组建立结局预测模型，再将两个模型应用于同一目标人群，分别预测两种治疗条件下的结局，二者之差即为预测治疗效应。该方法在两组结局函数明显不同且每组样本充足时较灵活，但仍需避免将模型预测误认为逐例可观察的个体效应。</span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a>**公式19.2**</span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a>$$Y_1=f^{X=1}(U)$$</span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a>$$Y_0=f^{X=0}(U)$$</span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a>$$ITE=\widehat{Y}^{X=1}-\widehat{Y}^{X=0}=f^{X=1}(U)-f^{X=0}(U)$$</span>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码19.3</span></span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a><span class="in">. lasso logit Outcome age k if Treatment == 1</span></span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a><span class="in">. predict Outcome_x1, pr penalized</span></span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a><span class="in">. lasso logit Outcome age k if Treatment == 0</span></span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a><span class="in">. predict Outcome_x0, pr penalized</span></span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a><span class="in">. gen ITE = Outcome_x1 - Outcome_x0</span></span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a><span class="in">. summarize ITE</span></span>
+<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码19.3输出"}</span>
+<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Variable <span class="pp">|</span> Obs <span class="pp">|</span>     Mean <span class="pp">|</span> Std. dev. <span class="pp">|</span>       Min <span class="pp">|</span>      Max <span class="pp">|</span></span>
+<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---------|----:|---------:|----------:|----------:|---------:|</span></span>
+<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ITE      <span class="pp">|</span> 899 <span class="pp">|</span> .1566132 <span class="pp">|</span>  .0695787 <span class="pp">|</span> -.0283419 <span class="pp">|</span> .3432962 <span class="pp">|</span></span>
+<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-133"><a href="#cb8-133" aria-hidden="true" tabindex="-1"></a>T-learner 的局限是双模型误差会累积；当治疗组与对照组样本量不平衡或其中一组预测困难时，估计可能不稳定。本示例中预测治疗效应从 -0.03 至 0.34，均值为 0.16。使用相同的作图代码绘制预测效应随肿瘤侵袭性的分布，可见 K=4 时预测增益较小，K=1～3 时较高；这一现象应在留出样本或外部数据中复核。</span>
+<span id="cb8-134"><a href="#cb8-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-135"><a href="#cb8-135" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码19.4输出：T-learner 预测治疗效应随侵袭性分布"}</span>
+<span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-137"><a href="#cb8-137" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch19-image3.png)</span>{width="5.77in"}</span>
+<span id="cb8-138"><a href="#cb8-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-139"><a href="#cb8-139" aria-hidden="true" tabindex="-1"></a>（横轴为侵袭性、纵轴为个体治疗效应）</span>
+<span id="cb8-140"><a href="#cb8-140" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-141"><a href="#cb8-141" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-142"><a href="#cb8-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-143"><a href="#cb8-143" aria-hidden="true" tabindex="-1"></a><span class="fu">### X-learner</span></span>
+<span id="cb8-144"><a href="#cb8-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-145"><a href="#cb8-145" aria-hidden="true" tabindex="-1"></a>X-learner 与 T-learner 一样先分别拟合两组的结局模型，但随后进行交叉预测：用治疗组模型预测对照组、用对照组模型预测治疗组，构造伪效应后再进行建模，并结合倾向评分加权。其目标仍是估计协变量条件下的平均治疗效应；在观察性数据中还必须谨慎建模倾向评分并检查重叠性。</span>
+<span id="cb8-146"><a href="#cb8-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-147"><a href="#cb8-147" aria-hidden="true" tabindex="-1"></a>**公式19.3**</span>
+<span id="cb8-148"><a href="#cb8-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-149"><a href="#cb8-149" aria-hidden="true" tabindex="-1"></a>$$Y_1=f^{X=1}(U)$$</span>
+<span id="cb8-150"><a href="#cb8-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-151"><a href="#cb8-151" aria-hidden="true" tabindex="-1"></a>$$Y_0=f^{X=0}(U)$$</span>
+<span id="cb8-152"><a href="#cb8-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-153"><a href="#cb8-153" aria-hidden="true" tabindex="-1"></a>$$D_1=Y_1-\widehat{Y}_0=Y^{X=1}-f^{X=0}(U)$$</span>
+<span id="cb8-154"><a href="#cb8-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-155"><a href="#cb8-155" aria-hidden="true" tabindex="-1"></a>$$D_0=\widehat{Y}_1-Y_0=f^{X=1}(U)-Y^{X=0}$$</span>
+<span id="cb8-156"><a href="#cb8-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-157"><a href="#cb8-157" aria-hidden="true" tabindex="-1"></a>$$D_1=f^{x=1}(U)$$</span>
+<span id="cb8-158"><a href="#cb8-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-159"><a href="#cb8-159" aria-hidden="true" tabindex="-1"></a>$$D_0=f^{x=0}(U)$$</span>
+<span id="cb8-160"><a href="#cb8-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-161"><a href="#cb8-161" aria-hidden="true" tabindex="-1"></a>$$ITE=PS*d_0+(1-PS)*d_1$$</span>
+<span id="cb8-162"><a href="#cb8-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-163"><a href="#cb8-163" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-164"><a href="#cb8-164" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码19.5</span></span>
+<span id="cb8-165"><a href="#cb8-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-166"><a href="#cb8-166" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-167"><a href="#cb8-167" aria-hidden="true" tabindex="-1"></a><span class="in">. lasso logit Outcome age k if Treatment == 1</span></span>
+<span id="cb8-168"><a href="#cb8-168" aria-hidden="true" tabindex="-1"></a><span class="in">. predict Outcome_x1, pr penalized</span></span>
+<span id="cb8-169"><a href="#cb8-169" aria-hidden="true" tabindex="-1"></a><span class="in">. lasso logit Outcome age k if Treatment == 0</span></span>
+<span id="cb8-170"><a href="#cb8-170" aria-hidden="true" tabindex="-1"></a><span class="in">. predict Outcome_x0, pr penalized</span></span>
+<span id="cb8-171"><a href="#cb8-171" aria-hidden="true" tabindex="-1"></a><span class="in">. gen D1 = Outcome - Outcome_x0 if Treatment == 1</span></span>
+<span id="cb8-172"><a href="#cb8-172" aria-hidden="true" tabindex="-1"></a><span class="in">. gen D0 = Outcome_x1 - Outcome if Treatment == 0</span></span>
+<span id="cb8-173"><a href="#cb8-173" aria-hidden="true" tabindex="-1"></a><span class="in">. reg D1 age k</span></span>
+<span id="cb8-174"><a href="#cb8-174" aria-hidden="true" tabindex="-1"></a><span class="in">. predict D1_hat</span></span>
+<span id="cb8-175"><a href="#cb8-175" aria-hidden="true" tabindex="-1"></a><span class="in">. reg D0 age k</span></span>
+<span id="cb8-176"><a href="#cb8-176" aria-hidden="true" tabindex="-1"></a><span class="in">. predict D0_hat</span></span>
+<span id="cb8-177"><a href="#cb8-177" aria-hidden="true" tabindex="-1"></a><span class="in">. logit Treatment age k</span></span>
+<span id="cb8-178"><a href="#cb8-178" aria-hidden="true" tabindex="-1"></a><span class="in">. predict _pscore, pr</span></span>
+<span id="cb8-179"><a href="#cb8-179" aria-hidden="true" tabindex="-1"></a><span class="in">. gen ITE = _pscore*D0_hat + (1-_pscore)*D1_hat</span></span>
+<span id="cb8-180"><a href="#cb8-180" aria-hidden="true" tabindex="-1"></a><span class="in">. summarize ITE</span></span>
+<span id="cb8-181"><a href="#cb8-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-182"><a href="#cb8-182" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-183"><a href="#cb8-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-184"><a href="#cb8-184" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码19.5输出"}</span>
+<span id="cb8-185"><a href="#cb8-185" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Variable <span class="pp">|</span> Obs <span class="pp">|</span>     Mean <span class="pp">|</span> Std. dev. <span class="pp">|</span>       Min <span class="pp">|</span>      Max <span class="pp">|</span></span>
+<span id="cb8-186"><a href="#cb8-186" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---------|----:|---------:|----------:|----------:|---------:|</span></span>
+<span id="cb8-187"><a href="#cb8-187" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ITE      <span class="pp">|</span> 899 <span class="pp">|</span> .1629466 <span class="pp">|</span>  .0599442 <span class="pp">|</span> -.0194199 <span class="pp">|</span> .3257553 <span class="pp">|</span></span>
+<span id="cb8-188"><a href="#cb8-188" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-189"><a href="#cb8-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-190"><a href="#cb8-190" aria-hidden="true" tabindex="-1"></a>X-learner 在两组样本量不平衡时可能较有优势，但其估计过程涉及多个模型，误差亦可能累积。本示例中预测治疗效应从 -0.02 至 0.33，均值为 0.16；按侵袭性分层的图形提示 K=4 时内窥镜预测增益较小。对于小肿瘤的增益模式，不同算法可能给出不同结论，这正说明需要以验证集的校准和临床效用，而非单一图形来选择模型。</span>
+<span id="cb8-191"><a href="#cb8-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-192"><a href="#cb8-192" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码19.6输出：X-learner 预测治疗效应随侵袭性分布"}</span>
+<span id="cb8-193"><a href="#cb8-193" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-194"><a href="#cb8-194" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch19-image4.png)</span>{width="5.77in"}</span>
+<span id="cb8-195"><a href="#cb8-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-196"><a href="#cb8-196" aria-hidden="true" tabindex="-1"></a>（横轴为侵袭性、纵轴为个体治疗效应）</span>
+<span id="cb8-197"><a href="#cb8-197" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-198"><a href="#cb8-198" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-199"><a href="#cb8-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-200"><a href="#cb8-200" aria-hidden="true" tabindex="-1"></a><span class="fu">## 以决策树算法为基础的增益建模</span></span>
+<span id="cb8-201"><a href="#cb8-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-202"><a href="#cb8-202" aria-hidden="true" tabindex="-1"></a>我们可以采用第18章介绍的因果树与因果森林算法估计给定协变量条件下的治疗效应。因果森林通过大量“诚实”因果树聚合，可同时给出 CATE 估计及其不确定性；其结果仍应解释为具有相似协变量患者的平均预测增益，而非单个患者已知的反事实差异。</span>
+<span id="cb8-203"><a href="#cb8-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-204"><a href="#cb8-204" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-205"><a href="#cb8-205" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码19.7</span></span>
+<span id="cb8-206"><a href="#cb8-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-207"><a href="#cb8-207" aria-hidden="true" tabindex="-1"></a><span class="in">``` r</span></span>
+<span id="cb8-208"><a href="#cb8-208" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grf)</span>
+<span id="cb8-209"><a href="#cb8-209" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"a_impute_CF.csv"</span>)</span>
+<span id="cb8-210"><a href="#cb8-210" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>Y <span class="sc">==</span> <span class="st">"Yes"</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb8-211"><a href="#cb8-211" aria-hidden="true" tabindex="-1"></a>W <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>T <span class="sc">==</span> <span class="st">"Endoscopy"</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb8-212"><a href="#cb8-212" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(data<span class="sc">$</span>K, data<span class="sc">$</span>Age, data<span class="sc">$</span>Duration, data<span class="sc">$</span>IGF_base,</span>
+<span id="cb8-213"><a href="#cb8-213" aria-hidden="true" tabindex="-1"></a>                data<span class="sc">$</span>GH_base, data<span class="sc">$</span>Tumor_base)</span>
+<span id="cb8-214"><a href="#cb8-214" aria-hidden="true" tabindex="-1"></a>forest.Y <span class="ot">&lt;-</span> <span class="fu">regression_forest</span>(X, Y)</span>
+<span id="cb8-215"><a href="#cb8-215" aria-hidden="true" tabindex="-1"></a>Y.hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(forest.Y)<span class="sc">$</span>predictions</span>
+<span id="cb8-216"><a href="#cb8-216" aria-hidden="true" tabindex="-1"></a>forest.W <span class="ot">&lt;-</span> <span class="fu">regression_forest</span>(X, W)</span>
+<span id="cb8-217"><a href="#cb8-217" aria-hidden="true" tabindex="-1"></a>W.hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(forest.W)<span class="sc">$</span>predictions</span>
+<span id="cb8-218"><a href="#cb8-218" aria-hidden="true" tabindex="-1"></a>c.forest <span class="ot">&lt;-</span> <span class="fu">causal_forest</span>(X, Y, W, Y.hat, W.hat)</span>
+<span id="cb8-219"><a href="#cb8-219" aria-hidden="true" tabindex="-1"></a>tau.hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(c.forest)<span class="sc">$</span>predictions</span>
+<span id="cb8-220"><a href="#cb8-220" aria-hidden="true" tabindex="-1"></a>mu.hat<span class="fl">.0</span> <span class="ot">&lt;-</span> Y.hat <span class="sc">-</span> W.hat <span class="sc">*</span> tau.hat</span>
+<span id="cb8-221"><a href="#cb8-221" aria-hidden="true" tabindex="-1"></a>mu.hat<span class="fl">.1</span> <span class="ot">&lt;-</span> Y.hat <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> W.hat) <span class="sc">*</span> tau.hat</span>
+<span id="cb8-222"><a href="#cb8-222" aria-hidden="true" tabindex="-1"></a>ITE <span class="ot">=</span> mu.hat<span class="fl">.1</span> <span class="sc">-</span> mu.hat<span class="fl">.0</span>。</span>
+<span id="cb8-223"><a href="#cb8-223" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ITE)</span>
+<span id="cb8-224"><a href="#cb8-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-225"><a href="#cb8-225" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-226"><a href="#cb8-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-227"><a href="#cb8-227" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码19.7输出"}</span>
+<span id="cb8-228"><a href="#cb8-228" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>    Min. <span class="pp">|</span> 1st Qu. <span class="pp">|</span>  Median <span class="pp">|</span>    Mean <span class="pp">|</span> 3rd Qu. <span class="pp">|</span>    Max. <span class="pp">|</span></span>
+<span id="cb8-229"><a href="#cb8-229" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------:|--------:|--------:|--------:|--------:|--------:|</span></span>
+<span id="cb8-230"><a href="#cb8-230" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0.01964 <span class="pp">|</span> 0.11074 <span class="pp">|</span> 0.13454 <span class="pp">|</span> 0.14557 <span class="pp">|</span> 0.18774 <span class="pp">|</span> 0.29163 <span class="pp">|</span></span>
+<span id="cb8-231"><a href="#cb8-231" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-232"><a href="#cb8-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-233"><a href="#cb8-233" aria-hidden="true" tabindex="-1"></a>此处预测治疗效应从 0.02 至 0.29，均值为 0.15。与 X-learner 相比，因果森林可能给出不同的区间宽度；区间变窄不必然代表估计更可靠，还需检查样本重叠、诚实估计设置和验证表现。按肿瘤侵袭性分层，K=4 的预测增益较小，K=1～2 的预测增益较高。年龄与预测增益的关系也可作为探索结果呈现（参见第九章边际效应），但不应据此直接作出未经验证的个体化推荐。</span>
+<span id="cb8-234"><a href="#cb8-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-235"><a href="#cb8-235" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-236"><a href="#cb8-236" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码19.8</span></span>
+<span id="cb8-237"><a href="#cb8-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-238"><a href="#cb8-238" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-239"><a href="#cb8-239" aria-hidden="true" tabindex="-1"></a><span class="in">. vioplot ite, over(k) ylabel(-0.1(0.1)0.4)</span></span>
+<span id="cb8-240"><a href="#cb8-240" aria-hidden="true" tabindex="-1"></a><span class="in">. twoway (scatter ite age)</span></span>
+<span id="cb8-241"><a href="#cb8-241" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-242"><a href="#cb8-242" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-243"><a href="#cb8-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-244"><a href="#cb8-244" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码19.8输出：因果森林的预测治疗效应随侵袭性分布"}</span>
+<span id="cb8-245"><a href="#cb8-245" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-246"><a href="#cb8-246" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch19-image5.png)</span>{width="5.77in"}</span>
+<span id="cb8-247"><a href="#cb8-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-248"><a href="#cb8-248" aria-hidden="true" tabindex="-1"></a>（横轴为侵袭性、纵轴为个体治疗效应）</span>
+<span id="cb8-249"><a href="#cb8-249" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-250"><a href="#cb8-250" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-251"><a href="#cb8-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-252"><a href="#cb8-252" aria-hidden="true" tabindex="-1"></a>:::: {.callout-note appearance="simple" icon="false" title="代码19.9输出：因果森林的预测治疗效应随年龄分布"}</span>
+<span id="cb8-253"><a href="#cb8-253" aria-hidden="true" tabindex="-1"></a>::: text-center</span>
+<span id="cb8-254"><a href="#cb8-254" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch19-image6.png)</span>{width="5.77in"}</span>
+<span id="cb8-255"><a href="#cb8-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-256"><a href="#cb8-256" aria-hidden="true" tabindex="-1"></a>（横轴为年龄、纵轴为个体治疗效应）</span>
+<span id="cb8-257"><a href="#cb8-257" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-258"><a href="#cb8-258" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb8-259"><a href="#cb8-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-260"><a href="#cb8-260" aria-hidden="true" tabindex="-1"></a><span class="fu">## 增益模型的评估与临床决策价值</span></span>
+<span id="cb8-261"><a href="#cb8-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-262"><a href="#cb8-262" aria-hidden="true" tabindex="-1"></a>与标准预后预测模型不同，增益模型没有可逐例观测的“真实治疗效应”标签：每位患者只观察到其实际接受治疗下的一个结局。因此，不能以预测概率模型的常规方法直接验证 ITE。评价应在独立的随机试验数据，或满足无混杂等因果识别条件的观察性数据中进行，并明确评估的是给定协变量下的预测 CATE。</span>
+<span id="cb8-263"><a href="#cb8-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-264"><a href="#cb8-264" aria-hidden="true" tabindex="-1"></a>第一类评估关注临床决策价值。假设内窥镜资源有限，只能为一定数量的患者提供治疗；可将基于预测增益选择患者的策略，与治疗全部患者、治疗无人、随机分配或其他临床规则进行比较。比较必须在开发模型之外的留出集、交叉验证框架或外部队列中完成，且应估计各策略下的结局、治疗危害、资源消耗和不确定性。仅在建模数据内按预测增益排序后再计算累计“增益”，会产生乐观偏倚，不能证明模型可改善实际结局。</span>
+<span id="cb8-265"><a href="#cb8-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-266"><a href="#cb8-266" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" collapse="false" icon="false"}</span>
+<span id="cb8-267"><a href="#cb8-267" aria-hidden="true" tabindex="-1"></a><span class="fu">### 代码19.10</span></span>
+<span id="cb8-268"><a href="#cb8-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-269"><a href="#cb8-269" aria-hidden="true" tabindex="-1"></a><span class="in">``` stata</span></span>
+<span id="cb8-270"><a href="#cb8-270" aria-hidden="true" tabindex="-1"></a><span class="in">. gsort -ITE</span></span>
+<span id="cb8-271"><a href="#cb8-271" aria-hidden="true" tabindex="-1"></a><span class="in">. gen cum_ITE = sum(ITE)</span></span>
+<span id="cb8-272"><a href="#cb8-272" aria-hidden="true" tabindex="-1"></a><span class="in">. list cum_ITE in 50</span></span>
+<span id="cb8-273"><a href="#cb8-273" aria-hidden="true" tabindex="-1"></a><span class="in">. gen order_random = runiform()</span></span>
+<span id="cb8-274"><a href="#cb8-274" aria-hidden="true" tabindex="-1"></a><span class="in">. gsort order_random</span></span>
+<span id="cb8-275"><a href="#cb8-275" aria-hidden="true" tabindex="-1"></a><span class="in">. gen cum_ITE_random = sum(ITE)</span></span>
+<span id="cb8-276"><a href="#cb8-276" aria-hidden="true" tabindex="-1"></a><span class="in">. list cum_ITE_random in 50</span></span>
+<span id="cb8-277"><a href="#cb8-277" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-278"><a href="#cb8-278" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-279"><a href="#cb8-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-280"><a href="#cb8-280" aria-hidden="true" tabindex="-1"></a>下表列出给予 50、100 和 200 名患者治疗时的示例性累计增益。随机策略下不同模型的结果接近总体平均治疗效应乘以治疗人数；按模型排序的策略在本数据中显示出更高的表观增益。但这些数值来自演示性数据，若排序与结局在同一数据中形成，只能作为开发阶段的表观性能，不能据此认定 T-learner 优于其他模型或已经具备临床应用价值。应在独立验证数据中同时报告策略效应及其置信区间。</span>
+<span id="cb8-281"><a href="#cb8-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-282"><a href="#cb8-282" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="代码19.10输出"}</span>
+<span id="cb8-283"><a href="#cb8-283" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 增益模型策略 <span class="pp">|</span> S-learner <span class="pp">|</span> T-learner <span class="pp">|</span> X-learner <span class="pp">|</span> Causal forest <span class="pp">|</span></span>
+<span id="cb8-284"><a href="#cb8-284" aria-hidden="true" tabindex="-1"></a><span class="pp">|:-------------|----------:|----------:|----------:|--------------:|</span></span>
+<span id="cb8-285"><a href="#cb8-285" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 50例         <span class="pp">|</span>      9.74 <span class="pp">|</span>     15.09 <span class="pp">|</span>     14.07 <span class="pp">|</span>         12.81 <span class="pp">|</span></span>
+<span id="cb8-286"><a href="#cb8-286" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 100例        <span class="pp">|</span>     19.45 <span class="pp">|</span>     28.25 <span class="pp">|</span>     26.55 <span class="pp">|</span>         24.15 <span class="pp">|</span></span>
+<span id="cb8-287"><a href="#cb8-287" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 200例        <span class="pp">|</span>     38.58 <span class="pp">|</span>     51.88 <span class="pp">|</span>     48.77 <span class="pp">|</span>         44.05 <span class="pp">|</span></span>
+<span id="cb8-288"><a href="#cb8-288" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 随机策略     <span class="pp">|</span>           <span class="pp">|</span>           <span class="pp">|</span>           <span class="pp">|</span>               <span class="pp">|</span></span>
+<span id="cb8-289"><a href="#cb8-289" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 50例         <span class="pp">|</span>      7.56 <span class="pp">|</span>      7.37 <span class="pp">|</span>      8.20 <span class="pp">|</span>          7.40 <span class="pp">|</span></span>
+<span id="cb8-290"><a href="#cb8-290" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 100例        <span class="pp">|</span>     15.53 <span class="pp">|</span>     16.34 <span class="pp">|</span>     16.14 <span class="pp">|</span>         15.20 <span class="pp">|</span></span>
+<span id="cb8-291"><a href="#cb8-291" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 200例        <span class="pp">|</span>     31.04 <span class="pp">|</span>     32.51 <span class="pp">|</span>     32.53 <span class="pp">|</span>         29.49 <span class="pp">|</span></span>
+<span id="cb8-292"><a href="#cb8-292" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-293"><a href="#cb8-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-294"><a href="#cb8-294" aria-hidden="true" tabindex="-1"></a>第二类评估考察预测获益的校准和区分度。校准可按预测增益分组，在每一组内比较随机治疗组与对照组的观察结局差异，并绘制预测获益与观察平均获益的关系。区分度可采用 c-for-benefit：在治疗分配不同、但基线特征相近的患者对中构造观察获益，再检验模型是否能把观察获益较大的患者对赋予更高预测获益。此指标依赖匹配方式和结局定义，且配对观察获益本身存在随机误差；因此应报告匹配规则、置信区间和敏感性分析。c-for-benefit 反映排序能力，不能单独证明模型具有临床净获益。</span>
+<span id="cb8-295"><a href="#cb8-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-296"><a href="#cb8-296" aria-hidden="true" tabindex="-1"></a>除校准与区分度外，还应评估临床应用后的净获益。可在预先设定的资源阈值下，比较“按模型优先治疗”“全部治疗”“均不治疗”等策略的预期结局，并将并发症、费用、可及性和患者偏好纳入决策权衡。若模型拟用于真实临床流程，最好进一步开展时间外、地域外验证，并在条件允许时进行前瞻性影响研究。</span>
+<span id="cb8-297"><a href="#cb8-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-298"><a href="#cb8-298" aria-hidden="true" tabindex="-1"></a>异质性分析还应检查公平性与可推广性：在不同年龄、性别、疾病严重程度和医疗中心中，治疗重叠性是否充分，预测获益是否校准，模型驱动的分配是否可能扩大不公平。缺乏重叠或验证不足时，模型应限制在数据支持的患者范围内使用，而不应对所有符合入组标准者作外推。</span>
+<span id="cb8-299"><a href="#cb8-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-300"><a href="#cb8-300" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考文献 {.unnumbered}</span></span>
+<span id="cb8-301"><a href="#cb8-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-302"><a href="#cb8-302" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Kent DM, Steyerberg EW, van Klaveren D. Personalized evidence based medicine: predictive approaches to heterogeneous treatment effects. *BMJ*. 2018;363:k4245. doi:10.1136/bmj.k4245. PMID:30530757.</span>
+<span id="cb8-303"><a href="#cb8-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-304"><a href="#cb8-304" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Rekkas A, Paulus JK, Raman G, et al. Predictive approaches to heterogeneous treatment effects: a scoping review. *BMC Med Res Methodol*. 2020;20:264. doi:10.1186/s12874-020-01145-1. PMID:33096986.</span>
+<span id="cb8-305"><a href="#cb8-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-306"><a href="#cb8-306" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Wager S, Athey S. Estimation and inference of heterogeneous treatment effects using random forests. *J Am Stat Assoc*. 2018;113(523):1228-1242. doi:10.1080/01621459.2017.1319839.</span>
+<span id="cb8-307"><a href="#cb8-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-308"><a href="#cb8-308" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Kent DM, Paulus JK, van Klaveren D, et al. The Predictive Approaches to Treatment effect Heterogeneity (PATH) Statement. *Ann Intern Med*. 2020;172(1):35-45. doi:10.7326/M18-3667. PMID:31711134.</span>
+<span id="cb8-309"><a href="#cb8-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-310"><a href="#cb8-310" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Künzel SR, Sekhon JS, Bickel PJ, Yu B. Metalearners for estimating heterogeneous treatment effects using machine learning. *Proc Natl Acad Sci U S A*. 2019;116(10):4156-4165. doi:10.1073/pnas.1804597116. PMID:30770453.</span>
+<span id="cb8-311"><a href="#cb8-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-312"><a href="#cb8-312" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>van Klaveren D, Steyerberg EW, Serruys PW, Kent DM. The proposed concordance-statistic for benefit provided a useful metric when modeling heterogeneous treatment effects. *J Clin Epidemiol*. 2018;100:132-141. doi:10.1016/j.jclinepi.2017.10.021. PMID:29132832.</span>
+<span id="cb8-313"><a href="#cb8-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-314"><a href="#cb8-314" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>van Klaveren D, Balan TA, Steyerberg EW, Kent DM. Models with interactions overestimated heterogeneity of treatment effects and were prone to treatment mistargeting. *J Clin Epidemiol*. 2019;114:72-83. PMID:31195109.</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
