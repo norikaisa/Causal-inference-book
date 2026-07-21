@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Advanced Meta-Analysis – Causal Inference in Clinical Medical Research</title>
+<title>7&nbsp; Advanced Meta-analysis – Causal Inference in Clinical Medical Research</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -120,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/07-advanced-meta.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Meta-Analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/07-advanced-meta.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Meta-analysis</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -184,19 +213,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06-meta-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Principles and Methods of Meta-Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Principles and Methods of Meta-analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07-advanced-meta.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Meta-Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Meta-analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08-dag-scm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Causal Diagrams and Structural Causal Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Causal Graphs and Structural Causal Models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -208,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10-propensity-score.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Propensity-Score-Based Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Causal Inference Methods Based on Propensity Scores</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -288,9 +317,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#meta-analysis-of-diagnostic-studies" id="toc-meta-analysis-of-diagnostic-studies" class="nav-link active" data-scroll-target="#meta-analysis-of-diagnostic-studies"><span class="header-section-number">7.1</span> Meta-analysis of diagnostic studies</a></li>
-  <li><a href="#network-meta-analysis" id="toc-network-meta-analysis" class="nav-link" data-scroll-target="#network-meta-analysis"><span class="header-section-number">7.2</span> Network meta-analysis</a></li>
-  <li><a href="#multiple-outcome-network-meta-analysis" id="toc-multiple-outcome-network-meta-analysis" class="nav-link" data-scroll-target="#multiple-outcome-network-meta-analysis"><span class="header-section-number">7.3</span> Multiple-outcome network meta-analysis</a></li>
+  <li><a href="#network-meta-analysis" id="toc-network-meta-analysis" class="nav-link" data-scroll-target="#network-meta-analysis"><span class="header-section-number">7.2</span> Network meta-analysis</a>
+  <ul class="collapse">
+  <li><a href="#network-setup" id="toc-network-setup" class="nav-link" data-scroll-target="#network-setup"><span class="header-section-number">7.2.1</span> Network setup</a></li>
+  <li><a href="#ranking-interventions" id="toc-ranking-interventions" class="nav-link" data-scroll-target="#ranking-interventions"><span class="header-section-number">7.2.2</span> Ranking interventions</a></li>
+  <li><a href="#network-consistency" id="toc-network-consistency" class="nav-link" data-scroll-target="#network-consistency"><span class="header-section-number">7.2.3</span> Network consistency</a></li>
+  </ul></li>
+  <li><a href="#network-meta-analysis-of-multiple-outcomes" id="toc-network-meta-analysis-of-multiple-outcomes" class="nav-link" data-scroll-target="#network-meta-analysis-of-multiple-outcomes"><span class="header-section-number">7.3</span> Network meta-analysis of multiple outcomes</a></li>
   <li><a href="#prospective-meta-analysis" id="toc-prospective-meta-analysis" class="nav-link" data-scroll-target="#prospective-meta-analysis"><span class="header-section-number">7.4</span> Prospective meta-analysis</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -299,7 +334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Meta-Analysis</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Meta-analysis</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -316,34 +351,458 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<p>Chapter 6 introduced literature searching, quality assessment, and standard meta-analytic methods. This chapter extends those foundations to diagnostic meta-analysis, network meta-analysis, and prospective meta-analysis.</p>
+<section id="meta-analysis-of-diagnostic-studies" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="meta-analysis-of-diagnostic-studies"><span class="header-section-number">7.1</span> Meta-analysis of diagnostic studies</h2>
+<p>Published studies of the same diagnostic method can differ or conflict because of populations, settings, index tests, and conditions. As new technologies enter clinical practice, choices multiply, so their results must be assessed together. A single diagnostic study classifies a test as positive or negative and compares it with a positive or negative reference standard in a <span class="math inline">\(2\times2\)</span> table. Diagnostic meta-analysis synthesizes accuracy, sensitivity, specificity, likelihood ratios, and diagnostic odds ratios.</p>
+<p><strong>Equation 7.1 Diagnostic odds ratio</strong></p>
+<p><span class="math display">\[\text{Diagnostic odds ratio}=\frac{\text{true positive}\times\text{true negative}}{\text{false positive}\times\text{false negative}}\]</span></p>
+<p>The diagnostic odds ratio can be used when weighting diagnostic studies in a meta-analysis.</p>
+<p><strong>Case 7.1.</strong> Increased 24-hour urinary free cortisol is one diagnostic test for Cushing syndrome, but reported accuracy varies. Extract true positives (test positive and reference-standard positive), false positives (test positive/reference-standard negative), true negatives, and false negatives; each row is a publication.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Author</th>
+<th style="text-align: right;">TP</th>
+<th style="text-align: right;">TN</th>
+<th style="text-align: right;">FP</th>
+<th style="text-align: right;">FN</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Zukowski 2013</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Yanovski 1998</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Yaneva 2009</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Yaneva 2004</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Viardot 2005</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Valassi 2009</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tsagarakis 1998</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">81</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tous 2012</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">…</td>
+<td style="text-align: right;">…</td>
+<td style="text-align: right;">…</td>
+<td style="text-align: right;">…</td>
+<td style="text-align: right;">…</td>
+</tr>
+</tbody>
+</table>
+<p>In Stata, <code>midas</code> performs diagnostic meta-analysis.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 7.1">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
+<span class="screen-reader-only">Note</span>Code 7.1
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>midas tp fp fn tn, id(author) ms(0.75) bfor(dss)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<section id="meta-analysis-of-diagnostic-studies" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="meta-analysis-of-diagnostic-studies"><span class="header-section-number">7.1</span> Meta-analysis of diagnostic studies</h2>
-<p><em>To be added.</em></p>
+<div class="text-center">
+<p><img src="images/ch7-image1.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 7.1 output: forest plots (sensitivity left, specificity right).</p>
+</div>
+<p>Sensitivity and specificity forest plots resemble those used in conventional meta-analysis.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 7.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 7.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>midas tp fp fn tn, es(x) res(<span class="ot">all</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 7.2 output">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 7.2 output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Measure</th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: left;">95% CI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">AUROC</td>
+<td style="text-align: right;">0.98</td>
+<td style="text-align: left;">0.96–0.99</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sensitivity</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: left;">0.92–0.96</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Specificity</td>
+<td style="text-align: right;">0.93</td>
+<td style="text-align: left;">0.89–0.96</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Positive likelihood ratio</td>
+<td style="text-align: right;">13.4</td>
+<td style="text-align: left;">8.5–21.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Negative likelihood ratio</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: left;">0.05–0.09</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Diagnostic odds ratio</td>
+<td style="text-align: right;">207</td>
+<td style="text-align: left;">108–399</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Heterogeneity</td>
+<td style="text-align: right;">LRT <span class="math inline">\(Q=195.006\)</span>, <span class="math inline">\(I^2=99\%\)</span></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The pooled sensitivity is 94%, specificity 93%, and diagnostic odds ratio 207, with heterogeneity. A diagnostic odds ratio above 1 indicates useful discrimination and becomes better as it increases; below 1 means people without disease are more likely to test positive; 1 means no discrimination. Diagnostic accuracy reviews generally use a bivariate random-effects model to pool sensitivity and specificity and present a summary ROC (SROC) curve (Reitsma et al.&nbsp;2005). Each study contributes a sensitivity/specificity point, dashed lines show 95% confidence limits, and the red point nearest the upper-left is the summary estimate.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 7.3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 7.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>midas tp fp fn tn, plot sroc(both)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch7-image2.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 7.3 output: summary ROC curve.</p>
+</div>
 </section>
 <section id="network-meta-analysis" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="network-meta-analysis"><span class="header-section-number">7.2</span> Network meta-analysis</h2>
-<p><em>To be added.</em></p>
+<p>Standard meta-analysis compares two interventions. In practice, a disease may have many options, but most RCTs compare only two—for example A versus placebo or A versus B. Network meta-analysis (NMA), also called multiple-treatment meta-analysis or mixed-treatment comparison, combines RCT evidence to compare all relevant treatments. It uses direct comparison (an RCT compares A with B) and indirect comparison (A versus C and B versus C allow C to link A with B even when no A-versus-B RCT exists).</p>
+<div class="text-center">
+<p><img src="images/ch7-image3.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figure 7.1 Direct and indirect comparisons.</p>
+</div>
+<p>Compared with conventional meta-analysis, NMA can answer more clinically relevant questions, use all available evidence, give more precise comparisons, and rank treatments. Its reporting should follow PRISMA-NMA (Hutton et al.&nbsp;2015). Its key assumption is <strong>transitivity</strong>: study populations and interventions are sufficiently similar across the network, or there is a sound theoretical basis to regard different forms of an intervention as substantively equivalent. This must be justified clinically and methodologically before analysis (Salanti 2012).</p>
+<p><strong>Case 7.2.</strong> About 14 interventions are FDA-approved for multiple sclerosis. In phase III trials, about 60% compare a drug with placebo and 40% compare drug A with drug B. Relapse within 24 months is the common outcome, summarized as a risk ratio. In network data, each study arm occupies a row with study name, treatment, events, and total sample size.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Study</th>
+<th style="text-align: right;">Events</th>
+<th style="text-align: right;">Sample size</th>
+<th style="text-align: left;">Treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">IFNB MS Group</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">123</td>
+<td style="text-align: left;">Placebo</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IFNB MS Group</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">249</td>
+<td style="text-align: left;">Betaseron</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BRAVO</td>
+<td style="text-align: right;">227</td>
+<td style="text-align: right;">450</td>
+<td style="text-align: left;">Placebo</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BRAVO</td>
+<td style="text-align: right;">264</td>
+<td style="text-align: right;">447</td>
+<td style="text-align: left;">Avonex</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BRAVO</td>
+<td style="text-align: right;">233</td>
+<td style="text-align: right;">434</td>
+<td style="text-align: left;">Laquin</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MSCRG</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">143</td>
+<td style="text-align: left;">Placebo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MSCRG</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">158</td>
+<td style="text-align: left;">Avonex</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PRISMS</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">187</td>
+<td style="text-align: left;">Placebo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PRISMS</td>
+<td style="text-align: right;">105</td>
+<td style="text-align: right;">373</td>
+<td style="text-align: left;">Rebif</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">…</td>
+<td style="text-align: right;">…</td>
+<td style="text-align: right;">…</td>
+<td style="text-align: left;">…</td>
+</tr>
+</tbody>
+</table>
+<section id="network-setup" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="network-setup"><span class="header-section-number">7.2.1</span> Network setup</h3>
+<p>Use <code>network setup</code> to declare events and sample sizes, then draw a network map. Blue circles are interventions and circle size represents participant numbers. Black lines are direct comparisons and line width represents the number of head-to-head studies. Placebo has most participants; Copaxone versus placebo has the most direct studies. No line means no direct comparison.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 7.4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 7.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>network setup responders samplesize, studyvar(study) trtvar(treatment)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>network map</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch7-image4.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 7.4 output: network map.</p>
+</div>
 </section>
-<section id="multiple-outcome-network-meta-analysis" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="multiple-outcome-network-meta-analysis"><span class="header-section-number">7.3</span> Multiple-outcome network meta-analysis</h2>
-<p><em>To be added.</em></p>
+<section id="ranking-interventions" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="ranking-interventions"><span class="header-section-number">7.2.2</span> Ranking interventions</h3>
+<p>The surface under the cumulative ranking curve (SUCRA) ranks treatments. Each intervention has a cumulative ranking curve: the x-axis is rank and the y-axis is the probability of that rank. In this example mitoxantrone has probability about 0.6 of rank 1, whereas placebo has probability about 0.6 of rank 16.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 7.5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 7.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>network meta consistency</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>network <span class="fu">rank</span> <span class="fu">max</span>, <span class="ot">all</span> <span class="bn">zero</span> <span class="kw">gen</span>(<span class="kw">prob</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sucra <span class="kw">prob</span>*, rankograms labels(alemtuzimab avonex azathioprine betaseron copaxone dimethyl fingolimod ifn igg laquin laquinimod mitoxantrone natalizumab placebo rebif teriflunomide)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch7-image5.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 7.5 output: cumulative ranking curves.</p>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Treatment</th>
+<th style="text-align: right;">SUCRA</th>
+<th style="text-align: right;">Probability best</th>
+<th style="text-align: right;">Mean rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Alemtuzumab</td>
+<td style="text-align: right;">94.3</td>
+<td style="text-align: right;">33.6%</td>
+<td style="text-align: right;">1.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mitoxantrone</td>
+<td style="text-align: right;">92.4</td>
+<td style="text-align: right;">57.2%</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Natalizumab</td>
+<td style="text-align: right;">81.6</td>
+<td style="text-align: right;">0.1%</td>
+<td style="text-align: right;">3.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Azathioprine</td>
+<td style="text-align: right;">69.0</td>
+<td style="text-align: right;">6.5%</td>
+<td style="text-align: right;">5.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Placebo</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">15.5</td>
+</tr>
+</tbody>
+</table>
+<p>Thus mitoxantrone ranks highest in this network. SUCRA reflects ranking probability, however, not whether differences are clinically meaningful (Salanti et al.&nbsp;2011). A league table presents pairwise comparisons like scores in a football league: its cells give the relative effect and 95% confidence interval for the row versus column treatment; the redundant half is omitted.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 7.6">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 7.6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>netleague, <span class="kw">eform</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch7-image6.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 7.6 output: league table.</p>
+</div>
+</section>
+<section id="network-consistency" class="level3" data-number="7.2.3">
+<h3 data-number="7.2.3" class="anchored" data-anchor-id="network-consistency"><span class="header-section-number">7.2.3</span> Network consistency</h3>
+<p>For a pair of interventions, direct and indirect evidence may both exist. Test whether they agree, and whether multiple indirect sources agree. In this example, the consistency forest plot has <em>p</em>=0.852; direct (blue) and indirect (green) comparisons are broadly concordant. If they disagree, use an inconsistency model.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 7.7">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 7.7
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>network meta inconsistency</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>network forest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch7-image7.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 7.7 output: direct and indirect evidence.</p>
+</div>
+<p>Node splitting separately estimates direct and indirect effects, estimates their difference, and tests whether that difference is zero.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 7.8">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 7.8
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>network sidesplit <span class="ot">all</span>, tau</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<p>Treatment-effect modifiers may include trial methods, clinical characteristics, follow-up time, outcome definition, risk of bias, and analysis/reporting standards. Before NMA, select trials relevant to the clinical population and investigate systematic differences across comparisons. If node splitting shows inconsistency, seek explanations such as particular designs or studies at high risk of bias. If unexplained, model inconsistency as a mean-zero random effect to obtain an overall estimate while accounting for it.</p>
+<p>NMA has limitations. SUCRA can rank treatments with trivial absolute differences; rankings may be imprecise with wide credible intervals; many studies can distract from risk of bias, validity, and evidence quality in individual trials. Strong transitivity assumptions can be hard to defend, and inferences that rely on indirect comparisons should receive cautions similar to observational studies.</p>
+</section>
+</section>
+<section id="network-meta-analysis-of-multiple-outcomes" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="network-meta-analysis-of-multiple-outcomes"><span class="header-section-number">7.3</span> Network meta-analysis of multiple outcomes</h2>
+<p>Different trials for the same disease may report different outcomes. For example, in a meta-analysis of progesterone-receptor status and prognosis in endometrial cancer, four studies reported both cancer-specific and progression-free survival, while others reported only one. Restricting analysis to one outcome wastes information. Multivariate network meta-analysis models multiple outcomes and multiple treatments jointly, allowing more studies to contribute.</p>
+<p>Copas and colleagues express loss of information from standard univariate analysis with the B statistic:</p>
+<p><strong>Equation 7.2 B statistic</strong></p>
+<p><span class="math display">\[B=100\times(1-E)\]</span></p>
+<p><strong>Equation 7.3 Information efficiency</strong></p>
+<p><span class="math display">\[E=\frac{\text{variance of synthesis based on direct and indirect evidence}}{\text{variance of synthesis based only on direct evidence}}\]</span></p>
+<p>If <span class="math inline">\(E=0.9\)</span>, standard meta-analysis is analogous to discarding 10% of available studies. B is the percentage reduction in variance from indirect evidence: 0% means results use direct evidence only; 100% means they are entirely indirect. Multivariate meta-analysis is especially valuable when direct evidence for an outcome is scarce, some studies omit that outcome but report related outcomes, or outcomes are strongly correlated within or between studies (for example, correlation greater than 0.5 or less than −0.5).</p>
 </section>
 <section id="prospective-meta-analysis" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="prospective-meta-analysis"><span class="header-section-number">7.4</span> Prospective meta-analysis</h2>
-<p><em>To be added.</em></p>
+<p>The defining feature of prospective meta-analysis (PMA) is that eligible studies are identified before their results are published and planned analyses are specified in advance. It is useful when a high-priority question needs a sample size too large for one center and a conventional multicenter RCT is impractical because of resources or coordination, or when investigators discover similar ongoing trials and can collaborate before results are known.</p>
+<p><strong>Case 7.3.</strong> PMA has four steps. First, establish that it is needed: the question must be high priority and unresolved, with ongoing studies; if a conventional retrospective meta-analysis would have adequate power, PMA is unnecessary. NeoProm studied whether high oxygen concentrations increase mortality in preterm infants. Earlier evidence was mainly observational, and 5,000 infants were needed to detect a 4% mortality difference—too many for one center and difficult for a multicenter trial.</p>
+<p>Second, define PICO, eligibility, and protocol before results are published. NeoProm enrolled preterm infants within 24 hours of birth; the intervention targeted oxygen saturation 85%–89%, control 91%–95%, and the outcome was death or major disability at 18–24 months. Third, search trial registries and published protocols and contact leaders of ongoing trials. Five RCTs in Australia, New Zealand, Canada, the United Kingdom, and the United States planned nearly 5,000 infants; none had results published when PMA began. Fourth, collaborators can harmonize protocols and outcome definitions; after all component studies report, analysis proceeds like a conventional meta-analysis.</p>
+<div class="text-center">
+<p><img src="images/ch7-image8.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figure 7.2 Prospective meta-analysis.</p>
+</div>
+<p><strong>Case 7.4.</strong> The WHO Rapid Evidence Appraisal for COVID-19 Therapies Working Group published a PMA of seven RCTs of corticosteroids. The question was urgent because corticosteroid use in severe infection had long been controversial and early COVID-19 data were limited. By July 24, 2020, 55 corticosteroid COVID-19 studies were registered. When the RECOVERY trial reported a strong benefit, most ongoing trials stopped recruitment, leaving seven eligible studies.</p>
+<p>Patients were enrolled in Australia, Brazil, Canada, China, Denmark, France, Ireland, the Netherlands, New Zealand, Spain, the United Kingdom, and the United States between February 26 and June 9, 2020, with final follow-up July 6. Of 1,703 patients, 678 received corticosteroids and 1,025 usual care or placebo. Median age was 60 years and 29% were women. The primary outcome was 28-day all-cause mortality and the secondary outcome was investigator-defined serious adverse events. There were 222 deaths among 678 corticosteroid recipients and 425 among 1,025 controls; fixed-effect pooling gave an odds ratio of 0.66. Results remained consistent excluding RECOVERY. WHO consequently strongly recommended systemic corticosteroids for severe or critical COVID-19 and did not recommend them for non-severe illness.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Reitsma JB, Glas AS, Rutjes AW, et al.&nbsp;Bivariate analysis of sensitivity and specificity produces informative summary measures in diagnostic reviews. <em>Journal of Clinical Epidemiology</em>. 2005;58:982-990.</li>
+<li>Salanti G, Ades AE, Ioannidis JP. Graphical methods and numerical summaries for multiple-treatment meta-analysis. <em>Journal of Clinical Epidemiology</em>. 2011;64:163-171.</li>
+<li>Dias S, Welton NJ, Caldwell DM, Ades AE. Checking consistency in mixed treatment comparison meta-analysis. <em>Statistics in Medicine</em>. 2010;29:932-944.</li>
+<li>Hutton B, Salanti G, Caldwell DM, et al.&nbsp;PRISMA extension for network meta-analysis. <em>Annals of Internal Medicine</em>. 2015;162:777-784.</li>
+<li>Salanti G. Indirect and mixed-treatment comparison, network, or multiple-treatments meta-analysis. <em>Research Synthesis Methods</em>. 2012;3:80-97.</li>
+<li>Riley RD, Jackson D, Salanti G, et al.&nbsp;Multivariate and network meta-analysis of multiple outcomes and treatments. <em>BMJ</em>. 2017;358:j3932.</li>
+<li>Seidler AL, Hunter KE, Cheyne S, et al.&nbsp;A guide to prospective meta-analysis. <em>BMJ</em>. 2019;367:l5342.</li>
+<li>Sterne JAC, Diaz J, Villar J, et al.&nbsp;Corticosteroid therapy for critically ill patients with COVID-19: protocol for PMA of randomized trials. <em>Trials</em>. 2020;21:734.</li>
+</ol>
 
 
 <!-- -->
@@ -804,38 +1263,249 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/06-meta-analysis.html" class="pagination-link" aria-label="Principles and Methods of Meta-Analysis">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Principles and Methods of Meta-Analysis</span></span>
+      <a href="../chapters/06-meta-analysis.html" class="pagination-link" aria-label="Principles and Methods of Meta-analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Principles and Methods of Meta-analysis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/08-dag-scm.html" class="pagination-link" aria-label="Causal Diagrams and Structural Causal Models">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Causal Diagrams and Structural Causal Models</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/08-dag-scm.html" class="pagination-link" aria-label="Causal Graphs and Structural Causal Models">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Causal Graphs and Structural Causal Models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Advanced Meta-Analysis</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Meta-analysis of diagnostic studies</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Network meta-analysis</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multiple-outcome network meta-analysis</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prospective meta-analysis</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Advanced Meta-analysis</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>Chapter 6 introduced literature searching, quality assessment, and standard meta-analytic methods. This chapter extends those foundations to diagnostic meta-analysis, network meta-analysis, and prospective meta-analysis.</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Meta-analysis of diagnostic studies</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>Published studies of the same diagnostic method can differ or conflict because of populations, settings, index tests, and conditions. As new technologies enter clinical practice, choices multiply, so their results must be assessed together. A single diagnostic study classifies a test as positive or negative and compares it with a positive or negative reference standard in a $2\times2$ table. Diagnostic meta-analysis synthesizes accuracy, sensitivity, specificity, likelihood ratios, and diagnostic odds ratios.</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>**Equation 7.1 Diagnostic odds ratio**</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>$$\text{Diagnostic odds ratio}=\frac{\text{true positive}\times\text{true negative}}{\text{false positive}\times\text{false negative}}$$</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>The diagnostic odds ratio can be used when weighting diagnostic studies in a meta-analysis.</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>**Case 7.1.** Increased 24-hour urinary free cortisol is one diagnostic test for Cushing syndrome, but reported accuracy varies. Extract true positives (test positive and reference-standard positive), false positives (test positive/reference-standard negative), true negatives, and false negatives; each row is a publication.</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Author <span class="pp">|</span> TP <span class="pp">|</span> TN <span class="pp">|</span> FP <span class="pp">|</span> FN <span class="pp">|</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>--:<span class="pp">|</span>--:<span class="pp">|</span>--:<span class="pp">|</span>--:<span class="pp">|</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Zukowski 2013 <span class="pp">|</span> 3 <span class="pp">|</span> 65 <span class="pp">|</span> 10 <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Yanovski 1998 <span class="pp">|</span> 16 <span class="pp">|</span> 19 <span class="pp">|</span> 1 <span class="pp">|</span> 4 <span class="pp">|</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Yaneva 2009 <span class="pp">|</span> 24 <span class="pp">|</span> 69 <span class="pp">|</span> 5 <span class="pp">|</span> 6 <span class="pp">|</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Yaneva 2004 <span class="pp">|</span> 63 <span class="pp">|</span> 54 <span class="pp">|</span> 0 <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Viardot 2005 <span class="pp">|</span> 12 <span class="pp">|</span> 49 <span class="pp">|</span> 1 <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Valassi 2009 <span class="pp">|</span> 52 <span class="pp">|</span> 14 <span class="pp">|</span> 21 <span class="pp">|</span> 3 <span class="pp">|</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tsagarakis 1998 <span class="pp">|</span> 57 <span class="pp">|</span> 81 <span class="pp">|</span> 4 <span class="pp">|</span> 3 <span class="pp">|</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tous 2012 <span class="pp">|</span> 14 <span class="pp">|</span> 40 <span class="pp">|</span> 24 <span class="pp">|</span> 3 <span class="pp">|</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>In Stata, <span class="in">`midas`</span> performs diagnostic meta-analysis.</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 7.1"}</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="in">midas tp fp fn tn, id(author) ms(0.75) bfor(dss)</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image1.png)</span>{width="100%"}</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>Code 7.1 output: forest plots (sensitivity left, specificity right).</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>Sensitivity and specificity forest plots resemble those used in conventional meta-analysis.</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 7.2"}</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="in">midas tp fp fn tn, es(x) res(all)</span></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 7.2 output"}</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Measure <span class="pp">|</span> Estimate <span class="pp">|</span> 95% CI <span class="pp">|</span></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>--:<span class="pp">|</span>:--<span class="pp">|</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> AUROC <span class="pp">|</span> 0.98 <span class="pp">|</span> 0.96–0.99 <span class="pp">|</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Sensitivity <span class="pp">|</span> 0.94 <span class="pp">|</span> 0.92–0.96 <span class="pp">|</span></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Specificity <span class="pp">|</span> 0.93 <span class="pp">|</span> 0.89–0.96 <span class="pp">|</span></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Positive likelihood ratio <span class="pp">|</span> 13.4 <span class="pp">|</span> 8.5–21.2 <span class="pp">|</span></span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Negative likelihood ratio <span class="pp">|</span> 0.06 <span class="pp">|</span> 0.05–0.09 <span class="pp">|</span></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Diagnostic odds ratio <span class="pp">|</span> 207 <span class="pp">|</span> 108–399 <span class="pp">|</span></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Heterogeneity <span class="pp">|</span> LRT $Q=195.006$, $I^2=99\%$ <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>The pooled sensitivity is 94%, specificity 93%, and diagnostic odds ratio 207, with heterogeneity. A diagnostic odds ratio above 1 indicates useful discrimination and becomes better as it increases; below 1 means people without disease are more likely to test positive; 1 means no discrimination. Diagnostic accuracy reviews generally use a bivariate random-effects model to pool sensitivity and specificity and present a summary ROC (SROC) curve (Reitsma et al. 2005). Each study contributes a sensitivity/specificity point, dashed lines show 95% confidence limits, and the red point nearest the upper-left is the summary estimate.</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 7.3"}</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a><span class="in">midas tp fp fn tn, plot sroc(both)</span></span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image2.png)</span>{width="100%"}</span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>Code 7.3 output: summary ROC curve.</span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## Network meta-analysis</span></span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>Standard meta-analysis compares two interventions. In practice, a disease may have many options, but most RCTs compare only two—for example A versus placebo or A versus B. Network meta-analysis (NMA), also called multiple-treatment meta-analysis or mixed-treatment comparison, combines RCT evidence to compare all relevant treatments. It uses direct comparison (an RCT compares A with B) and indirect comparison (A versus C and B versus C allow C to link A with B even when no A-versus-B RCT exists).</span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image3.png)</span>{width="100%"}</span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a>Figure 7.1 Direct and indirect comparisons.</span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a>Compared with conventional meta-analysis, NMA can answer more clinically relevant questions, use all available evidence, give more precise comparisons, and rank treatments. Its reporting should follow PRISMA-NMA (Hutton et al. 2015). Its key assumption is **transitivity**: study populations and interventions are sufficiently similar across the network, or there is a sound theoretical basis to regard different forms of an intervention as substantively equivalent. This must be justified clinically and methodologically before analysis (Salanti 2012).</span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a>**Case 7.2.** About 14 interventions are FDA-approved for multiple sclerosis. In phase III trials, about 60% compare a drug with placebo and 40% compare drug A with drug B. Relapse within 24 months is the common outcome, summarized as a risk ratio. In network data, each study arm occupies a row with study name, treatment, events, and total sample size.</span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Study <span class="pp">|</span> Events <span class="pp">|</span> Sample size <span class="pp">|</span> Treatment <span class="pp">|</span></span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>--:<span class="pp">|</span>--:<span class="pp">|</span>:--<span class="pp">|</span></span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> IFNB MS Group <span class="pp">|</span> 18 <span class="pp">|</span> 123 <span class="pp">|</span> Placebo <span class="pp">|</span></span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> IFNB MS Group <span class="pp">|</span> 59 <span class="pp">|</span> 249 <span class="pp">|</span> Betaseron <span class="pp">|</span></span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> BRAVO <span class="pp">|</span> 227 <span class="pp">|</span> 450 <span class="pp">|</span> Placebo <span class="pp">|</span></span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> BRAVO <span class="pp">|</span> 264 <span class="pp">|</span> 447 <span class="pp">|</span> Avonex <span class="pp">|</span></span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> BRAVO <span class="pp">|</span> 233 <span class="pp">|</span> 434 <span class="pp">|</span> Laquin <span class="pp">|</span></span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> MSCRG <span class="pp">|</span> 23 <span class="pp">|</span> 143 <span class="pp">|</span> Placebo <span class="pp">|</span></span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> MSCRG <span class="pp">|</span> 32 <span class="pp">|</span> 158 <span class="pp">|</span> Avonex <span class="pp">|</span></span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> PRISMS <span class="pp">|</span> 28 <span class="pp">|</span> 187 <span class="pp">|</span> Placebo <span class="pp">|</span></span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> PRISMS <span class="pp">|</span> 105 <span class="pp">|</span> 373 <span class="pp">|</span> Rebif <span class="pp">|</span></span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a><span class="fu">### Network setup</span></span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`network setup`</span> to declare events and sample sizes, then draw a network map. Blue circles are interventions and circle size represents participant numbers. Black lines are direct comparisons and line width represents the number of head-to-head studies. Placebo has most participants; Copaxone versus placebo has the most direct studies. No line means no direct comparison.</span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 7.4"}</span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a><span class="in">network setup responders samplesize, studyvar(study) trtvar(treatment)</span></span>
+<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a><span class="in">network map</span></span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image4.png)</span>{width="100%"}</span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a>Code 7.4 output: network map.</span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ranking interventions</span></span>
+<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a>The surface under the cumulative ranking curve (SUCRA) ranks treatments. Each intervention has a cumulative ranking curve: the x-axis is rank and the y-axis is the probability of that rank. In this example mitoxantrone has probability about 0.6 of rank 1, whereas placebo has probability about 0.6 of rank 16.</span>
+<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 7.5"}</span>
+<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a><span class="in">network meta consistency</span></span>
+<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a><span class="in">network rank max, all zero gen(prob)</span></span>
+<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a><span class="in">sucra prob*, rankograms labels(alemtuzimab avonex azathioprine betaseron copaxone dimethyl fingolimod ifn igg laquin laquinimod mitoxantrone natalizumab placebo rebif teriflunomide)</span></span>
+<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image5.png)</span>{width="100%"}</span>
+<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a>Code 7.5 output: cumulative ranking curves.</span>
+<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Treatment <span class="pp">|</span> SUCRA <span class="pp">|</span> Probability best <span class="pp">|</span> Mean rank <span class="pp">|</span></span>
+<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>--:<span class="pp">|</span>--:<span class="pp">|</span>--:<span class="pp">|</span></span>
+<span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Alemtuzumab <span class="pp">|</span> 94.3 <span class="pp">|</span> 33.6% <span class="pp">|</span> 1.9 <span class="pp">|</span></span>
+<span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Mitoxantrone <span class="pp">|</span> 92.4 <span class="pp">|</span> 57.2% <span class="pp">|</span> 2.1 <span class="pp">|</span></span>
+<span id="cb9-143"><a href="#cb9-143" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Natalizumab <span class="pp">|</span> 81.6 <span class="pp">|</span> 0.1% <span class="pp">|</span> 3.8 <span class="pp">|</span></span>
+<span id="cb9-144"><a href="#cb9-144" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Azathioprine <span class="pp">|</span> 69.0 <span class="pp">|</span> 6.5% <span class="pp">|</span> 5.6 <span class="pp">|</span></span>
+<span id="cb9-145"><a href="#cb9-145" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Placebo <span class="pp">|</span> 3.5 <span class="pp">|</span> 0.0% <span class="pp">|</span> 15.5 <span class="pp">|</span></span>
+<span id="cb9-146"><a href="#cb9-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-147"><a href="#cb9-147" aria-hidden="true" tabindex="-1"></a>Thus mitoxantrone ranks highest in this network. SUCRA reflects ranking probability, however, not whether differences are clinically meaningful (Salanti et al. 2011). A league table presents pairwise comparisons like scores in a football league: its cells give the relative effect and 95% confidence interval for the row versus column treatment; the redundant half is omitted.</span>
+<span id="cb9-148"><a href="#cb9-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-149"><a href="#cb9-149" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 7.6"}</span>
+<span id="cb9-150"><a href="#cb9-150" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb9-151"><a href="#cb9-151" aria-hidden="true" tabindex="-1"></a><span class="in">netleague, eform</span></span>
+<span id="cb9-152"><a href="#cb9-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-153"><a href="#cb9-153" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb9-156"><a href="#cb9-156" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image6.png)</span>{width="100%"}</span>
+<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-158"><a href="#cb9-158" aria-hidden="true" tabindex="-1"></a>Code 7.6 output: league table.</span>
+<span id="cb9-159"><a href="#cb9-159" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-160"><a href="#cb9-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-161"><a href="#cb9-161" aria-hidden="true" tabindex="-1"></a><span class="fu">### Network consistency</span></span>
+<span id="cb9-162"><a href="#cb9-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-163"><a href="#cb9-163" aria-hidden="true" tabindex="-1"></a>For a pair of interventions, direct and indirect evidence may both exist. Test whether they agree, and whether multiple indirect sources agree. In this example, the consistency forest plot has *p*=0.852; direct (blue) and indirect (green) comparisons are broadly concordant. If they disagree, use an inconsistency model.</span>
+<span id="cb9-164"><a href="#cb9-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-165"><a href="#cb9-165" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 7.7"}</span>
+<span id="cb9-166"><a href="#cb9-166" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb9-167"><a href="#cb9-167" aria-hidden="true" tabindex="-1"></a><span class="in">network meta inconsistency</span></span>
+<span id="cb9-168"><a href="#cb9-168" aria-hidden="true" tabindex="-1"></a><span class="in">network forest</span></span>
+<span id="cb9-169"><a href="#cb9-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-170"><a href="#cb9-170" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-171"><a href="#cb9-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-172"><a href="#cb9-172" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb9-173"><a href="#cb9-173" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image7.png)</span>{width="100%"}</span>
+<span id="cb9-174"><a href="#cb9-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-175"><a href="#cb9-175" aria-hidden="true" tabindex="-1"></a>Code 7.7 output: direct and indirect evidence.</span>
+<span id="cb9-176"><a href="#cb9-176" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-177"><a href="#cb9-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-178"><a href="#cb9-178" aria-hidden="true" tabindex="-1"></a>Node splitting separately estimates direct and indirect effects, estimates their difference, and tests whether that difference is zero.</span>
+<span id="cb9-179"><a href="#cb9-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-180"><a href="#cb9-180" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 7.8"}</span>
+<span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb9-182"><a href="#cb9-182" aria-hidden="true" tabindex="-1"></a><span class="in">network sidesplit all, tau</span></span>
+<span id="cb9-183"><a href="#cb9-183" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-184"><a href="#cb9-184" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-185"><a href="#cb9-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-186"><a href="#cb9-186" aria-hidden="true" tabindex="-1"></a>Treatment-effect modifiers may include trial methods, clinical characteristics, follow-up time, outcome definition, risk of bias, and analysis/reporting standards. Before NMA, select trials relevant to the clinical population and investigate systematic differences across comparisons. If node splitting shows inconsistency, seek explanations such as particular designs or studies at high risk of bias. If unexplained, model inconsistency as a mean-zero random effect to obtain an overall estimate while accounting for it.</span>
+<span id="cb9-187"><a href="#cb9-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-188"><a href="#cb9-188" aria-hidden="true" tabindex="-1"></a>NMA has limitations. SUCRA can rank treatments with trivial absolute differences; rankings may be imprecise with wide credible intervals; many studies can distract from risk of bias, validity, and evidence quality in individual trials. Strong transitivity assumptions can be hard to defend, and inferences that rely on indirect comparisons should receive cautions similar to observational studies.</span>
+<span id="cb9-189"><a href="#cb9-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-190"><a href="#cb9-190" aria-hidden="true" tabindex="-1"></a><span class="fu">## Network meta-analysis of multiple outcomes</span></span>
+<span id="cb9-191"><a href="#cb9-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-192"><a href="#cb9-192" aria-hidden="true" tabindex="-1"></a>Different trials for the same disease may report different outcomes. For example, in a meta-analysis of progesterone-receptor status and prognosis in endometrial cancer, four studies reported both cancer-specific and progression-free survival, while others reported only one. Restricting analysis to one outcome wastes information. Multivariate network meta-analysis models multiple outcomes and multiple treatments jointly, allowing more studies to contribute.</span>
+<span id="cb9-193"><a href="#cb9-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-194"><a href="#cb9-194" aria-hidden="true" tabindex="-1"></a>Copas and colleagues express loss of information from standard univariate analysis with the B statistic:</span>
+<span id="cb9-195"><a href="#cb9-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-196"><a href="#cb9-196" aria-hidden="true" tabindex="-1"></a>**Equation 7.2 B statistic**</span>
+<span id="cb9-197"><a href="#cb9-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-198"><a href="#cb9-198" aria-hidden="true" tabindex="-1"></a>$$B=100\times(1-E)$$</span>
+<span id="cb9-199"><a href="#cb9-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-200"><a href="#cb9-200" aria-hidden="true" tabindex="-1"></a>**Equation 7.3 Information efficiency**</span>
+<span id="cb9-201"><a href="#cb9-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-202"><a href="#cb9-202" aria-hidden="true" tabindex="-1"></a>$$E=\frac{\text{variance of synthesis based on direct and indirect evidence}}{\text{variance of synthesis based only on direct evidence}}$$</span>
+<span id="cb9-203"><a href="#cb9-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-204"><a href="#cb9-204" aria-hidden="true" tabindex="-1"></a>If $E=0.9$, standard meta-analysis is analogous to discarding 10% of available studies. B is the percentage reduction in variance from indirect evidence: 0% means results use direct evidence only; 100% means they are entirely indirect. Multivariate meta-analysis is especially valuable when direct evidence for an outcome is scarce, some studies omit that outcome but report related outcomes, or outcomes are strongly correlated within or between studies (for example, correlation greater than 0.5 or less than −0.5).</span>
+<span id="cb9-205"><a href="#cb9-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-206"><a href="#cb9-206" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prospective meta-analysis</span></span>
+<span id="cb9-207"><a href="#cb9-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-208"><a href="#cb9-208" aria-hidden="true" tabindex="-1"></a>The defining feature of prospective meta-analysis (PMA) is that eligible studies are identified before their results are published and planned analyses are specified in advance. It is useful when a high-priority question needs a sample size too large for one center and a conventional multicenter RCT is impractical because of resources or coordination, or when investigators discover similar ongoing trials and can collaborate before results are known.</span>
+<span id="cb9-209"><a href="#cb9-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-210"><a href="#cb9-210" aria-hidden="true" tabindex="-1"></a>**Case 7.3.** PMA has four steps. First, establish that it is needed: the question must be high priority and unresolved, with ongoing studies; if a conventional retrospective meta-analysis would have adequate power, PMA is unnecessary. NeoProm studied whether high oxygen concentrations increase mortality in preterm infants. Earlier evidence was mainly observational, and 5,000 infants were needed to detect a 4% mortality difference—too many for one center and difficult for a multicenter trial.</span>
+<span id="cb9-211"><a href="#cb9-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-212"><a href="#cb9-212" aria-hidden="true" tabindex="-1"></a>Second, define PICO, eligibility, and protocol before results are published. NeoProm enrolled preterm infants within 24 hours of birth; the intervention targeted oxygen saturation 85%–89%, control 91%–95%, and the outcome was death or major disability at 18–24 months. Third, search trial registries and published protocols and contact leaders of ongoing trials. Five RCTs in Australia, New Zealand, Canada, the United Kingdom, and the United States planned nearly 5,000 infants; none had results published when PMA began. Fourth, collaborators can harmonize protocols and outcome definitions; after all component studies report, analysis proceeds like a conventional meta-analysis.</span>
+<span id="cb9-213"><a href="#cb9-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-214"><a href="#cb9-214" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb9-215"><a href="#cb9-215" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch7-image8.png)</span>{width="100%"}</span>
+<span id="cb9-216"><a href="#cb9-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-217"><a href="#cb9-217" aria-hidden="true" tabindex="-1"></a>Figure 7.2 Prospective meta-analysis.</span>
+<span id="cb9-218"><a href="#cb9-218" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-219"><a href="#cb9-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-220"><a href="#cb9-220" aria-hidden="true" tabindex="-1"></a>**Case 7.4.** The WHO Rapid Evidence Appraisal for COVID-19 Therapies Working Group published a PMA of seven RCTs of corticosteroids. The question was urgent because corticosteroid use in severe infection had long been controversial and early COVID-19 data were limited. By July 24, 2020, 55 corticosteroid COVID-19 studies were registered. When the RECOVERY trial reported a strong benefit, most ongoing trials stopped recruitment, leaving seven eligible studies.</span>
+<span id="cb9-221"><a href="#cb9-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-222"><a href="#cb9-222" aria-hidden="true" tabindex="-1"></a>Patients were enrolled in Australia, Brazil, Canada, China, Denmark, France, Ireland, the Netherlands, New Zealand, Spain, the United Kingdom, and the United States between February 26 and June 9, 2020, with final follow-up July 6. Of 1,703 patients, 678 received corticosteroids and 1,025 usual care or placebo. Median age was 60 years and 29% were women. The primary outcome was 28-day all-cause mortality and the secondary outcome was investigator-defined serious adverse events. There were 222 deaths among 678 corticosteroid recipients and 425 among 1,025 controls; fixed-effect pooling gave an odds ratio of 0.66. Results remained consistent excluding RECOVERY. WHO consequently strongly recommended systemic corticosteroids for severe or critical COVID-19 and did not recommend them for non-severe illness.</span>
+<span id="cb9-223"><a href="#cb9-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-224"><a href="#cb9-224" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb9-225"><a href="#cb9-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-226"><a href="#cb9-226" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Reitsma JB, Glas AS, Rutjes AW, et al. Bivariate analysis of sensitivity and specificity produces informative summary measures in diagnostic reviews. *Journal of Clinical Epidemiology*. 2005;58:982-990.</span>
+<span id="cb9-227"><a href="#cb9-227" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Salanti G, Ades AE, Ioannidis JP. Graphical methods and numerical summaries for multiple-treatment meta-analysis. *Journal of Clinical Epidemiology*. 2011;64:163-171.</span>
+<span id="cb9-228"><a href="#cb9-228" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Dias S, Welton NJ, Caldwell DM, Ades AE. Checking consistency in mixed treatment comparison meta-analysis. *Statistics in Medicine*. 2010;29:932-944.</span>
+<span id="cb9-229"><a href="#cb9-229" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Hutton B, Salanti G, Caldwell DM, et al. PRISMA extension for network meta-analysis. *Annals of Internal Medicine*. 2015;162:777-784.</span>
+<span id="cb9-230"><a href="#cb9-230" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Salanti G. Indirect and mixed-treatment comparison, network, or multiple-treatments meta-analysis. *Research Synthesis Methods*. 2012;3:80-97.</span>
+<span id="cb9-231"><a href="#cb9-231" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Riley RD, Jackson D, Salanti G, et al. Multivariate and network meta-analysis of multiple outcomes and treatments. *BMJ*. 2017;358:j3932.</span>
+<span id="cb9-232"><a href="#cb9-232" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Seidler AL, Hunter KE, Cheyne S, et al. A guide to prospective meta-analysis. *BMJ*. 2019;367:l5342.</span>
+<span id="cb9-233"><a href="#cb9-233" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Sterne JAC, Diaz J, Villar J, et al. Corticosteroid therapy for critically ill patients with COVID-19: protocol for PMA of randomized trials. *Trials*. 2020;21:734.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

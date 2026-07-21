@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Principles and Methods of Meta-Analysis – Causal Inference in Clinical Medical Research</title>
+<title>6&nbsp; Principles and Methods of Meta-analysis – Causal Inference in Clinical Medical Research</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/06-meta-analysis.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Principles and Methods of Meta-Analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/06-meta-analysis.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Principles and Methods of Meta-analysis</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -184,19 +184,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06-meta-analysis.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Principles and Methods of Meta-Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Principles and Methods of Meta-analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07-advanced-meta.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Meta-Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Meta-analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08-dag-scm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Causal Diagrams and Structural Causal Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Causal Graphs and Structural Causal Models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -208,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10-propensity-score.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Propensity-Score-Based Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Causal Inference Methods Based on Propensity Scores</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -289,12 +289,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#formulating-the-research-question" id="toc-formulating-the-research-question" class="nav-link active" data-scroll-target="#formulating-the-research-question"><span class="header-section-number">6.1</span> Formulating the research question</a></li>
   <li><a href="#writing-a-meta-analysis-protocol" id="toc-writing-a-meta-analysis-protocol" class="nav-link" data-scroll-target="#writing-a-meta-analysis-protocol"><span class="header-section-number">6.2</span> Writing a meta-analysis protocol</a></li>
-  <li><a href="#searching-the-literature" id="toc-searching-the-literature" class="nav-link" data-scroll-target="#searching-the-literature"><span class="header-section-number">6.3</span> Searching the literature</a></li>
-  <li><a href="#study-selection" id="toc-study-selection" class="nav-link" data-scroll-target="#study-selection"><span class="header-section-number">6.4</span> Study selection</a></li>
-  <li><a href="#quality-assessment" id="toc-quality-assessment" class="nav-link" data-scroll-target="#quality-assessment"><span class="header-section-number">6.5</span> Quality assessment</a></li>
+  <li><a href="#searching-for-studies" id="toc-searching-for-studies" class="nav-link" data-scroll-target="#searching-for-studies"><span class="header-section-number">6.3</span> Searching for studies</a></li>
+  <li><a href="#selecting-studies" id="toc-selecting-studies" class="nav-link" data-scroll-target="#selecting-studies"><span class="header-section-number">6.4</span> Selecting studies</a></li>
+  <li><a href="#assessing-study-quality" id="toc-assessing-study-quality" class="nav-link" data-scroll-target="#assessing-study-quality"><span class="header-section-number">6.5</span> Assessing study quality</a></li>
   <li><a href="#data-extraction" id="toc-data-extraction" class="nav-link" data-scroll-target="#data-extraction"><span class="header-section-number">6.6</span> Data extraction</a></li>
-  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis"><span class="header-section-number">6.7</span> Data analysis</a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis"><span class="header-section-number">6.7</span> Data analysis</a>
+  <ul class="collapse">
+  <li><a href="#pooling-and-forest-plots" id="toc-pooling-and-forest-plots" class="nav-link" data-scroll-target="#pooling-and-forest-plots"><span class="header-section-number">6.7.1</span> Pooling and forest plots</a></li>
+  <li><a href="#heterogeneity-analysis" id="toc-heterogeneity-analysis" class="nav-link" data-scroll-target="#heterogeneity-analysis"><span class="header-section-number">6.7.2</span> Heterogeneity analysis</a></li>
+  <li><a href="#sensitivity-analysis" id="toc-sensitivity-analysis" class="nav-link" data-scroll-target="#sensitivity-analysis"><span class="header-section-number">6.7.3</span> Sensitivity analysis</a></li>
+  <li><a href="#publication-bias" id="toc-publication-bias" class="nav-link" data-scroll-target="#publication-bias"><span class="header-section-number">6.7.4</span> Publication bias</a></li>
+  <li><a href="#meta-regression" id="toc-meta-regression" class="nav-link" data-scroll-target="#meta-regression"><span class="header-section-number">6.7.5</span> Meta-regression</a></li>
+  </ul></li>
   <li><a href="#reporting-a-meta-analysis" id="toc-reporting-a-meta-analysis" class="nav-link" data-scroll-target="#reporting-a-meta-analysis"><span class="header-section-number">6.8</span> Reporting a meta-analysis</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -303,7 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Principles and Methods of Meta-Analysis</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Principles and Methods of Meta-analysis</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -320,50 +328,453 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
-</div>
-</div>
+<p>Meta-analysis is a statistical method for comparing and synthesizing studies addressing the same scientific question. It is commonly the quantitative component of a systematic review. By integrating all relevant studies, it can estimate the effects of a health intervention or policy more precisely and explore consistency and differences across studies. When individual studies disagree or are individually non-significant, meta-analysis may provide a result closer to the underlying truth. Its conclusion, however, is only as meaningful as the quality of the included studies. Systematic reviews and meta-analyses are fundamental to evidence-based medicine; the <em>Cochrane Handbook</em> provides a standard framework.</p>
+<p>The process can be considered in eight steps.</p>
 <section id="formulating-the-research-question" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="formulating-the-research-question"><span class="header-section-number">6.1</span> Formulating the research question</h2>
-<p><em>To be added.</em></p>
+<p>Ask whether meta-analysis is needed. It is useful when several RCTs address one clinical question but give conflicting findings, or when each study is too small to give a definitive answer. It is not useful merely to combine already decisive evidence. For example, three similar RCTs found no benefit from adding bevacizumab to adjuvant chemotherapy for colorectal cancer; another meta-analysis would be redundant. Excessive meta-analysis can itself become research waste. The 2014 <em>Lancet</em> series on research waste emphasized setting the right research priorities; a methodologically correct but clinically irrelevant study is still wasteful.</p>
 </section>
 <section id="writing-a-meta-analysis-protocol" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="writing-a-meta-analysis-protocol"><span class="header-section-number">6.2</span> Writing a meta-analysis protocol</h2>
-<p><em>To be added.</em></p>
+<p>Use PICOS: <strong>P</strong>articipants (disease and sociodemographic characteristics); <strong>I</strong>ntervention; <strong>C</strong>omparator; <strong>O</strong>utcomes (clearly defined and classified as binary, time-to-event, or continuous for later extraction and analysis); and <strong>S</strong>tudy design (RCT, cohort, case-control, or cross-sectional study). Protocols can be registered in PROSPERO. Prospective registration helps avoid unnecessary duplication and improves transparency, reliability, and reproducibility by defining primary objectives, key design features, and planned analyses before the review starts.</p>
 </section>
-<section id="searching-the-literature" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="searching-the-literature"><span class="header-section-number">6.3</span> Searching the literature</h2>
-<p><em>To be added.</em></p>
+<section id="searching-for-studies" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="searching-for-studies"><span class="header-section-number">6.3</span> Searching for studies</h2>
+<p>Develop the strategy from three components. First, use Medical Subject Headings (MeSH) and free-text terms, generally derived from PICOS and including the disease and intervention. Second, select databases: Chinese databases commonly include Wanfang, VIP, and CNKI; English-language sources include PubMed, Web of Science, Embase, and the Cochrane Library. At minimum, search PubMed, Embase, and Cochrane. Third, state any restrictions on language and dates. Aim for both recall and precision; also search references of included studies and relevant reviews and conference material. Missing one or two key studies can change the conclusion, whereas retrieving too many records increases screening effort.</p>
 </section>
-<section id="study-selection" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="study-selection"><span class="header-section-number">6.4</span> Study selection</h2>
-<p><em>To be added.</em></p>
+<section id="selecting-studies" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="selecting-studies"><span class="header-section-number">6.4</span> Selecting studies</h2>
+<p>Use reference-management software such as EndNote or Mendeley and apply predefined inclusion and exclusion criteria. Record reasons and numbers for exclusion. Two reviewers should screen independently and resolve disagreement by discussion or a third reviewer. Screening is time-consuming: initial screening uses titles and abstracts; full-text screening examines Methods and Results.</p>
 </section>
-<section id="quality-assessment" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="quality-assessment"><span class="header-section-number">6.5</span> Quality assessment</h2>
-<p><em>To be added.</em></p>
+<section id="assessing-study-quality" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="assessing-study-quality"><span class="header-section-number">6.5</span> Assessing study quality</h2>
+<p>Quality assessment identifies possible bias and whether study design is adequate. RCTs can use the Cochrane risk-of-bias tool, which assesses selection, performance, detection, attrition, reporting, and other bias.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Domain</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Low risk</th>
+<th style="text-align: left;">High risk</th>
+<th style="text-align: left;">Unclear risk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Selection bias</td>
+<td style="text-align: left;">Random sequence generation</td>
+<td style="text-align: left;">Random-number table, computer-generated numbers, coin toss, shuffled envelopes/cards, dice, or minimization described</td>
+<td style="text-align: left;">Non-random method such as birth date, admission date, record number, clinician judgment, patient preference, or laboratory result</td>
+<td style="text-align: left;">Insufficient description</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Selection bias</td>
+<td style="text-align: left;">Allocation concealment</td>
+<td style="text-align: left;">Central telephone/web/pharmacy allocation, identical sequential containers, or sequential opaque sealed envelopes</td>
+<td style="text-align: left;">Open allocation list, inadequately protected envelopes, alternation, birth date, medical-record number</td>
+<td style="text-align: left;">Insufficient description</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Performance bias</td>
+<td style="text-align: left;">Blinding of participants and personnel</td>
+<td style="text-align: left;">Blinding maintained, or blinding cannot plausibly affect outcome</td>
+<td style="text-align: left;">No/incomplete blinding likely affects outcome, or blinding broken</td>
+<td style="text-align: left;">Not reported</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Detection bias</td>
+<td style="text-align: left;">Blinding of outcome assessment</td>
+<td style="text-align: left;">Blinding maintained, or assessment not affected</td>
+<td style="text-align: left;">No/incomplete/broken blinding likely affects assessment</td>
+<td style="text-align: left;">Not reported</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Attrition bias</td>
+<td style="text-align: left;">Incomplete outcome data</td>
+<td style="text-align: left;">No missing data, similar missingness, or appropriate handling</td>
+<td style="text-align: left;">Imbalanced/much missing data or inappropriate handling</td>
+<td style="text-align: left;">Insufficient information</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reporting bias</td>
+<td style="text-align: left;">Selective reporting</td>
+<td style="text-align: left;">All prespecified outcomes reported</td>
+<td style="text-align: left;">Prespecified outcomes omitted or measured/analyzed differently</td>
+<td style="text-align: left;">Prespecification/reporting unclear</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Other bias</td>
+<td style="text-align: left;">Other sources</td>
+<td style="text-align: left;">No other source</td>
+<td style="text-align: left;">Design problem, fraud, or other concern</td>
+<td style="text-align: left;">Insufficient information</td>
+</tr>
+</tbody>
+</table>
+<p>Observational studies may use the Newcastle–Ottawa Scale, assessing selection, comparability, and outcome. For diagnostic studies comparing an index test with a reference standard, use QUADAS-2, which evaluates patient selection, index test, reference standard, and flow/timing, including both risk of bias and applicability.</p>
 </section>
 <section id="data-extraction" class="level2" data-number="6.6">
 <h2 data-number="6.6" class="anchored" data-anchor-id="data-extraction"><span class="header-section-number">6.6</span> Data extraction</h2>
-<p><em>To be added.</em></p>
+<p>Extract bibliographic information, study type and methods, participant characteristics (demographics, diagnostic criteria, control-selection criteria), interventions, outcome measurement, effect measure, and sample size. Two reviewers should extract independently and resolve disagreements by discussion or adjudication. Record participant age, sex, race, comorbidity, group size, and location; random/non-random allocation, dose, method, duration, and co-interventions; outcome definition, unit, measurement, follow-up and loss to follow-up; means and standard deviations for continuous outcomes; event counts and totals for binary outcomes; ITT or PP analysis; and secondary outcomes.</p>
 </section>
 <section id="data-analysis" class="level2" data-number="6.7">
 <h2 data-number="6.7" class="anchored" data-anchor-id="data-analysis"><span class="header-section-number">6.7</span> Data analysis</h2>
-<p><em>To be added.</em></p>
+<p>Analysis addresses pooling and heterogeneity, explores heterogeneity and result stability, and assesses publication bias. Common software includes Review Manager (RevMan), Stata, and R. RevMan is Cochrane’s standardized, user-friendly software; Stata and R are more comprehensive and can perform meta-regression, quantitative publication-bias assessment, and diagnostic meta-analysis.</p>
+<p><strong>Case 6.1.</strong> The question is whether beta-blockers, compared with other drugs, reduce stroke and mortality in primary hypertension. After searching and screening, 13 RCTs are included. Each row has study type, stroke and death events in beta-blocker and other-drug groups, and group totals.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Study</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Stroke: beta/other</th>
+<th style="text-align: left;">Death: beta/other</th>
+<th style="text-align: left;">N: beta/other</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Atenolol</td>
+<td style="text-align: left;">422 / 327</td>
+<td style="text-align: left;">820 / 738</td>
+<td style="text-align: left;">9618 / 9639</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Non-atenolol</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">5 / 4</td>
+<td style="text-align: left;">53 / 53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Mixed beta-blocker/diuretic</td>
+<td style="text-align: left;">118 / 133</td>
+<td style="text-align: left;">319 / 337</td>
+<td style="text-align: left;">8297 / 8179</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4–13</td>
+<td style="text-align: left;">Atenolol, non-atenolol, or mixed</td>
+<td style="text-align: left;">See study dataset</td>
+<td style="text-align: left;">See study dataset</td>
+<td style="text-align: left;">See study dataset</td>
+</tr>
+</tbody>
+</table>
+<section id="pooling-and-forest-plots" class="level3" data-number="6.7.1">
+<h3 data-number="6.7.1" class="anchored" data-anchor-id="pooling-and-forest-plots"><span class="header-section-number">6.7.1</span> Pooling and forest plots</h3>
+<p>First pool mortality. In Stata, <code>metan</code> is supplied the deaths and totals in beta-blocker and other-drug groups; effects may be risk ratios or odds ratios. The pooled odds ratio is 1.034 (95% CI 0.985–1.085; <em>p</em>=0.174), so beta-blockers do not significantly reduce mortality compared with other drugs.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 6.1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 6.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>metan mort_beta n_beta mort_other n_other, <span class="kw">or</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 6.1 output">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 6.1 output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Result</th>
+<th style="text-align: right;">Odds ratio</th>
+<th style="text-align: left;">95% CI</th>
+<th style="text-align: right;">Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Individual studies</td>
+<td style="text-align: right;">0.147–1.330</td>
+<td style="text-align: left;">Study-specific</td>
+<td style="text-align: right;">0.11%–25.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Overall, Mantel–Haenszel</td>
+<td style="text-align: right;">1.034</td>
+<td style="text-align: left;">0.986–1.085</td>
+<td style="text-align: right;">100.00%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Test of overall effect</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><em>z</em>=1.370; <em>p</em>=0.171</td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Each line in a forest plot is one study, with the pooled estimate in the final line. The size of the gray square represents sample size/weight.</p>
+<div class="text-center">
+<p><img src="images/ch6-image1.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 6.1 output: forest plot.</p>
+</div>
+</section>
+<section id="heterogeneity-analysis" class="level3" data-number="6.7.2">
+<h3 data-number="6.7.2" class="anchored" data-anchor-id="heterogeneity-analysis"><span class="header-section-number">6.7.2</span> Heterogeneity analysis</h3>
+<p>Heterogeneity assesses similarity across studies. The formal chi-square test often has low power. I-squared is another measure: below 25% is often considered low, and above 50% high. Low heterogeneity may support a fixed-effect model; high heterogeneity calls for a random-effects model. In the mortality example, I-squared is low. I-squared is the proportion of total variation attributable to between-study heterogeneity, but depends on the number and size of studies and should be interpreted with the Q test and clinical judgment (Higgins and Thompson 2002; Higgins et al.&nbsp;2003).</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Heterogeneity measure</th>
+<th style="text-align: right;">Value</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: left;">p value / 95% CI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mantel–Haenszel Q</td>
+<td style="text-align: right;">13.90</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">0.307</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">H</td>
+<td style="text-align: right;">1.076</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">1.000–1.496</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">I-squared</td>
+<td style="text-align: right;">13.7%</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;">0.0%–55.3%</td>
+</tr>
+</tbody>
+</table>
+<p>A fixed-effect model assumes all studies estimate one true effect and gives larger studies greater weight. A random-effects model allows true effects to follow a distribution and yields more balanced study weights and more conservative results. Unless studies are extremely similar, random effects are often preferred (DerSimonian and Laird 1986).</p>
+<p>For stroke, I-squared is 48.9%, indicating heterogeneity; use a random-effects model. The pooled odds ratio is 1.165 (95% CI 1.038–1.308; <em>p</em>=0.010), indicating a difference in stroke risk between the two regimens.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 6.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 6.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>metan stroke_beta n_beta stroke_other n_other, <span class="kw">or</span> random</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 6.2 output">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 6.2 output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Heterogeneity measure</th>
+<th style="text-align: right;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Q (df=11)</td>
+<td style="text-align: right;">21.53; <em>p</em>=0.028</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">I-squared</td>
+<td style="text-align: right;">48.9% (0.0%–72.2%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Overall random-effects OR</td>
+<td style="text-align: right;">1.165 (1.038–1.308); <em>p</em>=0.010</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch6-image2.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 6.2 output: random-effects forest plot.</p>
+</div>
+<p>Explore heterogeneity with subgroup analyses. Here beta-blockers are atenolol, non-atenolol, or mixed beta-blocker/diuretic regimens. The atenolol subgroup has I-squared of zero and a pooled OR 1.263 (1.149–1.388); the two-study non-atenolol subgroup is heterogeneous; the mixed group also has substantial heterogeneity.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 6.3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 6.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>metan stroke_beta n_beta stroke_other n_other, <span class="kw">or</span> random <span class="kw">by</span>(<span class="dv">type</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch6-image3.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 6.3 output: subgroup-analysis forest plot.</p>
+</div>
+</section>
+<section id="sensitivity-analysis" class="level3" data-number="6.7.3">
+<h3 data-number="6.7.3" class="anchored" data-anchor-id="sensitivity-analysis"><span class="header-section-number">6.7.3</span> Sensitivity analysis</h3>
+<p>Sensitivity analysis asks how much each study affects the overall result: delete one included study, reanalyze the remainder, and repeat. In this example, no individual study materially changes the pooled result.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 6.4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 6.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>metaninf stroke_beta n_beta stroke_other n_other</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch6-image4.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 6.4 output: leave-one-out sensitivity analysis.</p>
+</div>
+</section>
+<section id="publication-bias" class="level3" data-number="6.7.4">
+<h3 data-number="6.7.4" class="anchored" data-anchor-id="publication-bias"><span class="header-section-number">6.7.4</span> Publication bias</h3>
+<p>Publication bias occurs when positive studies are more likely to be published than negative studies. A funnel plot has effect size on the x-axis and standard error on the y-axis. Large studies cluster at the top because they have smaller standard errors; small studies spread at the bottom. If small positive studies are preferentially published, the lower funnel is asymmetric around the reference line. No obvious bias is seen here. Egger regression can formally test asymmetry, but has low power with fewer than about 10 studies (Egger et al.&nbsp;1997).</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 6.5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 6.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>metafunnel _ES _seES</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch6-image5.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 6.5 output: publication-bias funnel plot.</p>
+</div>
+</section>
+<section id="meta-regression" class="level3" data-number="6.7.5">
+<h3 data-number="6.7.5" class="anchored" data-anchor-id="meta-regression"><span class="header-section-number">6.7.5</span> Meta-regression</h3>
+<p>Meta-regression explores whether a study-level characteristic is associated with the effect estimate. To ask whether the beta-blocker effect increases with sample size, regress effect size on <code>n_beta</code>; each bubble is a study and bubble size represents sample size. A nearly horizontal fitted line indicates no relation. Meta-regression is exploratory and vulnerable to ecological fallacy and multiple testing (Thompson and Higgins 2002).</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 6.6">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 6.6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>metareg _ES n_beta, wsse(_seES) <span class="kw">graph</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch6-image6.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 6.6 output: meta-regression bubble plot.</p>
+</div>
+<p><strong>Case 6.2.</strong> Outcomes may be continuous. Five RCTs compare stimulation surgery with control for change in tremor score in Parkinson disease. For continuous outcomes, use the standardized mean difference (SMD) when measurement units or scales differ across studies; standardization removes differences caused by scale units. The pooled SMD is 1.261 (95% CI 1.132–1.389; <em>p</em>&lt;0.001).</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 6.7">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 6.7
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>metan stinumber stimean stisd controlnumber controlmean controlsd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 6.7 output">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 6.7 output
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Study / overall</th>
+<th style="text-align: right;">SMD</th>
+<th style="text-align: left;">95% CI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Individual studies</td>
+<td style="text-align: right;">1.021–1.538</td>
+<td style="text-align: left;">Study-specific</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Overall, inverse variance</td>
+<td style="text-align: right;">1.261</td>
+<td style="text-align: left;">1.132–1.389; <em>p</em>&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch6-image7.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 6.7 output: forest plot for a continuous outcome.</p>
+</div>
+</section>
 </section>
 <section id="reporting-a-meta-analysis" class="level2" data-number="6.8">
 <h2 data-number="6.8" class="anchored" data-anchor-id="reporting-a-meta-analysis"><span class="header-section-number">6.8</span> Reporting a meta-analysis</h2>
-<p><em>To be added.</em></p>
+<p>Report systematic reviews and meta-analyses according to PRISMA. Its checklist covers title, abstract, rationale, objectives, eligibility criteria, information sources and search strategy, selection process, data collection, data items, risk-of-bias assessment, effect measures, synthesis methods, results, discussion, and funding. State all databases, registers, websites, organizations, reference lists and other sources searched, the date each was last searched, complete search strategies, independent screening/extraction procedures, outcome definitions, missing-data assumptions, risk-of-bias tool, model choice and heterogeneity assessment, and sensitivity/publication-bias analyses. See the PRISMA 2020 checklist at <a href="http://prisma-statement.org/PRISMAStatement/Checklist.aspx" class="uri">http://prisma-statement.org/PRISMAStatement/Checklist.aspx</a>.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Higgins JPT, Thompson SG. Quantifying heterogeneity in a meta-analysis. <em>Statistics in Medicine</em>. 2002;21:1539-1558.</li>
+<li>Higgins JPT, Thompson SG, Deeks JJ, Altman DG. Measuring inconsistency in meta-analyses. <em>BMJ</em>. 2003;327:557-560.</li>
+<li>DerSimonian R, Laird N. Meta-analysis in clinical trials. <em>Controlled Clinical Trials</em>. 1986;7:177-188.</li>
+<li>Egger M, Smith GD, Schneider M, Minder C. Bias in meta-analysis detected by a simple graphical test. <em>BMJ</em>. 1997;315:629-634.</li>
+<li>Thompson SG, Higgins JPT. How should meta-regression analyses be undertaken and interpreted? <em>Statistics in Medicine</em>. 2002;21:1559-1573.</li>
+<li>Page MJ, McKenzie JE, Bossuyt PM, et al.&nbsp;The PRISMA 2020 statement. <em>BMJ</em>. 2021;372:n71.</li>
+<li>Higgins JPT, Thomas J, Chandler J, et al., eds.&nbsp;<em>Cochrane Handbook for Systematic Reviews of Interventions</em>. 2nd ed.&nbsp;Wiley; 2019.</li>
+</ol>
 
 
 <!-- -->
@@ -829,49 +1240,222 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/07-advanced-meta.html" class="pagination-link" aria-label="Advanced Meta-Analysis">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Meta-Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/07-advanced-meta.html" class="pagination-link" aria-label="Advanced Meta-analysis">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Meta-analysis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Principles and Methods of Meta-Analysis</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Formulating the research question</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Writing a meta-analysis protocol</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Searching the literature</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Study selection</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quality assessment</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data extraction</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data analysis</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reporting a meta-analysis</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Principles and Methods of Meta-analysis</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Meta-analysis is a statistical method for comparing and synthesizing studies addressing the same scientific question. It is commonly the quantitative component of a systematic review. By integrating all relevant studies, it can estimate the effects of a health intervention or policy more precisely and explore consistency and differences across studies. When individual studies disagree or are individually non-significant, meta-analysis may provide a result closer to the underlying truth. Its conclusion, however, is only as meaningful as the quality of the included studies. Systematic reviews and meta-analyses are fundamental to evidence-based medicine; the *Cochrane Handbook* provides a standard framework.</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>The process can be considered in eight steps.</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Formulating the research question</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>Ask whether meta-analysis is needed. It is useful when several RCTs address one clinical question but give conflicting findings, or when each study is too small to give a definitive answer. It is not useful merely to combine already decisive evidence. For example, three similar RCTs found no benefit from adding bevacizumab to adjuvant chemotherapy for colorectal cancer; another meta-analysis would be redundant. Excessive meta-analysis can itself become research waste. The 2014 *Lancet* series on research waste emphasized setting the right research priorities; a methodologically correct but clinically irrelevant study is still wasteful.</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Writing a meta-analysis protocol</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>Use PICOS: **P**articipants (disease and sociodemographic characteristics); **I**ntervention; **C**omparator; **O**utcomes (clearly defined and classified as binary, time-to-event, or continuous for later extraction and analysis); and **S**tudy design (RCT, cohort, case-control, or cross-sectional study). Protocols can be registered in PROSPERO. Prospective registration helps avoid unnecessary duplication and improves transparency, reliability, and reproducibility by defining primary objectives, key design features, and planned analyses before the review starts.</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Searching for studies</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>Develop the strategy from three components. First, use Medical Subject Headings (MeSH) and free-text terms, generally derived from PICOS and including the disease and intervention. Second, select databases: Chinese databases commonly include Wanfang, VIP, and CNKI; English-language sources include PubMed, Web of Science, Embase, and the Cochrane Library. At minimum, search PubMed, Embase, and Cochrane. Third, state any restrictions on language and dates. Aim for both recall and precision; also search references of included studies and relevant reviews and conference material. Missing one or two key studies can change the conclusion, whereas retrieving too many records increases screening effort.</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Selecting studies</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>Use reference-management software such as EndNote or Mendeley and apply predefined inclusion and exclusion criteria. Record reasons and numbers for exclusion. Two reviewers should screen independently and resolve disagreement by discussion or a third reviewer. Screening is time-consuming: initial screening uses titles and abstracts; full-text screening examines Methods and Results.</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Assessing study quality</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>Quality assessment identifies possible bias and whether study design is adequate. RCTs can use the Cochrane risk-of-bias tool, which assesses selection, performance, detection, attrition, reporting, and other bias.</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Domain <span class="pp">|</span> Item <span class="pp">|</span> Low risk <span class="pp">|</span> High risk <span class="pp">|</span> Unclear risk <span class="pp">|</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Selection bias <span class="pp">|</span> Random sequence generation <span class="pp">|</span> Random-number table, computer-generated numbers, coin toss, shuffled envelopes/cards, dice, or minimization described <span class="pp">|</span> Non-random method such as birth date, admission date, record number, clinician judgment, patient preference, or laboratory result <span class="pp">|</span> Insufficient description <span class="pp">|</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Selection bias <span class="pp">|</span> Allocation concealment <span class="pp">|</span> Central telephone/web/pharmacy allocation, identical sequential containers, or sequential opaque sealed envelopes <span class="pp">|</span> Open allocation list, inadequately protected envelopes, alternation, birth date, medical-record number <span class="pp">|</span> Insufficient description <span class="pp">|</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Performance bias <span class="pp">|</span> Blinding of participants and personnel <span class="pp">|</span> Blinding maintained, or blinding cannot plausibly affect outcome <span class="pp">|</span> No/incomplete blinding likely affects outcome, or blinding broken <span class="pp">|</span> Not reported <span class="pp">|</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Detection bias <span class="pp">|</span> Blinding of outcome assessment <span class="pp">|</span> Blinding maintained, or assessment not affected <span class="pp">|</span> No/incomplete/broken blinding likely affects assessment <span class="pp">|</span> Not reported <span class="pp">|</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Attrition bias <span class="pp">|</span> Incomplete outcome data <span class="pp">|</span> No missing data, similar missingness, or appropriate handling <span class="pp">|</span> Imbalanced/much missing data or inappropriate handling <span class="pp">|</span> Insufficient information <span class="pp">|</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Reporting bias <span class="pp">|</span> Selective reporting <span class="pp">|</span> All prespecified outcomes reported <span class="pp">|</span> Prespecified outcomes omitted or measured/analyzed differently <span class="pp">|</span> Prespecification/reporting unclear <span class="pp">|</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Other bias <span class="pp">|</span> Other sources <span class="pp">|</span> No other source <span class="pp">|</span> Design problem, fraud, or other concern <span class="pp">|</span> Insufficient information <span class="pp">|</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>Observational studies may use the Newcastle–Ottawa Scale, assessing selection, comparability, and outcome. For diagnostic studies comparing an index test with a reference standard, use QUADAS-2, which evaluates patient selection, index test, reference standard, and flow/timing, including both risk of bias and applicability.</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data extraction</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>Extract bibliographic information, study type and methods, participant characteristics (demographics, diagnostic criteria, control-selection criteria), interventions, outcome measurement, effect measure, and sample size. Two reviewers should extract independently and resolve disagreements by discussion or adjudication. Record participant age, sex, race, comorbidity, group size, and location; random/non-random allocation, dose, method, duration, and co-interventions; outcome definition, unit, measurement, follow-up and loss to follow-up; means and standard deviations for continuous outcomes; event counts and totals for binary outcomes; ITT or PP analysis; and secondary outcomes.</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data analysis</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>Analysis addresses pooling and heterogeneity, explores heterogeneity and result stability, and assesses publication bias. Common software includes Review Manager (RevMan), Stata, and R. RevMan is Cochrane’s standardized, user-friendly software; Stata and R are more comprehensive and can perform meta-regression, quantitative publication-bias assessment, and diagnostic meta-analysis.</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>**Case 6.1.** The question is whether beta-blockers, compared with other drugs, reduce stroke and mortality in primary hypertension. After searching and screening, 13 RCTs are included. Each row has study type, stroke and death events in beta-blocker and other-drug groups, and group totals.</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Study <span class="pp">|</span> Type <span class="pp">|</span> Stroke: beta/other <span class="pp">|</span> Death: beta/other <span class="pp">|</span> N: beta/other <span class="pp">|</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> Atenolol <span class="pp">|</span> 422 / 327 <span class="pp">|</span> 820 / 738 <span class="pp">|</span> 9618 / 9639 <span class="pp">|</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> Non-atenolol <span class="pp">|</span> — <span class="pp">|</span> 5 / 4 <span class="pp">|</span> 53 / 53 <span class="pp">|</span></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> Mixed beta-blocker/diuretic <span class="pp">|</span> 118 / 133 <span class="pp">|</span> 319 / 337 <span class="pp">|</span> 8297 / 8179 <span class="pp">|</span></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4–13 <span class="pp">|</span> Atenolol, non-atenolol, or mixed <span class="pp">|</span> See study dataset <span class="pp">|</span> See study dataset <span class="pp">|</span> See study dataset <span class="pp">|</span></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pooling and forest plots</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>First pool mortality. In Stata, <span class="in">`metan`</span> is supplied the deaths and totals in beta-blocker and other-drug groups; effects may be risk ratios or odds ratios. The pooled odds ratio is 1.034 (95% CI 0.985–1.085; *p*=0.174), so beta-blockers do not significantly reduce mortality compared with other drugs.</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 6.1"}</span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a><span class="in">metan mort_beta n_beta mort_other n_other, or</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 6.1 output"}</span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Result <span class="pp">|</span> Odds ratio <span class="pp">|</span> 95% CI <span class="pp">|</span> Weight <span class="pp">|</span></span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>--:<span class="pp">|</span>:--<span class="pp">|</span>--:<span class="pp">|</span></span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Individual studies <span class="pp">|</span> 0.147–1.330 <span class="pp">|</span> Study-specific <span class="pp">|</span> 0.11%–25.00% <span class="pp">|</span></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Overall, Mantel–Haenszel <span class="pp">|</span> 1.034 <span class="pp">|</span> 0.986–1.085 <span class="pp">|</span> 100.00% <span class="pp">|</span></span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Test of overall effect <span class="pp">|</span>  <span class="pp">|</span> *z*=1.370; *p*=0.171 <span class="pp">|</span>  <span class="pp">|</span></span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>Each line in a forest plot is one study, with the pooled estimate in the final line. The size of the gray square represents sample size/weight.</span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image1.png)</span>{width="100%"}</span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>Code 6.1 output: forest plot.</span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a><span class="fu">### Heterogeneity analysis</span></span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>Heterogeneity assesses similarity across studies. The formal chi-square test often has low power. I-squared is another measure: below 25% is often considered low, and above 50% high. Low heterogeneity may support a fixed-effect model; high heterogeneity calls for a random-effects model. In the mortality example, I-squared is low. I-squared is the proportion of total variation attributable to between-study heterogeneity, but depends on the number and size of studies and should be interpreted with the Q test and clinical judgment (Higgins and Thompson 2002; Higgins et al. 2003).</span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Heterogeneity measure <span class="pp">|</span> Value <span class="pp">|</span> df <span class="pp">|</span> p value / 95% CI <span class="pp">|</span></span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>--:<span class="pp">|</span>--:<span class="pp">|</span>:--<span class="pp">|</span></span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Mantel–Haenszel Q <span class="pp">|</span> 13.90 <span class="pp">|</span> 12 <span class="pp">|</span> 0.307 <span class="pp">|</span></span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> H <span class="pp">|</span> 1.076 <span class="pp">|</span>  <span class="pp">|</span> 1.000–1.496 <span class="pp">|</span></span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> I-squared <span class="pp">|</span> 13.7% <span class="pp">|</span>  <span class="pp">|</span> 0.0%–55.3% <span class="pp">|</span></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>A fixed-effect model assumes all studies estimate one true effect and gives larger studies greater weight. A random-effects model allows true effects to follow a distribution and yields more balanced study weights and more conservative results. Unless studies are extremely similar, random effects are often preferred (DerSimonian and Laird 1986).</span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>For stroke, I-squared is 48.9%, indicating heterogeneity; use a random-effects model. The pooled odds ratio is 1.165 (95% CI 1.038–1.308; *p*=0.010), indicating a difference in stroke risk between the two regimens.</span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 6.2"}</span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a><span class="in">metan stroke_beta n_beta stroke_other n_other, or random</span></span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 6.2 output"}</span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Heterogeneity measure <span class="pp">|</span> Value <span class="pp">|</span></span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>--:<span class="pp">|</span></span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Q (df=11) <span class="pp">|</span> 21.53; *p*=0.028 <span class="pp">|</span></span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> I-squared <span class="pp">|</span> 48.9% (0.0%–72.2%) <span class="pp">|</span></span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Overall random-effects OR <span class="pp">|</span> 1.165 (1.038–1.308); *p*=0.010 <span class="pp">|</span></span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image2.png)</span>{width="100%"}</span>
+<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a>Code 6.2 output: random-effects forest plot.</span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a>Explore heterogeneity with subgroup analyses. Here beta-blockers are atenolol, non-atenolol, or mixed beta-blocker/diuretic regimens. The atenolol subgroup has I-squared of zero and a pooled OR 1.263 (1.149–1.388); the two-study non-atenolol subgroup is heterogeneous; the mixed group also has substantial heterogeneity.</span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 6.3"}</span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a><span class="in">metan stroke_beta n_beta stroke_other n_other, or random by(type)</span></span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image3.png)</span>{width="100%"}</span>
+<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a>Code 6.3 output: subgroup-analysis forest plot.</span>
+<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sensitivity analysis</span></span>
+<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a>Sensitivity analysis asks how much each study affects the overall result: delete one included study, reanalyze the remainder, and repeat. In this example, no individual study materially changes the pooled result.</span>
+<span id="cb8-133"><a href="#cb8-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-134"><a href="#cb8-134" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 6.4"}</span>
+<span id="cb8-135"><a href="#cb8-135" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a><span class="in">metaninf stroke_beta n_beta stroke_other n_other</span></span>
+<span id="cb8-137"><a href="#cb8-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-138"><a href="#cb8-138" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-139"><a href="#cb8-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-140"><a href="#cb8-140" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb8-141"><a href="#cb8-141" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image4.png)</span>{width="100%"}</span>
+<span id="cb8-142"><a href="#cb8-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-143"><a href="#cb8-143" aria-hidden="true" tabindex="-1"></a>Code 6.4 output: leave-one-out sensitivity analysis.</span>
+<span id="cb8-144"><a href="#cb8-144" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-145"><a href="#cb8-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-146"><a href="#cb8-146" aria-hidden="true" tabindex="-1"></a><span class="fu">### Publication bias</span></span>
+<span id="cb8-147"><a href="#cb8-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-148"><a href="#cb8-148" aria-hidden="true" tabindex="-1"></a>Publication bias occurs when positive studies are more likely to be published than negative studies. A funnel plot has effect size on the x-axis and standard error on the y-axis. Large studies cluster at the top because they have smaller standard errors; small studies spread at the bottom. If small positive studies are preferentially published, the lower funnel is asymmetric around the reference line. No obvious bias is seen here. Egger regression can formally test asymmetry, but has low power with fewer than about 10 studies (Egger et al. 1997).</span>
+<span id="cb8-149"><a href="#cb8-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-150"><a href="#cb8-150" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 6.5"}</span>
+<span id="cb8-151"><a href="#cb8-151" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb8-152"><a href="#cb8-152" aria-hidden="true" tabindex="-1"></a><span class="in">metafunnel _ES _seES</span></span>
+<span id="cb8-153"><a href="#cb8-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-154"><a href="#cb8-154" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-155"><a href="#cb8-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-156"><a href="#cb8-156" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb8-157"><a href="#cb8-157" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image5.png)</span>{width="100%"}</span>
+<span id="cb8-158"><a href="#cb8-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-159"><a href="#cb8-159" aria-hidden="true" tabindex="-1"></a>Code 6.5 output: publication-bias funnel plot.</span>
+<span id="cb8-160"><a href="#cb8-160" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-161"><a href="#cb8-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-162"><a href="#cb8-162" aria-hidden="true" tabindex="-1"></a><span class="fu">### Meta-regression</span></span>
+<span id="cb8-163"><a href="#cb8-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-164"><a href="#cb8-164" aria-hidden="true" tabindex="-1"></a>Meta-regression explores whether a study-level characteristic is associated with the effect estimate. To ask whether the beta-blocker effect increases with sample size, regress effect size on <span class="in">`n_beta`</span>; each bubble is a study and bubble size represents sample size. A nearly horizontal fitted line indicates no relation. Meta-regression is exploratory and vulnerable to ecological fallacy and multiple testing (Thompson and Higgins 2002).</span>
+<span id="cb8-165"><a href="#cb8-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-166"><a href="#cb8-166" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 6.6"}</span>
+<span id="cb8-167"><a href="#cb8-167" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb8-168"><a href="#cb8-168" aria-hidden="true" tabindex="-1"></a><span class="in">metareg _ES n_beta, wsse(_seES) graph</span></span>
+<span id="cb8-169"><a href="#cb8-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-170"><a href="#cb8-170" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-171"><a href="#cb8-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-172"><a href="#cb8-172" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb8-173"><a href="#cb8-173" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image6.png)</span>{width="100%"}</span>
+<span id="cb8-174"><a href="#cb8-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-175"><a href="#cb8-175" aria-hidden="true" tabindex="-1"></a>Code 6.6 output: meta-regression bubble plot.</span>
+<span id="cb8-176"><a href="#cb8-176" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-177"><a href="#cb8-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-178"><a href="#cb8-178" aria-hidden="true" tabindex="-1"></a>**Case 6.2.** Outcomes may be continuous. Five RCTs compare stimulation surgery with control for change in tremor score in Parkinson disease. For continuous outcomes, use the standardized mean difference (SMD) when measurement units or scales differ across studies; standardization removes differences caused by scale units. The pooled SMD is 1.261 (95% CI 1.132–1.389; *p*&lt;0.001).</span>
+<span id="cb8-179"><a href="#cb8-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-180"><a href="#cb8-180" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 6.7"}</span>
+<span id="cb8-181"><a href="#cb8-181" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb8-182"><a href="#cb8-182" aria-hidden="true" tabindex="-1"></a><span class="in">metan stinumber stimean stisd controlnumber controlmean controlsd</span></span>
+<span id="cb8-183"><a href="#cb8-183" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-184"><a href="#cb8-184" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-185"><a href="#cb8-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-186"><a href="#cb8-186" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 6.7 output"}</span>
+<span id="cb8-187"><a href="#cb8-187" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Study / overall <span class="pp">|</span> SMD <span class="pp">|</span> 95% CI <span class="pp">|</span></span>
+<span id="cb8-188"><a href="#cb8-188" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>--:<span class="pp">|</span>:--<span class="pp">|</span></span>
+<span id="cb8-189"><a href="#cb8-189" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Individual studies <span class="pp">|</span> 1.021–1.538 <span class="pp">|</span> Study-specific <span class="pp">|</span></span>
+<span id="cb8-190"><a href="#cb8-190" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Overall, inverse variance <span class="pp">|</span> 1.261 <span class="pp">|</span> 1.132–1.389; *p*&lt;0.001 <span class="pp">|</span></span>
+<span id="cb8-191"><a href="#cb8-191" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-192"><a href="#cb8-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-193"><a href="#cb8-193" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb8-194"><a href="#cb8-194" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch6-image7.png)</span>{width="100%"}</span>
+<span id="cb8-195"><a href="#cb8-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-196"><a href="#cb8-196" aria-hidden="true" tabindex="-1"></a>Code 6.7 output: forest plot for a continuous outcome.</span>
+<span id="cb8-197"><a href="#cb8-197" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-198"><a href="#cb8-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-199"><a href="#cb8-199" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reporting a meta-analysis</span></span>
+<span id="cb8-200"><a href="#cb8-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-201"><a href="#cb8-201" aria-hidden="true" tabindex="-1"></a>Report systematic reviews and meta-analyses according to PRISMA. Its checklist covers title, abstract, rationale, objectives, eligibility criteria, information sources and search strategy, selection process, data collection, data items, risk-of-bias assessment, effect measures, synthesis methods, results, discussion, and funding. State all databases, registers, websites, organizations, reference lists and other sources searched, the date each was last searched, complete search strategies, independent screening/extraction procedures, outcome definitions, missing-data assumptions, risk-of-bias tool, model choice and heterogeneity assessment, and sensitivity/publication-bias analyses. See the PRISMA 2020 checklist at <span class="ot">&lt;http://prisma-statement.org/PRISMAStatement/Checklist.aspx&gt;</span>.</span>
+<span id="cb8-202"><a href="#cb8-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-203"><a href="#cb8-203" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb8-204"><a href="#cb8-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-205"><a href="#cb8-205" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Higgins JPT, Thompson SG. Quantifying heterogeneity in a meta-analysis. *Statistics in Medicine*. 2002;21:1539-1558.</span>
+<span id="cb8-206"><a href="#cb8-206" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Higgins JPT, Thompson SG, Deeks JJ, Altman DG. Measuring inconsistency in meta-analyses. *BMJ*. 2003;327:557-560.</span>
+<span id="cb8-207"><a href="#cb8-207" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>DerSimonian R, Laird N. Meta-analysis in clinical trials. *Controlled Clinical Trials*. 1986;7:177-188.</span>
+<span id="cb8-208"><a href="#cb8-208" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Egger M, Smith GD, Schneider M, Minder C. Bias in meta-analysis detected by a simple graphical test. *BMJ*. 1997;315:629-634.</span>
+<span id="cb8-209"><a href="#cb8-209" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Thompson SG, Higgins JPT. How should meta-regression analyses be undertaken and interpreted? *Statistics in Medicine*. 2002;21:1559-1573.</span>
+<span id="cb8-210"><a href="#cb8-210" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Page MJ, McKenzie JE, Bossuyt PM, et al. The PRISMA 2020 statement. *BMJ*. 2021;372:n71.</span>
+<span id="cb8-211"><a href="#cb8-211" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Higgins JPT, Thomas J, Chandler J, et al., eds. *Cochrane Handbook for Systematic Reviews of Interventions*. 2nd ed. Wiley; 2019.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

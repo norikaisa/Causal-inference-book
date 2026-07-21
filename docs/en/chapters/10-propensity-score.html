@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Propensity-Score-Based Methods – Causal Inference in Clinical Medical Research</title>
+<title>10&nbsp; Causal Inference Methods Based on Propensity Scores – Causal Inference in Clinical Medical Research</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -120,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/10-propensity-score.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Propensity-Score-Based Methods</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/10-propensity-score.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Causal Inference Methods Based on Propensity Scores</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -184,19 +213,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06-meta-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Principles and Methods of Meta-Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Principles and Methods of Meta-analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/07-advanced-meta.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Meta-Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Meta-analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/08-dag-scm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Causal Diagrams and Structural Causal Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Causal Graphs and Structural Causal Models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -208,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10-propensity-score.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Propensity-Score-Based Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Causal Inference Methods Based on Propensity Scores</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -287,12 +316,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-propensity-score" id="toc-the-propensity-score" class="nav-link active" data-scroll-target="#the-propensity-score"><span class="header-section-number">10.1</span> The propensity score</a></li>
-  <li><a href="#including-the-propensity-score-in-a-regression-model" id="toc-including-the-propensity-score-in-a-regression-model" class="nav-link" data-scroll-target="#including-the-propensity-score-in-a-regression-model"><span class="header-section-number">10.2</span> Including the propensity score in a regression model</a></li>
-  <li><a href="#propensity-score-matching" id="toc-propensity-score-matching" class="nav-link" data-scroll-target="#propensity-score-matching"><span class="header-section-number">10.3</span> Propensity score matching</a></li>
-  <li><a href="#inverse-probability-weighting" id="toc-inverse-probability-weighting" class="nav-link" data-scroll-target="#inverse-probability-weighting"><span class="header-section-number">10.4</span> Inverse probability weighting</a></li>
-  <li><a href="#other-weighting-methods" id="toc-other-weighting-methods" class="nav-link" data-scroll-target="#other-weighting-methods"><span class="header-section-number">10.5</span> Other weighting methods</a></li>
-  <li><a href="#choosing-among-propensity-score-methods" id="toc-choosing-among-propensity-score-methods" class="nav-link" data-scroll-target="#choosing-among-propensity-score-methods"><span class="header-section-number">10.6</span> Choosing among propensity-score methods</a></li>
+  <li><a href="#propensity-scores" id="toc-propensity-scores" class="nav-link active" data-scroll-target="#propensity-scores"><span class="header-section-number">10.1</span> Propensity scores</a></li>
+  <li><a href="#adding-the-propensity-score-directly-to-a-regression-model" id="toc-adding-the-propensity-score-directly-to-a-regression-model" class="nav-link" data-scroll-target="#adding-the-propensity-score-directly-to-a-regression-model"><span class="header-section-number">10.2</span> Adding the propensity score directly to a regression model</a></li>
+  <li><a href="#propensity-score-matching" id="toc-propensity-score-matching" class="nav-link" data-scroll-target="#propensity-score-matching"><span class="header-section-number">10.3</span> Propensity-score matching</a></li>
+  <li><a href="#inverse-probability-weighting-with-propensity-scores" id="toc-inverse-probability-weighting-with-propensity-scores" class="nav-link" data-scroll-target="#inverse-probability-weighting-with-propensity-scores"><span class="header-section-number">10.4</span> Inverse probability weighting with propensity scores</a></li>
+  <li><a href="#other-weighting-methods" id="toc-other-weighting-methods" class="nav-link" data-scroll-target="#other-weighting-methods"><span class="header-section-number">10.5</span> Other weighting methods</a>
+  <ul class="collapse">
+  <li><a href="#overlap-weighting" id="toc-overlap-weighting" class="nav-link" data-scroll-target="#overlap-weighting"><span class="header-section-number">10.5.1</span> Overlap weighting</a></li>
+  <li><a href="#matching-weighting" id="toc-matching-weighting" class="nav-link" data-scroll-target="#matching-weighting"><span class="header-section-number">10.5.2</span> Matching weighting</a></li>
+  <li><a href="#fine-stratification-weighting" id="toc-fine-stratification-weighting" class="nav-link" data-scroll-target="#fine-stratification-weighting"><span class="header-section-number">10.5.3</span> Fine-stratification weighting</a></li>
+  <li><a href="#standardized-mortality-ratio-weighting" id="toc-standardized-mortality-ratio-weighting" class="nav-link" data-scroll-target="#standardized-mortality-ratio-weighting"><span class="header-section-number">10.5.4</span> Standardized mortality ratio weighting</a></li>
+  </ul></li>
+  <li><a href="#choosing-among-propensity-score-methods" id="toc-choosing-among-propensity-score-methods" class="nav-link" data-scroll-target="#choosing-among-propensity-score-methods"><span class="header-section-number">10.6</span> Choosing among propensity-score methods</a>
+  <ul class="collapse">
+  <li><a href="#correct-specification-of-the-propensity-score-model" id="toc-correct-specification-of-the-propensity-score-model" class="nav-link" data-scroll-target="#correct-specification-of-the-propensity-score-model"><span class="header-section-number">10.6.1</span> Correct specification of the propensity-score model</a></li>
+  <li><a href="#assessing-overlap-of-exposure-and-reference-groups" id="toc-assessing-overlap-of-exposure-and-reference-groups" class="nav-link" data-scroll-target="#assessing-overlap-of-exposure-and-reference-groups"><span class="header-section-number">10.6.2</span> Assessing overlap of exposure and reference groups</a></li>
+  <li><a href="#selecting-an-estimand" id="toc-selecting-an-estimand" class="nav-link" data-scroll-target="#selecting-an-estimand"><span class="header-section-number">10.6.3</span> Selecting an estimand</a></li>
+  </ul></li>
+  <li><a href="#limitations-of-propensity-score-causal-inference" id="toc-limitations-of-propensity-score-causal-inference" class="nav-link" data-scroll-target="#limitations-of-propensity-score-causal-inference"><span class="header-section-number">10.7</span> Limitations of propensity-score causal inference</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -301,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Propensity-Score-Based Methods</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Causal Inference Methods Based on Propensity Scores</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -318,42 +360,357 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<p>In causal inference, matching pairs an individual who received an intervention with a control individual having similar characteristics. Repeating this for treated individuals permits estimation of causal effects in matched individuals, provided the paired groups are sufficiently similar. The broad steps are to define similarity, perform matching, assess its result, and estimate the effect. Matching uses no outcome information until design is complete, reducing the temptation to repeatedly alter covariates to obtain a desirable <em>p</em> value. This design-before-analysis principle is valuable, but matching is not intrinsically superior to regression: it still requires adequate covariate measurement, sensible model specification, and acceptable post-match balance.</p>
+<p>With covariates <span class="math inline">\((x_1,x_2,\ldots,x_K)\)</span>, standardized Euclidean distance can measure similarity:</p>
+<p><span class="math display">\[d(x_i,x_j)=\sqrt{\sum_{k=1}^{K}\frac{(x_{ki}-x_{kj})^2}{\sigma_k^2}}.\]</span></p>
+<p>Clinical characteristics are multidimensional—age, sex, disease severity, treatment history, and more. A single summary variable that captures similarity greatly simplifies matching.</p>
+<section id="propensity-scores" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="propensity-scores"><span class="header-section-number">10.1</span> Propensity scores</h2>
+<p>A propensity score is the probability of receiving an intervention. In a 1:1 RCT, every individual has probability 0.5; in non-randomized research it must be estimated. More precisely, given pretreatment covariates <span class="math inline">\(X\)</span>, the propensity score is <span class="math inline">\(e(X)=\Pr(A=1\mid X)\)</span>. It constructs samples or weighted pseudo-populations with comparable covariate distributions; it does not itself estimate a causal effect.</p>
+<p><span class="math display">\[PS(x_i)=\Pr[A=1\mid x_i].\]</span></p>
+<p>Estimate it by regressing treatment on measured confounders and using predicted treatment probability; machine-learning methods can also be used. The goal is not prediction accuracy for treatment assignment but balance after matching or weighting. Covariates must precede treatment and should be selected using clinical knowledge and causal graphs—not univariable <em>p</em> values. Do not include post-treatment variables or colliders.</p>
+<p>Using the data of Case 9.1, estimate the probability of endoscopic surgery. The red intervention and blue control distributions both lie mainly between 0.3 and 0.6, showing good overlap. Higher tumor invasiveness (<code>k</code>) predicts a higher probability of endoscopic treatment.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 10.1">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
+<span class="screen-reader-only">Note</span>Code 10.1
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>psmatch2 Treatment <span class="kw">k</span> age, <span class="kw">logit</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>psgraph, <span class="bn">bin</span>(40)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<section id="the-propensity-score" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="the-propensity-score"><span class="header-section-number">10.1</span> The propensity score</h2>
-<p><em>To be added.</em></p>
+<div class="text-center">
+<p><img src="images/ch10-image1.png" class="img-fluid" style="width:100.0%"></p>
+<p><img src="images/ch10-image2.png" class="img-fluid" style="width:85.0%"></p>
+<p>Code 10.1 output: propensity-score estimation and distribution.</p>
+</div>
+<p>As with all causal methods, propensity-score analysis requires exchangeability, positivity/overlap, and consistency. If blocking measured confounders blocks back-door paths, conditioning on a properly specified propensity score can also do so. Exchangeability within covariate strata implies exchangeability within propensity-score strata. Good score overlap is essential: in the left panel of Figure 10.1, the two curves overlap substantially; in the right panel they are well separated, making causal inference difficult. Propensity scores balance only measured covariates and cannot prevent residual confounding by unmeasured factors. Randomization balances both measured and unmeasured covariates and remains preferable. Check propensity-score distributions and the balance of every baseline covariate both before and after matching or weighting; score overlap does not replace balance diagnostics.</p>
+<div class="text-center">
+<p><img src="images/ch10-image3.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figure 10.1 Propensity-score distributions with good and poor overlap.</p>
+</div>
+<p>Three main approaches use propensity scores for causal inference.</p>
 </section>
-<section id="including-the-propensity-score-in-a-regression-model" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="including-the-propensity-score-in-a-regression-model"><span class="header-section-number">10.2</span> Including the propensity score in a regression model</h2>
-<p><em>To be added.</em></p>
+<section id="adding-the-propensity-score-directly-to-a-regression-model" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="adding-the-propensity-score-directly-to-a-regression-model"><span class="header-section-number">10.2</span> Adding the propensity score directly to a regression model</h2>
+<p>The score can be the only adjustment covariate in an outcome model.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 10.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 10.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">reg</span> Outcome Treatment _pscore, <span class="kw">or</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch10-image4.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 10.2 output.</p>
+</div>
+<p>The model indicates significantly higher endocrine-remission odds with endoscopic surgery (OR 2.29, 95% CI 1.62–3.22; <em>p</em>&lt;0.001). This OR is a conditional effect and need not equal a marginal risk ratio or risk difference. For clinical interpretation, also report standardized absolute risks, risk difference, or risk ratio with 95% confidence intervals.</p>
 </section>
 <section id="propensity-score-matching" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="propensity-score-matching"><span class="header-section-number">10.3</span> Propensity score matching</h2>
-<p><em>To be added.</em></p>
+<h2 data-number="10.3" class="anchored" data-anchor-id="propensity-score-matching"><span class="header-section-number">10.3</span> Propensity-score matching</h2>
+<p>Match intervention and control individuals with the same or similar scores, then estimate effects in the matched sample. In Figure 10.2, black figures are treated individuals and yellow figures are controls; a treated individual is selected, the closest control score is found, and the pair is formed. The process is repeated; some controls, especially near score 0, may remain unmatched.</p>
+<div class="text-center">
+<p><img src="images/ch10-image5.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figure 10.2 Principle of propensity-score matching.</p>
+</div>
+<p>Four practical questions arise. First, one-to-one matching provides closer similarity but may yield too few participants; one-to-many matching retains more observations when controls greatly outnumber treated participants. Second, a caliper sets the maximum permitted distance. Too small a caliper leaves many unmatched; too large a caliper harms exchangeability. A common starting point for 1:1 nearest-neighbor matching is 0.2 standard deviations of the logit of the score, followed by adjustment based on balance, sample loss, and clinical comparability. Third, controls can be reused when their number is much smaller than the treated group. Fourth, ties can be randomly resolved or all tied controls can be included with appropriate weights.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 10.3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 10.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>psmatch2 Treatment <span class="kw">k</span> age, <span class="kw">logit</span> outcome(Outcome) n(1) cal(0.01) ties</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch10-image6.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 10.3 output.</p>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 10.4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 10.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>psmatch2 Treatment <span class="kw">k</span> age, <span class="kw">logit</span> outcome(Outcome) n(1) cal(0.001) ties</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch10-image7.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 10.4 output.</p>
+</div>
+<p>With a 0.01 caliper, only 3 patients are unmatched; with 0.001, 75 are unmatched. The matched sample differs from the original sample, so the effect targets the matched population—usually the average treatment effect in the treated (ATT) among matchable treated individuals. Remission is 56.7% in the intervention group and 37.6% in controls, giving OR 2.17. Report the number and baseline characteristics of unmatched people and explicitly state the target population.</p>
+<p>As in an RCT, show distributions of all covariates after matching. <code>U</code> denotes unmatched and <code>M</code> matched observations. Before matching, invasiveness is 2.2 versus 1.7 with <em>p</em>&lt;0.001; after matching, both are 2.1 with <em>p</em>=1.000. More importantly, use absolute standardized mean difference (SMD), often &lt;0.10 as an empirical benchmark, rather than <em>p</em> values, to judge balance.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 10.5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 10.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pstest <span class="kw">k</span> age, both <span class="kw">graph</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch10-image8.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 10.5 output: covariate-balance assessment.</p>
+</div>
 </section>
-<section id="inverse-probability-weighting" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="inverse-probability-weighting"><span class="header-section-number">10.4</span> Inverse probability weighting</h2>
-<p><em>To be added.</em></p>
+<section id="inverse-probability-weighting-with-propensity-scores" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="inverse-probability-weighting-with-propensity-scores"><span class="header-section-number">10.4</span> Inverse probability weighting with propensity scores</h2>
+<p>Inverse probability weighting (IPW) assigns each participant a weight and constructs a pseudo-population in which measured confounding is absent (Figure 10.3). A treated participant with a 25% predicted probability of treatment receives weight 4: they represent themselves and four similar people. A control participant with a 90% probability of treatment has only a 10% probability of control and receives weight 10.</p>
+<div class="text-center">
+<p><img src="images/ch10-image9.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figure 10.3 Principle of inverse probability weighting.</p>
+</div>
+<p>For binary treatment, weights are</p>
+<p><span class="math display">\[w_{ki}^{T=1}=\frac{1}{\Pr(T=1\mid k_i)},\qquad w_{ki}^{T=0}=\frac{1}{1-\Pr(T=1\mid k_i)}.\]</span></p>
+<p>Use the inverse-probability weight in the outcome regression.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 10.6">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 10.6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> ipweight = 1/_pscore <span class="kw">if</span> Treatment == 1</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> ipweight = 1/(1-_pscore) <span class="kw">if</span> Treatment == 0</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">logistic</span> Outcome Treatment [<span class="kw">iweight</span> = ipweight], <span class="kw">vce</span>(<span class="kw">robust</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch10-image10.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 10.6 output.</p>
+</div>
+<p>Very small scores produce large weights and unstable, high-variance estimates. Stabilized weights multiply by the marginal probability of the received treatment; they mitigate, but do not eliminate, instability from extreme weights. Report weight distributions and effective sample size, and prespecify trimming, truncation, or sensitivity analysis.</p>
+<p><span class="math display">\[SW_{ki}^{T=1}=\frac{\Pr(T=1)}{\Pr(T=1\mid k_i)},\qquad SW_{ki}^{T=0}=\frac{1-\Pr(T=1)}{1-\Pr(T=1\mid k_i)}.\]</span></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 10.7">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 10.7
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> s_ipweight = (1/_pscore)*0.4516 <span class="kw">if</span> Treatment == 1</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> s_ipweight = 1/(1-_pscore)*0.5484 <span class="kw">if</span> Treatment == 0</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">logistic</span> Outcome Treatment [<span class="kw">iweight</span> = s_ipweight], <span class="kw">vce</span>(<span class="kw">robust</span>) <span class="kw">or</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch10-image11.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 10.7 output.</p>
+</div>
+<p>Use SMDs to assess covariate differences before and after weighting. Here group sizes are 338 and 405 before weighting and 371.4 and 371.6 in the weighted pseudo-population; for tumor invasiveness, SMD changes from 0.415 to -0.002. Aim for SMD below 0.10. Weighted counts are pseudo-sample sizes, not effective sample sizes; also inspect weight distributions, effective sample size, and covariate plots.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 10.8">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 10.8
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>teffects ipw (Outcome) (Treatment <span class="kw">k</span> age, <span class="kw">logit</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>tebalance <span class="kw">summarize</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch10-image12.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 10.8 output.</p>
+</div>
 </section>
 <section id="other-weighting-methods" class="level2" data-number="10.5">
 <h2 data-number="10.5" class="anchored" data-anchor-id="other-weighting-methods"><span class="header-section-number">10.5</span> Other weighting methods</h2>
-<p><em>To be added.</em></p>
+<p>Conventional IPW gives treated patients <span class="math inline">\(1/PS\)</span> and untreated patients <span class="math inline">\(1/(1-PS)\)</span>; extreme scores therefore create extreme weights. Trimming can remove weighted extremes, for example beyond the 95th or 99th percentile, but does not guarantee an appropriate threshold and reduces sample size.</p>
+<section id="overlap-weighting" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="overlap-weighting"><span class="header-section-number">10.5.1</span> Overlap weighting</h3>
+<p>Overlap weighting gives each participant the probability of the opposite treatment: treated participants receive <span class="math inline">\(1-PS\)</span> and untreated participants receive <span class="math inline">\(PS\)</span>. Thus, scores close to 0 or 1 do not dominate as they do under IPW, while people compatible with either treatment contribute more. The target is the overlap or clinical-equipoise population, not the entire enrolled population, and the estimand should be reported accordingly. It can generate exact covariate balance between groups, but estimates the average treatment effect in the overlap population (ATO), which may differ from ATT or ATE. A changed effect estimate usually reflects a changed target population, not simply a “smaller” effect.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 10.9">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 10.9
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> o_weight = 1 - _pscore <span class="kw">if</span> Treatment == 1</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> o_weight = _pscore <span class="kw">if</span> Treatment == 0</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">logistic</span> Outcome Treatment [<span class="kw">iweight</span> = o_weight], <span class="kw">vce</span>(<span class="kw">robust</span>) <span class="kw">or</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch10-image13.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 10.9 output.</p>
+</div>
+</section>
+<section id="matching-weighting" class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="matching-weighting"><span class="header-section-number">10.5.2</span> Matching weighting</h3>
+<p>Matching weights are <span class="math inline">\(\min(PS,1-PS)/PS\)</span> for treated participants and <span class="math inline">\(\min(PS,1-PS)/(1-PS)\)</span> for controls. They avoid extreme weights and the need for truncation. With similarly sized groups and good overlap, the target approximates population ATE; with unequal sizes and good overlap, it approximates ATT in the smaller group. With limited overlap, it targets the overlapping subgroup. The estimand depends on sample composition and the shape of score overlap and should be described rather than labeled only “close to ATE” or “close to ATT.”</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 10.10">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 10.10
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> m_weighting = <span class="fu">min</span>(_pscore, 1-_pscore)/_pscore</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> m_weighting = <span class="fu">min</span>(_pscore, 1-_pscore)/(1-_pscore) <span class="kw">if</span> Treatment == 0</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> Outcome Treatment [<span class="kw">iweight</span> = m_weighting], <span class="kw">vce</span>(<span class="kw">robust</span>) <span class="kw">or</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch10-image14.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 10.10 output.</p>
+</div>
+</section>
+<section id="fine-stratification-weighting" class="level3" data-number="10.5.3">
+<h3 data-number="10.5.3" class="anchored" data-anchor-id="fine-stratification-weighting"><span class="header-section-number">10.5.3</span> Fine-stratification weighting</h3>
+<p>Fine stratification for ATE does not directly turn scores into weights. Instead it creates narrow score strata of fixed probability width, such as 0–0.02, 0.02–0.04, and so on. Strata with no treated or no controls are excluded; weights are calculated from treated and control counts in remaining strata. For ATT, treated weights are set to 1 and controls are reweighted according to the number of treated patients in their stratum.</p>
+</section>
+<section id="standardized-mortality-ratio-weighting" class="level3" data-number="10.5.4">
+<h3 data-number="10.5.4" class="anchored" data-anchor-id="standardized-mortality-ratio-weighting"><span class="header-section-number">10.5.4</span> Standardized mortality ratio weighting</h3>
+<p>Standardized mortality ratio weighting assigns weight 1 to treated participants and <span class="math inline">\(PS/(1-PS)\)</span> to controls. Like IPW, it can be affected by extreme weights and may require truncation.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 10.11">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 10.11
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> smr_weighting = 1</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> smr_weighting = _pscore/(1-_pscore) <span class="kw">if</span> Treatment == 0</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> Outcome Treatment [<span class="kw">iweight</span> = smr_weighting], <span class="kw">vce</span>(<span class="kw">robust</span>) <span class="kw">or</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch10-image15.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 10.11 output.</p>
+</div>
+</section>
 </section>
 <section id="choosing-among-propensity-score-methods" class="level2" data-number="10.6">
 <h2 data-number="10.6" class="anchored" data-anchor-id="choosing-among-propensity-score-methods"><span class="header-section-number">10.6</span> Choosing among propensity-score methods</h2>
-<p><em>To be added.</em></p>
+<p>Matching treated participants to a fixed number of controls within a prespecified caliper is often a useful choice, but discards unmatched observations and can increase imbalance. It is not universally preferred: when the question is an ATE in the comparable study population or retaining observations is important, weighting can be considered when overlap and stability are good. Choose according to the estimand, degree of overlap, acceptable sample loss, and resulting balance.</p>
+<p>Weighting retains most observations, can provide greater precision, and makes balance reporting transparent. It is flexible and can target different populations. Fine-stratification, matching, and overlap weights can address important limitations of conventional IPW.</p>
+<p>The estimand specifies the population to which a treatment effect applies. If treating all eligible participants is feasible, target the average treatment effect (ATE). If treatment is appropriate only for patients with certain characteristics who actually receive it, target the average treatment effect in the treated (ATT). Table 10.1 summarizes common weights.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Treated weight</th>
+<th style="text-align: left;">Control weight</th>
+<th style="text-align: left;">Estimand</th>
+<th style="text-align: left;">Key feature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">IPW</td>
+<td style="text-align: left;"><span class="math inline">\(1/PS\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(1/(1-PS)\)</span></td>
+<td style="text-align: left;">ATE</td>
+<td style="text-align: left;">Mimics an RCT but can have extreme weights; trimming may help.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Standardized mortality ratio</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;"><span class="math inline">\(PS/(1-PS)\)</span></td>
+<td style="text-align: left;">ATT</td>
+<td style="text-align: left;">Extends naturally to &gt;2 groups; trimming may be needed.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Overlap</td>
+<td style="text-align: left;"><span class="math inline">\(1-PS\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(PS\)</span></td>
+<td style="text-align: left;">ATO</td>
+<td style="text-align: left;">Avoids extreme weights; targets the overlap/equipoise population.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Matching</td>
+<td style="text-align: left;"><span class="math inline">\(\min(PS,1-PS)/PS\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\min(PS,1-PS)/(1-PS)\)</span></td>
+<td style="text-align: left;">Often ATT in smaller group</td>
+<td style="text-align: left;">Avoids extreme weights; target depends on group size and overlap.</td>
+</tr>
+</tbody>
+</table>
+<section id="correct-specification-of-the-propensity-score-model" class="level3" data-number="10.6.1">
+<h3 data-number="10.6.1" class="anchored" data-anchor-id="correct-specification-of-the-propensity-score-model"><span class="header-section-number">10.6.1</span> Correct specification of the propensity-score model</h3>
+<p>The first task is avoiding model misspecification. The true structural relation between treatment and all covariates is unknown, so a simple logistic model can be misspecified; machine learning can be an alternative. Regardless of method, include strong outcome predictors and avoid variables that predict treatment strongly but are unrelated to outcome when they force scores close to 0 or 1. Fine-stratification weighting may be more robust because it creates strata from scores and then uses observation counts. Judge a score model by post-design balance, not its c statistic or predictive accuracy. For continuous or nonlinear covariates, consider splines, interactions, or flexible learning models, while keeping score-model selection independent of outcome analysis.</p>
+</section>
+<section id="assessing-overlap-of-exposure-and-reference-groups" class="level3" data-number="10.6.2">
+<h3 data-number="10.6.2" class="anchored" data-anchor-id="assessing-overlap-of-exposure-and-reference-groups"><span class="header-section-number">10.6.2</span> Assessing overlap of exposure and reference groups</h3>
+<p>Substantial score overlap indicates reasonable clinical equipoise. When weighting, trim nonoverlap regions so both treatments have nonzero probability. Scores near 0 or 1 generate large weights and allow atypical participants to dominate. If trimming removes many observations, overlap may be inadequate; trimming also changes the study population and estimand. Report the trimming rule, number excluded, and covariate distributions before and after trimming, and conduct sensitivity analyses using alternative plausible thresholds.</p>
+</section>
+<section id="selecting-an-estimand" class="level3" data-number="10.6.3">
+<h3 data-number="10.6.3" class="anchored" data-anchor-id="selecting-an-estimand"><span class="header-section-number">10.6.3</span> Selecting an estimand</h3>
+<p>Different weights estimate effects for different populations. ATE makes covariate distributions of treated and reference groups similar to each other and to the full sample. ATT makes the reference-group covariate distribution resemble that observed in the treated group. The effect in the clinical-equipoise subset is driven by score overlap and excludes people who would almost certainly receive one treatment. IPW, matching weights, and standardized mortality ratio weights extend readily to more than two treatments using multinomial propensity scores. For multiple treatments, IPW uses the reciprocal of the probability of treatment actually received; matching weights use the smallest available score in the numerator and the received-treatment score in the denominator; SMR weighting sets the target-treatment group to 1 and weights other groups by the ratio of target-treatment to received-treatment probability.</p>
+</section>
+</section>
+<section id="limitations-of-propensity-score-causal-inference" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="limitations-of-propensity-score-causal-inference"><span class="header-section-number">10.7</span> Limitations of propensity-score causal inference</h2>
+<p>Errors in estimating the propensity score propagate to causal estimates. More importantly, unmeasured confounding is not repaired by a propensity score, and matching estimates effects only in the matched sample, limiting generalizability. Use subject-matter knowledge and quantitative bias analysis or sensitivity analyses such as the E-value to discuss unmeasured confounding; be cautious when extrapolating to unmatched populations or populations without overlap.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Rosenbaum PR, Rubin DB. The central role of the propensity score in observational studies for causal effects. <em>Biometrika</em>. 1983;70(1):41-55.</li>
+<li>Brookhart MA, Schneeweiss S, Rothman KJ, et al.&nbsp;Variable selection for propensity score models. <em>Am J Epidemiol</em>. 2006;163(12):1149-1156.</li>
+<li>Austin PC. Balance diagnostics for propensity-score matched samples. <em>Stat Med</em>. 2009;28(25):3083-3107.</li>
+<li>Austin PC. Optimal caliper widths for propensity-score matching. <em>Pharm Stat</em>. 2011;10(2):150-161.</li>
+<li>Austin PC, Stuart EA. Best practice for IPTW using propensity scores. <em>Stat Med</em>. 2015;34(28):3661-3679.</li>
+<li>Deb S, Austin PC, Tu JV, et al.&nbsp;Propensity-score methods in cardiovascular research. <em>Can J Cardiol</em>. 2016;32(2):259-265.</li>
+<li>Li F, Thomas LE, Li F. Addressing extreme propensity scores via overlap weights. <em>Am J Epidemiol</em>. 2019;188(1):250-257.</li>
+<li>Elze MC, Gregson J, Baber U, et al.&nbsp;Comparison of propensity-score methods and covariate adjustment. <em>J Am Coll Cardiol</em>. 2017;69(3):345-357.</li>
+<li>Garrido MM, Kelley AS, Paris J, et al.&nbsp;Methods for constructing and assessing propensity scores. <em>Health Serv Res</em>. 2014;49(5):1701-1720.</li>
+<li>VanderWeele TJ, Ding P. Sensitivity analysis in observational research: introducing the E-value. <em>Ann Intern Med</em>. 2017;167(4):268-274.</li>
+</ol>
 
 
 <!-- -->
@@ -824,36 +1181,289 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Propensity-Score-Based Methods</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## The propensity score</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Including the propensity score in a regression model</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Propensity score matching</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Inverse probability weighting</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Other weighting methods</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Choosing among propensity-score methods</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Causal Inference Methods Based on Propensity Scores</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>In causal inference, matching pairs an individual who received an intervention with a control individual having similar characteristics. Repeating this for treated individuals permits estimation of causal effects in matched individuals, provided the paired groups are sufficiently similar. The broad steps are to define similarity, perform matching, assess its result, and estimate the effect. Matching uses no outcome information until design is complete, reducing the temptation to repeatedly alter covariates to obtain a desirable *p* value. This design-before-analysis principle is valuable, but matching is not intrinsically superior to regression: it still requires adequate covariate measurement, sensible model specification, and acceptable post-match balance.</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>With covariates $(x_1,x_2,\ldots,x_K)$, standardized Euclidean distance can measure similarity:</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>$$d(x_i,x_j)=\sqrt{\sum_{k=1}^{K}\frac{(x_{ki}-x_{kj})^2}{\sigma_k^2}}.$$</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>Clinical characteristics are multidimensional—age, sex, disease severity, treatment history, and more. A single summary variable that captures similarity greatly simplifies matching.</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Propensity scores</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>A propensity score is the probability of receiving an intervention. In a 1:1 RCT, every individual has probability 0.5; in non-randomized research it must be estimated. More precisely, given pretreatment covariates $X$, the propensity score is $e(X)=\Pr(A=1\mid X)$. It constructs samples or weighted pseudo-populations with comparable covariate distributions; it does not itself estimate a causal effect.</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>$$PS(x_i)=\Pr<span class="co">[</span><span class="ot">A=1\mid x_i</span><span class="co">]</span>.$$</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>Estimate it by regressing treatment on measured confounders and using predicted treatment probability; machine-learning methods can also be used. The goal is not prediction accuracy for treatment assignment but balance after matching or weighting. Covariates must precede treatment and should be selected using clinical knowledge and causal graphs—not univariable *p* values. Do not include post-treatment variables or colliders.</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>Using the data of Case 9.1, estimate the probability of endoscopic surgery. The red intervention and blue control distributions both lie mainly between 0.3 and 0.6, showing good overlap. Higher tumor invasiveness (<span class="in">`k`</span>) predicts a higher probability of endoscopic treatment.</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 10.1"}</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="in">psmatch2 Treatment k age, logit</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="in">psgraph, bin(40)</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image1.png)</span>{width="100%"}</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image2.png)</span>{width="85%"}</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>Code 10.1 output: propensity-score estimation and distribution.</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>As with all causal methods, propensity-score analysis requires exchangeability, positivity/overlap, and consistency. If blocking measured confounders blocks back-door paths, conditioning on a properly specified propensity score can also do so. Exchangeability within covariate strata implies exchangeability within propensity-score strata. Good score overlap is essential: in the left panel of Figure 10.1, the two curves overlap substantially; in the right panel they are well separated, making causal inference difficult. Propensity scores balance only measured covariates and cannot prevent residual confounding by unmeasured factors. Randomization balances both measured and unmeasured covariates and remains preferable. Check propensity-score distributions and the balance of every baseline covariate both before and after matching or weighting; score overlap does not replace balance diagnostics.</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image3.png)</span>{width="100%"}</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>Figure 10.1 Propensity-score distributions with good and poor overlap.</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>Three main approaches use propensity scores for causal inference.</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Adding the propensity score directly to a regression model</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>The score can be the only adjustment covariate in an outcome model.</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 10.2"}</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="in">reg Outcome Treatment _pscore, or</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image4.png)</span>{width="100%"}</span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>Code 10.2 output.</span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>The model indicates significantly higher endocrine-remission odds with endoscopic surgery (OR 2.29, 95% CI 1.62–3.22; *p*&lt;0.001). This OR is a conditional effect and need not equal a marginal risk ratio or risk difference. For clinical interpretation, also report standardized absolute risks, risk difference, or risk ratio with 95% confidence intervals.</span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Propensity-score matching</span></span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>Match intervention and control individuals with the same or similar scores, then estimate effects in the matched sample. In Figure 10.2, black figures are treated individuals and yellow figures are controls; a treated individual is selected, the closest control score is found, and the pair is formed. The process is repeated; some controls, especially near score 0, may remain unmatched.</span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image5.png)</span>{width="100%"}</span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>Figure 10.2 Principle of propensity-score matching.</span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>Four practical questions arise. First, one-to-one matching provides closer similarity but may yield too few participants; one-to-many matching retains more observations when controls greatly outnumber treated participants. Second, a caliper sets the maximum permitted distance. Too small a caliper leaves many unmatched; too large a caliper harms exchangeability. A common starting point for 1:1 nearest-neighbor matching is 0.2 standard deviations of the logit of the score, followed by adjustment based on balance, sample loss, and clinical comparability. Third, controls can be reused when their number is much smaller than the treated group. Fourth, ties can be randomly resolved or all tied controls can be included with appropriate weights.</span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 10.3"}</span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a><span class="in">psmatch2 Treatment k age, logit outcome(Outcome) n(1) cal(0.01) ties</span></span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image6.png)</span>{width="100%"}</span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>Code 10.3 output.</span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 10.4"}</span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a><span class="in">psmatch2 Treatment k age, logit outcome(Outcome) n(1) cal(0.001) ties</span></span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image7.png)</span>{width="100%"}</span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a>Code 10.4 output.</span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a>With a 0.01 caliper, only 3 patients are unmatched; with 0.001, 75 are unmatched. The matched sample differs from the original sample, so the effect targets the matched population—usually the average treatment effect in the treated (ATT) among matchable treated individuals. Remission is 56.7% in the intervention group and 37.6% in controls, giving OR 2.17. Report the number and baseline characteristics of unmatched people and explicitly state the target population.</span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>As in an RCT, show distributions of all covariates after matching. <span class="in">`U`</span> denotes unmatched and <span class="in">`M`</span> matched observations. Before matching, invasiveness is 2.2 versus 1.7 with *p*&lt;0.001; after matching, both are 2.1 with *p*=1.000. More importantly, use absolute standardized mean difference (SMD), often &lt;0.10 as an empirical benchmark, rather than *p* values, to judge balance.</span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 10.5"}</span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a><span class="in">pstest k age, both graph</span></span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image8.png)</span>{width="100%"}</span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a>Code 10.5 output: covariate-balance assessment.</span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## Inverse probability weighting with propensity scores</span></span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a>Inverse probability weighting (IPW) assigns each participant a weight and constructs a pseudo-population in which measured confounding is absent (Figure 10.3). A treated participant with a 25% predicted probability of treatment receives weight 4: they represent themselves and four similar people. A control participant with a 90% probability of treatment has only a 10% probability of control and receives weight 10.</span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image9.png)</span>{width="100%"}</span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a>Figure 10.3 Principle of inverse probability weighting.</span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a>For binary treatment, weights are</span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a>$$w_{ki}^{T=1}=\frac{1}{\Pr(T=1\mid k_i)},\qquad w_{ki}^{T=0}=\frac{1}{1-\Pr(T=1\mid k_i)}.$$</span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a>Use the inverse-probability weight in the outcome regression.</span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 10.6"}</span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a><span class="in">gen ipweight = 1/_pscore if Treatment == 1</span></span>
+<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a><span class="in">replace ipweight = 1/(1-_pscore) if Treatment == 0</span></span>
+<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a><span class="in">logistic Outcome Treatment [iweight = ipweight], vce(robust)</span></span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image10.png)</span>{width="100%"}</span>
+<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a>Code 10.6 output.</span>
+<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>Very small scores produce large weights and unstable, high-variance estimates. Stabilized weights multiply by the marginal probability of the received treatment; they mitigate, but do not eliminate, instability from extreme weights. Report weight distributions and effective sample size, and prespecify trimming, truncation, or sensitivity analysis.</span>
+<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a>$$SW_{ki}^{T=1}=\frac{\Pr(T=1)}{\Pr(T=1\mid k_i)},\qquad SW_{ki}^{T=0}=\frac{1-\Pr(T=1)}{1-\Pr(T=1\mid k_i)}.$$</span>
+<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 10.7"}</span>
+<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a><span class="in">gen s_ipweight = (1/_pscore)*0.4516 if Treatment == 1</span></span>
+<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a><span class="in">replace s_ipweight = 1/(1-_pscore)*0.5484 if Treatment == 0</span></span>
+<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a><span class="in">logistic Outcome Treatment [iweight = s_ipweight], vce(robust) or</span></span>
+<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image11.png)</span>{width="100%"}</span>
+<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a>Code 10.7 output.</span>
+<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a>Use SMDs to assess covariate differences before and after weighting. Here group sizes are 338 and 405 before weighting and 371.4 and 371.6 in the weighted pseudo-population; for tumor invasiveness, SMD changes from 0.415 to -0.002. Aim for SMD below 0.10. Weighted counts are pseudo-sample sizes, not effective sample sizes; also inspect weight distributions, effective sample size, and covariate plots.</span>
+<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 10.8"}</span>
+<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a><span class="in">teffects ipw (Outcome) (Treatment k age, logit)</span></span>
+<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a><span class="in">tebalance summarize</span></span>
+<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image12.png)</span>{width="100%"}</span>
+<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a>Code 10.8 output.</span>
+<span id="cb12-177"><a href="#cb12-177" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-179"><a href="#cb12-179" aria-hidden="true" tabindex="-1"></a><span class="fu">## Other weighting methods</span></span>
+<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a>Conventional IPW gives treated patients $1/PS$ and untreated patients $1/(1-PS)$; extreme scores therefore create extreme weights. Trimming can remove weighted extremes, for example beyond the 95th or 99th percentile, but does not guarantee an appropriate threshold and reduces sample size.</span>
+<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a><span class="fu">### Overlap weighting</span></span>
+<span id="cb12-184"><a href="#cb12-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-185"><a href="#cb12-185" aria-hidden="true" tabindex="-1"></a>Overlap weighting gives each participant the probability of the opposite treatment: treated participants receive $1-PS$ and untreated participants receive $PS$. Thus, scores close to 0 or 1 do not dominate as they do under IPW, while people compatible with either treatment contribute more. The target is the overlap or clinical-equipoise population, not the entire enrolled population, and the estimand should be reported accordingly. It can generate exact covariate balance between groups, but estimates the average treatment effect in the overlap population (ATO), which may differ from ATT or ATE. A changed effect estimate usually reflects a changed target population, not simply a “smaller” effect.</span>
+<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 10.9"}</span>
+<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a><span class="in">gen o_weight = 1 - _pscore if Treatment == 1</span></span>
+<span id="cb12-190"><a href="#cb12-190" aria-hidden="true" tabindex="-1"></a><span class="in">replace o_weight = _pscore if Treatment == 0</span></span>
+<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a><span class="in">logistic Outcome Treatment [iweight = o_weight], vce(robust) or</span></span>
+<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-193"><a href="#cb12-193" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-194"><a href="#cb12-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-195"><a href="#cb12-195" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-196"><a href="#cb12-196" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image13.png)</span>{width="100%"}</span>
+<span id="cb12-197"><a href="#cb12-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-198"><a href="#cb12-198" aria-hidden="true" tabindex="-1"></a>Code 10.9 output.</span>
+<span id="cb12-199"><a href="#cb12-199" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-200"><a href="#cb12-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-201"><a href="#cb12-201" aria-hidden="true" tabindex="-1"></a><span class="fu">### Matching weighting</span></span>
+<span id="cb12-202"><a href="#cb12-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-203"><a href="#cb12-203" aria-hidden="true" tabindex="-1"></a>Matching weights are $\min(PS,1-PS)/PS$ for treated participants and $\min(PS,1-PS)/(1-PS)$ for controls. They avoid extreme weights and the need for truncation. With similarly sized groups and good overlap, the target approximates population ATE; with unequal sizes and good overlap, it approximates ATT in the smaller group. With limited overlap, it targets the overlapping subgroup. The estimand depends on sample composition and the shape of score overlap and should be described rather than labeled only “close to ATE” or “close to ATT.”</span>
+<span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 10.10"}</span>
+<span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb12-207"><a href="#cb12-207" aria-hidden="true" tabindex="-1"></a><span class="in">gen m_weighting = min(_pscore, 1-_pscore)/_pscore</span></span>
+<span id="cb12-208"><a href="#cb12-208" aria-hidden="true" tabindex="-1"></a><span class="in">replace m_weighting = min(_pscore, 1-_pscore)/(1-_pscore) if Treatment == 0</span></span>
+<span id="cb12-209"><a href="#cb12-209" aria-hidden="true" tabindex="-1"></a><span class="in">logit Outcome Treatment [iweight = m_weighting], vce(robust) or</span></span>
+<span id="cb12-210"><a href="#cb12-210" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-211"><a href="#cb12-211" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-212"><a href="#cb12-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-213"><a href="#cb12-213" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-214"><a href="#cb12-214" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image14.png)</span>{width="100%"}</span>
+<span id="cb12-215"><a href="#cb12-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-216"><a href="#cb12-216" aria-hidden="true" tabindex="-1"></a>Code 10.10 output.</span>
+<span id="cb12-217"><a href="#cb12-217" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-218"><a href="#cb12-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-219"><a href="#cb12-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### Fine-stratification weighting</span></span>
+<span id="cb12-220"><a href="#cb12-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-221"><a href="#cb12-221" aria-hidden="true" tabindex="-1"></a>Fine stratification for ATE does not directly turn scores into weights. Instead it creates narrow score strata of fixed probability width, such as 0–0.02, 0.02–0.04, and so on. Strata with no treated or no controls are excluded; weights are calculated from treated and control counts in remaining strata. For ATT, treated weights are set to 1 and controls are reweighted according to the number of treated patients in their stratum.</span>
+<span id="cb12-222"><a href="#cb12-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-223"><a href="#cb12-223" aria-hidden="true" tabindex="-1"></a><span class="fu">### Standardized mortality ratio weighting</span></span>
+<span id="cb12-224"><a href="#cb12-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-225"><a href="#cb12-225" aria-hidden="true" tabindex="-1"></a>Standardized mortality ratio weighting assigns weight 1 to treated participants and $PS/(1-PS)$ to controls. Like IPW, it can be affected by extreme weights and may require truncation.</span>
+<span id="cb12-226"><a href="#cb12-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-227"><a href="#cb12-227" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 10.11"}</span>
+<span id="cb12-228"><a href="#cb12-228" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb12-229"><a href="#cb12-229" aria-hidden="true" tabindex="-1"></a><span class="in">gen smr_weighting = 1</span></span>
+<span id="cb12-230"><a href="#cb12-230" aria-hidden="true" tabindex="-1"></a><span class="in">replace smr_weighting = _pscore/(1-_pscore) if Treatment == 0</span></span>
+<span id="cb12-231"><a href="#cb12-231" aria-hidden="true" tabindex="-1"></a><span class="in">logit Outcome Treatment [iweight = smr_weighting], vce(robust) or</span></span>
+<span id="cb12-232"><a href="#cb12-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-233"><a href="#cb12-233" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-234"><a href="#cb12-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-235"><a href="#cb12-235" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb12-236"><a href="#cb12-236" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch10-image15.png)</span>{width="100%"}</span>
+<span id="cb12-237"><a href="#cb12-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-238"><a href="#cb12-238" aria-hidden="true" tabindex="-1"></a>Code 10.11 output.</span>
+<span id="cb12-239"><a href="#cb12-239" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-240"><a href="#cb12-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-241"><a href="#cb12-241" aria-hidden="true" tabindex="-1"></a><span class="fu">## Choosing among propensity-score methods</span></span>
+<span id="cb12-242"><a href="#cb12-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-243"><a href="#cb12-243" aria-hidden="true" tabindex="-1"></a>Matching treated participants to a fixed number of controls within a prespecified caliper is often a useful choice, but discards unmatched observations and can increase imbalance. It is not universally preferred: when the question is an ATE in the comparable study population or retaining observations is important, weighting can be considered when overlap and stability are good. Choose according to the estimand, degree of overlap, acceptable sample loss, and resulting balance.</span>
+<span id="cb12-244"><a href="#cb12-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-245"><a href="#cb12-245" aria-hidden="true" tabindex="-1"></a>Weighting retains most observations, can provide greater precision, and makes balance reporting transparent. It is flexible and can target different populations. Fine-stratification, matching, and overlap weights can address important limitations of conventional IPW.</span>
+<span id="cb12-246"><a href="#cb12-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-247"><a href="#cb12-247" aria-hidden="true" tabindex="-1"></a>The estimand specifies the population to which a treatment effect applies. If treating all eligible participants is feasible, target the average treatment effect (ATE). If treatment is appropriate only for patients with certain characteristics who actually receive it, target the average treatment effect in the treated (ATT). Table 10.1 summarizes common weights.</span>
+<span id="cb12-248"><a href="#cb12-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-249"><a href="#cb12-249" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Method <span class="pp">|</span> Treated weight <span class="pp">|</span> Control weight <span class="pp">|</span> Estimand <span class="pp">|</span> Key feature <span class="pp">|</span></span>
+<span id="cb12-250"><a href="#cb12-250" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span></span>
+<span id="cb12-251"><a href="#cb12-251" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> IPW <span class="pp">|</span> $1/PS$ <span class="pp">|</span> $1/(1-PS)$ <span class="pp">|</span> ATE <span class="pp">|</span> Mimics an RCT but can have extreme weights; trimming may help. <span class="pp">|</span></span>
+<span id="cb12-252"><a href="#cb12-252" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Standardized mortality ratio <span class="pp">|</span> 1 <span class="pp">|</span> $PS/(1-PS)$ <span class="pp">|</span> ATT <span class="pp">|</span> Extends naturally to &gt;2 groups; trimming may be needed. <span class="pp">|</span></span>
+<span id="cb12-253"><a href="#cb12-253" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Overlap <span class="pp">|</span> $1-PS$ <span class="pp">|</span> $PS$ <span class="pp">|</span> ATO <span class="pp">|</span> Avoids extreme weights; targets the overlap/equipoise population. <span class="pp">|</span></span>
+<span id="cb12-254"><a href="#cb12-254" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Matching <span class="pp">|</span> $\min(PS,1-PS)/PS$ <span class="pp">|</span> $\min(PS,1-PS)/(1-PS)$ <span class="pp">|</span> Often ATT in smaller group <span class="pp">|</span> Avoids extreme weights; target depends on group size and overlap. <span class="pp">|</span></span>
+<span id="cb12-255"><a href="#cb12-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-256"><a href="#cb12-256" aria-hidden="true" tabindex="-1"></a><span class="fu">### Correct specification of the propensity-score model</span></span>
+<span id="cb12-257"><a href="#cb12-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-258"><a href="#cb12-258" aria-hidden="true" tabindex="-1"></a>The first task is avoiding model misspecification. The true structural relation between treatment and all covariates is unknown, so a simple logistic model can be misspecified; machine learning can be an alternative. Regardless of method, include strong outcome predictors and avoid variables that predict treatment strongly but are unrelated to outcome when they force scores close to 0 or 1. Fine-stratification weighting may be more robust because it creates strata from scores and then uses observation counts. Judge a score model by post-design balance, not its c statistic or predictive accuracy. For continuous or nonlinear covariates, consider splines, interactions, or flexible learning models, while keeping score-model selection independent of outcome analysis.</span>
+<span id="cb12-259"><a href="#cb12-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-260"><a href="#cb12-260" aria-hidden="true" tabindex="-1"></a><span class="fu">### Assessing overlap of exposure and reference groups</span></span>
+<span id="cb12-261"><a href="#cb12-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-262"><a href="#cb12-262" aria-hidden="true" tabindex="-1"></a>Substantial score overlap indicates reasonable clinical equipoise. When weighting, trim nonoverlap regions so both treatments have nonzero probability. Scores near 0 or 1 generate large weights and allow atypical participants to dominate. If trimming removes many observations, overlap may be inadequate; trimming also changes the study population and estimand. Report the trimming rule, number excluded, and covariate distributions before and after trimming, and conduct sensitivity analyses using alternative plausible thresholds.</span>
+<span id="cb12-263"><a href="#cb12-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-264"><a href="#cb12-264" aria-hidden="true" tabindex="-1"></a><span class="fu">### Selecting an estimand</span></span>
+<span id="cb12-265"><a href="#cb12-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-266"><a href="#cb12-266" aria-hidden="true" tabindex="-1"></a>Different weights estimate effects for different populations. ATE makes covariate distributions of treated and reference groups similar to each other and to the full sample. ATT makes the reference-group covariate distribution resemble that observed in the treated group. The effect in the clinical-equipoise subset is driven by score overlap and excludes people who would almost certainly receive one treatment. IPW, matching weights, and standardized mortality ratio weights extend readily to more than two treatments using multinomial propensity scores. For multiple treatments, IPW uses the reciprocal of the probability of treatment actually received; matching weights use the smallest available score in the numerator and the received-treatment score in the denominator; SMR weighting sets the target-treatment group to 1 and weights other groups by the ratio of target-treatment to received-treatment probability.</span>
+<span id="cb12-267"><a href="#cb12-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-268"><a href="#cb12-268" aria-hidden="true" tabindex="-1"></a><span class="fu">## Limitations of propensity-score causal inference</span></span>
+<span id="cb12-269"><a href="#cb12-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-270"><a href="#cb12-270" aria-hidden="true" tabindex="-1"></a>Errors in estimating the propensity score propagate to causal estimates. More importantly, unmeasured confounding is not repaired by a propensity score, and matching estimates effects only in the matched sample, limiting generalizability. Use subject-matter knowledge and quantitative bias analysis or sensitivity analyses such as the E-value to discuss unmeasured confounding; be cautious when extrapolating to unmatched populations or populations without overlap.</span>
+<span id="cb12-271"><a href="#cb12-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-272"><a href="#cb12-272" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb12-273"><a href="#cb12-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-274"><a href="#cb12-274" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Rosenbaum PR, Rubin DB. The central role of the propensity score in observational studies for causal effects. *Biometrika*. 1983;70(1):41-55.</span>
+<span id="cb12-275"><a href="#cb12-275" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Brookhart MA, Schneeweiss S, Rothman KJ, et al. Variable selection for propensity score models. *Am J Epidemiol*. 2006;163(12):1149-1156.</span>
+<span id="cb12-276"><a href="#cb12-276" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Austin PC. Balance diagnostics for propensity-score matched samples. *Stat Med*. 2009;28(25):3083-3107.</span>
+<span id="cb12-277"><a href="#cb12-277" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Austin PC. Optimal caliper widths for propensity-score matching. *Pharm Stat*. 2011;10(2):150-161.</span>
+<span id="cb12-278"><a href="#cb12-278" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Austin PC, Stuart EA. Best practice for IPTW using propensity scores. *Stat Med*. 2015;34(28):3661-3679.</span>
+<span id="cb12-279"><a href="#cb12-279" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Deb S, Austin PC, Tu JV, et al. Propensity-score methods in cardiovascular research. *Can J Cardiol*. 2016;32(2):259-265.</span>
+<span id="cb12-280"><a href="#cb12-280" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Li F, Thomas LE, Li F. Addressing extreme propensity scores via overlap weights. *Am J Epidemiol*. 2019;188(1):250-257.</span>
+<span id="cb12-281"><a href="#cb12-281" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Elze MC, Gregson J, Baber U, et al. Comparison of propensity-score methods and covariate adjustment. *J Am Coll Cardiol*. 2017;69(3):345-357.</span>
+<span id="cb12-282"><a href="#cb12-282" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>Garrido MM, Kelley AS, Paris J, et al. Methods for constructing and assessing propensity scores. *Health Serv Res*. 2014;49(5):1701-1720.</span>
+<span id="cb12-283"><a href="#cb12-283" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>VanderWeele TJ, Ding P. Sensitivity analysis in observational research: introducing the E-value. *Ann Intern Med*. 2017;167(4):268-274.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

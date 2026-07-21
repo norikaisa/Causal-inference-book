@@ -352,181 +352,221 @@
   {
     "objectID": "chapters/06-meta-analysis.html",
     "href": "chapters/06-meta-analysis.html",
-    "title": "6  Principles and Methods of Meta-Analysis",
+    "title": "6  Principles and Methods of Meta-analysis",
     "section": "",
-    "text": "6.1 Formulating the research question\nTo be added.",
+    "text": "6.1 Formulating the research question\nMeta-analysis is a statistical method for comparing and synthesizing studies addressing the same scientific question. It is commonly the quantitative component of a systematic review. By integrating all relevant studies, it can estimate the effects of a health intervention or policy more precisely and explore consistency and differences across studies. When individual studies disagree or are individually non-significant, meta-analysis may provide a result closer to the underlying truth. Its conclusion, however, is only as meaningful as the quality of the included studies. Systematic reviews and meta-analyses are fundamental to evidence-based medicine; the Cochrane Handbook provides a standard framework.\nThe process can be considered in eight steps.\nAsk whether meta-analysis is needed. It is useful when several RCTs address one clinical question but give conflicting findings, or when each study is too small to give a definitive answer. It is not useful merely to combine already decisive evidence. For example, three similar RCTs found no benefit from adding bevacizumab to adjuvant chemotherapy for colorectal cancer; another meta-analysis would be redundant. Excessive meta-analysis can itself become research waste. The 2014 Lancet series on research waste emphasized setting the right research priorities; a methodologically correct but clinically irrelevant study is still wasteful.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-analysis</span>"
     ]
   },
   {
     "objectID": "chapters/06-meta-analysis.html#writing-a-meta-analysis-protocol",
     "href": "chapters/06-meta-analysis.html#writing-a-meta-analysis-protocol",
-    "title": "6  Principles and Methods of Meta-Analysis",
+    "title": "6  Principles and Methods of Meta-analysis",
     "section": "6.2 Writing a meta-analysis protocol",
-    "text": "6.2 Writing a meta-analysis protocol\nTo be added.",
+    "text": "6.2 Writing a meta-analysis protocol\nUse PICOS: Participants (disease and sociodemographic characteristics); Intervention; Comparator; Outcomes (clearly defined and classified as binary, time-to-event, or continuous for later extraction and analysis); and Study design (RCT, cohort, case-control, or cross-sectional study). Protocols can be registered in PROSPERO. Prospective registration helps avoid unnecessary duplication and improves transparency, reliability, and reproducibility by defining primary objectives, key design features, and planned analyses before the review starts.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-analysis</span>"
     ]
   },
   {
-    "objectID": "chapters/06-meta-analysis.html#searching-the-literature",
-    "href": "chapters/06-meta-analysis.html#searching-the-literature",
-    "title": "6  Principles and Methods of Meta-Analysis",
-    "section": "6.3 Searching the literature",
-    "text": "6.3 Searching the literature\nTo be added.",
+    "objectID": "chapters/06-meta-analysis.html#searching-for-studies",
+    "href": "chapters/06-meta-analysis.html#searching-for-studies",
+    "title": "6  Principles and Methods of Meta-analysis",
+    "section": "6.3 Searching for studies",
+    "text": "6.3 Searching for studies\nDevelop the strategy from three components. First, use Medical Subject Headings (MeSH) and free-text terms, generally derived from PICOS and including the disease and intervention. Second, select databases: Chinese databases commonly include Wanfang, VIP, and CNKI; English-language sources include PubMed, Web of Science, Embase, and the Cochrane Library. At minimum, search PubMed, Embase, and Cochrane. Third, state any restrictions on language and dates. Aim for both recall and precision; also search references of included studies and relevant reviews and conference material. Missing one or two key studies can change the conclusion, whereas retrieving too many records increases screening effort.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-analysis</span>"
     ]
   },
   {
-    "objectID": "chapters/06-meta-analysis.html#study-selection",
-    "href": "chapters/06-meta-analysis.html#study-selection",
-    "title": "6  Principles and Methods of Meta-Analysis",
-    "section": "6.4 Study selection",
-    "text": "6.4 Study selection\nTo be added.",
+    "objectID": "chapters/06-meta-analysis.html#selecting-studies",
+    "href": "chapters/06-meta-analysis.html#selecting-studies",
+    "title": "6  Principles and Methods of Meta-analysis",
+    "section": "6.4 Selecting studies",
+    "text": "6.4 Selecting studies\nUse reference-management software such as EndNote or Mendeley and apply predefined inclusion and exclusion criteria. Record reasons and numbers for exclusion. Two reviewers should screen independently and resolve disagreement by discussion or a third reviewer. Screening is time-consuming: initial screening uses titles and abstracts; full-text screening examines Methods and Results.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-analysis</span>"
     ]
   },
   {
-    "objectID": "chapters/06-meta-analysis.html#quality-assessment",
-    "href": "chapters/06-meta-analysis.html#quality-assessment",
-    "title": "6  Principles and Methods of Meta-Analysis",
-    "section": "6.5 Quality assessment",
-    "text": "6.5 Quality assessment\nTo be added.",
+    "objectID": "chapters/06-meta-analysis.html#assessing-study-quality",
+    "href": "chapters/06-meta-analysis.html#assessing-study-quality",
+    "title": "6  Principles and Methods of Meta-analysis",
+    "section": "6.5 Assessing study quality",
+    "text": "6.5 Assessing study quality\nQuality assessment identifies possible bias and whether study design is adequate. RCTs can use the Cochrane risk-of-bias tool, which assesses selection, performance, detection, attrition, reporting, and other bias.\n\n\n\n\n\n\n\n\n\n\nDomain\nItem\nLow risk\nHigh risk\nUnclear risk\n\n\n\n\nSelection bias\nRandom sequence generation\nRandom-number table, computer-generated numbers, coin toss, shuffled envelopes/cards, dice, or minimization described\nNon-random method such as birth date, admission date, record number, clinician judgment, patient preference, or laboratory result\nInsufficient description\n\n\nSelection bias\nAllocation concealment\nCentral telephone/web/pharmacy allocation, identical sequential containers, or sequential opaque sealed envelopes\nOpen allocation list, inadequately protected envelopes, alternation, birth date, medical-record number\nInsufficient description\n\n\nPerformance bias\nBlinding of participants and personnel\nBlinding maintained, or blinding cannot plausibly affect outcome\nNo/incomplete blinding likely affects outcome, or blinding broken\nNot reported\n\n\nDetection bias\nBlinding of outcome assessment\nBlinding maintained, or assessment not affected\nNo/incomplete/broken blinding likely affects assessment\nNot reported\n\n\nAttrition bias\nIncomplete outcome data\nNo missing data, similar missingness, or appropriate handling\nImbalanced/much missing data or inappropriate handling\nInsufficient information\n\n\nReporting bias\nSelective reporting\nAll prespecified outcomes reported\nPrespecified outcomes omitted or measured/analyzed differently\nPrespecification/reporting unclear\n\n\nOther bias\nOther sources\nNo other source\nDesign problem, fraud, or other concern\nInsufficient information\n\n\n\nObservational studies may use the Newcastle–Ottawa Scale, assessing selection, comparability, and outcome. For diagnostic studies comparing an index test with a reference standard, use QUADAS-2, which evaluates patient selection, index test, reference standard, and flow/timing, including both risk of bias and applicability.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-analysis</span>"
     ]
   },
   {
     "objectID": "chapters/06-meta-analysis.html#data-extraction",
     "href": "chapters/06-meta-analysis.html#data-extraction",
-    "title": "6  Principles and Methods of Meta-Analysis",
+    "title": "6  Principles and Methods of Meta-analysis",
     "section": "6.6 Data extraction",
-    "text": "6.6 Data extraction\nTo be added.",
+    "text": "6.6 Data extraction\nExtract bibliographic information, study type and methods, participant characteristics (demographics, diagnostic criteria, control-selection criteria), interventions, outcome measurement, effect measure, and sample size. Two reviewers should extract independently and resolve disagreements by discussion or adjudication. Record participant age, sex, race, comorbidity, group size, and location; random/non-random allocation, dose, method, duration, and co-interventions; outcome definition, unit, measurement, follow-up and loss to follow-up; means and standard deviations for continuous outcomes; event counts and totals for binary outcomes; ITT or PP analysis; and secondary outcomes.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-analysis</span>"
     ]
   },
   {
     "objectID": "chapters/06-meta-analysis.html#data-analysis",
     "href": "chapters/06-meta-analysis.html#data-analysis",
-    "title": "6  Principles and Methods of Meta-Analysis",
+    "title": "6  Principles and Methods of Meta-analysis",
     "section": "6.7 Data analysis",
-    "text": "6.7 Data analysis\nTo be added.",
+    "text": "6.7 Data analysis\nAnalysis addresses pooling and heterogeneity, explores heterogeneity and result stability, and assesses publication bias. Common software includes Review Manager (RevMan), Stata, and R. RevMan is Cochrane’s standardized, user-friendly software; Stata and R are more comprehensive and can perform meta-regression, quantitative publication-bias assessment, and diagnostic meta-analysis.\nCase 6.1. The question is whether beta-blockers, compared with other drugs, reduce stroke and mortality in primary hypertension. After searching and screening, 13 RCTs are included. Each row has study type, stroke and death events in beta-blocker and other-drug groups, and group totals.\n\n\n\n\n\n\n\n\n\n\nStudy\nType\nStroke: beta/other\nDeath: beta/other\nN: beta/other\n\n\n\n\n1\nAtenolol\n422 / 327\n820 / 738\n9618 / 9639\n\n\n2\nNon-atenolol\n—\n5 / 4\n53 / 53\n\n\n3\nMixed beta-blocker/diuretic\n118 / 133\n319 / 337\n8297 / 8179\n\n\n4–13\nAtenolol, non-atenolol, or mixed\nSee study dataset\nSee study dataset\nSee study dataset\n\n\n\n\n6.7.1 Pooling and forest plots\nFirst pool mortality. In Stata, metan is supplied the deaths and totals in beta-blocker and other-drug groups; effects may be risk ratios or odds ratios. The pooled odds ratio is 1.034 (95% CI 0.985–1.085; p=0.174), so beta-blockers do not significantly reduce mortality compared with other drugs.\n\n\n\n\n\n\nNoteCode 6.1\n\n\n\nmetan mort_beta n_beta mort_other n_other, or\n\n\n\n\n\n\n\n\nNoteCode 6.1 output\n\n\n\n\n\n\nResult\nOdds ratio\n95% CI\nWeight\n\n\n\n\nIndividual studies\n0.147–1.330\nStudy-specific\n0.11%–25.00%\n\n\nOverall, Mantel–Haenszel\n1.034\n0.986–1.085\n100.00%\n\n\nTest of overall effect\n\nz=1.370; p=0.171\n\n\n\n\n\n\nEach line in a forest plot is one study, with the pooled estimate in the final line. The size of the gray square represents sample size/weight.\n\n\nCode 6.1 output: forest plot.\n\n\n\n6.7.2 Heterogeneity analysis\nHeterogeneity assesses similarity across studies. The formal chi-square test often has low power. I-squared is another measure: below 25% is often considered low, and above 50% high. Low heterogeneity may support a fixed-effect model; high heterogeneity calls for a random-effects model. In the mortality example, I-squared is low. I-squared is the proportion of total variation attributable to between-study heterogeneity, but depends on the number and size of studies and should be interpreted with the Q test and clinical judgment (Higgins and Thompson 2002; Higgins et al. 2003).\n\n\n\nHeterogeneity measure\nValue\ndf\np value / 95% CI\n\n\n\n\nMantel–Haenszel Q\n13.90\n12\n0.307\n\n\nH\n1.076\n\n1.000–1.496\n\n\nI-squared\n13.7%\n\n0.0%–55.3%\n\n\n\nA fixed-effect model assumes all studies estimate one true effect and gives larger studies greater weight. A random-effects model allows true effects to follow a distribution and yields more balanced study weights and more conservative results. Unless studies are extremely similar, random effects are often preferred (DerSimonian and Laird 1986).\nFor stroke, I-squared is 48.9%, indicating heterogeneity; use a random-effects model. The pooled odds ratio is 1.165 (95% CI 1.038–1.308; p=0.010), indicating a difference in stroke risk between the two regimens.\n\n\n\n\n\n\nNoteCode 6.2\n\n\n\nmetan stroke_beta n_beta stroke_other n_other, or random\n\n\n\n\n\n\n\n\nNoteCode 6.2 output\n\n\n\n\n\n\nHeterogeneity measure\nValue\n\n\n\n\nQ (df=11)\n21.53; p=0.028\n\n\nI-squared\n48.9% (0.0%–72.2%)\n\n\nOverall random-effects OR\n1.165 (1.038–1.308); p=0.010\n\n\n\n\n\n\n\nCode 6.2 output: random-effects forest plot.\n\nExplore heterogeneity with subgroup analyses. Here beta-blockers are atenolol, non-atenolol, or mixed beta-blocker/diuretic regimens. The atenolol subgroup has I-squared of zero and a pooled OR 1.263 (1.149–1.388); the two-study non-atenolol subgroup is heterogeneous; the mixed group also has substantial heterogeneity.\n\n\n\n\n\n\nNoteCode 6.3\n\n\n\nmetan stroke_beta n_beta stroke_other n_other, or random by(type)\n\n\n\n\nCode 6.3 output: subgroup-analysis forest plot.\n\n\n\n6.7.3 Sensitivity analysis\nSensitivity analysis asks how much each study affects the overall result: delete one included study, reanalyze the remainder, and repeat. In this example, no individual study materially changes the pooled result.\n\n\n\n\n\n\nNoteCode 6.4\n\n\n\nmetaninf stroke_beta n_beta stroke_other n_other\n\n\n\n\nCode 6.4 output: leave-one-out sensitivity analysis.\n\n\n\n6.7.4 Publication bias\nPublication bias occurs when positive studies are more likely to be published than negative studies. A funnel plot has effect size on the x-axis and standard error on the y-axis. Large studies cluster at the top because they have smaller standard errors; small studies spread at the bottom. If small positive studies are preferentially published, the lower funnel is asymmetric around the reference line. No obvious bias is seen here. Egger regression can formally test asymmetry, but has low power with fewer than about 10 studies (Egger et al. 1997).\n\n\n\n\n\n\nNoteCode 6.5\n\n\n\nmetafunnel _ES _seES\n\n\n\n\nCode 6.5 output: publication-bias funnel plot.\n\n\n\n6.7.5 Meta-regression\nMeta-regression explores whether a study-level characteristic is associated with the effect estimate. To ask whether the beta-blocker effect increases with sample size, regress effect size on n_beta; each bubble is a study and bubble size represents sample size. A nearly horizontal fitted line indicates no relation. Meta-regression is exploratory and vulnerable to ecological fallacy and multiple testing (Thompson and Higgins 2002).\n\n\n\n\n\n\nNoteCode 6.6\n\n\n\nmetareg _ES n_beta, wsse(_seES) graph\n\n\n\n\nCode 6.6 output: meta-regression bubble plot.\n\nCase 6.2. Outcomes may be continuous. Five RCTs compare stimulation surgery with control for change in tremor score in Parkinson disease. For continuous outcomes, use the standardized mean difference (SMD) when measurement units or scales differ across studies; standardization removes differences caused by scale units. The pooled SMD is 1.261 (95% CI 1.132–1.389; p&lt;0.001).\n\n\n\n\n\n\nNoteCode 6.7\n\n\n\nmetan stinumber stimean stisd controlnumber controlmean controlsd\n\n\n\n\n\n\n\n\nNoteCode 6.7 output\n\n\n\n\n\n\nStudy / overall\nSMD\n95% CI\n\n\n\n\nIndividual studies\n1.021–1.538\nStudy-specific\n\n\nOverall, inverse variance\n1.261\n1.132–1.389; p&lt;0.001\n\n\n\n\n\n\n\nCode 6.7 output: forest plot for a continuous outcome.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-analysis</span>"
     ]
   },
   {
     "objectID": "chapters/06-meta-analysis.html#reporting-a-meta-analysis",
     "href": "chapters/06-meta-analysis.html#reporting-a-meta-analysis",
-    "title": "6  Principles and Methods of Meta-Analysis",
+    "title": "6  Principles and Methods of Meta-analysis",
     "section": "6.8 Reporting a meta-analysis",
-    "text": "6.8 Reporting a meta-analysis\nTo be added.",
+    "text": "6.8 Reporting a meta-analysis\nReport systematic reviews and meta-analyses according to PRISMA. Its checklist covers title, abstract, rationale, objectives, eligibility criteria, information sources and search strategy, selection process, data collection, data items, risk-of-bias assessment, effect measures, synthesis methods, results, discussion, and funding. State all databases, registers, websites, organizations, reference lists and other sources searched, the date each was last searched, complete search strategies, independent screening/extraction procedures, outcome definitions, missing-data assumptions, risk-of-bias tool, model choice and heterogeneity assessment, and sensitivity/publication-bias analyses. See the PRISMA 2020 checklist at http://prisma-statement.org/PRISMAStatement/Checklist.aspx.",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-Analysis</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-meta-analysis.html#references",
+    "href": "chapters/06-meta-analysis.html#references",
+    "title": "6  Principles and Methods of Meta-analysis",
+    "section": "References",
+    "text": "References\n\nHiggins JPT, Thompson SG. Quantifying heterogeneity in a meta-analysis. Statistics in Medicine. 2002;21:1539-1558.\nHiggins JPT, Thompson SG, Deeks JJ, Altman DG. Measuring inconsistency in meta-analyses. BMJ. 2003;327:557-560.\nDerSimonian R, Laird N. Meta-analysis in clinical trials. Controlled Clinical Trials. 1986;7:177-188.\nEgger M, Smith GD, Schneider M, Minder C. Bias in meta-analysis detected by a simple graphical test. BMJ. 1997;315:629-634.\nThompson SG, Higgins JPT. How should meta-regression analyses be undertaken and interpreted? Statistics in Medicine. 2002;21:1559-1573.\nPage MJ, McKenzie JE, Bossuyt PM, et al. The PRISMA 2020 statement. BMJ. 2021;372:n71.\nHiggins JPT, Thomas J, Chandler J, et al., eds. Cochrane Handbook for Systematic Reviews of Interventions. 2nd ed. Wiley; 2019.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Principles and Methods of Meta-analysis</span>"
     ]
   },
   {
     "objectID": "chapters/07-advanced-meta.html",
     "href": "chapters/07-advanced-meta.html",
-    "title": "7  Advanced Meta-Analysis",
+    "title": "7  Advanced Meta-analysis",
     "section": "",
-    "text": "7.1 Meta-analysis of diagnostic studies\nTo be added.",
+    "text": "7.1 Meta-analysis of diagnostic studies\nChapter 6 introduced literature searching, quality assessment, and standard meta-analytic methods. This chapter extends those foundations to diagnostic meta-analysis, network meta-analysis, and prospective meta-analysis.\nPublished studies of the same diagnostic method can differ or conflict because of populations, settings, index tests, and conditions. As new technologies enter clinical practice, choices multiply, so their results must be assessed together. A single diagnostic study classifies a test as positive or negative and compares it with a positive or negative reference standard in a \\(2\\times2\\) table. Diagnostic meta-analysis synthesizes accuracy, sensitivity, specificity, likelihood ratios, and diagnostic odds ratios.\nEquation 7.1 Diagnostic odds ratio\n\\[\\text{Diagnostic odds ratio}=\\frac{\\text{true positive}\\times\\text{true negative}}{\\text{false positive}\\times\\text{false negative}}\\]\nThe diagnostic odds ratio can be used when weighting diagnostic studies in a meta-analysis.\nCase 7.1. Increased 24-hour urinary free cortisol is one diagnostic test for Cushing syndrome, but reported accuracy varies. Extract true positives (test positive and reference-standard positive), false positives (test positive/reference-standard negative), true negatives, and false negatives; each row is a publication.\nIn Stata, midas performs diagnostic meta-analysis.\nSensitivity and specificity forest plots resemble those used in conventional meta-analysis.\nThe pooled sensitivity is 94%, specificity 93%, and diagnostic odds ratio 207, with heterogeneity. A diagnostic odds ratio above 1 indicates useful discrimination and becomes better as it increases; below 1 means people without disease are more likely to test positive; 1 means no discrimination. Diagnostic accuracy reviews generally use a bivariate random-effects model to pool sensitivity and specificity and present a summary ROC (SROC) curve (Reitsma et al. 2005). Each study contributes a sensitivity/specificity point, dashed lines show 95% confidence limits, and the red point nearest the upper-left is the summary estimate.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-Analysis</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07-advanced-meta.html#meta-analysis-of-diagnostic-studies",
+    "href": "chapters/07-advanced-meta.html#meta-analysis-of-diagnostic-studies",
+    "title": "7  Advanced Meta-analysis",
+    "section": "",
+    "text": "Author\nTP\nTN\nFP\nFN\n\n\n\n\nZukowski 2013\n3\n65\n10\n0\n\n\nYanovski 1998\n16\n19\n1\n4\n\n\nYaneva 2009\n24\n69\n5\n6\n\n\nYaneva 2004\n63\n54\n0\n0\n\n\nViardot 2005\n12\n49\n1\n0\n\n\nValassi 2009\n52\n14\n21\n3\n\n\nTsagarakis 1998\n57\n81\n4\n3\n\n\nTous 2012\n14\n40\n24\n3\n\n\n…\n…\n…\n…\n…\n\n\n\n\n\n\n\n\n\n\nNoteCode 7.1\n\n\n\nmidas tp fp fn tn, id(author) ms(0.75) bfor(dss)\n\n\n\n\nCode 7.1 output: forest plots (sensitivity left, specificity right).\n\n\n\n\n\n\n\n\nNoteCode 7.2\n\n\n\nmidas tp fp fn tn, es(x) res(all)\n\n\n\n\n\n\n\n\nNoteCode 7.2 output\n\n\n\n\n\n\nMeasure\nEstimate\n95% CI\n\n\n\n\nAUROC\n0.98\n0.96–0.99\n\n\nSensitivity\n0.94\n0.92–0.96\n\n\nSpecificity\n0.93\n0.89–0.96\n\n\nPositive likelihood ratio\n13.4\n8.5–21.2\n\n\nNegative likelihood ratio\n0.06\n0.05–0.09\n\n\nDiagnostic odds ratio\n207\n108–399\n\n\nHeterogeneity\nLRT \\(Q=195.006\\), \\(I^2=99\\%\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteCode 7.3\n\n\n\nmidas tp fp fn tn, plot sroc(both)\n\n\n\n\nCode 7.3 output: summary ROC curve.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-analysis</span>"
     ]
   },
   {
     "objectID": "chapters/07-advanced-meta.html#network-meta-analysis",
     "href": "chapters/07-advanced-meta.html#network-meta-analysis",
-    "title": "7  Advanced Meta-Analysis",
+    "title": "7  Advanced Meta-analysis",
     "section": "7.2 Network meta-analysis",
-    "text": "7.2 Network meta-analysis\nTo be added.",
+    "text": "7.2 Network meta-analysis\nStandard meta-analysis compares two interventions. In practice, a disease may have many options, but most RCTs compare only two—for example A versus placebo or A versus B. Network meta-analysis (NMA), also called multiple-treatment meta-analysis or mixed-treatment comparison, combines RCT evidence to compare all relevant treatments. It uses direct comparison (an RCT compares A with B) and indirect comparison (A versus C and B versus C allow C to link A with B even when no A-versus-B RCT exists).\n\n\nFigure 7.1 Direct and indirect comparisons.\n\nCompared with conventional meta-analysis, NMA can answer more clinically relevant questions, use all available evidence, give more precise comparisons, and rank treatments. Its reporting should follow PRISMA-NMA (Hutton et al. 2015). Its key assumption is transitivity: study populations and interventions are sufficiently similar across the network, or there is a sound theoretical basis to regard different forms of an intervention as substantively equivalent. This must be justified clinically and methodologically before analysis (Salanti 2012).\nCase 7.2. About 14 interventions are FDA-approved for multiple sclerosis. In phase III trials, about 60% compare a drug with placebo and 40% compare drug A with drug B. Relapse within 24 months is the common outcome, summarized as a risk ratio. In network data, each study arm occupies a row with study name, treatment, events, and total sample size.\n\n\n\nStudy\nEvents\nSample size\nTreatment\n\n\n\n\nIFNB MS Group\n18\n123\nPlacebo\n\n\nIFNB MS Group\n59\n249\nBetaseron\n\n\nBRAVO\n227\n450\nPlacebo\n\n\nBRAVO\n264\n447\nAvonex\n\n\nBRAVO\n233\n434\nLaquin\n\n\nMSCRG\n23\n143\nPlacebo\n\n\nMSCRG\n32\n158\nAvonex\n\n\nPRISMS\n28\n187\nPlacebo\n\n\nPRISMS\n105\n373\nRebif\n\n\n…\n…\n…\n…\n\n\n\n\n7.2.1 Network setup\nUse network setup to declare events and sample sizes, then draw a network map. Blue circles are interventions and circle size represents participant numbers. Black lines are direct comparisons and line width represents the number of head-to-head studies. Placebo has most participants; Copaxone versus placebo has the most direct studies. No line means no direct comparison.\n\n\n\n\n\n\nNoteCode 7.4\n\n\n\nnetwork setup responders samplesize, studyvar(study) trtvar(treatment)\nnetwork map\n\n\n\n\nCode 7.4 output: network map.\n\n\n\n7.2.2 Ranking interventions\nThe surface under the cumulative ranking curve (SUCRA) ranks treatments. Each intervention has a cumulative ranking curve: the x-axis is rank and the y-axis is the probability of that rank. In this example mitoxantrone has probability about 0.6 of rank 1, whereas placebo has probability about 0.6 of rank 16.\n\n\n\n\n\n\nNoteCode 7.5\n\n\n\nnetwork meta consistency\nnetwork rank max, all zero gen(prob)\nsucra prob*, rankograms labels(alemtuzimab avonex azathioprine betaseron copaxone dimethyl fingolimod ifn igg laquin laquinimod mitoxantrone natalizumab placebo rebif teriflunomide)\n\n\n\n\nCode 7.5 output: cumulative ranking curves.\n\n\n\n\nTreatment\nSUCRA\nProbability best\nMean rank\n\n\n\n\nAlemtuzumab\n94.3\n33.6%\n1.9\n\n\nMitoxantrone\n92.4\n57.2%\n2.1\n\n\nNatalizumab\n81.6\n0.1%\n3.8\n\n\nAzathioprine\n69.0\n6.5%\n5.6\n\n\nPlacebo\n3.5\n0.0%\n15.5\n\n\n\nThus mitoxantrone ranks highest in this network. SUCRA reflects ranking probability, however, not whether differences are clinically meaningful (Salanti et al. 2011). A league table presents pairwise comparisons like scores in a football league: its cells give the relative effect and 95% confidence interval for the row versus column treatment; the redundant half is omitted.\n\n\n\n\n\n\nNoteCode 7.6\n\n\n\nnetleague, eform\n\n\n\n\nCode 7.6 output: league table.\n\n\n\n7.2.3 Network consistency\nFor a pair of interventions, direct and indirect evidence may both exist. Test whether they agree, and whether multiple indirect sources agree. In this example, the consistency forest plot has p=0.852; direct (blue) and indirect (green) comparisons are broadly concordant. If they disagree, use an inconsistency model.\n\n\n\n\n\n\nNoteCode 7.7\n\n\n\nnetwork meta inconsistency\nnetwork forest\n\n\n\n\nCode 7.7 output: direct and indirect evidence.\n\nNode splitting separately estimates direct and indirect effects, estimates their difference, and tests whether that difference is zero.\n\n\n\n\n\n\nNoteCode 7.8\n\n\n\nnetwork sidesplit all, tau\n\n\nTreatment-effect modifiers may include trial methods, clinical characteristics, follow-up time, outcome definition, risk of bias, and analysis/reporting standards. Before NMA, select trials relevant to the clinical population and investigate systematic differences across comparisons. If node splitting shows inconsistency, seek explanations such as particular designs or studies at high risk of bias. If unexplained, model inconsistency as a mean-zero random effect to obtain an overall estimate while accounting for it.\nNMA has limitations. SUCRA can rank treatments with trivial absolute differences; rankings may be imprecise with wide credible intervals; many studies can distract from risk of bias, validity, and evidence quality in individual trials. Strong transitivity assumptions can be hard to defend, and inferences that rely on indirect comparisons should receive cautions similar to observational studies.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-Analysis</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-analysis</span>"
     ]
   },
   {
-    "objectID": "chapters/07-advanced-meta.html#multiple-outcome-network-meta-analysis",
-    "href": "chapters/07-advanced-meta.html#multiple-outcome-network-meta-analysis",
-    "title": "7  Advanced Meta-Analysis",
-    "section": "7.3 Multiple-outcome network meta-analysis",
-    "text": "7.3 Multiple-outcome network meta-analysis\nTo be added.",
+    "objectID": "chapters/07-advanced-meta.html#network-meta-analysis-of-multiple-outcomes",
+    "href": "chapters/07-advanced-meta.html#network-meta-analysis-of-multiple-outcomes",
+    "title": "7  Advanced Meta-analysis",
+    "section": "7.3 Network meta-analysis of multiple outcomes",
+    "text": "7.3 Network meta-analysis of multiple outcomes\nDifferent trials for the same disease may report different outcomes. For example, in a meta-analysis of progesterone-receptor status and prognosis in endometrial cancer, four studies reported both cancer-specific and progression-free survival, while others reported only one. Restricting analysis to one outcome wastes information. Multivariate network meta-analysis models multiple outcomes and multiple treatments jointly, allowing more studies to contribute.\nCopas and colleagues express loss of information from standard univariate analysis with the B statistic:\nEquation 7.2 B statistic\n\\[B=100\\times(1-E)\\]\nEquation 7.3 Information efficiency\n\\[E=\\frac{\\text{variance of synthesis based on direct and indirect evidence}}{\\text{variance of synthesis based only on direct evidence}}\\]\nIf \\(E=0.9\\), standard meta-analysis is analogous to discarding 10% of available studies. B is the percentage reduction in variance from indirect evidence: 0% means results use direct evidence only; 100% means they are entirely indirect. Multivariate meta-analysis is especially valuable when direct evidence for an outcome is scarce, some studies omit that outcome but report related outcomes, or outcomes are strongly correlated within or between studies (for example, correlation greater than 0.5 or less than −0.5).",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-Analysis</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-analysis</span>"
     ]
   },
   {
     "objectID": "chapters/07-advanced-meta.html#prospective-meta-analysis",
     "href": "chapters/07-advanced-meta.html#prospective-meta-analysis",
-    "title": "7  Advanced Meta-Analysis",
+    "title": "7  Advanced Meta-analysis",
     "section": "7.4 Prospective meta-analysis",
-    "text": "7.4 Prospective meta-analysis\nTo be added.",
+    "text": "7.4 Prospective meta-analysis\nThe defining feature of prospective meta-analysis (PMA) is that eligible studies are identified before their results are published and planned analyses are specified in advance. It is useful when a high-priority question needs a sample size too large for one center and a conventional multicenter RCT is impractical because of resources or coordination, or when investigators discover similar ongoing trials and can collaborate before results are known.\nCase 7.3. PMA has four steps. First, establish that it is needed: the question must be high priority and unresolved, with ongoing studies; if a conventional retrospective meta-analysis would have adequate power, PMA is unnecessary. NeoProm studied whether high oxygen concentrations increase mortality in preterm infants. Earlier evidence was mainly observational, and 5,000 infants were needed to detect a 4% mortality difference—too many for one center and difficult for a multicenter trial.\nSecond, define PICO, eligibility, and protocol before results are published. NeoProm enrolled preterm infants within 24 hours of birth; the intervention targeted oxygen saturation 85%–89%, control 91%–95%, and the outcome was death or major disability at 18–24 months. Third, search trial registries and published protocols and contact leaders of ongoing trials. Five RCTs in Australia, New Zealand, Canada, the United Kingdom, and the United States planned nearly 5,000 infants; none had results published when PMA began. Fourth, collaborators can harmonize protocols and outcome definitions; after all component studies report, analysis proceeds like a conventional meta-analysis.\n\n\nFigure 7.2 Prospective meta-analysis.\n\nCase 7.4. The WHO Rapid Evidence Appraisal for COVID-19 Therapies Working Group published a PMA of seven RCTs of corticosteroids. The question was urgent because corticosteroid use in severe infection had long been controversial and early COVID-19 data were limited. By July 24, 2020, 55 corticosteroid COVID-19 studies were registered. When the RECOVERY trial reported a strong benefit, most ongoing trials stopped recruitment, leaving seven eligible studies.\nPatients were enrolled in Australia, Brazil, Canada, China, Denmark, France, Ireland, the Netherlands, New Zealand, Spain, the United Kingdom, and the United States between February 26 and June 9, 2020, with final follow-up July 6. Of 1,703 patients, 678 received corticosteroids and 1,025 usual care or placebo. Median age was 60 years and 29% were women. The primary outcome was 28-day all-cause mortality and the secondary outcome was investigator-defined serious adverse events. There were 222 deaths among 678 corticosteroid recipients and 425 among 1,025 controls; fixed-effect pooling gave an odds ratio of 0.66. Results remained consistent excluding RECOVERY. WHO consequently strongly recommended systemic corticosteroids for severe or critical COVID-19 and did not recommend them for non-severe illness.",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-Analysis</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-analysis</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/07-advanced-meta.html#references",
+    "href": "chapters/07-advanced-meta.html#references",
+    "title": "7  Advanced Meta-analysis",
+    "section": "References",
+    "text": "References\n\nReitsma JB, Glas AS, Rutjes AW, et al. Bivariate analysis of sensitivity and specificity produces informative summary measures in diagnostic reviews. Journal of Clinical Epidemiology. 2005;58:982-990.\nSalanti G, Ades AE, Ioannidis JP. Graphical methods and numerical summaries for multiple-treatment meta-analysis. Journal of Clinical Epidemiology. 2011;64:163-171.\nDias S, Welton NJ, Caldwell DM, Ades AE. Checking consistency in mixed treatment comparison meta-analysis. Statistics in Medicine. 2010;29:932-944.\nHutton B, Salanti G, Caldwell DM, et al. PRISMA extension for network meta-analysis. Annals of Internal Medicine. 2015;162:777-784.\nSalanti G. Indirect and mixed-treatment comparison, network, or multiple-treatments meta-analysis. Research Synthesis Methods. 2012;3:80-97.\nRiley RD, Jackson D, Salanti G, et al. Multivariate and network meta-analysis of multiple outcomes and treatments. BMJ. 2017;358:j3932.\nSeidler AL, Hunter KE, Cheyne S, et al. A guide to prospective meta-analysis. BMJ. 2019;367:l5342.\nSterne JAC, Diaz J, Villar J, et al. Corticosteroid therapy for critically ill patients with COVID-19: protocol for PMA of randomized trials. Trials. 2020;21:734.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Advanced Meta-analysis</span>"
     ]
   },
   {
     "objectID": "chapters/08-dag-scm.html",
     "href": "chapters/08-dag-scm.html",
-    "title": "8  Causal Diagrams and Structural Causal Models",
+    "title": "8  Causal Graphs and Structural Causal Models",
     "section": "",
-    "text": "8.1 Causal directed acyclic graphs\nTo be added.",
+    "text": "8.1 Causal directed acyclic graphs\nThis chapter introduces theoretical concepts and practical methods for causal inference in observational research.\nIn mathematics, a graph consists of nodes and edges that connect them. If a directed path (an arrow) begins at node \\(X\\) and ends at node \\(Y\\), \\(X\\) is an ancestor of \\(Y\\) and \\(Y\\) a descendant of \\(X\\): edges run from parent to child. A directed path also represents the flow of time. A directed path that returns from \\(X\\) to itself is a cycle, a form of time travel that is not considered here. A directed graph without cycles is a directed acyclic graph (DAG).\nIn a causal DAG, every parent node is a direct cause of its child. If changing \\(X\\) can correspondingly change \\(Y\\), then \\(X\\) is a cause of $Y`; edges can therefore be regarded as causal relations. A key assumption is the causal Markov assumption: every node is conditionally independent of non-descendants given its parents. Thus, any common cause must be included in the graph. This says that beyond the associations displayed in the graph there are no hidden associations, consistent with conditional exchangeability in Chapter 1.\nForks and colliders are two important structures. If \\(S\\) points to both \\(X\\) and \\(Y\\), this is a fork; if \\(X\\) and \\(Y\\) both point to \\(C\\), this is a collider. In a fork, \\(X\\) and \\(Y\\) are dependent; in a collider, they are independent unless conditioning opens the path.\nCausal graph models have limitations. First, they are nonparametric and qualitative: they neither specify the form of causal relations nor quantify their magnitude. A confounder may bias a result, but the graph itself does not measure that bias. Second, they are valid only with sufficiently complete background knowledge: all confounders must be represented and no unobserved confounder can remain for the causal interpretation to be correct. Greenland, Pearl, and Robins (1999) systematically introduced DAGs into epidemiologic causal inference. Software such as DAGitty can draw graphs and identify minimal adjustment sets for causal effects (Textor et al. 2016).",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Diagrams and Structural Causal Models</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Graphs and Structural Causal Models</span>"
     ]
   },
   {
     "objectID": "chapters/08-dag-scm.html#applications-of-causal-dags",
     "href": "chapters/08-dag-scm.html#applications-of-causal-dags",
-    "title": "8  Causal Diagrams and Structural Causal Models",
+    "title": "8  Causal Graphs and Structural Causal Models",
     "section": "8.2 Applications of causal DAGs",
-    "text": "8.2 Applications of causal DAGs\nTo be added.",
+    "text": "8.2 Applications of causal DAGs\nThe following are five clinical examples of causal DAGs (Figure 8.1).\n\n\nFigure 8.1A.\n\n\nSmoking cessation causes weight gain: \\(A\\) is a parent of \\(Y\\), with no other node in the graph.\n\n\n\nFigure 8.1B.\n\n\nSmoking cessation increases food intake, which in turn increases weight. Increased food intake is a child of cessation and a parent of weight gain.\n\n\n\nFigure 8.1C.\n\n\nThis is a fork: \\(L\\) points to both \\(A\\) and \\(Y\\). Women may be more likely than men to stop smoking and, after menopause, more likely to gain weight. Sex is a common cause; smoking cessation and weight gain are not independent and become associated through sex.\n\n\n\nFigure 8.1D.\n\n\nThis is another fork. Smoking causes yellow fingers and can cause lung cancer. In the full population, yellow fingers and lung cancer are associated; among smokers only—conditioning on smoking—they are independent.\n\n\n\nFigure 8.1E.\n\n\nThis is a collider: \\(A\\) and \\(Y\\) both point to \\(L\\). Genes predisposing to heart disease increase heart-disease and hospitalization risk; lung cancer also increases hospitalization risk. Carrying heart-disease genes and having lung cancer are independent before conditioning on hospitalization.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Diagrams and Structural Causal Models</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Graphs and Structural Causal Models</span>"
     ]
   },
   {
     "objectID": "chapters/08-dag-scm.html#the-back-door-criterion-and-d-separation",
     "href": "chapters/08-dag-scm.html#the-back-door-criterion-and-d-separation",
-    "title": "8  Causal Diagrams and Structural Causal Models",
+    "title": "8  Causal Graphs and Structural Causal Models",
     "section": "8.3 The back-door criterion and d-separation",
-    "text": "8.3 The back-door criterion and d-separation\nTo be added.",
+    "text": "8.3 The back-door criterion and d-separation\nA direct connection between \\(X\\) and \\(Y\\) is a directed path. There can also be a back-door path, connecting variables through a common parent in a fork. When two variables are connected through a collider, the path is closed.\nConditioning on or controlling a variable can change a path from open to closed or from closed to open. This can be done through design or analysis, including restriction, stratification, matching, standardization, or multivariable regression. Controlling a parent in a fork closes that back-door path; controlling a collider or its descendant opens it and produces a noncausal association.\nThree principles follow:\n\nA causal relation between \\(X\\) and \\(Y\\) is identified only when there is no open back-door path.\nBlocking any node on a back-door path blocks that path.\nConditioning on a collider or its descendant can open the path.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Diagrams and Structural Causal Models</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Graphs and Structural Causal Models</span>"
     ]
   },
   {
     "objectID": "chapters/08-dag-scm.html#the-front-door-criterion",
     "href": "chapters/08-dag-scm.html#the-front-door-criterion",
-    "title": "8  Causal Diagrams and Structural Causal Models",
+    "title": "8  Causal Graphs and Structural Causal Models",
     "section": "8.4 The front-door criterion",
-    "text": "8.4 The front-door criterion\nTo be added.",
+    "text": "8.4 The front-door criterion\nAn open back-door path prevents direct causal inference about \\(X\\) and \\(Y\\). Back-door adjustment can address this, but sometimes the nodes on the back-door path are unobserved. If a node \\(M\\) is a child of \\(X\\) and parent of \\(Y\\), front-door adjustment may identify the causal effect: first estimate the causal effect of \\(X\\) on \\(M\\), because there is no open back-door path from \\(X\\) to \\(M\\); then estimate the effect of \\(M\\) on \\(Y\\), blocking the back-door path by adjusting for \\(X\\). Combining these effects identifies the causal effect of \\(X\\) on \\(Y\\) (Figure 8.2).\n\n\nFigure 8.2 The front-door criterion.\n\n\\(M\\) satisfies the front-door criterion for \\(X\\) and \\(Y\\) when: (1) \\(M\\) completely mediates \\(X\\) and \\(Y\\), so every causal path from \\(X\\) to \\(Y\\) passes through \\(M\\); (2) there is no unblocked back-door path from \\(X\\) to \\(M\\); and (3) all back-door paths from \\(M\\) to \\(Y\\) are blocked. These are the assumptions of a mediator (see Chapter 15). Front-door adjustment is rarely used because its statistical assumptions are complex and unverifiable. Pearl (1995) introduced back-door and front-door criteria and do-calculus as a complete framework for identifying intervention effects from causal graphs.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Diagrams and Structural Causal Models</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Graphs and Structural Causal Models</span>"
     ]
   },
   {
     "objectID": "chapters/08-dag-scm.html#structural-causal-models",
     "href": "chapters/08-dag-scm.html#structural-causal-models",
-    "title": "8  Causal Diagrams and Structural Causal Models",
+    "title": "8  Causal Graphs and Structural Causal Models",
     "section": "8.5 Structural causal models",
-    "text": "8.5 Structural causal models\nTo be added.",
+    "text": "8.5 Structural causal models\nA structural causal model (SCM) combines graphical and potential-outcome models by constructing structural equations for causal analysis. Many familiar causal models are subclasses of SCMs. A functional structural equation represents the causal relation between two variables:\nEquation 8.1 Structural equation\n\\[Y=f(X,U)\\]\nHere \\(X\\) and \\(Y\\) are the cause and outcome of interest—endogenous variables in econometric terminology. \\(U\\) represents causes outside the causal model that are not modeled—exogenous variables. An SCM is thus an array of: (1) endogenous variables \\(V\\), including \\(X\\) and \\(Y\\); (2) exogenous variables \\(U\\); and (3) functions \\(f\\) that generate endogenous variables from other variables. Although \\(f\\) is often linear, it may be nonlinear or nonparametric in modern data settings.\nTogether with Chapter 1, structural equations provide a formal tool and notation for counterfactuals: “if \\(X=x\\), what value would \\(Y\\) take for this individual in circumstance \\(U\\)?” An SCM can be represented by a causal graph. Exogenous variables have outgoing but no incoming arrows, and arrows must represent direct causation from their left-hand to right-hand variables (Figure 8.3). Causal reasoning must follow arrow direction.\n\n\nFigure 8.3 Exogenous and endogenous variables in an SCM.\n\nAs with causal DAGs, an SCM relies on a Markov assumption: a variable is related only to variables that directly affect it and is independent of other variables. An SCM without cycles or unobserved exogenous variables is Markovian; without cycles but with unobserved exogenous variables it is semi-Markovian; graphs with cycles are non-Markovian.\nIn observational research, \\(X\\) is observed. In an RCT, studying the effect of an intervention is equivalent to forcing \\(X\\) to equal \\(T\\), replacing \\(X\\) by \\(T\\) in the SCM. Because intervention is randomized, all causes of \\(T\\) are removed from the causal graph. SCMs can also support counterfactual reasoning: intervene to set \\(X=T\\), observe exogenous variables \\(U=u\\), and query the conditional distribution of \\(Y\\). This intervention–observation–counterfactual hierarchy is Pearl’s ladder of causation and supplies a unified language for causal reasoning and for moving machine learning toward causal inference.\nCase 8.1\nConsider the effect of surgical technique on hospital length of stay for a tumor. The structural equation is represented in Figure 8.4. Clinical knowledge identifies technical development, surgeon experience, patient preference, and tumor characteristics as factors that affect both surgery and length of stay; these latent variables are shown in yellow. Medical research often involves variables that cannot be measured directly or represented by one indicator—job satisfaction, access to or satisfaction with health care, health status, and treatment preference. Such variables are latent and are usually approximated by observable indicators. Here, calendar year reflects technical development, annual surgical volume reflects surgeon experience, age and sex may partly reflect preference, and tumor characteristics include size, invasiveness, and prior treatment.\n\n\nFigure 8.4 Structural equation.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Diagrams and Structural Causal Models</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Graphs and Structural Causal Models</span>"
     ]
   },
   {
-    "objectID": "chapters/08-dag-scm.html#a-taxonomy-of-biases",
-    "href": "chapters/08-dag-scm.html#a-taxonomy-of-biases",
-    "title": "8  Causal Diagrams and Structural Causal Models",
-    "section": "8.6 A taxonomy of biases",
-    "text": "8.6 A taxonomy of biases\nTo be added.",
+    "objectID": "chapters/08-dag-scm.html#classifying-bias",
+    "href": "chapters/08-dag-scm.html#classifying-bias",
+    "title": "8  Causal Graphs and Structural Causal Models",
+    "section": "8.6 Classifying bias",
+    "text": "8.6 Classifying bias\nBias is a broad term for error in causal inference. Common categories are confounding, selection bias, and measurement error.\n\n8.6.1 1. Confounding\nWhen treatment and outcome have a common cause, that cause interferes with causal inference. In a DAG, this is a fork, where \\(L\\) represents all confounders such as age, sex, and disease severity. There are two paths from \\(X\\) to \\(Y\\): the causal path directly from \\(X\\) to \\(Y\\) and a back-door path through \\(L\\). To estimate the causal relation, block the latter. DAGs give a principled basis for covariate selection: adjust variables that block back-door paths, but not colliders or mediators, which can introduce bias (VanderWeele and Shpitser 2011).\n\n\nFigure 8.5 Confounding and the back-door path.\n\nExamples include healthy-worker bias (workers in occupations such as firefighting have lower all-cause mortality than the general population because people with severe illness or disability cannot enter those occupations); confounding by indication (aspirin is more likely to be prescribed to people with heart disease, which also raises cardiac mortality); lifestyle confounding (alcohol use is associated with smoking, which affects mortality, while unrecognized subclinical disease can cause both inactivity and disease risk); genetic linkage disequilibrium (two correlated loci influence different phenotypes); and environmental confounding (particulate matter and other correlated air pollutants can affect coronary disease).\n\n\n8.6.2 2. Selection bias\nSelection bias occurs when conditioning on a common effect of exposure and outcome, often called a collider. Selected patients differ from those not selected. In a DAG, conditioning on the collider \\(S\\) opens a previously closed path from \\(X\\) through \\(S\\) to \\(Y\\).\n\n\nFigure 8.6 Selection bias and the back-door path.\n\nExamples include healthy-worker bias when only actively working people are selected while people absent because of illness are ignored; prevalence-incidence bias when only prevalent cases are studied although exposure affects prognosis or death; hospital-admission bias because admission opportunity varies; length bias because chronic diseases with longer duration are more likely to be enrolled while aggressive disease may cause death before enrollment; survivor bias when pre-study treatment changes inclusion probability; and loss-to-follow-up bias, a special selection bias occurring when treatment and event time affect dropout. Appropriate design can sometimes avoid selection bias, but when it cannot—for example, loss to follow-up—statistical adjustment with inverse-probability weighting or standardization is needed (Hernán, Hernández-Díaz, and Robins 2004; Cole et al. 2010; Griffith et al. 2020).\n\n\n8.6.3 3. Measurement error\nThe causal methods in this book assume perfect measurement of treatment, outcome, and covariates. In practice, measurement error causes measurement or information bias. Treatment misclassification is common when exposure is identified from electronic records, insurance, or claims databases, and the recorded intervention may differ from the intervention actually received. ITT analysis in an RCT is also a form of treatment misclassification because assigned treatment need not be received. Outcome misclassification arises when outcomes are identified through diagnostic codes, procedure algorithms, or extraction systems. Accuracy varies greatly: ICD-9 sensitivity may be 62.6% for diabetes but only 25.4% for acute myocardial infarction. In survival research, overall survival is relatively clear and less prone to misclassification, whereas progression-free survival is more vulnerable.",
     "crumbs": [
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Diagrams and Structural Causal Models</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Graphs and Structural Causal Models</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-dag-scm.html#references",
+    "href": "chapters/08-dag-scm.html#references",
+    "title": "8  Causal Graphs and Structural Causal Models",
+    "section": "References",
+    "text": "References\n\nGreenland S, Pearl J, Robins JM. Causal diagrams for epidemiologic research. Epidemiology. 1999;10(1):37-48.\nPearl J. Causal diagrams for empirical research. Biometrika. 1995;82(4):669-688.\nHernán MA, Hernández-Díaz S, Robins JM. A structural approach to selection bias. Epidemiology. 2004;15(5):615-625.\nCole SR, Platt RW, Schisterman EF, et al. Illustrating bias due to conditioning on a collider. International Journal of Epidemiology. 2010;39(2):417-420.\nVanderWeele TJ, Shpitser I. A new criterion for confounder selection. Biometrics. 2011;67(4):1406-1413.\nTextor J, van der Zander B, Gilthorpe MS, et al. Robust causal inference using directed acyclic graphs: the R package dagitty. International Journal of Epidemiology. 2016;45(6):1887-1894.\nGriffith GJ, Morris TT, Tudball MJ, et al. Collider bias undermines our understanding of COVID-19 disease risk and severity. Nature Communications. 2020;11:5749.\nHernán MA, Robins JM. Causal Inference: What If. Chapman & Hall/CRC; 2020.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Causal Graphs and Structural Causal Models</span>"
     ]
   },
   {
@@ -534,17 +574,27 @@
     "href": "chapters/09-regression.html",
     "title": "9  Regression",
     "section": "",
-    "text": "9.1 Outcome regression\nTo be added.",
+    "text": "9.1 Outcome regression\nOutcome regression estimates a causal effect by modeling the outcome conditional on treatment and sufficient confounders. If \\(U\\) controls confounding (and selection bias) and the structural model is correctly specified, no further adjustment is required.\nFor a continuous outcome and a linear structural function,\nEquation 9.1 Outcome regression for a continuous outcome\n\\[\\begin{aligned}Y&=f(X,U)\\\\Y&=\\beta_0+\\beta_1X+\\beta_2U\\\\E(Y^{X=1}\\mid U)-E(Y^{X=0}\\mid U)&=\\beta_1.\\end{aligned}\\]\nOrdinary least squares estimates the parameters. For binary outcomes, linear regression can predict values outside 0 and 1, so logistic regression uses the inverse-logit function:\nEquation 9.2 Logistic regression for a binary outcome\n\\[\\Pr(Y=1\\mid X,U)=\\frac{\\exp(\\beta_0+\\beta_1X+\\beta_2U)}{1+\\exp(\\beta_0+\\beta_1X+\\beta_2U)},\\qquad OR=\\exp(\\beta_1).\\]\nAnother effect measure is the risk ratio:\nEquation 9.3 Risk ratio\n\\[RR=\\frac{\\Pr(Y^{X=1}=1)}{\\Pr(Y^{X=0}=1)}.\\]\nWhen outcome incidence is below 10%, OR and RR are close; as incidence rises, OR increasingly overstates RR (Zhang and Yu 1998). A probit model uses the standard normal distribution rather than the logistic distribution:\nEquation 9.4 Probit model\n\\[\\Pr(Y=1\\mid X,U)=\\Phi(\\beta_0+\\beta_1X+\\beta_2U).\\]\nCase 9.1. In 899 patients with growth-hormone-secreting pituitary adenoma, compare endoscopic with microscopic surgery. K is tumor invasiveness, Y is postoperative hormonal control, and LOS is length of stay. Assume that adjusting for K is sufficient for confounding in this simplified example.\nAfter adjustment, endoscopic surgery has 2.32 times the odds of reaching the hormonal target. A probit model reaches the same substantive conclusion, though its coefficients are on the probit scale and are less directly interpreted.\nThe estimated intercept is 0.756, K coefficient −0.550, and treatment coefficient 0.497 (p&lt;0.001). At K=1, the control probit is 0.206 and the treated probit 0.703; their normal cumulative probabilities are 0.582 and 0.759, yielding an OR about 2.26.\nFor the continuous outcome LOS, linear regression estimates that endoscopic patients stay 0.62 days less on average (95% CI −0.92 to −0.32; p&lt;0.001).",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Regression</span>"
     ]
   },
   {
-    "objectID": "chapters/09-regression.html#misspecified-regression-models",
-    "href": "chapters/09-regression.html#misspecified-regression-models",
+    "objectID": "chapters/09-regression.html#outcome-regression",
+    "href": "chapters/09-regression.html#outcome-regression",
     "title": "9  Regression",
-    "section": "9.2 Misspecified regression models",
-    "text": "9.2 Misspecified regression models\nTo be added.",
+    "section": "",
+    "text": "Figure 9.1 Causal graph for surgical approach and hormonal control.\n\n\n\n\n\n\n\nNoteCode 9.1\n\n\n\ngen Treatment = (t == \"Endoscopy\")\ngen Outcome = 1 if y == \"Yes\"\nreplace Outcome = 0 if y == \"No\"\nlogit Outcome Treatment k, or\n\n\n\n\n\n\n\n\nNoteCode 9.1 output\n\n\n\n\n\n\nLogistic regression\nValue\n\n\n\n\nObservations\n743\n\n\nOR for endoscopic treatment\n2.318 (95% CI 1.64–3.28; p&lt;0.001)\n\n\nOR for invasiveness K\n0.401\n\n\n\n\n\n\n\n\n\n\n\n\nNoteCode 9.2\n\n\n\nprobit Outcome Treatment k\n\n\n\n\n\n\n\n\n\n\nNoteCode 9.3\n\n\n\nreg los Treatment k\n\n\n\n\n\n\n\n\nNoteCode 9.3 output\n\n\n\n\n\n\nLinear regression\nValue\n\n\n\n\nObservations / R-squared\n899 / 0.032\n\n\nTreatment coefficient\n−0.621 (95% CI −0.919 to −0.323; p&lt;0.001)\n\n\nK coefficient\n0.279 (95% CI 0.155–0.403; p&lt;0.001)",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Regression</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09-regression.html#incorrect-regression-equations",
+    "href": "chapters/09-regression.html#incorrect-regression-equations",
+    "title": "9  Regression",
+    "section": "9.2 Incorrect regression equations",
+    "text": "9.2 Incorrect regression equations\nDo not block descendants of treatment. This can block causal flow from treatment to outcome or induce a noncausal association. In Figure 9.2, gross total resection M mediates the effect of surgical method T on hormonal control Y. Conditioning on M estimates neither the total effect nor, without stronger assumptions, a simple direct effect; it attenuates the treatment OR from 2.32 to 1.17 (95% CI 0.79–1.74; p=0.441). This inappropriate adjustment for a mediator or collider is overadjustment bias (Schisterman et al. 2009).\n\n\nFigure 9.2 Incorrectly blocking a treatment descendant: mediator.\n\n\n\n\n\n\n\nNoteCode 9.4\n\n\n\ngen M = (extend == \"GTR\")\nlogit Outcome Treatment k M, or\n\n\nIf treatment and outcome both affect a later variable, conditioning on that collider also creates a noncausal association. Loss to follow-up is a common example: treatment can affect follow-up and outcome can affect follow-up, so restricting analysis to observed follow-up can introduce selection bias.\n\n\nFigure 9.3 Incorrectly blocking a treatment descendant: collider.\n\n\n\n\n\n\n\nNoteCode 9.5\n\n\n\nreplace Outcome = 1 if y == \"Censored\"\nlogit Outcome Treatment k, or\n\n\nIn the original data, loss to follow-up is 16.7% in endoscopic and 17.8% in microscopic patients. If all censored patients had achieved control, the causal OR is 2.09—13.0% smaller than the complete-case estimate.",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Regression</span>"
     ]
@@ -554,7 +604,7 @@
     "href": "chapters/09-regression.html#effect-modification",
     "title": "9  Regression",
     "section": "9.3 Effect modification",
-    "text": "9.3 Effect modification\nTo be added.",
+    "text": "9.3 Effect modification\nClinical populations are heterogeneous: the average causal effect in a subgroup need not equal that in the whole population. V is an effect modifier when the effect of T on Y differs by V:\nEquation 9.5 Effect modification\n\\[E(Y^{T=1}-Y^{T=0}\\mid V=1)\\ne E(Y^{T=1}-Y^{T=0}\\mid V=0).\\]\nOn a relative scale:\n\\[\\frac{\\Pr(Y^{T=1}=1\\mid V=1)}{\\Pr(Y^{T=0}=1\\mid V=1)}\\ne\\frac{\\Pr(Y^{T=1}=1\\mid V=0)}{\\Pr(Y^{T=0}=1\\mid V=0)}.\\]\nStratification is a common approach: define levels of V and estimate the treatment effect within each after controlling confounders L. “Heterogeneity of effects across strata” is another term for effect modification.",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Regression</span>"
     ]
@@ -564,7 +614,7 @@
     "href": "chapters/09-regression.html#marginal-effects",
     "title": "9  Regression",
     "section": "9.4 Marginal effects",
-    "text": "9.4 Marginal effects\nTo be added.",
+    "text": "9.4 Marginal effects\nConditional regression coefficients, particularly odds ratios, are not generally population-average causal effects. Standardization predicts each participant’s outcome under treatment and under control using a fitted outcome model, then averages those predictions. This produces marginal risks, risk difference, risk ratio, and standardized survival or mean outcomes for the target population. It makes the target estimand explicit and allows clinically interpretable absolute effects.",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Regression</span>"
     ]
@@ -574,7 +624,17 @@
     "href": "chapters/09-regression.html#interaction",
     "title": "9  Regression",
     "section": "9.5 Interaction",
-    "text": "9.5 Interaction\nTo be added.",
+    "text": "9.5 Interaction\nStatistical interaction represents effect modification in a model, often with a product term such as \\(T\\times V\\). It should be prespecified where possible, assessed with an interaction contrast rather than separate within-subgroup p values, and interpreted on a stated scale: interaction on the odds-ratio scale is different from interaction on the risk-difference scale. A statistically significant interaction may be clinically trivial; a clinically important interaction can be imprecise. Present stratum-specific absolute and relative effects with confidence intervals and avoid post hoc subgroup searching.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Regression</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09-regression.html#references",
+    "href": "chapters/09-regression.html#references",
+    "title": "9  Regression",
+    "section": "References",
+    "text": "References\n\nZhang J, Yu KF. What’s the relative risk? JAMA. 1998;280:1690-1691.\nSchisterman EF, Cole SR, Platt RW. Overadjustment bias and unnecessary adjustment in epidemiologic studies. Epidemiology. 2009;20:488-495.\nHernán MA, Robins JM. Causal Inference: What If. Chapman & Hall/CRC; 2020.\nGreenland S, Pearl J, Robins JM. Causal diagrams for epidemiologic research. Epidemiology. 1999;10:37-48.",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Regression</span>"
     ]
@@ -582,61 +642,91 @@
   {
     "objectID": "chapters/10-propensity-score.html",
     "href": "chapters/10-propensity-score.html",
-    "title": "10  Propensity-Score-Based Methods",
+    "title": "10  Causal Inference Methods Based on Propensity Scores",
     "section": "",
-    "text": "10.1 The propensity score\nTo be added.",
+    "text": "10.1 Propensity scores\nIn causal inference, matching pairs an individual who received an intervention with a control individual having similar characteristics. Repeating this for treated individuals permits estimation of causal effects in matched individuals, provided the paired groups are sufficiently similar. The broad steps are to define similarity, perform matching, assess its result, and estimate the effect. Matching uses no outcome information until design is complete, reducing the temptation to repeatedly alter covariates to obtain a desirable p value. This design-before-analysis principle is valuable, but matching is not intrinsically superior to regression: it still requires adequate covariate measurement, sensible model specification, and acceptable post-match balance.\nWith covariates \\((x_1,x_2,\\ldots,x_K)\\), standardized Euclidean distance can measure similarity:\n\\[d(x_i,x_j)=\\sqrt{\\sum_{k=1}^{K}\\frac{(x_{ki}-x_{kj})^2}{\\sigma_k^2}}.\\]\nClinical characteristics are multidimensional—age, sex, disease severity, treatment history, and more. A single summary variable that captures similarity greatly simplifies matching.\nA propensity score is the probability of receiving an intervention. In a 1:1 RCT, every individual has probability 0.5; in non-randomized research it must be estimated. More precisely, given pretreatment covariates \\(X\\), the propensity score is \\(e(X)=\\Pr(A=1\\mid X)\\). It constructs samples or weighted pseudo-populations with comparable covariate distributions; it does not itself estimate a causal effect.\n\\[PS(x_i)=\\Pr[A=1\\mid x_i].\\]\nEstimate it by regressing treatment on measured confounders and using predicted treatment probability; machine-learning methods can also be used. The goal is not prediction accuracy for treatment assignment but balance after matching or weighting. Covariates must precede treatment and should be selected using clinical knowledge and causal graphs—not univariable p values. Do not include post-treatment variables or colliders.\nUsing the data of Case 9.1, estimate the probability of endoscopic surgery. The red intervention and blue control distributions both lie mainly between 0.3 and 0.6, showing good overlap. Higher tumor invasiveness (k) predicts a higher probability of endoscopic treatment.\nAs with all causal methods, propensity-score analysis requires exchangeability, positivity/overlap, and consistency. If blocking measured confounders blocks back-door paths, conditioning on a properly specified propensity score can also do so. Exchangeability within covariate strata implies exchangeability within propensity-score strata. Good score overlap is essential: in the left panel of Figure 10.1, the two curves overlap substantially; in the right panel they are well separated, making causal inference difficult. Propensity scores balance only measured covariates and cannot prevent residual confounding by unmeasured factors. Randomization balances both measured and unmeasured covariates and remains preferable. Check propensity-score distributions and the balance of every baseline covariate both before and after matching or weighting; score overlap does not replace balance diagnostics.\nThree main approaches use propensity scores for causal inference.",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Propensity-Score-Based Methods</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Causal Inference Methods Based on Propensity Scores</span>"
     ]
   },
   {
-    "objectID": "chapters/10-propensity-score.html#including-the-propensity-score-in-a-regression-model",
-    "href": "chapters/10-propensity-score.html#including-the-propensity-score-in-a-regression-model",
-    "title": "10  Propensity-Score-Based Methods",
-    "section": "10.2 Including the propensity score in a regression model",
-    "text": "10.2 Including the propensity score in a regression model\nTo be added.",
+    "objectID": "chapters/10-propensity-score.html#propensity-scores",
+    "href": "chapters/10-propensity-score.html#propensity-scores",
+    "title": "10  Causal Inference Methods Based on Propensity Scores",
+    "section": "",
+    "text": "NoteCode 10.1\n\n\n\npsmatch2 Treatment k age, logit\npsgraph, bin(40)\n\n\n\n\n\nCode 10.1 output: propensity-score estimation and distribution.\n\n\n\n\nFigure 10.1 Propensity-score distributions with good and poor overlap.",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Propensity-Score-Based Methods</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Causal Inference Methods Based on Propensity Scores</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10-propensity-score.html#adding-the-propensity-score-directly-to-a-regression-model",
+    "href": "chapters/10-propensity-score.html#adding-the-propensity-score-directly-to-a-regression-model",
+    "title": "10  Causal Inference Methods Based on Propensity Scores",
+    "section": "10.2 Adding the propensity score directly to a regression model",
+    "text": "10.2 Adding the propensity score directly to a regression model\nThe score can be the only adjustment covariate in an outcome model.\n\n\n\n\n\n\nNoteCode 10.2\n\n\n\nreg Outcome Treatment _pscore, or\n\n\n\n\nCode 10.2 output.\n\nThe model indicates significantly higher endocrine-remission odds with endoscopic surgery (OR 2.29, 95% CI 1.62–3.22; p&lt;0.001). This OR is a conditional effect and need not equal a marginal risk ratio or risk difference. For clinical interpretation, also report standardized absolute risks, risk difference, or risk ratio with 95% confidence intervals.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Causal Inference Methods Based on Propensity Scores</span>"
     ]
   },
   {
     "objectID": "chapters/10-propensity-score.html#propensity-score-matching",
     "href": "chapters/10-propensity-score.html#propensity-score-matching",
-    "title": "10  Propensity-Score-Based Methods",
-    "section": "10.3 Propensity score matching",
-    "text": "10.3 Propensity score matching\nTo be added.",
+    "title": "10  Causal Inference Methods Based on Propensity Scores",
+    "section": "10.3 Propensity-score matching",
+    "text": "10.3 Propensity-score matching\nMatch intervention and control individuals with the same or similar scores, then estimate effects in the matched sample. In Figure 10.2, black figures are treated individuals and yellow figures are controls; a treated individual is selected, the closest control score is found, and the pair is formed. The process is repeated; some controls, especially near score 0, may remain unmatched.\n\n\nFigure 10.2 Principle of propensity-score matching.\n\nFour practical questions arise. First, one-to-one matching provides closer similarity but may yield too few participants; one-to-many matching retains more observations when controls greatly outnumber treated participants. Second, a caliper sets the maximum permitted distance. Too small a caliper leaves many unmatched; too large a caliper harms exchangeability. A common starting point for 1:1 nearest-neighbor matching is 0.2 standard deviations of the logit of the score, followed by adjustment based on balance, sample loss, and clinical comparability. Third, controls can be reused when their number is much smaller than the treated group. Fourth, ties can be randomly resolved or all tied controls can be included with appropriate weights.\n\n\n\n\n\n\nNoteCode 10.3\n\n\n\npsmatch2 Treatment k age, logit outcome(Outcome) n(1) cal(0.01) ties\n\n\n\n\nCode 10.3 output.\n\n\n\n\n\n\n\nNoteCode 10.4\n\n\n\npsmatch2 Treatment k age, logit outcome(Outcome) n(1) cal(0.001) ties\n\n\n\n\nCode 10.4 output.\n\nWith a 0.01 caliper, only 3 patients are unmatched; with 0.001, 75 are unmatched. The matched sample differs from the original sample, so the effect targets the matched population—usually the average treatment effect in the treated (ATT) among matchable treated individuals. Remission is 56.7% in the intervention group and 37.6% in controls, giving OR 2.17. Report the number and baseline characteristics of unmatched people and explicitly state the target population.\nAs in an RCT, show distributions of all covariates after matching. U denotes unmatched and M matched observations. Before matching, invasiveness is 2.2 versus 1.7 with p&lt;0.001; after matching, both are 2.1 with p=1.000. More importantly, use absolute standardized mean difference (SMD), often &lt;0.10 as an empirical benchmark, rather than p values, to judge balance.\n\n\n\n\n\n\nNoteCode 10.5\n\n\n\npstest k age, both graph\n\n\n\n\nCode 10.5 output: covariate-balance assessment.",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Propensity-Score-Based Methods</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Causal Inference Methods Based on Propensity Scores</span>"
     ]
   },
   {
-    "objectID": "chapters/10-propensity-score.html#inverse-probability-weighting",
-    "href": "chapters/10-propensity-score.html#inverse-probability-weighting",
-    "title": "10  Propensity-Score-Based Methods",
-    "section": "10.4 Inverse probability weighting",
-    "text": "10.4 Inverse probability weighting\nTo be added.",
+    "objectID": "chapters/10-propensity-score.html#inverse-probability-weighting-with-propensity-scores",
+    "href": "chapters/10-propensity-score.html#inverse-probability-weighting-with-propensity-scores",
+    "title": "10  Causal Inference Methods Based on Propensity Scores",
+    "section": "10.4 Inverse probability weighting with propensity scores",
+    "text": "10.4 Inverse probability weighting with propensity scores\nInverse probability weighting (IPW) assigns each participant a weight and constructs a pseudo-population in which measured confounding is absent (Figure 10.3). A treated participant with a 25% predicted probability of treatment receives weight 4: they represent themselves and four similar people. A control participant with a 90% probability of treatment has only a 10% probability of control and receives weight 10.\n\n\nFigure 10.3 Principle of inverse probability weighting.\n\nFor binary treatment, weights are\n\\[w_{ki}^{T=1}=\\frac{1}{\\Pr(T=1\\mid k_i)},\\qquad w_{ki}^{T=0}=\\frac{1}{1-\\Pr(T=1\\mid k_i)}.\\]\nUse the inverse-probability weight in the outcome regression.\n\n\n\n\n\n\nNoteCode 10.6\n\n\n\ngen ipweight = 1/_pscore if Treatment == 1\nreplace ipweight = 1/(1-_pscore) if Treatment == 0\nlogistic Outcome Treatment [iweight = ipweight], vce(robust)\n\n\n\n\nCode 10.6 output.\n\nVery small scores produce large weights and unstable, high-variance estimates. Stabilized weights multiply by the marginal probability of the received treatment; they mitigate, but do not eliminate, instability from extreme weights. Report weight distributions and effective sample size, and prespecify trimming, truncation, or sensitivity analysis.\n\\[SW_{ki}^{T=1}=\\frac{\\Pr(T=1)}{\\Pr(T=1\\mid k_i)},\\qquad SW_{ki}^{T=0}=\\frac{1-\\Pr(T=1)}{1-\\Pr(T=1\\mid k_i)}.\\]\n\n\n\n\n\n\nNoteCode 10.7\n\n\n\ngen s_ipweight = (1/_pscore)*0.4516 if Treatment == 1\nreplace s_ipweight = 1/(1-_pscore)*0.5484 if Treatment == 0\nlogistic Outcome Treatment [iweight = s_ipweight], vce(robust) or\n\n\n\n\nCode 10.7 output.\n\nUse SMDs to assess covariate differences before and after weighting. Here group sizes are 338 and 405 before weighting and 371.4 and 371.6 in the weighted pseudo-population; for tumor invasiveness, SMD changes from 0.415 to -0.002. Aim for SMD below 0.10. Weighted counts are pseudo-sample sizes, not effective sample sizes; also inspect weight distributions, effective sample size, and covariate plots.\n\n\n\n\n\n\nNoteCode 10.8\n\n\n\nteffects ipw (Outcome) (Treatment k age, logit)\ntebalance summarize\n\n\n\n\nCode 10.8 output.",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Propensity-Score-Based Methods</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Causal Inference Methods Based on Propensity Scores</span>"
     ]
   },
   {
     "objectID": "chapters/10-propensity-score.html#other-weighting-methods",
     "href": "chapters/10-propensity-score.html#other-weighting-methods",
-    "title": "10  Propensity-Score-Based Methods",
+    "title": "10  Causal Inference Methods Based on Propensity Scores",
     "section": "10.5 Other weighting methods",
-    "text": "10.5 Other weighting methods\nTo be added.",
+    "text": "10.5 Other weighting methods\nConventional IPW gives treated patients \\(1/PS\\) and untreated patients \\(1/(1-PS)\\); extreme scores therefore create extreme weights. Trimming can remove weighted extremes, for example beyond the 95th or 99th percentile, but does not guarantee an appropriate threshold and reduces sample size.\n\n10.5.1 Overlap weighting\nOverlap weighting gives each participant the probability of the opposite treatment: treated participants receive \\(1-PS\\) and untreated participants receive \\(PS\\). Thus, scores close to 0 or 1 do not dominate as they do under IPW, while people compatible with either treatment contribute more. The target is the overlap or clinical-equipoise population, not the entire enrolled population, and the estimand should be reported accordingly. It can generate exact covariate balance between groups, but estimates the average treatment effect in the overlap population (ATO), which may differ from ATT or ATE. A changed effect estimate usually reflects a changed target population, not simply a “smaller” effect.\n\n\n\n\n\n\nNoteCode 10.9\n\n\n\ngen o_weight = 1 - _pscore if Treatment == 1\nreplace o_weight = _pscore if Treatment == 0\nlogistic Outcome Treatment [iweight = o_weight], vce(robust) or\n\n\n\n\nCode 10.9 output.\n\n\n\n10.5.2 Matching weighting\nMatching weights are \\(\\min(PS,1-PS)/PS\\) for treated participants and \\(\\min(PS,1-PS)/(1-PS)\\) for controls. They avoid extreme weights and the need for truncation. With similarly sized groups and good overlap, the target approximates population ATE; with unequal sizes and good overlap, it approximates ATT in the smaller group. With limited overlap, it targets the overlapping subgroup. The estimand depends on sample composition and the shape of score overlap and should be described rather than labeled only “close to ATE” or “close to ATT.”\n\n\n\n\n\n\nNoteCode 10.10\n\n\n\ngen m_weighting = min(_pscore, 1-_pscore)/_pscore\nreplace m_weighting = min(_pscore, 1-_pscore)/(1-_pscore) if Treatment == 0\nlogit Outcome Treatment [iweight = m_weighting], vce(robust) or\n\n\n\n\nCode 10.10 output.\n\n\n\n10.5.3 Fine-stratification weighting\nFine stratification for ATE does not directly turn scores into weights. Instead it creates narrow score strata of fixed probability width, such as 0–0.02, 0.02–0.04, and so on. Strata with no treated or no controls are excluded; weights are calculated from treated and control counts in remaining strata. For ATT, treated weights are set to 1 and controls are reweighted according to the number of treated patients in their stratum.\n\n\n10.5.4 Standardized mortality ratio weighting\nStandardized mortality ratio weighting assigns weight 1 to treated participants and \\(PS/(1-PS)\\) to controls. Like IPW, it can be affected by extreme weights and may require truncation.\n\n\n\n\n\n\nNoteCode 10.11\n\n\n\ngen smr_weighting = 1\nreplace smr_weighting = _pscore/(1-_pscore) if Treatment == 0\nlogit Outcome Treatment [iweight = smr_weighting], vce(robust) or\n\n\n\n\nCode 10.11 output.",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Propensity-Score-Based Methods</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Causal Inference Methods Based on Propensity Scores</span>"
     ]
   },
   {
     "objectID": "chapters/10-propensity-score.html#choosing-among-propensity-score-methods",
     "href": "chapters/10-propensity-score.html#choosing-among-propensity-score-methods",
-    "title": "10  Propensity-Score-Based Methods",
+    "title": "10  Causal Inference Methods Based on Propensity Scores",
     "section": "10.6 Choosing among propensity-score methods",
-    "text": "10.6 Choosing among propensity-score methods\nTo be added.",
+    "text": "10.6 Choosing among propensity-score methods\nMatching treated participants to a fixed number of controls within a prespecified caliper is often a useful choice, but discards unmatched observations and can increase imbalance. It is not universally preferred: when the question is an ATE in the comparable study population or retaining observations is important, weighting can be considered when overlap and stability are good. Choose according to the estimand, degree of overlap, acceptable sample loss, and resulting balance.\nWeighting retains most observations, can provide greater precision, and makes balance reporting transparent. It is flexible and can target different populations. Fine-stratification, matching, and overlap weights can address important limitations of conventional IPW.\nThe estimand specifies the population to which a treatment effect applies. If treating all eligible participants is feasible, target the average treatment effect (ATE). If treatment is appropriate only for patients with certain characteristics who actually receive it, target the average treatment effect in the treated (ATT). Table 10.1 summarizes common weights.\n\n\n\n\n\n\n\n\n\n\nMethod\nTreated weight\nControl weight\nEstimand\nKey feature\n\n\n\n\nIPW\n\\(1/PS\\)\n\\(1/(1-PS)\\)\nATE\nMimics an RCT but can have extreme weights; trimming may help.\n\n\nStandardized mortality ratio\n1\n\\(PS/(1-PS)\\)\nATT\nExtends naturally to &gt;2 groups; trimming may be needed.\n\n\nOverlap\n\\(1-PS\\)\n\\(PS\\)\nATO\nAvoids extreme weights; targets the overlap/equipoise population.\n\n\nMatching\n\\(\\min(PS,1-PS)/PS\\)\n\\(\\min(PS,1-PS)/(1-PS)\\)\nOften ATT in smaller group\nAvoids extreme weights; target depends on group size and overlap.\n\n\n\n\n10.6.1 Correct specification of the propensity-score model\nThe first task is avoiding model misspecification. The true structural relation between treatment and all covariates is unknown, so a simple logistic model can be misspecified; machine learning can be an alternative. Regardless of method, include strong outcome predictors and avoid variables that predict treatment strongly but are unrelated to outcome when they force scores close to 0 or 1. Fine-stratification weighting may be more robust because it creates strata from scores and then uses observation counts. Judge a score model by post-design balance, not its c statistic or predictive accuracy. For continuous or nonlinear covariates, consider splines, interactions, or flexible learning models, while keeping score-model selection independent of outcome analysis.\n\n\n10.6.2 Assessing overlap of exposure and reference groups\nSubstantial score overlap indicates reasonable clinical equipoise. When weighting, trim nonoverlap regions so both treatments have nonzero probability. Scores near 0 or 1 generate large weights and allow atypical participants to dominate. If trimming removes many observations, overlap may be inadequate; trimming also changes the study population and estimand. Report the trimming rule, number excluded, and covariate distributions before and after trimming, and conduct sensitivity analyses using alternative plausible thresholds.\n\n\n10.6.3 Selecting an estimand\nDifferent weights estimate effects for different populations. ATE makes covariate distributions of treated and reference groups similar to each other and to the full sample. ATT makes the reference-group covariate distribution resemble that observed in the treated group. The effect in the clinical-equipoise subset is driven by score overlap and excludes people who would almost certainly receive one treatment. IPW, matching weights, and standardized mortality ratio weights extend readily to more than two treatments using multinomial propensity scores. For multiple treatments, IPW uses the reciprocal of the probability of treatment actually received; matching weights use the smallest available score in the numerator and the received-treatment score in the denominator; SMR weighting sets the target-treatment group to 1 and weights other groups by the ratio of target-treatment to received-treatment probability.",
     "crumbs": [
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Propensity-Score-Based Methods</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Causal Inference Methods Based on Propensity Scores</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10-propensity-score.html#limitations-of-propensity-score-causal-inference",
+    "href": "chapters/10-propensity-score.html#limitations-of-propensity-score-causal-inference",
+    "title": "10  Causal Inference Methods Based on Propensity Scores",
+    "section": "10.7 Limitations of propensity-score causal inference",
+    "text": "10.7 Limitations of propensity-score causal inference\nErrors in estimating the propensity score propagate to causal estimates. More importantly, unmeasured confounding is not repaired by a propensity score, and matching estimates effects only in the matched sample, limiting generalizability. Use subject-matter knowledge and quantitative bias analysis or sensitivity analyses such as the E-value to discuss unmeasured confounding; be cautious when extrapolating to unmatched populations or populations without overlap.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Causal Inference Methods Based on Propensity Scores</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/10-propensity-score.html#references",
+    "href": "chapters/10-propensity-score.html#references",
+    "title": "10  Causal Inference Methods Based on Propensity Scores",
+    "section": "References",
+    "text": "References\n\nRosenbaum PR, Rubin DB. The central role of the propensity score in observational studies for causal effects. Biometrika. 1983;70(1):41-55.\nBrookhart MA, Schneeweiss S, Rothman KJ, et al. Variable selection for propensity score models. Am J Epidemiol. 2006;163(12):1149-1156.\nAustin PC. Balance diagnostics for propensity-score matched samples. Stat Med. 2009;28(25):3083-3107.\nAustin PC. Optimal caliper widths for propensity-score matching. Pharm Stat. 2011;10(2):150-161.\nAustin PC, Stuart EA. Best practice for IPTW using propensity scores. Stat Med. 2015;34(28):3661-3679.\nDeb S, Austin PC, Tu JV, et al. Propensity-score methods in cardiovascular research. Can J Cardiol. 2016;32(2):259-265.\nLi F, Thomas LE, Li F. Addressing extreme propensity scores via overlap weights. Am J Epidemiol. 2019;188(1):250-257.\nElze MC, Gregson J, Baber U, et al. Comparison of propensity-score methods and covariate adjustment. J Am Coll Cardiol. 2017;69(3):345-357.\nGarrido MM, Kelley AS, Paris J, et al. Methods for constructing and assessing propensity scores. Health Serv Res. 2014;49(5):1701-1720.\nVanderWeele TJ, Ding P. Sensitivity analysis in observational research: introducing the E-value. Ann Intern Med. 2017;167(4):268-274.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Causal Inference Methods Based on Propensity Scores</span>"
     ]
   },
   {
