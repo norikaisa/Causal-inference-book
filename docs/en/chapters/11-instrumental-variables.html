@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>11&nbsp; Instrumental Variable Methods – Causal Inference in Clinical Medical Research</title>
+<title>11&nbsp; Instrumental-Variable Methods – Causal Inference in Clinical Medical Research</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -120,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11-instrumental-variables.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instrumental Variable Methods</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/11-instrumental-variables.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instrumental-Variable Methods</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -214,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11-instrumental-variables.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instrumental Variable Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instrumental-Variable Methods</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -226,13 +255,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13-time-series.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interrupted Time-Series Analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14-sensitivity-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Sensitivity Analysis for Observational Studies</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Sensitivity Analysis for Observational Research</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -288,12 +317,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#instrumental-variables" id="toc-instrumental-variables" class="nav-link active" data-scroll-target="#instrumental-variables"><span class="header-section-number">11.1</span> Instrumental variables</a></li>
-  <li><a href="#applying-instrumental-variables" id="toc-applying-instrumental-variables" class="nav-link" data-scroll-target="#applying-instrumental-variables"><span class="header-section-number">11.2</span> Applying instrumental variables</a></li>
+  <li><a href="#practical-applications" id="toc-practical-applications" class="nav-link" data-scroll-target="#practical-applications"><span class="header-section-number">11.2</span> Practical applications</a></li>
   <li><a href="#analysis-steps" id="toc-analysis-steps" class="nav-link" data-scroll-target="#analysis-steps"><span class="header-section-number">11.3</span> Analysis steps</a></li>
-  <li><a href="#statistical-tests" id="toc-statistical-tests" class="nav-link" data-scroll-target="#statistical-tests"><span class="header-section-number">11.4</span> Statistical tests</a></li>
+  <li><a href="#statistical-diagnostics-and-assumptions" id="toc-statistical-diagnostics-and-assumptions" class="nav-link" data-scroll-target="#statistical-diagnostics-and-assumptions"><span class="header-section-number">11.4</span> Statistical diagnostics and assumptions</a></li>
   <li><a href="#finding-instruments" id="toc-finding-instruments" class="nav-link" data-scroll-target="#finding-instruments"><span class="header-section-number">11.5</span> Finding instruments</a></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><span class="header-section-number">11.6</span> Limitations</a></li>
   <li><a href="#mendelian-randomization" id="toc-mendelian-randomization" class="nav-link" data-scroll-target="#mendelian-randomization"><span class="header-section-number">11.7</span> Mendelian randomization</a></li>
+  <li><a href="#appendix-checklist-for-evaluating-mendelian-randomization-studies" id="toc-appendix-checklist-for-evaluating-mendelian-randomization-studies" class="nav-link" data-scroll-target="#appendix-checklist-for-evaluating-mendelian-randomization-studies"><span class="header-section-number">11.8</span> Appendix: Checklist for evaluating Mendelian-randomization studies</a>
+  <ul class="collapse">
+  <li><a href="#core-assumptions" id="toc-core-assumptions" class="nav-link" data-scroll-target="#core-assumptions"><span class="header-section-number">11.8.1</span> Core assumptions</a></li>
+  <li><a href="#methods-and-data" id="toc-methods-and-data" class="nav-link" data-scroll-target="#methods-and-data"><span class="header-section-number">11.8.2</span> Methods and data</a></li>
+  <li><a href="#interpretation-and-clinical-meaning" id="toc-interpretation-and-clinical-meaning" class="nav-link" data-scroll-target="#interpretation-and-clinical-meaning"><span class="header-section-number">11.8.3</span> Interpretation and clinical meaning</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -302,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instrumental Variable Methods</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instrumental-Variable Methods</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -319,46 +355,228 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
-</div>
-</div>
+<p>Regression and propensity-score methods cannot directly remove unmeasured confounding. An instrumental variable (IV) does not automatically solve that problem: it replaces it with strong assumptions about instrument validity. If those assumptions are implausible, IV estimates can also be biased.</p>
 <section id="instrumental-variables" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="instrumental-variables"><span class="header-section-number">11.1</span> Instrumental variables</h2>
-<p><em>To be added.</em></p>
+<p>Let <span class="math inline">\(Z\)</span> be an instrument for exposure <span class="math inline">\(X\)</span> and outcome <span class="math inline">\(Y\)</span>. <span class="math inline">\(Z\)</span> changes <span class="math inline">\(X\)</span>, and if <span class="math inline">\(X\)</span> truly causes <span class="math inline">\(Y\)</span>, the change in <span class="math inline">\(X\)</span> induced by <span class="math inline">\(Z\)</span> is transmitted to <span class="math inline">\(Y\)</span>. In a linear model with one valid instrument, the Wald estimand is the effect of <span class="math inline">\(Z\)</span> on <span class="math inline">\(Y\)</span> divided by the effect of <span class="math inline">\(Z\)</span> on <span class="math inline">\(X\)</span>. Association between <span class="math inline">\(Z\)</span> and <span class="math inline">\(X\)</span> establishes only relevance, not validity: causal interpretation also requires independence and the exclusion restriction.</p>
+<div class="text-center">
+<p><img src="images/ch11-image1.png" class="img-fluid" style="width:42.0%"></p>
+<p>Figure 11.1 Instrumental-variable method.</p>
+</div>
+<p>The three core assumptions are:</p>
+<ol type="1">
+<li><strong>Relevance:</strong> <span class="math inline">\(Z\)</span> is associated with <span class="math inline">\(X\)</span>.</li>
+<li><strong>Exclusion restriction:</strong> <span class="math inline">\(Z\)</span> affects <span class="math inline">\(Y\)</span> only through <span class="math inline">\(X\)</span>.</li>
+<li><strong>Independence:</strong> <span class="math inline">\(Z\)</span> and <span class="math inline">\(Y\)</span> have no common causes.</li>
+</ol>
+<p>For a binary instrument and treatment, interpreting the result as a local average treatment effect (LATE) among compliers also requires monotonicity: no one consistently changes treatment in the direction opposite to the instrument. These assumptions cannot generally be proven from observed data (Hernán and Robins 2006; Baiocchi et al.&nbsp;2014).</p>
+<p>In an RCT, randomized assignment may be the instrument: <span class="math inline">\(Z\)</span> is assignment to endoscopic or microscopic surgery, <span class="math inline">\(X\)</span> is treatment actually received, and <span class="math inline">\(Y\)</span> is endocrine remission. ITT estimates the effect of <span class="math inline">\(Z\)</span> on <span class="math inline">\(Y\)</span>; a per-protocol effect concerns <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span>. If adherence is perfect, they coincide. In observational research, the causal effect depends on the instrument, identifying assumptions, and estimand and is not automatically equivalent to an RCT per-protocol effect.</p>
+<div class="text-center">
+<p><img src="images/ch11-image2.png" class="img-fluid" style="width:42.0%"></p>
+<p>Figure 11.2 Random assignment as an instrument.</p>
+</div>
 </section>
-<section id="applying-instrumental-variables" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="applying-instrumental-variables"><span class="header-section-number">11.2</span> Applying instrumental variables</h2>
-<p><em>To be added.</em></p>
+<section id="practical-applications" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="practical-applications"><span class="header-section-number">11.2</span> Practical applications</h2>
+<p>To study whether alcohol causes coronary syndrome, drinking is <span class="math inline">\(X\)</span>, coronary syndrome is <span class="math inline">\(Y\)</span>, and unmeasured characteristics such as smoking are <span class="math inline">\(U\)</span>. An alcohol-metabolism genotype may be a candidate <span class="math inline">\(Z\)</span>: people with inefficient metabolism may drink less. Genetic instruments require scrutiny of horizontal pleiotropy, population stratification, parental effects, and selection bias, each of which can open a path from <span class="math inline">\(Z\)</span> to <span class="math inline">\(Y\)</span> outside alcohol use.</p>
+<div class="text-center">
+<p><img src="images/ch11-image3.png" class="img-fluid" style="width:42.0%"></p>
+<p>Figure 11.3 Genetic variation as a candidate instrument.</p>
+</div>
+<p>Calendar time has been used as a candidate instrument for antiretroviral therapy in HIV: treatment practice changes over time. It can easily violate exclusion because diagnostic technology, care, case mix, and follow-up also change.</p>
+<div class="text-center">
+<p><img src="images/ch11-image4.png" class="img-fluid" style="width:48.0%"></p>
+<p>Figure 11.4 Calendar time as a candidate instrument.</p>
+</div>
+<p>Rainfall has been proposed as an instrument for television viewing when studying childhood autism: more rain may increase time indoors and television viewing. It is not automatically valid, since rainfall can also affect outdoor activity, infection exposure, access to care, and regional socioeconomic conditions.</p>
+<div class="text-center">
+<p><img src="images/ch11-image5.png" class="img-fluid" style="width:42.0%"></p>
+<p>Figure 11.5 Rainfall as a candidate instrument.</p>
+</div>
 </section>
 <section id="analysis-steps" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="analysis-steps"><span class="header-section-number">11.3</span> Analysis steps</h2>
-<p><em>To be added.</em></p>
+<p>Two-stage least squares first regresses exposure on the instrument, then relates outcome to the predicted exposure. The stages must be estimated jointly with IV/2SLS standard errors; predicted exposure must not simply be treated as an observed covariate. State the estimand—population effect, complier effect, or another local effect—in advance.</p>
+<p><strong>Equation 11.1 IV estimator for binary <span class="math inline">\(Z\)</span></strong></p>
+<p><span class="math display">\[IV=\frac{E(Y\mid Z=1)-E(Y\mid Z=0)}{E(X\mid Z=1)-E(X\mid Z=0)}.\]</span></p>
+<p><strong>Equation 11.2 IV estimator for continuous <span class="math inline">\(Z\)</span></strong></p>
+<p><span class="math display">\[IV=\frac{\operatorname{Cov}(Y,Z)}{\operatorname{Cov}(X,Z)}.\]</span></p>
+<p>In Case 9.1, surgery before 2016 was mostly microscopic and later surgery mostly endoscopic, making calendar time a candidate instrument. Before 2016, 80.6% received microscopic surgery; after 2016, 74.1% received endoscopic surgery.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 11.1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 11.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">prop</span> Treatment <span class="kw">if</span> <span class="fu">year</span> &lt;= 2016</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">prop</span> Treatment <span class="kw">if</span> <span class="fu">year</span> &gt; 2016</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch11-image6.png" class="img-fluid" style="width:100.0%"> <img src="images/ch11-image7.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 11.1 output: treatment proportions before and after 2016.</p>
+</div>
+<p>For a binary outcome, <code>ivprobit</code> is one possible model; binary-outcome IV models rely on different functional-form assumptions and none is automatically standard or valid.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 11.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 11.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> year_iv = (<span class="fu">year</span> &lt;= 2016)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ivprobit</span> Outcome (Treatment = year_iv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch11-image8.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 11.2 output.</p>
+</div>
+<p>The model has intercept −0.330 and treatment coefficient 0.597; converting probit values gives an OR about 2.60. This is conditional on calendar time satisfying its exclusion restriction and is not unconditional proof of an overall surgical effect. For continuous length of stay, 2SLS estimates that endoscopic surgery shortens stay by 1.52 days.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 11.3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 11.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ivregress 2sls los (Treatment = year_iv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch11-image9.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 11.3 output.</p>
+</div>
 </section>
-<section id="statistical-tests" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="statistical-tests"><span class="header-section-number">11.4</span> Statistical tests</h2>
-<p><em>To be added.</em></p>
+<section id="statistical-diagnostics-and-assumptions" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="statistical-diagnostics-and-assumptions"><span class="header-section-number">11.4</span> Statistical diagnostics and assumptions</h2>
+<p>Relevance is assessed in the first stage. Weak instruments produce estimates biased toward ordinary regression and distorted confidence intervals. Report first-stage effect, partial <span class="math inline">\(R^2\)</span>, number of instruments, and weak-instrument diagnostics—not merely a second-stage p value. F&gt;10 is a familiar rule of thumb for one endogenous variable under homoskedasticity, not a universal threshold; with heteroskedasticity, clustering, or multiple instruments, report Kleibergen–Paap statistics and relevant critical values, and consider Anderson–Rubin robust inference.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 11.4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 11.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ivreg2 los (Treatment = year_iv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch11-image10.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 11.4 output.</p>
+</div>
+<p>Exclusion and independence cannot be confirmed statistically. Draw a causal graph, identify every alternative path, and discuss why it is absent. Associations of the instrument with baseline covariates, negative controls, and quantitative sensitivity analyses can make an assumption more or less plausible but cannot prove it. Overidentification testing is possible only with more instruments than endogenous exposures; a non-significant result does not validate every instrument. Homogeneity is not required for every IV analysis: with monotonicity, a binary IV identifies a LATE among compliers; only further homogeneity or transportability assumptions support extrapolation to the population ATE.</p>
 </section>
 <section id="finding-instruments" class="level2" data-number="11.5">
 <h2 data-number="11.5" class="anchored" data-anchor-id="finding-instruments"><span class="header-section-number">11.5</span> Finding instruments</h2>
-<p><em>To be added.</em></p>
+<p>Valid instruments are difficult to find precisely because they must remain outside the outcome model. Candidate sources include group-level characteristics (for example regional unemployment or poverty), natural phenomena (rivers, earthquakes, rainfall), physiological phenomena (birth date, season, sex, genotype), and social space. Relative distance to hospitals offering different emergency treatments can be a candidate if it changes treatment choice but has no direct effect on outcome; tobacco price has been used as a candidate instrument for quitting smoking and weight gain. Every example still requires the three assumptions in its specific setting.</p>
 </section>
 <section id="limitations" class="level2" data-number="11.6">
 <h2 data-number="11.6" class="anchored" data-anchor-id="limitations"><span class="header-section-number">11.6</span> Limitations</h2>
-<p><em>To be added.</em></p>
+<p>Good instruments are rare; their validity relies on untestable assumptions; and estimates differ by instrument because an IV often identifies a weighted local effect. In the calendar-time example, some patients would always receive one surgical method, while compliers could receive different methods in different periods. The effect applies to the latter group. This local target can be an advantage, but its clinical meaning and differences from the overall sample must be reported. An instrument successful in one center or era may not generalize elsewhere.</p>
 </section>
 <section id="mendelian-randomization" class="level2" data-number="11.7">
 <h2 data-number="11.7" class="anchored" data-anchor-id="mendelian-randomization"><span class="header-section-number">11.7</span> Mendelian randomization</h2>
-<p><em>To be added.</em></p>
+<p>Mendelian randomization (MR) uses genetic variation as instruments to estimate the effect of an exposure—biomarker, anthropometric measure, or other risk factor—on disease. Genotypes are fixed at conception and thus avoid reverse causation from outcome to genotype. MR remains IV analysis and needs the same relevance, exclusion, and independence assumptions. It also requires attention to ancestry, linkage disequilibrium, family effects, and horizontal pleiotropy. Vertical pleiotropy wholly downstream of the exposure is usually compatible with IV assumptions; horizontal pleiotropy is not.</p>
+<p><strong>Case 11.1.</strong> To study LDL cholesterol and coronary syndrome, <span class="math inline">\(X\)</span> is LDL, <span class="math inline">\(Y\)</span> coronary syndrome, and SNPs associated with LDL are <span class="math inline">\(Z\)</span>. Relevance can be examined, but the other assumptions require argument. SNPs may affect other lipids or be in linkage disequilibrium with variants associated with outcome; population structure can link allele frequency and coronary risk.</p>
+<div class="text-center">
+<p><img src="images/ch11-image11.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figure 11.6 Assumptions for Mendelian randomization.</p>
+</div>
+<p>One-sample MR uses 2SLS in one dataset. Two-sample MR obtains SNP–exposure and SNP–outcome associations from two independent, comparable samples, often GWAS consortia. Report sample overlap, ancestry comparability, phenotype definitions, and selection mechanisms: overlap with weak instruments can pull estimates toward observational associations. Typical workflow: select genome-wide significant SNPs (often <span class="math inline">\(p&lt;5\times10^{-8}\)</span>), clump for linkage disequilibrium, harmonize alleles, obtain SNP–outcome associations, prespecify inverse-variance weighting as primary analysis, and use weighted median, MR-Egger, mode methods, heterogeneity, leave-one-out, and MR-PRESSO as sensitivity analyses.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 11.5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 11.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mregger acsbeta ldlcbeta [aw=1/(acsse^2)], ivw <span class="kw">fe</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">lincom</span> ldlcbeta, <span class="kw">or</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch11-image12.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 11.5 output: inverse-variance weighted MR.</p>
+</div>
+<p>The IVW result suggests that a one-unit LDL increase raises coronary-syndrome risk 1.63-fold. Weighted-median and MR-Egger analyses provide estimates under different invalid-instrument assumptions.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 11.6–11.8">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 11.6–11.8
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mrmedian acsbeta acsse ldlcbeta ldlcse, weighted</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mregger acsbeta ldlcbeta [aw=1/(acsse^2)]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>mreggerplot acsbeta acsse ldlcbeta ldlcse, gpci</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>mrforest acsbeta acsse ldlcbeta ldlcse, ivid(rsid) models(4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch11-image13.png" class="img-fluid" style="width:100.0%"> <img src="images/ch11-image14.png" class="img-fluid" style="width:100.0%"> <img src="images/ch11-image15.png" class="img-fluid" style="width:100.0%"> <img src="images/ch11-image16.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 11.6–11.8 output: sensitivity analyses, fitted effect, and forest plot.</p>
+</div>
+<p>MR findings should follow STROBE-MR: state the causal question and estimand, data sources, SNP selection and harmonization, evidence for all IV assumptions, primary and sensitivity analyses, data/code availability, and limits to generalization. MR estimates genetic prediction of usually lifelong exposure differences; they are not proof that a short-term, age-specific clinical intervention has the same effect.</p>
+</section>
+<section id="appendix-checklist-for-evaluating-mendelian-randomization-studies" class="level2" data-number="11.8">
+<h2 data-number="11.8" class="anchored" data-anchor-id="appendix-checklist-for-evaluating-mendelian-randomization-studies"><span class="header-section-number">11.8</span> Appendix: Checklist for evaluating Mendelian-randomization studies</h2>
+<section id="core-assumptions" class="level3" data-number="11.8.1">
+<h3 data-number="11.8.1" class="anchored" data-anchor-id="core-assumptions"><span class="header-section-number">11.8.1</span> Core assumptions</h3>
+<ul>
+<li>Is there strong evidence that variants predict the exposure?</li>
+<li>Are variants associated with potential confounders, and is this assessed?</li>
+<li>Could variants affect outcome through other pathways, and are pleiotropy-robust methods or negative controls reported?</li>
+</ul>
+</section>
+<section id="methods-and-data" class="level3" data-number="11.8.2">
+<h3 data-number="11.8.2" class="anchored" data-anchor-id="methods-and-data"><span class="header-section-number">11.8.2</span> Methods and data</h3>
+<ul>
+<li>Are exposure and outcome alleles coded in the same direction?</li>
+<li>Are two samples comparable and independent, and are instruments linkage-independent or modeled as correlated?</li>
+<li>Are associations, IV estimates, conventional estimates, SNP selection, sensitivity analyses, and reproducible data shown?</li>
+</ul>
+</section>
+<section id="interpretation-and-clinical-meaning" class="level3" data-number="11.8.3">
+<h3 data-number="11.8.3" class="anchored" data-anchor-id="interpretation-and-clinical-meaning"><span class="header-section-number">11.8.3</span> Interpretation and clinical meaning</h3>
+<ul>
+<li>Could similarity/difference from observational estimates reflect weak instruments or pleiotropy?</li>
+<li>Are confidence intervals precise enough for clinically meaningful effects?</li>
+<li>Is a lifelong genetic effect being distinguished from an intervention at a particular age and duration?</li>
+<li>Are results triangulated with trials, mechanisms, observational designs, and MR in other populations before informing care?</li>
+</ul>
+</section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Hernán MA, Robins JM. Instruments for causal inference: an epidemiologist’s dream? <em>Epidemiology</em>. 2006;17:360-372.</li>
+<li>Baiocchi M, Cheng J, Small DS. Instrumental variable methods for causal inference. <em>Statistics in Medicine</em>. 2014;33:2297-2340.</li>
+<li>Lousdal ML. Instrumental variable assumptions, validation and estimation. <em>Emerging Themes in Epidemiology</em>. 2018;15:1.</li>
+<li>Bowden J, Davey Smith G, Burgess S. MR-Egger regression. <em>International Journal of Epidemiology</em>. 2015;44:512-525.</li>
+<li>Bowden J, Davey Smith G, Haycock PC, Burgess S. Weighted median MR. <em>Genetic Epidemiology</em>. 2016;40:304-314.</li>
+<li>Burgess S, Davey Smith G, Davies NM, et al.&nbsp;Guidelines for MR investigations. <em>Wellcome Open Research</em>. 2020;4:186.</li>
+<li>Skrivankova VW, Richmond RC, Woolf BAR, et al.&nbsp;STROBE-MR statement. <em>JAMA</em>. 2021;326:1614-1621.</li>
+</ol>
 
 
 <!-- -->
@@ -829,40 +1047,224 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Instrumental Variable Methods</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Instrumental variables</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Applying instrumental variables</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analysis steps</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Statistical tests</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Finding instruments</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Limitations</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Mendelian randomization</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Instrumental-Variable Methods</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Regression and propensity-score methods cannot directly remove unmeasured confounding. An instrumental variable (IV) does not automatically solve that problem: it replaces it with strong assumptions about instrument validity. If those assumptions are implausible, IV estimates can also be biased.</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Instrumental variables</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>Let $Z$ be an instrument for exposure $X$ and outcome $Y$. $Z$ changes $X$, and if $X$ truly causes $Y$, the change in $X$ induced by $Z$ is transmitted to $Y$. In a linear model with one valid instrument, the Wald estimand is the effect of $Z$ on $Y$ divided by the effect of $Z$ on $X$. Association between $Z$ and $X$ establishes only relevance, not validity: causal interpretation also requires independence and the exclusion restriction.</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image1.png)</span>{width="42%"}</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>Figure 11.1 Instrumental-variable method.</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>The three core assumptions are:</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Relevance:** $Z$ is associated with $X$.</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Exclusion restriction:** $Z$ affects $Y$ only through $X$.</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Independence:** $Z$ and $Y$ have no common causes.</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>For a binary instrument and treatment, interpreting the result as a local average treatment effect (LATE) among compliers also requires monotonicity: no one consistently changes treatment in the direction opposite to the instrument. These assumptions cannot generally be proven from observed data (Hernán and Robins 2006; Baiocchi et al. 2014).</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>In an RCT, randomized assignment may be the instrument: $Z$ is assignment to endoscopic or microscopic surgery, $X$ is treatment actually received, and $Y$ is endocrine remission. ITT estimates the effect of $Z$ on $Y$; a per-protocol effect concerns $X$ on $Y$. If adherence is perfect, they coincide. In observational research, the causal effect depends on the instrument, identifying assumptions, and estimand and is not automatically equivalent to an RCT per-protocol effect.</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image2.png)</span>{width="42%"}</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>Figure 11.2 Random assignment as an instrument.</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practical applications</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>To study whether alcohol causes coronary syndrome, drinking is $X$, coronary syndrome is $Y$, and unmeasured characteristics such as smoking are $U$. An alcohol-metabolism genotype may be a candidate $Z$: people with inefficient metabolism may drink less. Genetic instruments require scrutiny of horizontal pleiotropy, population stratification, parental effects, and selection bias, each of which can open a path from $Z$ to $Y$ outside alcohol use.</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image3.png)</span>{width="42%"}</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>Figure 11.3 Genetic variation as a candidate instrument.</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>Calendar time has been used as a candidate instrument for antiretroviral therapy in HIV: treatment practice changes over time. It can easily violate exclusion because diagnostic technology, care, case mix, and follow-up also change.</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image4.png)</span>{width="48%"}</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>Figure 11.4 Calendar time as a candidate instrument.</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>Rainfall has been proposed as an instrument for television viewing when studying childhood autism: more rain may increase time indoors and television viewing. It is not automatically valid, since rainfall can also affect outdoor activity, infection exposure, access to care, and regional socioeconomic conditions.</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image5.png)</span>{width="42%"}</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>Figure 11.5 Rainfall as a candidate instrument.</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analysis steps</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>Two-stage least squares first regresses exposure on the instrument, then relates outcome to the predicted exposure. The stages must be estimated jointly with IV/2SLS standard errors; predicted exposure must not simply be treated as an observed covariate. State the estimand—population effect, complier effect, or another local effect—in advance.</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>**Equation 11.1 IV estimator for binary $Z$**</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>$$IV=\frac{E(Y\mid Z=1)-E(Y\mid Z=0)}{E(X\mid Z=1)-E(X\mid Z=0)}.$$</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>**Equation 11.2 IV estimator for continuous $Z$**</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>$$IV=\frac{\operatorname{Cov}(Y,Z)}{\operatorname{Cov}(X,Z)}.$$</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>In Case 9.1, surgery before 2016 was mostly microscopic and later surgery mostly endoscopic, making calendar time a candidate instrument. Before 2016, 80.6% received microscopic surgery; after 2016, 74.1% received endoscopic surgery.</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 11.1"}</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="in">prop Treatment if year &lt;= 2016</span></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="in">prop Treatment if year &gt; 2016</span></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image6.png)</span>{width="100%"}</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image7.png)</span>{width="100%"}</span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>Code 11.1 output: treatment proportions before and after 2016.</span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>For a binary outcome, <span class="in">`ivprobit`</span> is one possible model; binary-outcome IV models rely on different functional-form assumptions and none is automatically standard or valid.</span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 11.2"}</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="in">gen year_iv = (year &lt;= 2016)</span></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="in">ivprobit Outcome (Treatment = year_iv)</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image8.png)</span>{width="100%"}</span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>Code 11.2 output.</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>The model has intercept −0.330 and treatment coefficient 0.597; converting probit values gives an OR about 2.60. This is conditional on calendar time satisfying its exclusion restriction and is not unconditional proof of an overall surgical effect. For continuous length of stay, 2SLS estimates that endoscopic surgery shortens stay by 1.52 days.</span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 11.3"}</span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a><span class="in">ivregress 2sls los (Treatment = year_iv)</span></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image9.png)</span>{width="100%"}</span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>Code 11.3 output.</span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## Statistical diagnostics and assumptions</span></span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>Relevance is assessed in the first stage. Weak instruments produce estimates biased toward ordinary regression and distorted confidence intervals. Report first-stage effect, partial $R^2$, number of instruments, and weak-instrument diagnostics—not merely a second-stage p value. F&gt;10 is a familiar rule of thumb for one endogenous variable under homoskedasticity, not a universal threshold; with heteroskedasticity, clustering, or multiple instruments, report Kleibergen–Paap statistics and relevant critical values, and consider Anderson–Rubin robust inference.</span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 11.4"}</span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a><span class="in">ivreg2 los (Treatment = year_iv)</span></span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image10.png)</span>{width="100%"}</span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a>Code 11.4 output.</span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a>Exclusion and independence cannot be confirmed statistically. Draw a causal graph, identify every alternative path, and discuss why it is absent. Associations of the instrument with baseline covariates, negative controls, and quantitative sensitivity analyses can make an assumption more or less plausible but cannot prove it. Overidentification testing is possible only with more instruments than endogenous exposures; a non-significant result does not validate every instrument. Homogeneity is not required for every IV analysis: with monotonicity, a binary IV identifies a LATE among compliers; only further homogeneity or transportability assumptions support extrapolation to the population ATE.</span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a><span class="fu">## Finding instruments</span></span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a>Valid instruments are difficult to find precisely because they must remain outside the outcome model. Candidate sources include group-level characteristics (for example regional unemployment or poverty), natural phenomena (rivers, earthquakes, rainfall), physiological phenomena (birth date, season, sex, genotype), and social space. Relative distance to hospitals offering different emergency treatments can be a candidate if it changes treatment choice but has no direct effect on outcome; tobacco price has been used as a candidate instrument for quitting smoking and weight gain. Every example still requires the three assumptions in its specific setting.</span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a><span class="fu">## Limitations</span></span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a>Good instruments are rare; their validity relies on untestable assumptions; and estimates differ by instrument because an IV often identifies a weighted local effect. In the calendar-time example, some patients would always receive one surgical method, while compliers could receive different methods in different periods. The effect applies to the latter group. This local target can be an advantage, but its clinical meaning and differences from the overall sample must be reported. An instrument successful in one center or era may not generalize elsewhere.</span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a><span class="fu">## Mendelian randomization</span></span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>Mendelian randomization (MR) uses genetic variation as instruments to estimate the effect of an exposure—biomarker, anthropometric measure, or other risk factor—on disease. Genotypes are fixed at conception and thus avoid reverse causation from outcome to genotype. MR remains IV analysis and needs the same relevance, exclusion, and independence assumptions. It also requires attention to ancestry, linkage disequilibrium, family effects, and horizontal pleiotropy. Vertical pleiotropy wholly downstream of the exposure is usually compatible with IV assumptions; horizontal pleiotropy is not.</span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a>**Case 11.1.** To study LDL cholesterol and coronary syndrome, $X$ is LDL, $Y$ coronary syndrome, and SNPs associated with LDL are $Z$. Relevance can be examined, but the other assumptions require argument. SNPs may affect other lipids or be in linkage disequilibrium with variants associated with outcome; population structure can link allele frequency and coronary risk.</span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image11.png)</span>{width="100%"}</span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a>Figure 11.6 Assumptions for Mendelian randomization.</span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>One-sample MR uses 2SLS in one dataset. Two-sample MR obtains SNP–exposure and SNP–outcome associations from two independent, comparable samples, often GWAS consortia. Report sample overlap, ancestry comparability, phenotype definitions, and selection mechanisms: overlap with weak instruments can pull estimates toward observational associations. Typical workflow: select genome-wide significant SNPs (often $p&lt;5\times10^{-8}$), clump for linkage disequilibrium, harmonize alleles, obtain SNP–outcome associations, prespecify inverse-variance weighting as primary analysis, and use weighted median, MR-Egger, mode methods, heterogeneity, leave-one-out, and MR-PRESSO as sensitivity analyses.</span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 11.5"}</span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a><span class="in">mregger acsbeta ldlcbeta [aw=1/(acsse^2)], ivw fe</span></span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a><span class="in">lincom ldlcbeta, or</span></span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image12.png)</span>{width="100%"}</span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a>Code 11.5 output: inverse-variance weighted MR.</span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a>The IVW result suggests that a one-unit LDL increase raises coronary-syndrome risk 1.63-fold. Weighted-median and MR-Egger analyses provide estimates under different invalid-instrument assumptions.</span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 11.6–11.8"}</span>
+<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a><span class="in">mrmedian acsbeta acsse ldlcbeta ldlcse, weighted</span></span>
+<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a><span class="in">mregger acsbeta ldlcbeta [aw=1/(acsse^2)]</span></span>
+<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a><span class="in">mreggerplot acsbeta acsse ldlcbeta ldlcse, gpci</span></span>
+<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a><span class="in">mrforest acsbeta acsse ldlcbeta ldlcse, ivid(rsid) models(4)</span></span>
+<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image13.png)</span>{width="100%"}</span>
+<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image14.png)</span>{width="100%"}</span>
+<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image15.png)</span>{width="100%"}</span>
+<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch11-image16.png)</span>{width="100%"}</span>
+<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a>Code 11.6–11.8 output: sensitivity analyses, fitted effect, and forest plot.</span>
+<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a>MR findings should follow STROBE-MR: state the causal question and estimand, data sources, SNP selection and harmonization, evidence for all IV assumptions, primary and sensitivity analyses, data/code availability, and limits to generalization. MR estimates genetic prediction of usually lifelong exposure differences; they are not proof that a short-term, age-specific clinical intervention has the same effect.</span>
+<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a><span class="fu">## Appendix: Checklist for evaluating Mendelian-randomization studies</span></span>
+<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a><span class="fu">### Core assumptions</span></span>
+<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Is there strong evidence that variants predict the exposure?</span>
+<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Are variants associated with potential confounders, and is this assessed?</span>
+<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Could variants affect outcome through other pathways, and are pleiotropy-robust methods or negative controls reported?</span>
+<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a><span class="fu">### Methods and data</span></span>
+<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Are exposure and outcome alleles coded in the same direction?</span>
+<span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Are two samples comparable and independent, and are instruments linkage-independent or modeled as correlated?</span>
+<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Are associations, IV estimates, conventional estimates, SNP selection, sensitivity analyses, and reproducible data shown?</span>
+<span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a><span class="fu">### Interpretation and clinical meaning</span></span>
+<span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Could similarity/difference from observational estimates reflect weak instruments or pleiotropy?</span>
+<span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Are confidence intervals precise enough for clinically meaningful effects?</span>
+<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Is a lifelong genetic effect being distinguished from an intervention at a particular age and duration?</span>
+<span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Are results triangulated with trials, mechanisms, observational designs, and MR in other populations before informing care?</span>
+<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-210"><a href="#cb7-210" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb7-211"><a href="#cb7-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-212"><a href="#cb7-212" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Hernán MA, Robins JM. Instruments for causal inference: an epidemiologist’s dream? *Epidemiology*. 2006;17:360-372.</span>
+<span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Baiocchi M, Cheng J, Small DS. Instrumental variable methods for causal inference. *Statistics in Medicine*. 2014;33:2297-2340.</span>
+<span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Lousdal ML. Instrumental variable assumptions, validation and estimation. *Emerging Themes in Epidemiology*. 2018;15:1.</span>
+<span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Bowden J, Davey Smith G, Burgess S. MR-Egger regression. *International Journal of Epidemiology*. 2015;44:512-525.</span>
+<span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Bowden J, Davey Smith G, Haycock PC, Burgess S. Weighted median MR. *Genetic Epidemiology*. 2016;40:304-314.</span>
+<span id="cb7-217"><a href="#cb7-217" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Burgess S, Davey Smith G, Davies NM, et al. Guidelines for MR investigations. *Wellcome Open Research*. 2020;4:186.</span>
+<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Skrivankova VW, Richmond RC, Woolf BAR, et al. STROBE-MR statement. *JAMA*. 2021;326:1614-1621.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

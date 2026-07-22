@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>13&nbsp; Time Series Analysis – Causal Inference in Clinical Medical Research</title>
+<title>13&nbsp; Interrupted Time-Series Analysis – Causal Inference in Clinical Medical Research</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -120,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/13-time-series.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/13-time-series.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interrupted Time-Series Analysis</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -214,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11-instrumental-variables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instrumental Variable Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instrumental-Variable Methods</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -226,13 +255,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13-time-series.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interrupted Time-Series Analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14-sensitivity-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Sensitivity Analysis for Observational Studies</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Sensitivity Analysis for Observational Research</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -288,9 +317,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#simple-interrupted-time-series" id="toc-simple-interrupted-time-series" class="nav-link active" data-scroll-target="#simple-interrupted-time-series"><span class="header-section-number">13.1</span> Simple interrupted time series</a></li>
-  <li><a href="#multiple-time-point-interrupted-time-series" id="toc-multiple-time-point-interrupted-time-series" class="nav-link" data-scroll-target="#multiple-time-point-interrupted-time-series"><span class="header-section-number">13.2</span> Multiple-time-point interrupted time series</a></li>
-  <li><a href="#multi-group-interrupted-time-series" id="toc-multi-group-interrupted-time-series" class="nav-link" data-scroll-target="#multi-group-interrupted-time-series"><span class="header-section-number">13.3</span> Multi-group interrupted time series</a></li>
-  <li><a href="#cautions-in-interrupted-time-series-analysis" id="toc-cautions-in-interrupted-time-series-analysis" class="nav-link" data-scroll-target="#cautions-in-interrupted-time-series-analysis"><span class="header-section-number">13.4</span> Cautions in interrupted time series analysis</a></li>
+  <li><a href="#interrupted-time-series-with-multiple-time-points" id="toc-interrupted-time-series-with-multiple-time-points" class="nav-link" data-scroll-target="#interrupted-time-series-with-multiple-time-points"><span class="header-section-number">13.2</span> Interrupted time series with multiple time points</a></li>
+  <li><a href="#controlled-interrupted-time-series-with-multiple-groups" id="toc-controlled-interrupted-time-series-with-multiple-groups" class="nav-link" data-scroll-target="#controlled-interrupted-time-series-with-multiple-groups"><span class="header-section-number">13.3</span> Controlled interrupted time series with multiple groups</a></li>
+  <li><a href="#considerations-for-interrupted-time-series-analysis" id="toc-considerations-for-interrupted-time-series-analysis" class="nav-link" data-scroll-target="#considerations-for-interrupted-time-series-analysis"><span class="header-section-number">13.4</span> Considerations for interrupted time-series analysis</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -299,7 +329,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Analysis</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interrupted Time-Series Analysis</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -316,34 +346,92 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<p>Interrupted time-series (ITS) analysis evaluates whether an intervention, policy, or external event changes an outcome measured repeatedly over time. It is particularly useful when randomization is infeasible but there are many observations before and after a clearly dated interruption.</p>
+<section id="simple-interrupted-time-series" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="simple-interrupted-time-series"><span class="header-section-number">13.1</span> Simple interrupted time series</h2>
+<p>For one series, segmented regression estimates baseline level, pre-interruption trend, immediate level change, and post-interruption trend change:</p>
+<p><span class="math display">\[Y_t=\beta_0+\beta_1t+\beta_2I_t+\beta_3(t\times I_t)+\epsilon_t,\]</span></p>
+<p>where <span class="math inline">\(t\)</span> is time and <span class="math inline">\(I_t\)</span> indicates the post-intervention period. <span class="math inline">\(\beta_2\)</span> is the immediate level change and <span class="math inline">\(\beta_3\)</span> is the change in slope. A causal interpretation requires that no other change at the interruption plausibly explains the discontinuity or trend change.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 13.1">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
+<span class="screen-reader-only">Note</span>Code 13.1
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> time_after = time - intervention_time</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">post</span> = time &gt;= intervention_time</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">reg</span> outcome c.time i.<span class="kw">post</span> c.time_after#i.<span class="kw">post</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<section id="simple-interrupted-time-series" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="simple-interrupted-time-series"><span class="header-section-number">13.1</span> Simple interrupted time series</h2>
-<p><em>To be added.</em></p>
+<div class="text-center">
+<p><img src="images/ch13-image1.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 13.1 output: segmented-regression time-series plot.</p>
+</div>
 </section>
-<section id="multiple-time-point-interrupted-time-series" class="level2" data-number="13.2">
-<h2 data-number="13.2" class="anchored" data-anchor-id="multiple-time-point-interrupted-time-series"><span class="header-section-number">13.2</span> Multiple-time-point interrupted time series</h2>
-<p><em>To be added.</em></p>
+<section id="interrupted-time-series-with-multiple-time-points" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="interrupted-time-series-with-multiple-time-points"><span class="header-section-number">13.2</span> Interrupted time series with multiple time points</h2>
+<p>ITS needs sufficient observations before and after interruption to distinguish a background trend from a policy effect. Inspect seasonality, autocorrelation, changing variance, delayed or gradual intervention effects, and data-collection changes. Use autocorrelation-consistent standard errors, generalized least squares, or ARIMA-type models when residual correlation is present. Model seasonal terms or seasonal differencing where clinically and operationally justified.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 13.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 13.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">newey</span> outcome c.time i.<span class="kw">post</span> c.time_after#i.<span class="kw">post</span>, lag(1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch13-image2.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 13.2 output: autocorrelation-aware interrupted time series.</p>
+</div>
 </section>
-<section id="multi-group-interrupted-time-series" class="level2" data-number="13.3">
-<h2 data-number="13.3" class="anchored" data-anchor-id="multi-group-interrupted-time-series"><span class="header-section-number">13.3</span> Multi-group interrupted time series</h2>
-<p><em>To be added.</em></p>
+<section id="controlled-interrupted-time-series-with-multiple-groups" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="controlled-interrupted-time-series-with-multiple-groups"><span class="header-section-number">13.3</span> Controlled interrupted time series with multiple groups</h2>
+<p>Adding a comparison series strengthens inference when it shares the intervention group’s underlying trend and measurement system but is not affected by the intervention. The key estimand is the difference between changes in the intervention and comparison series—an ITS analogue of difference-in-differences. Model group, time, post-intervention period, and their interactions; inspect whether pre-interruption trends are sufficiently parallel and whether the comparison could have been indirectly affected.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 13.3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 13.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">reg</span> outcome i.group##(c.time i.<span class="kw">post</span> c.time_after), <span class="kw">vce</span>(<span class="kw">robust</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch13-image3.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 13.3 output: controlled interrupted time series.</p>
+</div>
 </section>
-<section id="cautions-in-interrupted-time-series-analysis" class="level2" data-number="13.4">
-<h2 data-number="13.4" class="anchored" data-anchor-id="cautions-in-interrupted-time-series-analysis"><span class="header-section-number">13.4</span> Cautions in interrupted time series analysis</h2>
-<p><em>To be added.</em></p>
+<section id="considerations-for-interrupted-time-series-analysis" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="considerations-for-interrupted-time-series-analysis"><span class="header-section-number">13.4</span> Considerations for interrupted time-series analysis</h2>
+<ul>
+<li>Predefine the interruption date, expected mechanism, lag, and effect shape.</li>
+<li>Use enough evenly spaced observations on both sides; a few monthly points rarely support a reliable trend estimate.</li>
+<li>Check data definitions, coding systems, case ascertainment, denominators, seasonality, autocorrelation, and outliers.</li>
+<li>Investigate concurrent policies, epidemics, staffing changes, and other events that could create a coincident discontinuity.</li>
+<li>Present raw data, fitted segments, uncertainty intervals, residual diagnostics, and sensitivity analyses for time windows, autocorrelation structure, seasonal terms, and placebo interruptions.</li>
+<li>State that ITS estimates an association with the interruption unless its causal assumptions are justified.</li>
+</ul>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Bernal JL, Cummins S, Gasparrini A. Interrupted time series regression for evaluation of public health interventions. <em>International Journal of Epidemiology</em>. 2017;46:348-355.</li>
+<li>Wagner AK, Soumerai SB, Zhang F, Ross-Degnan D. Segmented regression analysis of interrupted time series studies. <em>Journal of Clinical Pharmacy and Therapeutics</em>. 2002;27:299-309.</li>
+<li>Penfold RB, Zhang F. Use of interrupted time series analysis in evaluating health care quality improvements. <em>Academic Pediatrics</em>. 2013;13:S38-S44.</li>
+</ol>
 
 
 <!-- -->
@@ -809,33 +897,83 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/14-sensitivity-analysis.html" class="pagination-link" aria-label="Sensitivity Analysis for Observational Studies">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Sensitivity Analysis for Observational Studies</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/14-sensitivity-analysis.html" class="pagination-link" aria-label="Sensitivity Analysis for Observational Research">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Sensitivity Analysis for Observational Research</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Time Series Analysis</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simple interrupted time series</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multiple-time-point interrupted time series</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multi-group interrupted time series</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cautions in interrupted time series analysis</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Interrupted Time-Series Analysis</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Interrupted time-series (ITS) analysis evaluates whether an intervention, policy, or external event changes an outcome measured repeatedly over time. It is particularly useful when randomization is infeasible but there are many observations before and after a clearly dated interruption.</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simple interrupted time series</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>For one series, segmented regression estimates baseline level, pre-interruption trend, immediate level change, and post-interruption trend change:</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>$$Y_t=\beta_0+\beta_1t+\beta_2I_t+\beta_3(t\times I_t)+\epsilon_t,$$</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>where $t$ is time and $I_t$ indicates the post-intervention period. $\beta_2$ is the immediate level change and $\beta_3$ is the change in slope. A causal interpretation requires that no other change at the interruption plausibly explains the discontinuity or trend change.</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 13.1"}</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="in">gen time_after = time - intervention_time</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="in">gen post = time &gt;= intervention_time</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="in">reg outcome c.time i.post c.time_after#i.post</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch13-image1.png)</span>{width="100%"}</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>Code 13.1 output: segmented-regression time-series plot.</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interrupted time series with multiple time points</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>ITS needs sufficient observations before and after interruption to distinguish a background trend from a policy effect. Inspect seasonality, autocorrelation, changing variance, delayed or gradual intervention effects, and data-collection changes. Use autocorrelation-consistent standard errors, generalized least squares, or ARIMA-type models when residual correlation is present. Model seasonal terms or seasonal differencing where clinically and operationally justified.</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 13.2"}</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="in">newey outcome c.time i.post c.time_after#i.post, lag(1)</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch13-image2.png)</span>{width="100%"}</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>Code 13.2 output: autocorrelation-aware interrupted time series.</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Controlled interrupted time series with multiple groups</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>Adding a comparison series strengthens inference when it shares the intervention group’s underlying trend and measurement system but is not affected by the intervention. The key estimand is the difference between changes in the intervention and comparison series—an ITS analogue of difference-in-differences. Model group, time, post-intervention period, and their interactions; inspect whether pre-interruption trends are sufficiently parallel and whether the comparison could have been indirectly affected.</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 13.3"}</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="in">reg outcome i.group##(c.time i.post c.time_after), vce(robust)</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch13-image3.png)</span>{width="100%"}</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>Code 13.3 output: controlled interrupted time series.</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## Considerations for interrupted time-series analysis</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Predefine the interruption date, expected mechanism, lag, and effect shape.</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use enough evenly spaced observations on both sides; a few monthly points rarely support a reliable trend estimate.</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Check data definitions, coding systems, case ascertainment, denominators, seasonality, autocorrelation, and outliers.</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Investigate concurrent policies, epidemics, staffing changes, and other events that could create a coincident discontinuity.</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Present raw data, fitted segments, uncertainty intervals, residual diagnostics, and sensitivity analyses for time windows, autocorrelation structure, seasonal terms, and placebo interruptions.</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>State that ITS estimates an association with the interruption unless its causal assumptions are justified.</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Bernal JL, Cummins S, Gasparrini A. Interrupted time series regression for evaluation of public health interventions. *International Journal of Epidemiology*. 2017;46:348-355.</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Wagner AK, Soumerai SB, Zhang F, Ross-Degnan D. Segmented regression analysis of interrupted time series studies. *Journal of Clinical Pharmacy and Therapeutics*. 2002;27:299-309.</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Penfold RB, Zhang F. Use of interrupted time series analysis in evaluating health care quality improvements. *Academic Pediatrics*. 2013;13:S38-S44.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

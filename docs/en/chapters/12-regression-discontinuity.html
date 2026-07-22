@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -214,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/11-instrumental-variables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instrumental Variable Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instrumental-Variable Methods</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -226,13 +255,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/13-time-series.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interrupted Time-Series Analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/14-sensitivity-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Sensitivity Analysis for Observational Studies</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Sensitivity Analysis for Observational Research</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -288,10 +317,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#sharp-and-fuzzy-discontinuities" id="toc-sharp-and-fuzzy-discontinuities" class="nav-link active" data-scroll-target="#sharp-and-fuzzy-discontinuities"><span class="header-section-number">12.1</span> Sharp and fuzzy discontinuities</a></li>
-  <li><a href="#identifying-the-cutoff" id="toc-identifying-the-cutoff" class="nav-link" data-scroll-target="#identifying-the-cutoff"><span class="header-section-number">12.2</span> Identifying the cutoff</a></li>
-  <li><a href="#estimation-methods" id="toc-estimation-methods" class="nav-link" data-scroll-target="#estimation-methods"><span class="header-section-number">12.3</span> Estimation methods</a></li>
-  <li><a href="#validity-checks" id="toc-validity-checks" class="nav-link" data-scroll-target="#validity-checks"><span class="header-section-number">12.4</span> Validity checks</a></li>
-  <li><a href="#applications" id="toc-applications" class="nav-link" data-scroll-target="#applications"><span class="header-section-number">12.5</span> Applications</a></li>
+  <li><a href="#identification-using-the-running-variable" id="toc-identification-using-the-running-variable" class="nav-link" data-scroll-target="#identification-using-the-running-variable"><span class="header-section-number">12.2</span> Identification using the running variable</a></li>
+  <li><a href="#estimation-methods" id="toc-estimation-methods" class="nav-link" data-scroll-target="#estimation-methods"><span class="header-section-number">12.3</span> Estimation methods</a>
+  <ul class="collapse">
+  <li><a href="#bandwidth-selection" id="toc-bandwidth-selection" class="nav-link" data-scroll-target="#bandwidth-selection"><span class="header-section-number">12.3.1</span> Bandwidth selection</a></li>
+  <li><a href="#local-linear-regression" id="toc-local-linear-regression" class="nav-link" data-scroll-target="#local-linear-regression"><span class="header-section-number">12.3.2</span> Local linear regression</a></li>
+  <li><a href="#local-polynomial-regression" id="toc-local-polynomial-regression" class="nav-link" data-scroll-target="#local-polynomial-regression"><span class="header-section-number">12.3.3</span> Local polynomial regression</a></li>
+  </ul></li>
+  <li><a href="#validity-checks" id="toc-validity-checks" class="nav-link" data-scroll-target="#validity-checks"><span class="header-section-number">12.4</span> Validity checks</a>
+  <ul class="collapse">
+  <li><a href="#local-smoothness" id="toc-local-smoothness" class="nav-link" data-scroll-target="#local-smoothness"><span class="header-section-number">12.4.1</span> Local smoothness</a></li>
+  <li><a href="#no-precise-manipulation" id="toc-no-precise-manipulation" class="nav-link" data-scroll-target="#no-precise-manipulation"><span class="header-section-number">12.4.2</span> No precise manipulation</a></li>
+  <li><a href="#cutoff-robustness" id="toc-cutoff-robustness" class="nav-link" data-scroll-target="#cutoff-robustness"><span class="header-section-number">12.4.3</span> Cutoff robustness</a></li>
+  <li><a href="#bandwidth-robustness" id="toc-bandwidth-robustness" class="nav-link" data-scroll-target="#bandwidth-robustness"><span class="header-section-number">12.4.4</span> Bandwidth robustness</a></li>
+  </ul></li>
+  <li><a href="#applications-and-limitations" id="toc-applications-and-limitations" class="nav-link" data-scroll-target="#applications-and-limitations"><span class="header-section-number">12.5</span> Applications and limitations</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -317,38 +358,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
-</div>
-</div>
+<p>Regression discontinuity (RD) estimates causal effects when treatment assignment changes discontinuously at a known threshold of a continuous running variable. People immediately to either side of the cutoff are expected to be comparable except for their probability of treatment, so a discontinuity in outcome at the threshold can be attributed to treatment under local continuity assumptions.</p>
 <section id="sharp-and-fuzzy-discontinuities" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="sharp-and-fuzzy-discontinuities"><span class="header-section-number">12.1</span> Sharp and fuzzy discontinuities</h2>
-<p><em>To be added.</em></p>
+<p>In a <strong>sharp</strong> RD, the running variable deterministically assigns treatment: everyone above a cutoff receives treatment and everyone below does not. In a <strong>fuzzy</strong> RD, crossing the threshold changes only the probability of treatment. Fuzzy RD is an IV design in which eligibility/threshold crossing instruments treatment receipt; it identifies a local effect for compliers at the cutoff, subject to relevance, exclusion, continuity, and monotonicity assumptions.</p>
+<div class="text-center">
+<p><img src="images/ch12-image1.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figure 12.1 Sharp and fuzzy regression discontinuity.</p>
+</div>
 </section>
-<section id="identifying-the-cutoff" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="identifying-the-cutoff"><span class="header-section-number">12.2</span> Identifying the cutoff</h2>
-<p><em>To be added.</em></p>
+<section id="identification-using-the-running-variable" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="identification-using-the-running-variable"><span class="header-section-number">12.2</span> Identification using the running variable</h2>
+<p>Let <span class="math inline">\(R\)</span> be the running variable and <span class="math inline">\(c\)</span> the cutoff. RD compares the limiting expected outcomes from the two sides:</p>
+<p><span class="math display">\[\tau_{RD}=\lim_{r\downarrow c}E(Y\mid R=r)-\lim_{r\uparrow c}E(Y\mid R=r).\]</span></p>
+<p>Identification requires that potential outcomes and baseline covariates would evolve smoothly through <span class="math inline">\(c\)</span> in the absence of treatment, and that people cannot precisely manipulate <span class="math inline">\(R\)</span> around the threshold. The causal effect is local: it applies to individuals near <span class="math inline">\(c\)</span>, not automatically to people far from it.</p>
+<p><strong>Case 12.1.</strong> Suppose a clinical policy gives a preventive intervention only when a risk score reaches a prespecified cutoff. Plot outcome against score, inspect the treatment-probability jump at the cutoff, and compare observations within a clinically defensible local neighborhood.</p>
+<div class="text-center">
+<p><img src="images/ch12-image2.png" class="img-fluid" style="width:100.0%"> <img src="images/ch12-image3.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figures 12.2–12.3 Running-variable distributions and outcome discontinuity.</p>
+</div>
 </section>
 <section id="estimation-methods" class="level2" data-number="12.3">
 <h2 data-number="12.3" class="anchored" data-anchor-id="estimation-methods"><span class="header-section-number">12.3</span> Estimation methods</h2>
-<p><em>To be added.</em></p>
+<section id="bandwidth-selection" class="level3" data-number="12.3.1">
+<h3 data-number="12.3.1" class="anchored" data-anchor-id="bandwidth-selection"><span class="header-section-number">12.3.1</span> Bandwidth selection</h3>
+<p>Only observations near the cutoff contribute to a local RD estimate. A narrow bandwidth reduces bias but increases variance; a wide bandwidth improves precision but can introduce model bias. Use data-driven bandwidth selectors as a starting point, report the selected bandwidth and number of observations on each side, and present sensitivity analyses with plausible alternatives.</p>
+<div class="text-center">
+<p><img src="images/ch12-image4.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figure 12.4 Bandwidth selection.</p>
+</div>
+</section>
+<section id="local-linear-regression" class="level3" data-number="12.3.2">
+<h3 data-number="12.3.2" class="anchored" data-anchor-id="local-linear-regression"><span class="header-section-number">12.3.2</span> Local linear regression</h3>
+<p>Local linear regression fits separate weighted lines on each side of the cutoff, usually giving closer observations greater weight. It is often preferred to a single global polynomial because it reduces sensitivity to distant observations and high-order functional-form choices.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 12.1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 12.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>rdrobust outcome running, c(cutoff)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>rdplot outcome running, c(cutoff)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch12-image5.png" class="img-fluid" style="width:100.0%"> <img src="images/ch12-image6.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 12.1 output: local-linear estimate and RD plot.</p>
+</div>
+</section>
+<section id="local-polynomial-regression" class="level3" data-number="12.3.3">
+<h3 data-number="12.3.3" class="anchored" data-anchor-id="local-polynomial-regression"><span class="header-section-number">12.3.3</span> Local polynomial regression</h3>
+<p>Local polynomial approaches allow curvature within a bandwidth, but high-order global polynomials can create implausible behavior and misleading inference. Prefer low-order local polynomials, robust bias-corrected confidence intervals, and transparent plots rather than choosing a polynomial after inspecting significance.</p>
+<div class="text-center">
+<p><img src="images/ch12-image7.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figure 12.5 Local-polynomial fit.</p>
+</div>
+</section>
 </section>
 <section id="validity-checks" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="validity-checks"><span class="header-section-number">12.4</span> Validity checks</h2>
-<p><em>To be added.</em></p>
+<section id="local-smoothness" class="level3" data-number="12.4.1">
+<h3 data-number="12.4.1" class="anchored" data-anchor-id="local-smoothness"><span class="header-section-number">12.4.1</span> Local smoothness</h3>
+<p>Baseline covariates that cannot be affected by treatment should not jump at the cutoff. Plot and estimate discontinuities for age, sex, disease severity, and other pretreatment factors. A discontinuity suggests that the design may not approximate local randomization.</p>
+<div class="text-center">
+<p><img src="images/ch12-image8.png" class="img-fluid" style="width:100.0%"> <img src="images/ch12-image9.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figures 12.6–12.7 Covariate-continuity checks.</p>
+</div>
 </section>
-<section id="applications" class="level2" data-number="12.5">
-<h2 data-number="12.5" class="anchored" data-anchor-id="applications"><span class="header-section-number">12.5</span> Applications</h2>
-<p><em>To be added.</em></p>
+<section id="no-precise-manipulation" class="level3" data-number="12.4.2">
+<h3 data-number="12.4.2" class="anchored" data-anchor-id="no-precise-manipulation"><span class="header-section-number">12.4.2</span> No precise manipulation</h3>
+<p>If patients, clinicians, or administrators can sort precisely around the threshold, comparability fails. Inspect a histogram/density plot of the running variable and use density tests such as McCrary’s test; visible bunching or a density discontinuity weakens the design.</p>
+<div class="text-center">
+<p><img src="images/ch12-image10.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figure 12.8 Density test around the cutoff.</p>
+</div>
+</section>
+<section id="cutoff-robustness" class="level3" data-number="12.4.3">
+<h3 data-number="12.4.3" class="anchored" data-anchor-id="cutoff-robustness"><span class="header-section-number">12.4.3</span> Cutoff robustness</h3>
+<p>Repeat analysis with placebo cutoffs where no treatment change occurs. A discontinuity only at the genuine threshold supports the design; jumps at arbitrary cutoffs suggest misspecification or unrelated changes.</p>
+<div class="text-center">
+<p><img src="images/ch12-image11.png" class="img-fluid" style="width:100.0%"> <img src="images/ch12-image12.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figures 12.9–12.10 Placebo-cutoff analyses.</p>
+</div>
+</section>
+<section id="bandwidth-robustness" class="level3" data-number="12.4.4">
+<h3 data-number="12.4.4" class="anchored" data-anchor-id="bandwidth-robustness"><span class="header-section-number">12.4.4</span> Bandwidth robustness</h3>
+<p>Show estimates across a reasonable range of bandwidths and specifications. Robust inference should not depend on one chosen window, one polynomial degree, or a handful of influential observations.</p>
+<div class="text-center">
+<p><img src="images/ch12-image13.png" class="img-fluid" style="width:100.0%"> <img src="images/ch12-image14.png" class="img-fluid" style="width:100.0%"> <img src="images/ch12-image15.png" class="img-fluid" style="width:100.0%"> <img src="images/ch12-image16.png" class="img-fluid" style="width:100.0%"> <img src="images/ch12-image17.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figures 12.11–12.15 Robustness analyses.</p>
+</div>
+</section>
+</section>
+<section id="applications-and-limitations" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="applications-and-limitations"><span class="header-section-number">12.5</span> Applications and limitations</h2>
+<p>RD is useful when a transparent rule determines eligibility: clinical risk scores, age limits, laboratory thresholds, reimbursement criteria, or policy cutoffs. It can offer highly credible local causal evidence, but does not answer the effect away from the cutoff, requires enough observations close to it, and is vulnerable to manipulation, concurrent policy changes, and incorrect functional-form or bandwidth choices. Report the assignment rule, cutoff, treatment-probability discontinuity, covariate/density/placebo checks, bandwidth and polynomial choices, and the local target population.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Thistlethwaite DL, Campbell DT. Regression-discontinuity analysis. <em>Journal of Educational Psychology</em>. 1960;51:309-317.</li>
+<li>Imbens GW, Lemieux T. Regression discontinuity designs: a guide to practice. <em>Journal of Econometrics</em>. 2008;142:615-635.</li>
+<li>Lee DS, Lemieux T. Regression discontinuity designs in economics. <em>Journal of Economic Literature</em>. 2010;48:281-355.</li>
+<li>Calonico S, Cattaneo MD, Titiunik R. Robust nonparametric confidence intervals for RD designs. <em>Econometrica</em>. 2014;82:2295-2326.</li>
+</ol>
 
 
 <!-- -->
@@ -809,42 +926,145 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/11-instrumental-variables.html" class="pagination-link" aria-label="Instrumental Variable Methods">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instrumental Variable Methods</span></span>
+      <a href="../chapters/11-instrumental-variables.html" class="pagination-link" aria-label="Instrumental-Variable Methods">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Instrumental-Variable Methods</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/13-time-series.html" class="pagination-link" aria-label="Time Series Analysis">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/13-time-series.html" class="pagination-link" aria-label="Interrupted Time-Series Analysis">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interrupted Time-Series Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Regression Discontinuity</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sharp and fuzzy discontinuities</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Identifying the cutoff</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Estimation methods</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Validity checks</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Applications</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Regression Discontinuity</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Regression discontinuity (RD) estimates causal effects when treatment assignment changes discontinuously at a known threshold of a continuous running variable. People immediately to either side of the cutoff are expected to be comparable except for their probability of treatment, so a discontinuity in outcome at the threshold can be attributed to treatment under local continuity assumptions.</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sharp and fuzzy discontinuities</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>In a **sharp** RD, the running variable deterministically assigns treatment: everyone above a cutoff receives treatment and everyone below does not. In a **fuzzy** RD, crossing the threshold changes only the probability of treatment. Fuzzy RD is an IV design in which eligibility/threshold crossing instruments treatment receipt; it identifies a local effect for compliers at the cutoff, subject to relevance, exclusion, continuity, and monotonicity assumptions.</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image1.png)</span>{width="100%"}</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>Figure 12.1 Sharp and fuzzy regression discontinuity.</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Identification using the running variable</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>Let $R$ be the running variable and $c$ the cutoff. RD compares the limiting expected outcomes from the two sides:</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>$$\tau_{RD}=\lim_{r\downarrow c}E(Y\mid R=r)-\lim_{r\uparrow c}E(Y\mid R=r).$$</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>Identification requires that potential outcomes and baseline covariates would evolve smoothly through $c$ in the absence of treatment, and that people cannot precisely manipulate $R$ around the threshold. The causal effect is local: it applies to individuals near $c$, not automatically to people far from it.</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>**Case 12.1.** Suppose a clinical policy gives a preventive intervention only when a risk score reaches a prespecified cutoff. Plot outcome against score, inspect the treatment-probability jump at the cutoff, and compare observations within a clinically defensible local neighborhood.</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image2.png)</span>{width="100%"}</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image3.png)</span>{width="100%"}</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>Figures 12.2–12.3 Running-variable distributions and outcome discontinuity.</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Estimation methods</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bandwidth selection</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>Only observations near the cutoff contribute to a local RD estimate. A narrow bandwidth reduces bias but increases variance; a wide bandwidth improves precision but can introduce model bias. Use data-driven bandwidth selectors as a starting point, report the selected bandwidth and number of observations on each side, and present sensitivity analyses with plausible alternatives.</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image4.png)</span>{width="100%"}</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>Figure 12.4 Bandwidth selection.</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">### Local linear regression</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>Local linear regression fits separate weighted lines on each side of the cutoff, usually giving closer observations greater weight. It is often preferred to a single global polynomial because it reduces sensitivity to distant observations and high-order functional-form choices.</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 12.1"}</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="in">rdrobust outcome running, c(cutoff)</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="in">rdplot outcome running, c(cutoff)</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image5.png)</span>{width="100%"}</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image6.png)</span>{width="100%"}</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>Code 12.1 output: local-linear estimate and RD plot.</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### Local polynomial regression</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>Local polynomial approaches allow curvature within a bandwidth, but high-order global polynomials can create implausible behavior and misleading inference. Prefer low-order local polynomials, robust bias-corrected confidence intervals, and transparent plots rather than choosing a polynomial after inspecting significance.</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image7.png)</span>{width="100%"}</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>Figure 12.5 Local-polynomial fit.</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## Validity checks</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="fu">### Local smoothness</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>Baseline covariates that cannot be affected by treatment should not jump at the cutoff. Plot and estimate discontinuities for age, sex, disease severity, and other pretreatment factors. A discontinuity suggests that the design may not approximate local randomization.</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image8.png)</span>{width="100%"}</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image9.png)</span>{width="100%"}</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>Figures 12.6–12.7 Covariate-continuity checks.</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="fu">### No precise manipulation</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>If patients, clinicians, or administrators can sort precisely around the threshold, comparability fails. Inspect a histogram/density plot of the running variable and use density tests such as McCrary’s test; visible bunching or a density discontinuity weakens the design.</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image10.png)</span>{width="100%"}</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>Figure 12.8 Density test around the cutoff.</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cutoff robustness</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>Repeat analysis with placebo cutoffs where no treatment change occurs. A discontinuity only at the genuine threshold supports the design; jumps at arbitrary cutoffs suggest misspecification or unrelated changes.</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image11.png)</span>{width="100%"}</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image12.png)</span>{width="100%"}</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>Figures 12.9–12.10 Placebo-cutoff analyses.</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bandwidth robustness</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>Show estimates across a reasonable range of bandwidths and specifications. Robust inference should not depend on one chosen window, one polynomial degree, or a handful of influential observations.</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image13.png)</span>{width="100%"}</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image14.png)</span>{width="100%"}</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image15.png)</span>{width="100%"}</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image16.png)</span>{width="100%"}</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch12-image17.png)</span>{width="100%"}</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>Figures 12.11–12.15 Robustness analyses.</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="fu">## Applications and limitations</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>RD is useful when a transparent rule determines eligibility: clinical risk scores, age limits, laboratory thresholds, reimbursement criteria, or policy cutoffs. It can offer highly credible local causal evidence, but does not answer the effect away from the cutoff, requires enough observations close to it, and is vulnerable to manipulation, concurrent policy changes, and incorrect functional-form or bandwidth choices. Report the assignment rule, cutoff, treatment-probability discontinuity, covariate/density/placebo checks, bandwidth and polynomial choices, and the local target population.</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Thistlethwaite DL, Campbell DT. Regression-discontinuity analysis. *Journal of Educational Psychology*. 1960;51:309-317.</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Imbens GW, Lemieux T. Regression discontinuity designs: a guide to practice. *Journal of Econometrics*. 2008;142:615-635.</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Lee DS, Lemieux T. Regression discontinuity designs in economics. *Journal of Economic Literature*. 2010;48:281-355.</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Calonico S, Cattaneo MD, Titiunik R. Robust nonparametric confidence intervals for RD designs. *Econometrica*. 2014;82:2295-2326.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
