@@ -256,7 +256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/18-ml-causal-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Machine Learning into Causal Inference</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Causal Inference and Machine Learning</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -287,10 +287,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#traditional-methods" id="toc-traditional-methods" class="nav-link active" data-scroll-target="#traditional-methods"><span class="header-section-number">16.1</span> Traditional methods</a></li>
-  <li><a href="#mixed-effects-models" id="toc-mixed-effects-models" class="nav-link" data-scroll-target="#mixed-effects-models"><span class="header-section-number">16.2</span> Mixed-effects models</a></li>
+  <li><a href="#traditional-methods" id="toc-traditional-methods" class="nav-link active" data-scroll-target="#traditional-methods"><span class="header-section-number">16.1</span> Traditional methods</a>
+  <ul class="collapse">
+  <li><a href="#simple-regression" id="toc-simple-regression" class="nav-link" data-scroll-target="#simple-regression"><span class="header-section-number">16.1.1</span> Simple regression</a></li>
+  <li><a href="#analysis-of-covariance" id="toc-analysis-of-covariance" class="nav-link" data-scroll-target="#analysis-of-covariance"><span class="header-section-number">16.1.2</span> Analysis of covariance</a></li>
+  <li><a href="#change-from-baseline-analysis" id="toc-change-from-baseline-analysis" class="nav-link" data-scroll-target="#change-from-baseline-analysis"><span class="header-section-number">16.1.3</span> Change-from-baseline analysis</a></li>
+  </ul></li>
+  <li><a href="#mixed-effects-models" id="toc-mixed-effects-models" class="nav-link" data-scroll-target="#mixed-effects-models"><span class="header-section-number">16.2</span> Mixed-effects models</a>
+  <ul class="collapse">
+  <li><a href="#null-model" id="toc-null-model" class="nav-link" data-scroll-target="#null-model"><span class="header-section-number">16.2.1</span> Null model</a></li>
+  <li><a href="#time-only-mixed-models" id="toc-time-only-mixed-models" class="nav-link" data-scroll-target="#time-only-mixed-models"><span class="header-section-number">16.2.2</span> Time-only mixed models</a></li>
+  <li><a href="#treatment-by-time-model" id="toc-treatment-by-time-model" class="nav-link" data-scroll-target="#treatment-by-time-model"><span class="header-section-number">16.2.3</span> Treatment-by-time model</a></li>
+  <li><a href="#residual-covariance-structure" id="toc-residual-covariance-structure" class="nav-link" data-scroll-target="#residual-covariance-structure"><span class="header-section-number">16.2.4</span> Residual covariance structure</a></li>
+  </ul></li>
   <li><a href="#generalized-estimating-equations" id="toc-generalized-estimating-equations" class="nav-link" data-scroll-target="#generalized-estimating-equations"><span class="header-section-number">16.3</span> Generalized estimating equations</a></li>
-  <li><a href="#latent-class-models" id="toc-latent-class-models" class="nav-link" data-scroll-target="#latent-class-models"><span class="header-section-number">16.4</span> Latent class models</a></li>
+  <li><a href="#latent-class-models" id="toc-latent-class-models" class="nav-link" data-scroll-target="#latent-class-models"><span class="header-section-number">16.4</span> Latent-class models</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -316,34 +328,175 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
-</div>
-</div>
+<p>Repeated-measures studies record outcomes from the same participant at several times. Measurements within a person are correlated, so treating them as independent discards information or gives incorrect uncertainty. The analysis should define the treatment strategy, outcome, time scale, estimand, missing-data assumptions, and correlation structure before modeling.</p>
 <section id="traditional-methods" class="level2" data-number="16.1">
 <h2 data-number="16.1" class="anchored" data-anchor-id="traditional-methods"><span class="header-section-number">16.1</span> Traditional methods</h2>
-<p><em>To be added.</em></p>
+<section id="simple-regression" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="simple-regression"><span class="header-section-number">16.1.1</span> Simple regression</h3>
+<p>Analyzing each visit separately with ordinary regression is simple but ignores within-person correlation and creates multiple-testing problems. It can be useful for descriptive displays, not as the principal longitudinal analysis without appropriate adjustment.</p>
+</section>
+<section id="analysis-of-covariance" class="level3" data-number="16.1.2">
+<h3 data-number="16.1.2" class="anchored" data-anchor-id="analysis-of-covariance"><span class="header-section-number">16.1.2</span> Analysis of covariance</h3>
+<p>ANCOVA compares follow-up outcome between groups after adjusting for baseline outcome and baseline covariates. For a single primary follow-up it is often efficient, but it does not use all repeated measurements and needs a separate plan for missing follow-up.</p>
+</section>
+<section id="change-from-baseline-analysis" class="level3" data-number="16.1.3">
+<h3 data-number="16.1.3" class="anchored" data-anchor-id="change-from-baseline-analysis"><span class="header-section-number">16.1.3</span> Change-from-baseline analysis</h3>
+<p>Comparing changes from baseline is intuitive but is often less efficient than ANCOVA and can be biased when baseline measurement error or missingness is important. Report baseline and follow-up values alongside changes.</p>
+</section>
 </section>
 <section id="mixed-effects-models" class="level2" data-number="16.2">
 <h2 data-number="16.2" class="anchored" data-anchor-id="mixed-effects-models"><span class="header-section-number">16.2</span> Mixed-effects models</h2>
-<p><em>To be added.</em></p>
+<p>Mixed models combine fixed effects (population-average mean patterns) and random effects (participant-specific departures). They naturally accommodate unequal numbers and timings of measurements under an appropriate missing-at-random model. A random intercept allows baseline level to vary; a random slope also allows individual trajectories to vary.</p>
+<p><strong>Case 16.1.</strong> Repeated outcomes are measured in control and intervention groups. Begin with group-specific descriptive statistics and mean trajectories.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 16.1–16.3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 16.1–16.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">tabstat</span> outcome <span class="kw">if</span> treatment==0, <span class="kw">by</span>(visit) stat(<span class="kw">mean</span> <span class="fu">sd</span> n)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">tabstat</span> outcome <span class="kw">if</span> treatment==1, <span class="kw">by</span>(visit) stat(<span class="kw">mean</span> <span class="fu">sd</span> n)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> (connected <span class="kw">mean</span> visit <span class="kw">if</span> treatment==0) (connected <span class="kw">mean</span> visit <span class="kw">if</span> treatment==1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch16-image1.png" class="img-fluid" style="width:100.0%"> <img src="images/ch16-image2.png" class="img-fluid" style="width:100.0%"> <img src="images/ch16-image3.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 16.1–16.3 output: group summaries and mean-change curve.</p>
+</div>
+<section id="null-model" class="level3" data-number="16.2.1">
+<h3 data-number="16.2.1" class="anchored" data-anchor-id="null-model"><span class="header-section-number">16.2.1</span> Null model</h3>
+<p>The null random-intercept model partitions variance into between- and within-participant components and estimates the intraclass correlation (ICC).</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 16.4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 16.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mixed outcome || id:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">store</span> null</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch16-image4.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 16.4 output: null model.</p>
+</div>
+</section>
+<section id="time-only-mixed-models" class="level3" data-number="16.2.2">
+<h3 data-number="16.2.2" class="anchored" data-anchor-id="time-only-mixed-models"><span class="header-section-number">16.2.2</span> Time-only mixed models</h3>
+<p>Fit time as a categorical or continuous fixed effect, first with a random intercept and then with random intercept and slope. Compare fit, convergence, plausibility, and residual diagnostics; a more complex random-effects structure is not automatically better.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 16.5–16.6">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 16.5–16.6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mixed outcome i.visit || id:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">store</span> ri</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mixed outcome c.time || id: c.time, <span class="kw">covariance</span>(<span class="kw">unstructured</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">store</span> ris</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch16-image5.png" class="img-fluid" style="width:100.0%"> <img src="images/ch16-image6.png" class="img-fluid" style="width:100.0%"> <img src="images/ch16-image7.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 16.5–16.6 output: random-intercept and random-slope models.</p>
+</div>
+</section>
+<section id="treatment-by-time-model" class="level3" data-number="16.2.3">
+<h3 data-number="16.2.3" class="anchored" data-anchor-id="treatment-by-time-model"><span class="header-section-number">16.2.3</span> Treatment-by-time model</h3>
+<p>The usual longitudinal treatment question is whether trajectories differ by treatment. Include treatment, time, and their interaction. With categorical time, each interaction is a visit-specific adjusted difference; with continuous time, it is a difference in rate of change. Derive marginal means and clinically interpretable contrasts with confidence intervals.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 16.7–16.9">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 16.7–16.9
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mixed outcome i.treatment##i.visit baseline || id:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">store</span> txvisit</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>mixed outcome i.treatment##c.time baseline || id: c.time</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">lrtest</span> ri ris</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch16-image8.png" class="img-fluid" style="width:100.0%"> <img src="images/ch16-image9.png" class="img-fluid" style="width:100.0%"> <img src="images/ch16-image10.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 16.7–16.9 output: treatment-by-time model and model comparison.</p>
+</div>
+</section>
+<section id="residual-covariance-structure" class="level3" data-number="16.2.4">
+<h3 data-number="16.2.4" class="anchored" data-anchor-id="residual-covariance-structure"><span class="header-section-number">16.2.4</span> Residual covariance structure</h3>
+<p>Residual correlation can be independent, exchangeable/compound symmetric, autoregressive, unstructured, or other plausible structures. Choose according to visit spacing, design, fit, diagnostics, and interpretability—not by significance alone. Report the structure and sensitivity to alternatives.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 16.10">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 16.10
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mixed outcome i.treatment##i.visit baseline || id:, residuals(ar 1, t(visit))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch16-image11.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 16.10 output: residual covariance structure.</p>
+</div>
+</section>
 </section>
 <section id="generalized-estimating-equations" class="level2" data-number="16.3">
 <h2 data-number="16.3" class="anchored" data-anchor-id="generalized-estimating-equations"><span class="header-section-number">16.3</span> Generalized estimating equations</h2>
-<p><em>To be added.</em></p>
+<p>GEE estimates population-average associations with robust standard errors, accounting for correlation through a working correlation structure. It is useful when population-average effects are desired, but missingness assumptions and small-cluster inference require care. For binary outcomes use a logit or log link as appropriate.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 16.11–16.12">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 16.11–16.12
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">xtgee</span> outcome i.treatment##i.visit baseline, <span class="kw">family</span>(gaussian) <span class="kw">link</span>(<span class="kw">identity</span>) <span class="fu">corr</span>(<span class="kw">exchangeable</span>) <span class="kw">vce</span>(<span class="kw">robust</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">xtgee</span> binary_outcome i.treatment##i.visit baseline, <span class="kw">family</span>(binomial) <span class="kw">link</span>(<span class="kw">logit</span>) <span class="fu">corr</span>(<span class="kw">exchangeable</span>) <span class="kw">vce</span>(<span class="kw">robust</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch16-image12.png" class="img-fluid" style="width:100.0%"> <img src="images/ch16-image13.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 16.11–16.12 output: GEE for continuous and binary outcomes.</p>
+</div>
 </section>
 <section id="latent-class-models" class="level2" data-number="16.4">
-<h2 data-number="16.4" class="anchored" data-anchor-id="latent-class-models"><span class="header-section-number">16.4</span> Latent class models</h2>
-<p><em>To be added.</em></p>
+<h2 data-number="16.4" class="anchored" data-anchor-id="latent-class-models"><span class="header-section-number">16.4</span> Latent-class models</h2>
+<p>Latent-class or growth-mixture models identify unobserved trajectory groups. They can be useful descriptively and for hypothesis generation, but class number, class labels, and membership are model dependent; post hoc class-specific treatment claims can be biased. Validate classes, report uncertainty, and avoid treating estimated class as an error-free baseline characteristic.</p>
+<div class="text-center">
+<p><img src="images/ch16-image14.png" class="img-fluid" style="width:100.0%"></p>
+<p>Figure 16.1 Latent trajectory classes.</p>
+</div>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Verbeke G, Molenberghs G. <em>Linear Mixed Models for Longitudinal Data</em>. Springer; 2000.</li>
+<li>Fitzmaurice GM, Laird NM, Ware JH. <em>Applied Longitudinal Analysis</em>. 2nd ed.&nbsp;Wiley; 2011.</li>
+<li>Liang KY, Zeger SL. Longitudinal data analysis using generalized linear models. <em>Biometrika</em>. 1986;73:13-22.</li>
+<li>Mallinckrodt CH, Lane PW, Schnell D, et al.&nbsp;Recommendations for mixed-model repeated measures in RCTs. <em>Pharmaceutical Statistics</em>. 2008;7:109-124.</li>
+</ol>
 
 
 <!-- -->
@@ -814,28 +967,155 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Statistical Analysis of Repeated-Measures Data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Traditional methods</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Mixed-effects models</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Generalized estimating equations</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Latent class models</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Statistical Analysis of Repeated-Measures Data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Repeated-measures studies record outcomes from the same participant at several times. Measurements within a person are correlated, so treating them as independent discards information or gives incorrect uncertainty. The analysis should define the treatment strategy, outcome, time scale, estimand, missing-data assumptions, and correlation structure before modeling.</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Traditional methods</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simple regression</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>Analyzing each visit separately with ordinary regression is simple but ignores within-person correlation and creates multiple-testing problems. It can be useful for descriptive displays, not as the principal longitudinal analysis without appropriate adjustment.</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">### Analysis of covariance</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>ANCOVA compares follow-up outcome between groups after adjusting for baseline outcome and baseline covariates. For a single primary follow-up it is often efficient, but it does not use all repeated measurements and needs a separate plan for missing follow-up.</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### Change-from-baseline analysis</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>Comparing changes from baseline is intuitive but is often less efficient than ANCOVA and can be biased when baseline measurement error or missingness is important. Report baseline and follow-up values alongside changes.</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Mixed-effects models</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>Mixed models combine fixed effects (population-average mean patterns) and random effects (participant-specific departures). They naturally accommodate unequal numbers and timings of measurements under an appropriate missing-at-random model. A random intercept allows baseline level to vary; a random slope also allows individual trajectories to vary.</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>**Case 16.1.** Repeated outcomes are measured in control and intervention groups. Begin with group-specific descriptive statistics and mean trajectories.</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 16.1–16.3"}</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="in">tabstat outcome if treatment==0, by(visit) stat(mean sd n)</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="in">tabstat outcome if treatment==1, by(visit) stat(mean sd n)</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="in">twoway (connected mean visit if treatment==0) (connected mean visit if treatment==1)</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image1.png)</span>{width="100%"}</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image2.png)</span>{width="100%"}</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image3.png)</span>{width="100%"}</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>Code 16.1–16.3 output: group summaries and mean-change curve.</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### Null model</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>The null random-intercept model partitions variance into between- and within-participant components and estimates the intraclass correlation (ICC).</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 16.4"}</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="in">mixed outcome || id:</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="in">est store null</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image4.png)</span>{width="100%"}</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>Code 16.4 output: null model.</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="fu">### Time-only mixed models</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>Fit time as a categorical or continuous fixed effect, first with a random intercept and then with random intercept and slope. Compare fit, convergence, plausibility, and residual diagnostics; a more complex random-effects structure is not automatically better.</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 16.5–16.6"}</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="in">mixed outcome i.visit || id:</span></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="in">est store ri</span></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="in">mixed outcome c.time || id: c.time, covariance(unstructured)</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="in">est store ris</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image5.png)</span>{width="100%"}</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image6.png)</span>{width="100%"}</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image7.png)</span>{width="100%"}</span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>Code 16.5–16.6 output: random-intercept and random-slope models.</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="fu">### Treatment-by-time model</span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>The usual longitudinal treatment question is whether trajectories differ by treatment. Include treatment, time, and their interaction. With categorical time, each interaction is a visit-specific adjusted difference; with continuous time, it is a difference in rate of change. Derive marginal means and clinically interpretable contrasts with confidence intervals.</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 16.7–16.9"}</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="in">mixed outcome i.treatment##i.visit baseline || id:</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="in">est store txvisit</span></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="in">mixed outcome i.treatment##c.time baseline || id: c.time</span></span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a><span class="in">lrtest ri ris</span></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image8.png)</span>{width="100%"}</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image9.png)</span>{width="100%"}</span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image10.png)</span>{width="100%"}</span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>Code 16.7–16.9 output: treatment-by-time model and model comparison.</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="fu">### Residual covariance structure</span></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>Residual correlation can be independent, exchangeable/compound symmetric, autoregressive, unstructured, or other plausible structures. Choose according to visit spacing, design, fit, diagnostics, and interpretability—not by significance alone. Report the structure and sensitivity to alternatives.</span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 16.10"}</span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a><span class="in">mixed outcome i.treatment##i.visit baseline || id:, residuals(ar 1, t(visit))</span></span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image11.png)</span>{width="100%"}</span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>Code 16.10 output: residual covariance structure.</span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## Generalized estimating equations</span></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>GEE estimates population-average associations with robust standard errors, accounting for correlation through a working correlation structure. It is useful when population-average effects are desired, but missingness assumptions and small-cluster inference require care. For binary outcomes use a logit or log link as appropriate.</span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 16.11–16.12"}</span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="in">xtgee outcome i.treatment##i.visit baseline, family(gaussian) link(identity) corr(exchangeable) vce(robust)</span></span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="in">xtgee binary_outcome i.treatment##i.visit baseline, family(binomial) link(logit) corr(exchangeable) vce(robust)</span></span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image12.png)</span>{width="100%"}</span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image13.png)</span>{width="100%"}</span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a>Code 16.11–16.12 output: GEE for continuous and binary outcomes.</span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a><span class="fu">## Latent-class models</span></span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a>Latent-class or growth-mixture models identify unobserved trajectory groups. They can be useful descriptively and for hypothesis generation, but class number, class labels, and membership are model dependent; post hoc class-specific treatment claims can be biased. Validate classes, report uncertainty, and avoid treating estimated class as an error-free baseline characteristic.</span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch16-image14.png)</span>{width="100%"}</span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a>Figure 16.1 Latent trajectory classes.</span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Verbeke G, Molenberghs G. *Linear Mixed Models for Longitudinal Data*. Springer; 2000.</span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Fitzmaurice GM, Laird NM, Ware JH. *Applied Longitudinal Analysis*. 2nd ed. Wiley; 2011.</span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Liang KY, Zeger SL. Longitudinal data analysis using generalized linear models. *Biometrika*. 1986;73:13-22.</span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Mallinckrodt CH, Lane PW, Schnell D, et al. Recommendations for mixed-model repeated measures in RCTs. *Pharmaceutical Statistics*. 2008;7:109-124.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

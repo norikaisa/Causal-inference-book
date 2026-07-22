@@ -256,7 +256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/18-ml-causal-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Machine Learning into Causal Inference</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Causal Inference and Machine Learning</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -289,11 +289,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#basic-concepts-of-reinforcement-learning" id="toc-basic-concepts-of-reinforcement-learning" class="nav-link active" data-scroll-target="#basic-concepts-of-reinforcement-learning"><span class="header-section-number">20.1</span> Basic concepts of reinforcement learning</a></li>
   <li><a href="#statistical-reinforcement-learning" id="toc-statistical-reinforcement-learning" class="nav-link" data-scroll-target="#statistical-reinforcement-learning"><span class="header-section-number">20.2</span> Statistical reinforcement learning</a></li>
-  <li><a href="#time-varying-treatments-and-confounding" id="toc-time-varying-treatments-and-confounding" class="nav-link" data-scroll-target="#time-varying-treatments-and-confounding"><span class="header-section-number">20.3</span> Time-varying treatments and confounding</a></li>
+  <li><a href="#time-varying-treatment-and-confounding" id="toc-time-varying-treatment-and-confounding" class="nav-link" data-scroll-target="#time-varying-treatment-and-confounding"><span class="header-section-number">20.3</span> Time-varying treatment and confounding</a></li>
   <li><a href="#computational-reinforcement-learning" id="toc-computational-reinforcement-learning" class="nav-link" data-scroll-target="#computational-reinforcement-learning"><span class="header-section-number">20.4</span> Computational reinforcement learning</a></li>
   <li><a href="#causal-reinforcement-learning" id="toc-causal-reinforcement-learning" class="nav-link" data-scroll-target="#causal-reinforcement-learning"><span class="header-section-number">20.5</span> Causal reinforcement learning</a></li>
   <li><a href="#policy-evaluation" id="toc-policy-evaluation" class="nav-link" data-scroll-target="#policy-evaluation"><span class="header-section-number">20.6</span> Policy evaluation</a></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><span class="header-section-number">20.7</span> Limitations</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -319,46 +320,111 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
-</div>
-</div>
+<p>Many clinical decisions are made repeatedly: treatment is started, monitored, intensified, switched, or stopped in response to evolving patient history. A dynamic treatment regime maps each possible history to a treatment decision. Estimating the value of such a regime requires causal methods for time-varying treatment and confounding, not a single baseline regression.</p>
 <section id="basic-concepts-of-reinforcement-learning" class="level2" data-number="20.1">
 <h2 data-number="20.1" class="anchored" data-anchor-id="basic-concepts-of-reinforcement-learning"><span class="header-section-number">20.1</span> Basic concepts of reinforcement learning</h2>
-<p><em>To be added.</em></p>
+<p>Reinforcement learning (RL) describes an agent interacting with an environment. A <strong>state</strong> summarizes information available at a decision time; an <strong>action</strong> is a treatment choice; a <strong>reward</strong> is a clinical utility; a <strong>policy</strong> maps state to action; and a <strong>value</strong> is expected cumulative reward under a policy. In health care, the reward and policy must be clinically meaningful and patient-centered, not merely easy to calculate.</p>
+<div class="text-center">
+<p><img src="images/ch20-image1.jpeg" class="img-fluid" style="width:3.45in"></p>
+<p>Figure 20.1 Basic reinforcement-learning framework.</p>
+</div>
 </section>
 <section id="statistical-reinforcement-learning" class="level2" data-number="20.2">
 <h2 data-number="20.2" class="anchored" data-anchor-id="statistical-reinforcement-learning"><span class="header-section-number">20.2</span> Statistical reinforcement learning</h2>
-<p><em>To be added.</em></p>
+<p>Statistical RL estimates optimal or near-optimal dynamic regimes from trial or observational data using approaches such as Q-learning, A-learning, g-computation, marginal structural models, and dynamic weighted least squares.</p>
+<p><strong>Case 20.1.</strong> A patient’s treatment decisions occur at several visits. At each visit, past covariates and outcomes define state, treatment is selected, and later outcome contributes to the value. The data are arranged in long format: one row per person per decision time, with history, action, outcome/reward, and censoring information.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">ID</th>
+<th style="text-align: right;">Decision time</th>
+<th style="text-align: left;">State/history</th>
+<th style="text-align: left;">Action</th>
+<th style="text-align: left;">Subsequent outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Baseline severity</td>
+<td style="text-align: left;">Initial therapy</td>
+<td style="text-align: left;">Early response</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Severity + response</td>
+<td style="text-align: left;">Continue/intensify</td>
+<td style="text-align: left;">Final outcome</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Baseline severity</td>
+<td style="text-align: left;">Initial therapy</td>
+<td style="text-align: left;">Early response</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">…</td>
+<td style="text-align: right;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">…</td>
+</tr>
+</tbody>
+</table>
+<p>Q-learning models expected future reward under each current action and works backward from the final decision. The estimated regime chooses the action with greater predicted value. All modeling choices, including feature set, reward, future treatment options, and handling of censoring, must be prespecified or evaluated out of sample.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 20.1–20.5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 20.1–20.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arrange person-period data and define reward</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># fit final-stage Q function, derive optimal final action</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># regress earlier reward plus optimal future value on earlier history/action</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># derive the dynamic treatment rule and estimate its value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch20-image2.png" class="img-fluid" style="width:100.0%"> <img src="images/ch20-image3.png" class="img-fluid" style="width:100.0%"> <img src="images/ch20-image4.png" class="img-fluid" style="width:100.0%"> <img src="images/ch20-image5.png" class="img-fluid" style="width:100.0%"> <img src="images/ch20-image6.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 20.1–20.5 output: sequential-decision modeling.</p>
+</div>
 </section>
-<section id="time-varying-treatments-and-confounding" class="level2" data-number="20.3">
-<h2 data-number="20.3" class="anchored" data-anchor-id="time-varying-treatments-and-confounding"><span class="header-section-number">20.3</span> Time-varying treatments and confounding</h2>
-<p><em>To be added.</em></p>
+<section id="time-varying-treatment-and-confounding" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="time-varying-treatment-and-confounding"><span class="header-section-number">20.3</span> Time-varying treatment and confounding</h2>
+<p>A time-varying covariate can both predict future treatment and be affected by prior treatment. Conventional regression adjustment for such a variable can block part of the prior treatment effect or induce bias. Marginal structural models with inverse-probability treatment and censoring weights, longitudinal g-formula, and structural nested models are designed for this setting. Their causal interpretation requires sequential exchangeability, positivity at every decision time, consistency, correct or robust nuisance estimation, and appropriately measured histories.</p>
 </section>
 <section id="computational-reinforcement-learning" class="level2" data-number="20.4">
 <h2 data-number="20.4" class="anchored" data-anchor-id="computational-reinforcement-learning"><span class="header-section-number">20.4</span> Computational reinforcement learning</h2>
-<p><em>To be added.</em></p>
+<p>Computational RL includes value iteration, policy iteration, temporal-difference learning, and deep RL. These algorithms can handle rich state spaces but need careful off-policy evaluation, uncertainty quantification, constraints, and safeguards before clinical use. Retrospective reward optimization can exploit documentation patterns or treatment-selection bias instead of discovering a beneficial clinical policy.</p>
 </section>
 <section id="causal-reinforcement-learning" class="level2" data-number="20.5">
 <h2 data-number="20.5" class="anchored" data-anchor-id="causal-reinforcement-learning"><span class="header-section-number">20.5</span> Causal reinforcement learning</h2>
-<p><em>To be added.</em></p>
+<p>Causal RL combines causal identification with sequential decision algorithms. The target is the counterfactual value of a policy: what would occur if the whole population followed that policy over time. Define intervention versions, prevent use of future information, account for competing events and loss to follow-up, and distinguish a learned association from a policy that can be implemented.</p>
 </section>
 <section id="policy-evaluation" class="level2" data-number="20.6">
 <h2 data-number="20.6" class="anchored" data-anchor-id="policy-evaluation"><span class="header-section-number">20.6</span> Policy evaluation</h2>
-<p><em>To be added.</em></p>
+<p>Evaluate a candidate policy using data not used to learn it when possible. Methods include g-computation, inverse-probability weighted estimators, doubly robust estimators, and trial emulation. Compare against clinically relevant policies such as standard care, treat-all, treat-none, or simpler rules. Report value with uncertainty, effective sample size/weight diagnostics, positivity, subgroup performance, adverse outcomes, and calibration of predicted risks.</p>
 </section>
 <section id="limitations" class="level2" data-number="20.7">
 <h2 data-number="20.7" class="anchored" data-anchor-id="limitations"><span class="header-section-number">20.7</span> Limitations</h2>
-<p><em>To be added.</em></p>
+<p>Sequential RL relies on demanding assumptions and is vulnerable to unmeasured time-varying confounding, poor overlap, changing practice, sparse decision paths, delayed outcomes, missingness, measurement error, and reward misspecification. An “optimal” policy can be unethical, infeasible, inequitable, or unsafe if it ignores harms, resources, patient preferences, and clinical workflow. Before deployment, validate externally and prospectively, define monitoring and stopping rules, and keep clinicians and patients in the decision loop.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Robins JM. A new approach to causal inference in mortality studies with sustained exposure periods. <em>Mathematical Modelling</em>. 1986;7:1393-1512.</li>
+<li>Murphy SA. An experimental design for the development of adaptive treatment strategies. <em>Statistics in Medicine</em>. 2005;24:1455-1481.</li>
+<li>Chakraborty B, Moodie EEM. <em>Statistical Methods for Dynamic Treatment Regimes</em>. Springer; 2013.</li>
+<li>Sutton RS, Barto AG. <em>Reinforcement Learning: An Introduction</em>. 2nd ed.&nbsp;MIT Press; 2018.</li>
+<li>Hernán MA, Robins JM. <em>Causal Inference: What If</em>. Chapman &amp; Hall/CRC; 2020.</li>
+</ol>
 
 
 <!-- -->
@@ -829,40 +895,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Sequential Decision Strategies</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basic concepts of reinforcement learning</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Statistical reinforcement learning</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Time-varying treatments and confounding</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Computational reinforcement learning</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Causal reinforcement learning</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Policy evaluation</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Limitations</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Sequential Decision Strategies</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Many clinical decisions are made repeatedly: treatment is started, monitored, intensified, switched, or stopped in response to evolving patient history. A dynamic treatment regime maps each possible history to a treatment decision. Estimating the value of such a regime requires causal methods for time-varying treatment and confounding, not a single baseline regression.</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basic concepts of reinforcement learning</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>Reinforcement learning (RL) describes an agent interacting with an environment. A **state** summarizes information available at a decision time; an **action** is a treatment choice; a **reward** is a clinical utility; a **policy** maps state to action; and a **value** is expected cumulative reward under a policy. In health care, the reward and policy must be clinically meaningful and patient-centered, not merely easy to calculate.</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch20-image1.jpeg)</span>{width="3.45in"}</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>Figure 20.1 Basic reinforcement-learning framework.</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Statistical reinforcement learning</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>Statistical RL estimates optimal or near-optimal dynamic regimes from trial or observational data using approaches such as Q-learning, A-learning, g-computation, marginal structural models, and dynamic weighted least squares.</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>**Case 20.1.** A patient’s treatment decisions occur at several visits. At each visit, past covariates and outcomes define state, treatment is selected, and later outcome contributes to the value. The data are arranged in long format: one row per person per decision time, with history, action, outcome/reward, and censoring information.</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ID <span class="pp">|</span> Decision time <span class="pp">|</span> State/history <span class="pp">|</span> Action <span class="pp">|</span> Subsequent outcome <span class="pp">|</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>--:<span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 1 <span class="pp">|</span> Baseline severity <span class="pp">|</span> Initial therapy <span class="pp">|</span> Early response <span class="pp">|</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 2 <span class="pp">|</span> Severity + response <span class="pp">|</span> Continue/intensify <span class="pp">|</span> Final outcome <span class="pp">|</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> 1 <span class="pp">|</span> Baseline severity <span class="pp">|</span> Initial therapy <span class="pp">|</span> Early response <span class="pp">|</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span> … <span class="pp">|</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>Q-learning models expected future reward under each current action and works backward from the final decision. The estimated regime chooses the action with greater predicted value. All modeling choices, including feature set, reward, future treatment options, and handling of censoring, must be prespecified or evaluated out of sample.</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 20.1–20.5"}</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># arrange person-period data and define reward</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># fit final-stage Q function, derive optimal final action</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># regress earlier reward plus optimal future value on earlier history/action</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co"># derive the dynamic treatment rule and estimate its value</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch20-image2.png)</span>{width="100%"}</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch20-image3.png)</span>{width="100%"}</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch20-image4.png)</span>{width="100%"}</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch20-image5.png)</span>{width="100%"}</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch20-image6.png)</span>{width="100%"}</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>Code 20.1–20.5 output: sequential-decision modeling.</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## Time-varying treatment and confounding</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>A time-varying covariate can both predict future treatment and be affected by prior treatment. Conventional regression adjustment for such a variable can block part of the prior treatment effect or induce bias. Marginal structural models with inverse-probability treatment and censoring weights, longitudinal g-formula, and structural nested models are designed for this setting. Their causal interpretation requires sequential exchangeability, positivity at every decision time, consistency, correct or robust nuisance estimation, and appropriately measured histories.</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## Computational reinforcement learning</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>Computational RL includes value iteration, policy iteration, temporal-difference learning, and deep RL. These algorithms can handle rich state spaces but need careful off-policy evaluation, uncertainty quantification, constraints, and safeguards before clinical use. Retrospective reward optimization can exploit documentation patterns or treatment-selection bias instead of discovering a beneficial clinical policy.</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Causal reinforcement learning</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>Causal RL combines causal identification with sequential decision algorithms. The target is the counterfactual value of a policy: what would occur if the whole population followed that policy over time. Define intervention versions, prevent use of future information, account for competing events and loss to follow-up, and distinguish a learned association from a policy that can be implemented.</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## Policy evaluation</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>Evaluate a candidate policy using data not used to learn it when possible. Methods include g-computation, inverse-probability weighted estimators, doubly robust estimators, and trial emulation. Compare against clinically relevant policies such as standard care, treat-all, treat-none, or simpler rules. Report value with uncertainty, effective sample size/weight diagnostics, positivity, subgroup performance, adverse outcomes, and calibration of predicted risks.</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Limitations</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>Sequential RL relies on demanding assumptions and is vulnerable to unmeasured time-varying confounding, poor overlap, changing practice, sparse decision paths, delayed outcomes, missingness, measurement error, and reward misspecification. An “optimal” policy can be unethical, infeasible, inequitable, or unsafe if it ignores harms, resources, patient preferences, and clinical workflow. Before deployment, validate externally and prospectively, define monitoring and stopping rules, and keep clinicians and patients in the decision loop.</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Robins JM. A new approach to causal inference in mortality studies with sustained exposure periods. *Mathematical Modelling*. 1986;7:1393-1512.</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Murphy SA. An experimental design for the development of adaptive treatment strategies. *Statistics in Medicine*. 2005;24:1455-1481.</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Chakraborty B, Moodie EEM. *Statistical Methods for Dynamic Treatment Regimes*. Springer; 2013.</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Sutton RS, Barto AG. *Reinforcement Learning: An Introduction*. 2nd ed. MIT Press; 2018.</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Hernán MA, Robins JM. *Causal Inference: What If*. Chapman &amp; Hall/CRC; 2020.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

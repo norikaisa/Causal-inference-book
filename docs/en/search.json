@@ -1094,7 +1094,17 @@
     "href": "chapters/16-repeated-measures.html",
     "title": "16  Statistical Analysis of Repeated-Measures Data",
     "section": "",
-    "text": "16.1 Traditional methods\nTo be added.",
+    "text": "16.1 Traditional methods\nRepeated-measures studies record outcomes from the same participant at several times. Measurements within a person are correlated, so treating them as independent discards information or gives incorrect uncertainty. The analysis should define the treatment strategy, outcome, time scale, estimand, missing-data assumptions, and correlation structure before modeling.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis of Repeated-Measures Data</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/16-repeated-measures.html#traditional-methods",
+    "href": "chapters/16-repeated-measures.html#traditional-methods",
+    "title": "16  Statistical Analysis of Repeated-Measures Data",
+    "section": "",
+    "text": "16.1.1 Simple regression\nAnalyzing each visit separately with ordinary regression is simple but ignores within-person correlation and creates multiple-testing problems. It can be useful for descriptive displays, not as the principal longitudinal analysis without appropriate adjustment.\n\n\n16.1.2 Analysis of covariance\nANCOVA compares follow-up outcome between groups after adjusting for baseline outcome and baseline covariates. For a single primary follow-up it is often efficient, but it does not use all repeated measurements and needs a separate plan for missing follow-up.\n\n\n16.1.3 Change-from-baseline analysis\nComparing changes from baseline is intuitive but is often less efficient than ANCOVA and can be biased when baseline measurement error or missingness is important. Report baseline and follow-up values alongside changes.",
     "crumbs": [
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis of Repeated-Measures Data</span>"
     ]
@@ -1104,7 +1114,7 @@
     "href": "chapters/16-repeated-measures.html#mixed-effects-models",
     "title": "16  Statistical Analysis of Repeated-Measures Data",
     "section": "16.2 Mixed-effects models",
-    "text": "16.2 Mixed-effects models\nTo be added.",
+    "text": "16.2 Mixed-effects models\nMixed models combine fixed effects (population-average mean patterns) and random effects (participant-specific departures). They naturally accommodate unequal numbers and timings of measurements under an appropriate missing-at-random model. A random intercept allows baseline level to vary; a random slope also allows individual trajectories to vary.\nCase 16.1. Repeated outcomes are measured in control and intervention groups. Begin with group-specific descriptive statistics and mean trajectories.\n\n\n\n\n\n\nNoteCode 16.1–16.3\n\n\n\ntabstat outcome if treatment==0, by(visit) stat(mean sd n)\ntabstat outcome if treatment==1, by(visit) stat(mean sd n)\ntwoway (connected mean visit if treatment==0) (connected mean visit if treatment==1)\n\n\n\n  \nCode 16.1–16.3 output: group summaries and mean-change curve.\n\n\n16.2.1 Null model\nThe null random-intercept model partitions variance into between- and within-participant components and estimates the intraclass correlation (ICC).\n\n\n\n\n\n\nNoteCode 16.4\n\n\n\nmixed outcome || id:\nest store null\n\n\n\n\nCode 16.4 output: null model.\n\n\n\n16.2.2 Time-only mixed models\nFit time as a categorical or continuous fixed effect, first with a random intercept and then with random intercept and slope. Compare fit, convergence, plausibility, and residual diagnostics; a more complex random-effects structure is not automatically better.\n\n\n\n\n\n\nNoteCode 16.5–16.6\n\n\n\nmixed outcome i.visit || id:\nest store ri\nmixed outcome c.time || id: c.time, covariance(unstructured)\nest store ris\n\n\n\n  \nCode 16.5–16.6 output: random-intercept and random-slope models.\n\n\n\n16.2.3 Treatment-by-time model\nThe usual longitudinal treatment question is whether trajectories differ by treatment. Include treatment, time, and their interaction. With categorical time, each interaction is a visit-specific adjusted difference; with continuous time, it is a difference in rate of change. Derive marginal means and clinically interpretable contrasts with confidence intervals.\n\n\n\n\n\n\nNoteCode 16.7–16.9\n\n\n\nmixed outcome i.treatment##i.visit baseline || id:\nest store txvisit\nmixed outcome i.treatment##c.time baseline || id: c.time\nlrtest ri ris\n\n\n\n  \nCode 16.7–16.9 output: treatment-by-time model and model comparison.\n\n\n\n16.2.4 Residual covariance structure\nResidual correlation can be independent, exchangeable/compound symmetric, autoregressive, unstructured, or other plausible structures. Choose according to visit spacing, design, fit, diagnostics, and interpretability—not by significance alone. Report the structure and sensitivity to alternatives.\n\n\n\n\n\n\nNoteCode 16.10\n\n\n\nmixed outcome i.treatment##i.visit baseline || id:, residuals(ar 1, t(visit))\n\n\n\n\nCode 16.10 output: residual covariance structure.",
     "crumbs": [
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis of Repeated-Measures Data</span>"
     ]
@@ -1114,7 +1124,7 @@
     "href": "chapters/16-repeated-measures.html#generalized-estimating-equations",
     "title": "16  Statistical Analysis of Repeated-Measures Data",
     "section": "16.3 Generalized estimating equations",
-    "text": "16.3 Generalized estimating equations\nTo be added.",
+    "text": "16.3 Generalized estimating equations\nGEE estimates population-average associations with robust standard errors, accounting for correlation through a working correlation structure. It is useful when population-average effects are desired, but missingness assumptions and small-cluster inference require care. For binary outcomes use a logit or log link as appropriate.\n\n\n\n\n\n\nNoteCode 16.11–16.12\n\n\n\nxtgee outcome i.treatment##i.visit baseline, family(gaussian) link(identity) corr(exchangeable) vce(robust)\nxtgee binary_outcome i.treatment##i.visit baseline, family(binomial) link(logit) corr(exchangeable) vce(robust)\n\n\n\n \nCode 16.11–16.12 output: GEE for continuous and binary outcomes.",
     "crumbs": [
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis of Repeated-Measures Data</span>"
     ]
@@ -1123,8 +1133,18 @@
     "objectID": "chapters/16-repeated-measures.html#latent-class-models",
     "href": "chapters/16-repeated-measures.html#latent-class-models",
     "title": "16  Statistical Analysis of Repeated-Measures Data",
-    "section": "16.4 Latent class models",
-    "text": "16.4 Latent class models\nTo be added.",
+    "section": "16.4 Latent-class models",
+    "text": "16.4 Latent-class models\nLatent-class or growth-mixture models identify unobserved trajectory groups. They can be useful descriptively and for hypothesis generation, but class number, class labels, and membership are model dependent; post hoc class-specific treatment claims can be biased. Validate classes, report uncertainty, and avoid treating estimated class as an error-free baseline characteristic.\n\n\nFigure 16.1 Latent trajectory classes.",
+    "crumbs": [
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis of Repeated-Measures Data</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/16-repeated-measures.html#references",
+    "href": "chapters/16-repeated-measures.html#references",
+    "title": "16  Statistical Analysis of Repeated-Measures Data",
+    "section": "References",
+    "text": "References\n\nVerbeke G, Molenberghs G. Linear Mixed Models for Longitudinal Data. Springer; 2000.\nFitzmaurice GM, Laird NM, Ware JH. Applied Longitudinal Analysis. 2nd ed. Wiley; 2011.\nLiang KY, Zeger SL. Longitudinal data analysis using generalized linear models. Biometrika. 1986;73:13-22.\nMallinckrodt CH, Lane PW, Schnell D, et al. Recommendations for mixed-model repeated measures in RCTs. Pharmaceutical Statistics. 2008;7:109-124.",
     "crumbs": [
       "<span class='chapter-number'>16</span>  <span class='chapter-title'>Statistical Analysis of Repeated-Measures Data</span>"
     ]
@@ -1134,37 +1154,57 @@
     "href": "chapters/17-missing-data.html",
     "title": "17  Missing Data",
     "section": "",
-    "text": "17.1 Mechanisms of missingness\nTo be added.",
+    "text": "17.1 Mechanisms of missingness\nMissing data are common in clinical research and can bias estimates, reduce precision, and change the target population. The right response begins by describing why, when, and for whom data are missing—not by applying a mechanical imputation command.",
     "crumbs": [
       "<span class='chapter-number'>17</span>  <span class='chapter-title'>Missing Data</span>"
     ]
   },
   {
-    "objectID": "chapters/17-missing-data.html#traditional-methods-for-missing-data",
-    "href": "chapters/17-missing-data.html#traditional-methods-for-missing-data",
+    "objectID": "chapters/17-missing-data.html#mechanisms-of-missingness",
+    "href": "chapters/17-missing-data.html#mechanisms-of-missingness",
     "title": "17  Missing Data",
-    "section": "17.2 Traditional methods for missing data",
-    "text": "17.2 Traditional methods for missing data\nTo be added.",
+    "section": "",
+    "text": "17.1.1 Missing completely at random\nData are MCAR when missingness is independent of observed and unobserved values. Complete-case analysis is unbiased under MCAR but usually inefficient; MCAR is often implausible.\n\n\n17.1.2 Missing at random\nData are MAR when, conditional on observed variables included in the analysis/imputation model, missingness no longer depends on the unobserved value. Mixed models, inverse-probability weighting, and multiple imputation often rely on MAR. MAR is an assumption, not a result of a test.\n\n\n17.1.3 Missing not at random\nData are MNAR when missingness depends on the unobserved value even after conditioning on observed data—for example, people with worsening symptoms are more likely to miss follow-up. MNAR cannot be resolved from observed data alone; use clinically informed sensitivity analyses such as delta adjustment, pattern-mixture, or selection models.",
     "crumbs": [
       "<span class='chapter-number'>17</span>  <span class='chapter-title'>Missing Data</span>"
     ]
   },
   {
-    "objectID": "chapters/17-missing-data.html#adherence",
-    "href": "chapters/17-missing-data.html#adherence",
+    "objectID": "chapters/17-missing-data.html#traditional-methods",
+    "href": "chapters/17-missing-data.html#traditional-methods",
     "title": "17  Missing Data",
-    "section": "17.3 Adherence",
-    "text": "17.3 Adherence\nTo be added.",
+    "section": "17.2 Traditional methods",
+    "text": "17.2 Traditional methods\n\n17.2.1 Deleting incomplete cases\nComplete-case analysis is simple but can be biased and inefficient. It is reasonable only when its assumptions are made explicit and sensitivity analyses are presented.\n\n\n17.2.2 Single imputation\nReplacing missing values with a mean, last observation carried forward, or a fixed value understates uncertainty and can distort associations. Such methods should not generally be a primary analysis.\n\n\n17.2.3 Multiple imputation\nMultiple imputation creates several plausible completed datasets, analyzes each, and combines estimates using Rubin’s rules. Include outcome, exposure, important confounders, predictors of missingness, and compatible auxiliary variables; impute within design/analysis groups where appropriate. Use enough imputations for the fraction of missing information and diagnose convergence and plausibility. MI supports MAR, not MNAR.",
     "crumbs": [
       "<span class='chapter-number'>17</span>  <span class='chapter-title'>Missing Data</span>"
     ]
   },
   {
-    "objectID": "chapters/17-missing-data.html#survivor-bias-and-treatment-time-zero",
-    "href": "chapters/17-missing-data.html#survivor-bias-and-treatment-time-zero",
+    "objectID": "chapters/17-missing-data.html#adherence-and-intercurrent-events",
+    "href": "chapters/17-missing-data.html#adherence-and-intercurrent-events",
     "title": "17  Missing Data",
-    "section": "17.4 Survivor bias and treatment time zero",
-    "text": "17.4 Survivor bias and treatment time zero\nTo be added.",
+    "section": "17.3 Adherence and intercurrent events",
+    "text": "17.3 Adherence and intercurrent events\n\n17.3.1 Intercurrent events and rescue medication\nTreatment discontinuation, switching, rescue medication, death, and other events after assignment require an estimand strategy: treatment policy, hypothetical, composite, while-on-treatment, or principal stratum. The protocol must specify how data after each event contribute to the primary analysis.\n\n\n17.3.2 Bias from loss to follow-up\nLoss to follow-up is selection bias when both treatment and potential outcome affect observation. Compare observed baseline predictors, outcome history, and follow-up by treatment; identify the causal structure and define the population to which the estimate applies.\n\n\n17.3.3 Inverse-probability-of-censoring weighting\nModel each participant’s probability of remaining observed conditional on treatment and past covariates, then weight observed records by its inverse. Correct specification, positivity, and measurement of predictors of censoring are essential; stabilized weights and diagnostics for extreme weights should be reported.\n\n\n\n\n\n\nNoteCode 17.1\n\n\n\nlogit observed treatment baseline_covariates time_varying_covariates\npredict p_observed\ngen ipcw = 1/p_observed if observed\nsvyset _n [pweight=ipcw]\nsvy: regress outcome treatment baseline_covariates\n\n\n\n\nCode 17.1 output: inverse-probability-of-censoring weighting.\n\n\n\n\n\n\n\nNoteCode 17.2\n\n\n\ntebalance summarize\n\n\n\n\nCode 17.2 output: weighted covariate summary.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Missing Data</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/17-missing-data.html#survivor-bias-and-time-zero",
+    "href": "chapters/17-missing-data.html#survivor-bias-and-time-zero",
+    "title": "17  Missing Data",
+    "section": "17.4 Survivor bias and time zero",
+    "text": "17.4 Survivor bias and time zero\nDefine a common time zero at which eligibility, treatment strategies, and follow-up begin. Assigning exposure using future information or including only people who survive long enough to receive treatment creates immortal-time or survivor bias. Emulate the target trial: make eligibility and treatment assignment measurable at time zero, align follow-up, and use appropriate methods for adherence and censoring.",
+    "crumbs": [
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Missing Data</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/17-missing-data.html#references",
+    "href": "chapters/17-missing-data.html#references",
+    "title": "17  Missing Data",
+    "section": "References",
+    "text": "References\n\nLittle RJA, Rubin DB. Statistical Analysis with Missing Data. 3rd ed. Wiley; 2019.\nSterne JAC, White IR, Carlin JB, et al. Multiple imputation for missing data. BMJ. 2009;338:b2393.\nNational Research Council. The Prevention and Treatment of Missing Data in Clinical Trials. National Academies Press; 2010.\nHernán MA, Robins JM. Causal Inference: What If. Chapman & Hall/CRC; 2020.",
     "crumbs": [
       "<span class='chapter-number'>17</span>  <span class='chapter-title'>Missing Data</span>"
     ]
@@ -1172,61 +1212,81 @@
   {
     "objectID": "chapters/18-ml-causal-inference.html",
     "href": "chapters/18-ml-causal-inference.html",
-    "title": "18  Integrating Machine Learning into Causal Inference",
+    "title": "18  Integrating Causal Inference and Machine Learning",
     "section": "",
-    "text": "18.1 Fitting propensity scores with machine learning\nTo be added.",
+    "text": "18.1 Machine learning for propensity-score estimation\nMachine learning can flexibly estimate nuisance functions—propensity scores, outcome regressions, censoring models, and treatment-effect heterogeneity. It does not itself turn association into causation. The causal question, target trial, estimand, temporal ordering, confounding assumptions, positivity, and measurement quality must be specified before fitting a flexible model.\nLASSO, trees, boosting, random forests, and ensembles can model complex treatment assignment. Select models using post-estimation balance and overlap, not treatment-prediction accuracy alone. Include pretreatment covariates and avoid mediators/colliders.",
     "crumbs": [
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Machine Learning into Causal Inference</span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Causal Inference and Machine Learning</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/18-ml-causal-inference.html#machine-learning-for-propensity-score-estimation",
+    "href": "chapters/18-ml-causal-inference.html#machine-learning-for-propensity-score-estimation",
+    "title": "18  Integrating Causal Inference and Machine Learning",
+    "section": "",
+    "text": "NoteCode 18.1–18.2\n\n\n\nlasso logit treatment covariates\npredict ps, pr\ngen ipw = treatment/ps + (1-treatment)/(1-ps)\nlogit outcome treatment [pweight=ipw], vce(robust)\n\n\n\n \nCode 18.1–18.2 output: LASSO propensity score and inverse-probability weighting.",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Causal Inference and Machine Learning</span>"
     ]
   },
   {
     "objectID": "chapters/18-ml-causal-inference.html#doubly-robust-estimators",
     "href": "chapters/18-ml-causal-inference.html#doubly-robust-estimators",
-    "title": "18  Integrating Machine Learning into Causal Inference",
+    "title": "18  Integrating Causal Inference and Machine Learning",
     "section": "18.2 Doubly robust estimators",
-    "text": "18.2 Doubly robust estimators\nTo be added.",
+    "text": "18.2 Doubly robust estimators\nAugmented inverse-probability weighting (AIPW) combines an outcome model with a propensity model. Under regularity conditions it is consistent when either, but not necessarily both, nuisance model is correctly specified. “Doubly robust” does not mean robust to unmeasured confounding, lack of overlap, wrong time ordering, or poor measurement.\nFor treatment \\(A\\), outcome \\(Y\\), propensity \\(e(X)\\), and outcome regression \\(m_a(X)=E(Y\\mid A=a,X)\\), an AIPW mean is\n\\[\\widehat\\mu_a=\\frac1n\\sum_i\\left[\\widehat m_a(X_i)+\\frac{I(A_i=a)}{\\widehat P(A_i=a\\mid X_i)}\\{Y_i-\\widehat m_a(X_i)\\}\\right].\\]\n\n\n\n\n\n\nNoteCode 18.3–18.5\n\n\n\n* estimate treatment and control risks with augmented IPW\nteffects aipw (outcome covariates) (treatment covariates, logit), ate\n\n\n\n  \nCode 18.3–18.5 output: doubly robust risks and AIPW estimate.",
     "crumbs": [
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Machine Learning into Causal Inference</span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Causal Inference and Machine Learning</span>"
     ]
   },
   {
-    "objectID": "chapters/18-ml-causal-inference.html#cross-validation-in-causal-inference",
-    "href": "chapters/18-ml-causal-inference.html#cross-validation-in-causal-inference",
-    "title": "18  Integrating Machine Learning into Causal Inference",
-    "section": "18.3 Cross-validation in causal inference",
-    "text": "18.3 Cross-validation in causal inference\nTo be added.",
+    "objectID": "chapters/18-ml-causal-inference.html#cross-fitting-in-causal-inference",
+    "href": "chapters/18-ml-causal-inference.html#cross-fitting-in-causal-inference",
+    "title": "18  Integrating Causal Inference and Machine Learning",
+    "section": "18.3 Cross-fitting in causal inference",
+    "text": "18.3 Cross-fitting in causal inference\nComplex algorithms can overfit the same data used to estimate a treatment effect. Sample splitting fits nuisance functions in one fold and evaluates the causal score in another; cross-fitting repeats this across folds and pools estimates. It reduces overfitting bias while retaining most data. Folds must respect participant clustering and time order when relevant.\n\n\n\n\n\n\nNoteCode 18.6–18.9\n\n\n\ngen fold = mod(_n,2)\n* fit nuisance models in fold 0 and predict fold 1; reverse folds\n* combine cross-fitted AIPW scores\n\n\n\n   \nCode 18.6–18.9 output: sample splitting and cross-fitting.",
     "crumbs": [
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Machine Learning into Causal Inference</span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Causal Inference and Machine Learning</span>"
     ]
   },
   {
     "objectID": "chapters/18-ml-causal-inference.html#causal-forests",
     "href": "chapters/18-ml-causal-inference.html#causal-forests",
-    "title": "18  Integrating Machine Learning into Causal Inference",
+    "title": "18  Integrating Causal Inference and Machine Learning",
     "section": "18.4 Causal forests",
-    "text": "18.4 Causal forests\nTo be added.",
+    "text": "18.4 Causal forests\nCausal forests adapt tree ensembles to estimate conditional average treatment effects (CATEs). Honest splitting separates data used to choose partitions from data used to estimate effects, reducing adaptive bias. A CATE is still conditional on untestable causal assumptions; uncertainty is often large, and using estimated individual effects directly for treatment decisions requires external validation.\n\n\n\n\n\n\nNoteCode 18.10–18.12\n\n\n\ncf &lt;- causal_forest(X, Y, W)\ntau_hat &lt;- predict(cf)$predictions\nbest_tree &lt;- best_linear_projection(cf, X)\n\n\n\n  \nCode 18.10–18.12 output: causal forest, policy predictions, and causal tree.",
     "crumbs": [
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Machine Learning into Causal Inference</span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Causal Inference and Machine Learning</span>"
     ]
   },
   {
-    "objectID": "chapters/18-ml-causal-inference.html#limitations",
-    "href": "chapters/18-ml-causal-inference.html#limitations",
-    "title": "18  Integrating Machine Learning into Causal Inference",
-    "section": "18.5 Limitations",
-    "text": "18.5 Limitations\nTo be added.",
+    "objectID": "chapters/18-ml-causal-inference.html#limitations-of-machine-learning-in-causal-inference",
+    "href": "chapters/18-ml-causal-inference.html#limitations-of-machine-learning-in-causal-inference",
+    "title": "18  Integrating Causal Inference and Machine Learning",
+    "section": "18.5 Limitations of machine learning in causal inference",
+    "text": "18.5 Limitations of machine learning in causal inference\nMachine learning can increase variance, produce unstable weights, obscure extrapolation, and make models difficult to audit. Flexible prediction does not compensate for unmeasured confounding, positivity violations, selection bias, interference, outcome misclassification, or a poorly defined intervention. Evaluate balance, effective sample size, calibration, overlap, residual confounding, and sensitivity to algorithms and tuning.",
     "crumbs": [
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Machine Learning into Causal Inference</span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Causal Inference and Machine Learning</span>"
     ]
   },
   {
     "objectID": "chapters/18-ml-causal-inference.html#thinking-causally-in-machine-learning",
     "href": "chapters/18-ml-causal-inference.html#thinking-causally-in-machine-learning",
-    "title": "18  Integrating Machine Learning into Causal Inference",
+    "title": "18  Integrating Causal Inference and Machine Learning",
     "section": "18.6 Thinking causally in machine learning",
-    "text": "18.6 Thinking causally in machine learning\nTo be added.",
+    "text": "18.6 Thinking causally in machine learning\n\n18.6.1 Prediction and causation are different\nPrediction asks what will happen given available features; causation asks what would change under a specified intervention. A feature can be highly predictive yet inappropriate to adjust for because it is downstream of treatment or a collider.\n\n\n18.6.2 Estimands and actionability\nDefine whether the goal is ATE, ATT, CATE, a dynamic regime, or policy value—and whether the intervention is feasible. A model that predicts risk well may not identify an actionable treatment target.\n\n\n18.6.3 Variable roles and time ordering\nUse causal diagrams and timestamps to distinguish baseline confounders, treatment, mediators, colliders, outcomes, and post-treatment covariates. Prevent label leakage and use only information available at the decision time.\n\n\n18.6.4 Appropriate roles for ML\nUse ML for nuisance estimation, missing-data/censoring models, dimension reduction, outcome prediction, and carefully validated heterogeneity exploration. Pair it with semiparametric estimators, cross-fitting, diagnostics, and clear causal assumptions.\n\n\n18.6.5 Heterogeneity, drift, fairness, and clinical evaluation\nEvaluate treatment-effect heterogeneity and decision policies prospectively or with rigorous off-policy evaluation. Assess data drift, selection bias, subgroup performance, fairness, calibration, transparency, reproducibility, and clinical utility. No algorithm should be adopted solely because a retrospective performance metric is high.",
     "crumbs": [
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Machine Learning into Causal Inference</span>"
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Causal Inference and Machine Learning</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/18-ml-causal-inference.html#references",
+    "href": "chapters/18-ml-causal-inference.html#references",
+    "title": "18  Integrating Causal Inference and Machine Learning",
+    "section": "References",
+    "text": "References\n\nvan der Laan MJ, Rose S. Targeted Learning. Springer; 2011.\nChernozhukov V, Chetverikov D, Demirer M, et al. Double/debiased machine learning. Econometrics Journal. 2018;21:C1-C68.\nWager S, Athey S. Estimation and inference of heterogeneous treatment effects using random forests. JASA. 2018;113:1228-1242.\nKennedy EH. Optimal doubly robust estimation of heterogeneous causal effects. arXiv. 2020.",
+    "crumbs": [
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Integrating Causal Inference and Machine Learning</span>"
     ]
   },
   {
@@ -1234,7 +1294,7 @@
     "href": "chapters/19-heterogeneity.html",
     "title": "19  Heterogeneity and Individual Causal Effects",
     "section": "",
-    "text": "19.1 Subgroup analysis\nTo be added.",
+    "text": "19.1 Subgroup analysis\nAverage treatment effects can conceal clinically important heterogeneity. The goal is not to claim that every patient has a reliably estimated individual effect, but to identify reproducible variation in conditional average treatment effects and determine whether it improves decisions.\nSubgroups should be prespecified, biologically/clinically plausible, and assessed with interaction tests rather than separate within-subgroup p values. Multiple testing, limited power, and post hoc search make apparent subgroup effects fragile. Present absolute and relative effects, uncertainty, and external validation.",
     "crumbs": [
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>Heterogeneity and Individual Causal Effects</span>"
     ]
@@ -1244,47 +1304,37 @@
     "href": "chapters/19-heterogeneity.html#risk-modeling",
     "title": "19  Heterogeneity and Individual Causal Effects",
     "section": "19.2 Risk modeling",
-    "text": "19.2 Risk modeling\nTo be added.",
+    "text": "19.2 Risk modeling\nPrognostic models estimate baseline risk under a reference strategy. Risk stratification may be clinically valuable even when relative treatment effect is constant, because the same relative effect produces larger absolute benefit at higher baseline risk. Evaluate calibration, discrimination, transportability, and clinical consequences.",
     "crumbs": [
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>Heterogeneity and Individual Causal Effects</span>"
     ]
   },
   {
-    "objectID": "chapters/19-heterogeneity.html#treatment-effect-uplift-modeling",
-    "href": "chapters/19-heterogeneity.html#treatment-effect-uplift-modeling",
+    "objectID": "chapters/19-heterogeneity.html#treatment-effect-and-uplift-modeling",
+    "href": "chapters/19-heterogeneity.html#treatment-effect-and-uplift-modeling",
     "title": "19  Heterogeneity and Individual Causal Effects",
-    "section": "19.3 Treatment effect (uplift) modeling",
-    "text": "19.3 Treatment effect (uplift) modeling\nTo be added.",
+    "section": "19.3 Treatment-effect and uplift modeling",
+    "text": "19.3 Treatment-effect and uplift modeling\nTreatment-effect or uplift models estimate the contrast between predicted outcomes under treatment and control. Their target is a CATE, not response probability under treatment alone. Causal assumptions, overlap, and valid outcome measurement remain necessary.\n\n19.3.1 Regression-based learners\nS-learner fits one model containing treatment and covariates, then predicts each person twice, once with treatment and once with control. It is efficient but may shrink treatment heterogeneity toward zero when treatment is weakly predictive.\n\n\n\n\n\n\nNoteCode 19.1–19.2: S-learner\n\n\n\nfit_s &lt;- grf::regression_forest(cbind(X, treatment), outcome)\nmu1 &lt;- predict(fit_s, cbind(X, 1))$predictions\nmu0 &lt;- predict(fit_s, cbind(X, 0))$predictions\nuplift_s &lt;- mu1 - mu0\n\n\n\n \nCode 19.1–19.2 output: S-learner predictions.\n\nT-learner fits separate outcome models in treated and control groups and subtracts predictions. It is flexible but can be unstable when one group is small.\n\n\n\n\n\n\nNoteCode 19.3: T-learner\n\n\n\nfit1 &lt;- regression_forest(X[treatment==1,], outcome[treatment==1])\nfit0 &lt;- regression_forest(X[treatment==0,], outcome[treatment==0])\nuplift_t &lt;- predict(fit1, X)$predictions - predict(fit0, X)$predictions\n\n\nX-learner first estimates outcome models, constructs imputed treatment effects in each group, models those effects, and combines them using propensity-based weights. It can perform well with imbalance but increases modeling choices and must be cross-validated.\n\n\n\n\n\n\nNoteCode 19.5: X-learner\n\n\n\n# fit outcome models, impute pseudo-effects, model each pseudo-effect,\n# and combine using the estimated propensity score\n\n\n\n \nCode 19.3–19.5 output: T- and X-learner estimates.\n\n\n\n19.3.2 Decision-tree-based uplift modeling\nUplift trees and causal forests search for splits that maximize differences in treatment effects rather than outcomes. Honest estimation and out-of-sample assessment are essential; trees can otherwise manufacture persuasive but non-replicable subgroups.\n\n\n\n\n\n\nNoteCode 19.7–19.8\n\n\n\ncf &lt;- causal_forest(X, outcome, treatment)\ntau &lt;- predict(cf)$predictions\n\n\n\n \nCode 19.7–19.8 output: tree-based uplift model.",
     "crumbs": [
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>Heterogeneity and Individual Causal Effects</span>"
     ]
   },
   {
-    "objectID": "chapters/19-heterogeneity.html#regression-based-uplift-modeling",
-    "href": "chapters/19-heterogeneity.html#regression-based-uplift-modeling",
+    "objectID": "chapters/19-heterogeneity.html#evaluating-uplift-models-and-clinical-value",
+    "href": "chapters/19-heterogeneity.html#evaluating-uplift-models-and-clinical-value",
     "title": "19  Heterogeneity and Individual Causal Effects",
-    "section": "19.4 Regression-based uplift modeling",
-    "text": "19.4 Regression-based uplift modeling\nTo be added.",
+    "section": "19.4 Evaluating uplift models and clinical value",
+    "text": "19.4 Evaluating uplift models and clinical value\nEvaluate calibration for treatment effects, overlap, subgroup balance, uncertainty, external validation, and policy value. Qini/uplift curves and policy-value curves may describe ranking performance, but should be estimated out of sample and accompanied by confidence intervals. Compare a model-guided treatment rule with treat-all, treat-none, and current practice; include treatment harms, costs, capacity, and equity. A high apparent CATE does not justify individualized care unless it improves validated decision outcomes.\n\n\n\n\n\n\nNoteCode 19.10\n\n\n\n# evaluate out-of-sample policy value for model-guided treatment,\n# treat-all, and treat-none rules",
     "crumbs": [
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>Heterogeneity and Individual Causal Effects</span>"
     ]
   },
   {
-    "objectID": "chapters/19-heterogeneity.html#tree-based-uplift-modeling",
-    "href": "chapters/19-heterogeneity.html#tree-based-uplift-modeling",
+    "objectID": "chapters/19-heterogeneity.html#references",
+    "href": "chapters/19-heterogeneity.html#references",
     "title": "19  Heterogeneity and Individual Causal Effects",
-    "section": "19.5 Tree-based uplift modeling",
-    "text": "19.5 Tree-based uplift modeling\nTo be added.",
-    "crumbs": [
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Heterogeneity and Individual Causal Effects</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/19-heterogeneity.html#validation-of-uplift-models",
-    "href": "chapters/19-heterogeneity.html#validation-of-uplift-models",
-    "title": "19  Heterogeneity and Individual Causal Effects",
-    "section": "19.6 Validation of uplift models",
-    "text": "19.6 Validation of uplift models\nTo be added.",
+    "section": "References",
+    "text": "References\n\nKent DM, Steyerberg E, van Klaveren D. Personalized evidence based medicine. BMJ. 2018;363:k4245.\nKünzel SR, Sekhon JS, Bickel PJ, Yu B. Metalearners for estimating heterogeneous treatment effects. PNAS. 2019;116:4156-4165.\nWager S, Athey S. Heterogeneous treatment effects using random forests. JASA. 2018;113:1228-1242.\nPowers S, Qian J, Jung K, et al. Some methods for heterogeneous treatment effect estimation. Statistics in Medicine. 2018;37:1767-1787.",
     "crumbs": [
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>Heterogeneity and Individual Causal Effects</span>"
     ]
@@ -1294,7 +1344,17 @@
     "href": "chapters/20-sequential-decisions.html",
     "title": "20  Sequential Decision Strategies",
     "section": "",
-    "text": "20.1 Basic concepts of reinforcement learning\nTo be added.",
+    "text": "20.1 Basic concepts of reinforcement learning\nMany clinical decisions are made repeatedly: treatment is started, monitored, intensified, switched, or stopped in response to evolving patient history. A dynamic treatment regime maps each possible history to a treatment decision. Estimating the value of such a regime requires causal methods for time-varying treatment and confounding, not a single baseline regression.\nReinforcement learning (RL) describes an agent interacting with an environment. A state summarizes information available at a decision time; an action is a treatment choice; a reward is a clinical utility; a policy maps state to action; and a value is expected cumulative reward under a policy. In health care, the reward and policy must be clinically meaningful and patient-centered, not merely easy to calculate.",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/20-sequential-decisions.html#basic-concepts-of-reinforcement-learning",
+    "href": "chapters/20-sequential-decisions.html#basic-concepts-of-reinforcement-learning",
+    "title": "20  Sequential Decision Strategies",
+    "section": "",
+    "text": "Figure 20.1 Basic reinforcement-learning framework.",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
     ]
@@ -1304,17 +1364,17 @@
     "href": "chapters/20-sequential-decisions.html#statistical-reinforcement-learning",
     "title": "20  Sequential Decision Strategies",
     "section": "20.2 Statistical reinforcement learning",
-    "text": "20.2 Statistical reinforcement learning\nTo be added.",
+    "text": "20.2 Statistical reinforcement learning\nStatistical RL estimates optimal or near-optimal dynamic regimes from trial or observational data using approaches such as Q-learning, A-learning, g-computation, marginal structural models, and dynamic weighted least squares.\nCase 20.1. A patient’s treatment decisions occur at several visits. At each visit, past covariates and outcomes define state, treatment is selected, and later outcome contributes to the value. The data are arranged in long format: one row per person per decision time, with history, action, outcome/reward, and censoring information.\n\n\n\nID\nDecision time\nState/history\nAction\nSubsequent outcome\n\n\n\n\n1\n1\nBaseline severity\nInitial therapy\nEarly response\n\n\n1\n2\nSeverity + response\nContinue/intensify\nFinal outcome\n\n\n2\n1\nBaseline severity\nInitial therapy\nEarly response\n\n\n…\n…\n…\n…\n…\n\n\n\nQ-learning models expected future reward under each current action and works backward from the final decision. The estimated regime chooses the action with greater predicted value. All modeling choices, including feature set, reward, future treatment options, and handling of censoring, must be prespecified or evaluated out of sample.\n\n\n\n\n\n\nNoteCode 20.1–20.5\n\n\n\n# arrange person-period data and define reward\n# fit final-stage Q function, derive optimal final action\n# regress earlier reward plus optimal future value on earlier history/action\n# derive the dynamic treatment rule and estimate its value\n\n\n\n    \nCode 20.1–20.5 output: sequential-decision modeling.",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
     ]
   },
   {
-    "objectID": "chapters/20-sequential-decisions.html#time-varying-treatments-and-confounding",
-    "href": "chapters/20-sequential-decisions.html#time-varying-treatments-and-confounding",
+    "objectID": "chapters/20-sequential-decisions.html#time-varying-treatment-and-confounding",
+    "href": "chapters/20-sequential-decisions.html#time-varying-treatment-and-confounding",
     "title": "20  Sequential Decision Strategies",
-    "section": "20.3 Time-varying treatments and confounding",
-    "text": "20.3 Time-varying treatments and confounding\nTo be added.",
+    "section": "20.3 Time-varying treatment and confounding",
+    "text": "20.3 Time-varying treatment and confounding\nA time-varying covariate can both predict future treatment and be affected by prior treatment. Conventional regression adjustment for such a variable can block part of the prior treatment effect or induce bias. Marginal structural models with inverse-probability treatment and censoring weights, longitudinal g-formula, and structural nested models are designed for this setting. Their causal interpretation requires sequential exchangeability, positivity at every decision time, consistency, correct or robust nuisance estimation, and appropriately measured histories.",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
     ]
@@ -1324,7 +1384,7 @@
     "href": "chapters/20-sequential-decisions.html#computational-reinforcement-learning",
     "title": "20  Sequential Decision Strategies",
     "section": "20.4 Computational reinforcement learning",
-    "text": "20.4 Computational reinforcement learning\nTo be added.",
+    "text": "20.4 Computational reinforcement learning\nComputational RL includes value iteration, policy iteration, temporal-difference learning, and deep RL. These algorithms can handle rich state spaces but need careful off-policy evaluation, uncertainty quantification, constraints, and safeguards before clinical use. Retrospective reward optimization can exploit documentation patterns or treatment-selection bias instead of discovering a beneficial clinical policy.",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
     ]
@@ -1334,7 +1394,7 @@
     "href": "chapters/20-sequential-decisions.html#causal-reinforcement-learning",
     "title": "20  Sequential Decision Strategies",
     "section": "20.5 Causal reinforcement learning",
-    "text": "20.5 Causal reinforcement learning\nTo be added.",
+    "text": "20.5 Causal reinforcement learning\nCausal RL combines causal identification with sequential decision algorithms. The target is the counterfactual value of a policy: what would occur if the whole population followed that policy over time. Define intervention versions, prevent use of future information, account for competing events and loss to follow-up, and distinguish a learned association from a policy that can be implemented.",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
     ]
@@ -1344,7 +1404,7 @@
     "href": "chapters/20-sequential-decisions.html#policy-evaluation",
     "title": "20  Sequential Decision Strategies",
     "section": "20.6 Policy evaluation",
-    "text": "20.6 Policy evaluation\nTo be added.",
+    "text": "20.6 Policy evaluation\nEvaluate a candidate policy using data not used to learn it when possible. Methods include g-computation, inverse-probability weighted estimators, doubly robust estimators, and trial emulation. Compare against clinically relevant policies such as standard care, treat-all, treat-none, or simpler rules. Report value with uncertainty, effective sample size/weight diagnostics, positivity, subgroup performance, adverse outcomes, and calibration of predicted risks.",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
     ]
@@ -1354,7 +1414,17 @@
     "href": "chapters/20-sequential-decisions.html#limitations",
     "title": "20  Sequential Decision Strategies",
     "section": "20.7 Limitations",
-    "text": "20.7 Limitations\nTo be added.",
+    "text": "20.7 Limitations\nSequential RL relies on demanding assumptions and is vulnerable to unmeasured time-varying confounding, poor overlap, changing practice, sparse decision paths, delayed outcomes, missingness, measurement error, and reward misspecification. An “optimal” policy can be unethical, infeasible, inequitable, or unsafe if it ignores harms, resources, patient preferences, and clinical workflow. Before deployment, validate externally and prospectively, define monitoring and stopping rules, and keep clinicians and patients in the decision loop.",
+    "crumbs": [
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/20-sequential-decisions.html#references",
+    "href": "chapters/20-sequential-decisions.html#references",
+    "title": "20  Sequential Decision Strategies",
+    "section": "References",
+    "text": "References\n\nRobins JM. A new approach to causal inference in mortality studies with sustained exposure periods. Mathematical Modelling. 1986;7:1393-1512.\nMurphy SA. An experimental design for the development of adaptive treatment strategies. Statistics in Medicine. 2005;24:1455-1481.\nChakraborty B, Moodie EEM. Statistical Methods for Dynamic Treatment Regimes. Springer; 2013.\nSutton RS, Barto AG. Reinforcement Learning: An Introduction. 2nd ed. MIT Press; 2018.\nHernán MA, Robins JM. Causal Inference: What If. Chapman & Hall/CRC; 2020.",
     "crumbs": [
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>Sequential Decision Strategies</span>"
     ]

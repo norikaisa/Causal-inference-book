@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>18&nbsp; Integrating Machine Learning into Causal Inference – Causal Inference in Clinical Medical Research</title>
+<title>18&nbsp; Integrating Causal Inference and Machine Learning – Causal Inference in Clinical Medical Research</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -120,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/18-ml-causal-inference.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Machine Learning into Causal Inference</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/18-ml-causal-inference.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Causal Inference and Machine Learning</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -256,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/18-ml-causal-inference.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Machine Learning into Causal Inference</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Causal Inference and Machine Learning</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -287,12 +316,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#fitting-propensity-scores-with-machine-learning" id="toc-fitting-propensity-scores-with-machine-learning" class="nav-link active" data-scroll-target="#fitting-propensity-scores-with-machine-learning"><span class="header-section-number">18.1</span> Fitting propensity scores with machine learning</a></li>
+  <li><a href="#machine-learning-for-propensity-score-estimation" id="toc-machine-learning-for-propensity-score-estimation" class="nav-link active" data-scroll-target="#machine-learning-for-propensity-score-estimation"><span class="header-section-number">18.1</span> Machine learning for propensity-score estimation</a></li>
   <li><a href="#doubly-robust-estimators" id="toc-doubly-robust-estimators" class="nav-link" data-scroll-target="#doubly-robust-estimators"><span class="header-section-number">18.2</span> Doubly robust estimators</a></li>
-  <li><a href="#cross-validation-in-causal-inference" id="toc-cross-validation-in-causal-inference" class="nav-link" data-scroll-target="#cross-validation-in-causal-inference"><span class="header-section-number">18.3</span> Cross-validation in causal inference</a></li>
+  <li><a href="#cross-fitting-in-causal-inference" id="toc-cross-fitting-in-causal-inference" class="nav-link" data-scroll-target="#cross-fitting-in-causal-inference"><span class="header-section-number">18.3</span> Cross-fitting in causal inference</a></li>
   <li><a href="#causal-forests" id="toc-causal-forests" class="nav-link" data-scroll-target="#causal-forests"><span class="header-section-number">18.4</span> Causal forests</a></li>
-  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><span class="header-section-number">18.5</span> Limitations</a></li>
-  <li><a href="#thinking-causally-in-machine-learning" id="toc-thinking-causally-in-machine-learning" class="nav-link" data-scroll-target="#thinking-causally-in-machine-learning"><span class="header-section-number">18.6</span> Thinking causally in machine learning</a></li>
+  <li><a href="#limitations-of-machine-learning-in-causal-inference" id="toc-limitations-of-machine-learning-in-causal-inference" class="nav-link" data-scroll-target="#limitations-of-machine-learning-in-causal-inference"><span class="header-section-number">18.5</span> Limitations of machine learning in causal inference</a></li>
+  <li><a href="#thinking-causally-in-machine-learning" id="toc-thinking-causally-in-machine-learning" class="nav-link" data-scroll-target="#thinking-causally-in-machine-learning"><span class="header-section-number">18.6</span> Thinking causally in machine learning</a>
+  <ul class="collapse">
+  <li><a href="#prediction-and-causation-are-different" id="toc-prediction-and-causation-are-different" class="nav-link" data-scroll-target="#prediction-and-causation-are-different"><span class="header-section-number">18.6.1</span> Prediction and causation are different</a></li>
+  <li><a href="#estimands-and-actionability" id="toc-estimands-and-actionability" class="nav-link" data-scroll-target="#estimands-and-actionability"><span class="header-section-number">18.6.2</span> Estimands and actionability</a></li>
+  <li><a href="#variable-roles-and-time-ordering" id="toc-variable-roles-and-time-ordering" class="nav-link" data-scroll-target="#variable-roles-and-time-ordering"><span class="header-section-number">18.6.3</span> Variable roles and time ordering</a></li>
+  <li><a href="#appropriate-roles-for-ml" id="toc-appropriate-roles-for-ml" class="nav-link" data-scroll-target="#appropriate-roles-for-ml"><span class="header-section-number">18.6.4</span> Appropriate roles for ML</a></li>
+  <li><a href="#heterogeneity-drift-fairness-and-clinical-evaluation" id="toc-heterogeneity-drift-fairness-and-clinical-evaluation" class="nav-link" data-scroll-target="#heterogeneity-drift-fairness-and-clinical-evaluation"><span class="header-section-number">18.6.5</span> Heterogeneity, drift, fairness, and clinical evaluation</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -301,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Machine Learning into Causal Inference</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Causal Inference and Machine Learning</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -318,42 +355,136 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<p>Machine learning can flexibly estimate nuisance functions—propensity scores, outcome regressions, censoring models, and treatment-effect heterogeneity. It does not itself turn association into causation. The causal question, target trial, estimand, temporal ordering, confounding assumptions, positivity, and measurement quality must be specified before fitting a flexible model.</p>
+<section id="machine-learning-for-propensity-score-estimation" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="machine-learning-for-propensity-score-estimation"><span class="header-section-number">18.1</span> Machine learning for propensity-score estimation</h2>
+<p>LASSO, trees, boosting, random forests, and ensembles can model complex treatment assignment. Select models using post-estimation balance and overlap, not treatment-prediction accuracy alone. Include pretreatment covariates and avoid mediators/colliders.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 18.1–18.2">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
+<span class="screen-reader-only">Note</span>Code 18.1–18.2
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>lasso <span class="kw">logit</span> treatment covariates</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">predict</span> ps, pr</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> ipw = treatment/ps + (1-treatment)/(1-ps)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> outcome treatment [<span class="kw">pweight</span>=ipw], <span class="kw">vce</span>(<span class="kw">robust</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<section id="fitting-propensity-scores-with-machine-learning" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="fitting-propensity-scores-with-machine-learning"><span class="header-section-number">18.1</span> Fitting propensity scores with machine learning</h2>
-<p><em>To be added.</em></p>
+<div class="text-center">
+<p><img src="images/ch18-image1.png" class="img-fluid" style="width:100.0%"> <img src="images/ch18-image2.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 18.1–18.2 output: LASSO propensity score and inverse-probability weighting.</p>
+</div>
 </section>
 <section id="doubly-robust-estimators" class="level2" data-number="18.2">
 <h2 data-number="18.2" class="anchored" data-anchor-id="doubly-robust-estimators"><span class="header-section-number">18.2</span> Doubly robust estimators</h2>
-<p><em>To be added.</em></p>
+<p>Augmented inverse-probability weighting (AIPW) combines an outcome model with a propensity model. Under regularity conditions it is consistent when either, but not necessarily both, nuisance model is correctly specified. “Doubly robust” does not mean robust to unmeasured confounding, lack of overlap, wrong time ordering, or poor measurement.</p>
+<p>For treatment <span class="math inline">\(A\)</span>, outcome <span class="math inline">\(Y\)</span>, propensity <span class="math inline">\(e(X)\)</span>, and outcome regression <span class="math inline">\(m_a(X)=E(Y\mid A=a,X)\)</span>, an AIPW mean is</p>
+<p><span class="math display">\[\widehat\mu_a=\frac1n\sum_i\left[\widehat m_a(X_i)+\frac{I(A_i=a)}{\widehat P(A_i=a\mid X_i)}\{Y_i-\widehat m_a(X_i)\}\right].\]</span></p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 18.3–18.5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 18.3–18.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>* estimate treatment and control risks with augmented IPW</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>teffects aipw (outcome covariates) (treatment covariates, <span class="kw">logit</span>), ate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch18-image3.png" class="img-fluid" style="width:100.0%"> <img src="images/ch18-image4.png" class="img-fluid" style="width:100.0%"> <img src="images/ch18-image5.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 18.3–18.5 output: doubly robust risks and AIPW estimate.</p>
+</div>
 </section>
-<section id="cross-validation-in-causal-inference" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="cross-validation-in-causal-inference"><span class="header-section-number">18.3</span> Cross-validation in causal inference</h2>
-<p><em>To be added.</em></p>
+<section id="cross-fitting-in-causal-inference" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="cross-fitting-in-causal-inference"><span class="header-section-number">18.3</span> Cross-fitting in causal inference</h2>
+<p>Complex algorithms can overfit the same data used to estimate a treatment effect. Sample splitting fits nuisance functions in one fold and evaluates the causal score in another; cross-fitting repeats this across folds and pools estimates. It reduces overfitting bias while retaining most data. Folds must respect participant clustering and time order when relevant.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 18.6–18.9">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 18.6–18.9
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> fold = <span class="fu">mod</span>(<span class="dt">_n</span>,2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>* <span class="kw">fit</span> nuisance models <span class="kw">in</span> fold 0 and <span class="kw">predict</span> fold 1; <span class="fu">reverse</span> folds</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>* <span class="bn">combine</span> <span class="kw">cross</span>-<span class="kw">fitted</span> AIPW scores</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch18-image6.png" class="img-fluid" style="width:100.0%"> <img src="images/ch18-image7.png" class="img-fluid" style="width:100.0%"> <img src="images/ch18-image8.png" class="img-fluid" style="width:100.0%"> <img src="images/ch18-image9.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 18.6–18.9 output: sample splitting and cross-fitting.</p>
+</div>
 </section>
 <section id="causal-forests" class="level2" data-number="18.4">
 <h2 data-number="18.4" class="anchored" data-anchor-id="causal-forests"><span class="header-section-number">18.4</span> Causal forests</h2>
-<p><em>To be added.</em></p>
+<p>Causal forests adapt tree ensembles to estimate conditional average treatment effects (CATEs). Honest splitting separates data used to choose partitions from data used to estimate effects, reducing adaptive bias. A CATE is still conditional on untestable causal assumptions; uncertainty is often large, and using estimated individual effects directly for treatment decisions requires external validation.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 18.10–18.12">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 18.10–18.12
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cf <span class="ot">&lt;-</span> <span class="fu">causal_forest</span>(X, Y, W)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>tau_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(cf)<span class="sc">$</span>predictions</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>best_tree <span class="ot">&lt;-</span> <span class="fu">best_linear_projection</span>(cf, X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch18-image10.png" class="img-fluid" style="width:100.0%"> <img src="images/ch18-image11.png" class="img-fluid" style="width:100.0%"> <img src="images/ch18-image12.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 18.10–18.12 output: causal forest, policy predictions, and causal tree.</p>
+</div>
 </section>
-<section id="limitations" class="level2" data-number="18.5">
-<h2 data-number="18.5" class="anchored" data-anchor-id="limitations"><span class="header-section-number">18.5</span> Limitations</h2>
-<p><em>To be added.</em></p>
+<section id="limitations-of-machine-learning-in-causal-inference" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="limitations-of-machine-learning-in-causal-inference"><span class="header-section-number">18.5</span> Limitations of machine learning in causal inference</h2>
+<p>Machine learning can increase variance, produce unstable weights, obscure extrapolation, and make models difficult to audit. Flexible prediction does not compensate for unmeasured confounding, positivity violations, selection bias, interference, outcome misclassification, or a poorly defined intervention. Evaluate balance, effective sample size, calibration, overlap, residual confounding, and sensitivity to algorithms and tuning.</p>
 </section>
 <section id="thinking-causally-in-machine-learning" class="level2" data-number="18.6">
 <h2 data-number="18.6" class="anchored" data-anchor-id="thinking-causally-in-machine-learning"><span class="header-section-number">18.6</span> Thinking causally in machine learning</h2>
-<p><em>To be added.</em></p>
+<section id="prediction-and-causation-are-different" class="level3" data-number="18.6.1">
+<h3 data-number="18.6.1" class="anchored" data-anchor-id="prediction-and-causation-are-different"><span class="header-section-number">18.6.1</span> Prediction and causation are different</h3>
+<p>Prediction asks what will happen given available features; causation asks what would change under a specified intervention. A feature can be highly predictive yet inappropriate to adjust for because it is downstream of treatment or a collider.</p>
+</section>
+<section id="estimands-and-actionability" class="level3" data-number="18.6.2">
+<h3 data-number="18.6.2" class="anchored" data-anchor-id="estimands-and-actionability"><span class="header-section-number">18.6.2</span> Estimands and actionability</h3>
+<p>Define whether the goal is ATE, ATT, CATE, a dynamic regime, or policy value—and whether the intervention is feasible. A model that predicts risk well may not identify an actionable treatment target.</p>
+</section>
+<section id="variable-roles-and-time-ordering" class="level3" data-number="18.6.3">
+<h3 data-number="18.6.3" class="anchored" data-anchor-id="variable-roles-and-time-ordering"><span class="header-section-number">18.6.3</span> Variable roles and time ordering</h3>
+<p>Use causal diagrams and timestamps to distinguish baseline confounders, treatment, mediators, colliders, outcomes, and post-treatment covariates. Prevent label leakage and use only information available at the decision time.</p>
+</section>
+<section id="appropriate-roles-for-ml" class="level3" data-number="18.6.4">
+<h3 data-number="18.6.4" class="anchored" data-anchor-id="appropriate-roles-for-ml"><span class="header-section-number">18.6.4</span> Appropriate roles for ML</h3>
+<p>Use ML for nuisance estimation, missing-data/censoring models, dimension reduction, outcome prediction, and carefully validated heterogeneity exploration. Pair it with semiparametric estimators, cross-fitting, diagnostics, and clear causal assumptions.</p>
+</section>
+<section id="heterogeneity-drift-fairness-and-clinical-evaluation" class="level3" data-number="18.6.5">
+<h3 data-number="18.6.5" class="anchored" data-anchor-id="heterogeneity-drift-fairness-and-clinical-evaluation"><span class="header-section-number">18.6.5</span> Heterogeneity, drift, fairness, and clinical evaluation</h3>
+<p>Evaluate treatment-effect heterogeneity and decision policies prospectively or with rigorous off-policy evaluation. Assess data drift, selection bias, subgroup performance, fairness, calibration, transparency, reproducibility, and clinical utility. No algorithm should be adopted solely because a retrospective performance metric is high.</p>
+</section>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>van der Laan MJ, Rose S. <em>Targeted Learning</em>. Springer; 2011.</li>
+<li>Chernozhukov V, Chetverikov D, Demirer M, et al.&nbsp;Double/debiased machine learning. <em>Econometrics Journal</em>. 2018;21:C1-C68.</li>
+<li>Wager S, Athey S. Estimation and inference of heterogeneous treatment effects using random forests. <em>JASA</em>. 2018;113:1228-1242.</li>
+<li>Kennedy EH. Optimal doubly robust estimation of heterogeneous causal effects. <em>arXiv</em>. 2020.</li>
+</ol>
 
 
 <!-- -->
@@ -824,36 +955,126 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Integrating Machine Learning into Causal Inference</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fitting propensity scores with machine learning</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Doubly robust estimators</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cross-validation in causal inference</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Causal forests</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Limitations</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Thinking causally in machine learning</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Integrating Causal Inference and Machine Learning</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Machine learning can flexibly estimate nuisance functions—propensity scores, outcome regressions, censoring models, and treatment-effect heterogeneity. It does not itself turn association into causation. The causal question, target trial, estimand, temporal ordering, confounding assumptions, positivity, and measurement quality must be specified before fitting a flexible model.</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Machine learning for propensity-score estimation</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>LASSO, trees, boosting, random forests, and ensembles can model complex treatment assignment. Select models using post-estimation balance and overlap, not treatment-prediction accuracy alone. Include pretreatment covariates and avoid mediators/colliders.</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 18.1–18.2"}</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="in">lasso logit treatment covariates</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="in">predict ps, pr</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="in">gen ipw = treatment/ps + (1-treatment)/(1-ps)</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="in">logit outcome treatment [pweight=ipw], vce(robust)</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image1.png)</span>{width="100%"}</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image2.png)</span>{width="100%"}</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>Code 18.1–18.2 output: LASSO propensity score and inverse-probability weighting.</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Doubly robust estimators</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>Augmented inverse-probability weighting (AIPW) combines an outcome model with a propensity model. Under regularity conditions it is consistent when either, but not necessarily both, nuisance model is correctly specified. “Doubly robust” does not mean robust to unmeasured confounding, lack of overlap, wrong time ordering, or poor measurement.</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>For treatment $A$, outcome $Y$, propensity $e(X)$, and outcome regression $m_a(X)=E(Y\mid A=a,X)$, an AIPW mean is</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>$$\widehat\mu_a=\frac1n\sum_i\left<span class="co">[</span><span class="ot">\widehat m_a(X_i)+\frac{I(A_i=a)}{\widehat P(A_i=a\mid X_i)}\{Y_i-\widehat m_a(X_i)\}\right</span><span class="co">]</span>.$$</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 18.3–18.5"}</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="in">* estimate treatment and control risks with augmented IPW</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="in">teffects aipw (outcome covariates) (treatment covariates, logit), ate</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image3.png)</span>{width="100%"}</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image4.png)</span>{width="100%"}</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image5.png)</span>{width="100%"}</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>Code 18.3–18.5 output: doubly robust risks and AIPW estimate.</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cross-fitting in causal inference</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>Complex algorithms can overfit the same data used to estimate a treatment effect. Sample splitting fits nuisance functions in one fold and evaluates the causal score in another; cross-fitting repeats this across folds and pools estimates. It reduces overfitting bias while retaining most data. Folds must respect participant clustering and time order when relevant.</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 18.6–18.9"}</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="in">gen fold = mod(_n,2)</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="in">* fit nuisance models in fold 0 and predict fold 1; reverse folds</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="in">* combine cross-fitted AIPW scores</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image6.png)</span>{width="100%"}</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image7.png)</span>{width="100%"}</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image8.png)</span>{width="100%"}</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image9.png)</span>{width="100%"}</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>Code 18.6–18.9 output: sample splitting and cross-fitting.</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## Causal forests</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>Causal forests adapt tree ensembles to estimate conditional average treatment effects (CATEs). Honest splitting separates data used to choose partitions from data used to estimate effects, reducing adaptive bias. A CATE is still conditional on untestable causal assumptions; uncertainty is often large, and using estimated individual effects directly for treatment decisions requires external validation.</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 18.10–18.12"}</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>cf <span class="ot">&lt;-</span> <span class="fu">causal_forest</span>(X, Y, W)</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>tau_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(cf)<span class="sc">$</span>predictions</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>best_tree <span class="ot">&lt;-</span> <span class="fu">best_linear_projection</span>(cf, X)</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image10.png)</span>{width="100%"}</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image11.png)</span>{width="100%"}</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch18-image12.png)</span>{width="100%"}</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>Code 18.10–18.12 output: causal forest, policy predictions, and causal tree.</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a><span class="fu">## Limitations of machine learning in causal inference</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>Machine learning can increase variance, produce unstable weights, obscure extrapolation, and make models difficult to audit. Flexible prediction does not compensate for unmeasured confounding, positivity violations, selection bias, interference, outcome misclassification, or a poorly defined intervention. Evaluate balance, effective sample size, calibration, overlap, residual confounding, and sensitivity to algorithms and tuning.</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Thinking causally in machine learning</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a><span class="fu">### Prediction and causation are different</span></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>Prediction asks what will happen given available features; causation asks what would change under a specified intervention. A feature can be highly predictive yet inappropriate to adjust for because it is downstream of treatment or a collider.</span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estimands and actionability</span></span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>Define whether the goal is ATE, ATT, CATE, a dynamic regime, or policy value—and whether the intervention is feasible. A model that predicts risk well may not identify an actionable treatment target.</span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a><span class="fu">### Variable roles and time ordering</span></span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>Use causal diagrams and timestamps to distinguish baseline confounders, treatment, mediators, colliders, outcomes, and post-treatment covariates. Prevent label leakage and use only information available at the decision time.</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### Appropriate roles for ML</span></span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>Use ML for nuisance estimation, missing-data/censoring models, dimension reduction, outcome prediction, and carefully validated heterogeneity exploration. Pair it with semiparametric estimators, cross-fitting, diagnostics, and clear causal assumptions.</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a><span class="fu">### Heterogeneity, drift, fairness, and clinical evaluation</span></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>Evaluate treatment-effect heterogeneity and decision policies prospectively or with rigorous off-policy evaluation. Assess data drift, selection bias, subgroup performance, fairness, calibration, transparency, reproducibility, and clinical utility. No algorithm should be adopted solely because a retrospective performance metric is high.</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>van der Laan MJ, Rose S. *Targeted Learning*. Springer; 2011.</span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Chernozhukov V, Chetverikov D, Demirer M, et al. Double/debiased machine learning. *Econometrics Journal*. 2018;21:C1-C68.</span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Wager S, Athey S. Estimation and inference of heterogeneous treatment effects using random forests. *JASA*. 2018;113:1228-1242.</span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Kennedy EH. Optimal doubly robust estimation of heterogeneous causal effects. *arXiv*. 2020.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

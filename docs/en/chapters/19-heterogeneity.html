@@ -256,7 +256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/18-ml-causal-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Machine Learning into Causal Inference</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Causal Inference and Machine Learning</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -289,10 +289,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#subgroup-analysis" id="toc-subgroup-analysis" class="nav-link active" data-scroll-target="#subgroup-analysis"><span class="header-section-number">19.1</span> Subgroup analysis</a></li>
   <li><a href="#risk-modeling" id="toc-risk-modeling" class="nav-link" data-scroll-target="#risk-modeling"><span class="header-section-number">19.2</span> Risk modeling</a></li>
-  <li><a href="#treatment-effect-uplift-modeling" id="toc-treatment-effect-uplift-modeling" class="nav-link" data-scroll-target="#treatment-effect-uplift-modeling"><span class="header-section-number">19.3</span> Treatment effect (uplift) modeling</a></li>
-  <li><a href="#regression-based-uplift-modeling" id="toc-regression-based-uplift-modeling" class="nav-link" data-scroll-target="#regression-based-uplift-modeling"><span class="header-section-number">19.4</span> Regression-based uplift modeling</a></li>
-  <li><a href="#tree-based-uplift-modeling" id="toc-tree-based-uplift-modeling" class="nav-link" data-scroll-target="#tree-based-uplift-modeling"><span class="header-section-number">19.5</span> Tree-based uplift modeling</a></li>
-  <li><a href="#validation-of-uplift-models" id="toc-validation-of-uplift-models" class="nav-link" data-scroll-target="#validation-of-uplift-models"><span class="header-section-number">19.6</span> Validation of uplift models</a></li>
+  <li><a href="#treatment-effect-and-uplift-modeling" id="toc-treatment-effect-and-uplift-modeling" class="nav-link" data-scroll-target="#treatment-effect-and-uplift-modeling"><span class="header-section-number">19.3</span> Treatment-effect and uplift modeling</a>
+  <ul class="collapse">
+  <li><a href="#regression-based-learners" id="toc-regression-based-learners" class="nav-link" data-scroll-target="#regression-based-learners"><span class="header-section-number">19.3.1</span> Regression-based learners</a></li>
+  <li><a href="#decision-tree-based-uplift-modeling" id="toc-decision-tree-based-uplift-modeling" class="nav-link" data-scroll-target="#decision-tree-based-uplift-modeling"><span class="header-section-number">19.3.2</span> Decision-tree-based uplift modeling</a></li>
+  </ul></li>
+  <li><a href="#evaluating-uplift-models-and-clinical-value" id="toc-evaluating-uplift-models-and-clinical-value" class="nav-link" data-scroll-target="#evaluating-uplift-models-and-clinical-value"><span class="header-section-number">19.4</span> Evaluating uplift models and clinical value</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -318,42 +321,126 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
-</div>
-</div>
+<p>Average treatment effects can conceal clinically important heterogeneity. The goal is not to claim that every patient has a reliably estimated individual effect, but to identify reproducible variation in conditional average treatment effects and determine whether it improves decisions.</p>
 <section id="subgroup-analysis" class="level2" data-number="19.1">
 <h2 data-number="19.1" class="anchored" data-anchor-id="subgroup-analysis"><span class="header-section-number">19.1</span> Subgroup analysis</h2>
-<p><em>To be added.</em></p>
+<p>Subgroups should be prespecified, biologically/clinically plausible, and assessed with interaction tests rather than separate within-subgroup p values. Multiple testing, limited power, and post hoc search make apparent subgroup effects fragile. Present absolute and relative effects, uncertainty, and external validation.</p>
 </section>
 <section id="risk-modeling" class="level2" data-number="19.2">
 <h2 data-number="19.2" class="anchored" data-anchor-id="risk-modeling"><span class="header-section-number">19.2</span> Risk modeling</h2>
-<p><em>To be added.</em></p>
+<p>Prognostic models estimate baseline risk under a reference strategy. Risk stratification may be clinically valuable even when relative treatment effect is constant, because the same relative effect produces larger absolute benefit at higher baseline risk. Evaluate calibration, discrimination, transportability, and clinical consequences.</p>
 </section>
-<section id="treatment-effect-uplift-modeling" class="level2" data-number="19.3">
-<h2 data-number="19.3" class="anchored" data-anchor-id="treatment-effect-uplift-modeling"><span class="header-section-number">19.3</span> Treatment effect (uplift) modeling</h2>
-<p><em>To be added.</em></p>
+<section id="treatment-effect-and-uplift-modeling" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="treatment-effect-and-uplift-modeling"><span class="header-section-number">19.3</span> Treatment-effect and uplift modeling</h2>
+<p>Treatment-effect or uplift models estimate the contrast between predicted outcomes under treatment and control. Their target is a CATE, not response probability under treatment alone. Causal assumptions, overlap, and valid outcome measurement remain necessary.</p>
+<section id="regression-based-learners" class="level3" data-number="19.3.1">
+<h3 data-number="19.3.1" class="anchored" data-anchor-id="regression-based-learners"><span class="header-section-number">19.3.1</span> Regression-based learners</h3>
+<p><strong>S-learner</strong> fits one model containing treatment and covariates, then predicts each person twice, once with treatment and once with control. It is efficient but may shrink treatment heterogeneity toward zero when treatment is weakly predictive.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 19.1–19.2: S-learner">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 19.1–19.2: S-learner
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fit_s <span class="ot">&lt;-</span> grf<span class="sc">::</span><span class="fu">regression_forest</span>(<span class="fu">cbind</span>(X, treatment), outcome)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_s, <span class="fu">cbind</span>(X, <span class="dv">1</span>))<span class="sc">$</span>predictions</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_s, <span class="fu">cbind</span>(X, <span class="dv">0</span>))<span class="sc">$</span>predictions</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>uplift_s <span class="ot">&lt;-</span> mu1 <span class="sc">-</span> mu0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch19-image1.png" class="img-fluid" style="width:100.0%"> <img src="images/ch19-image2.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 19.1–19.2 output: S-learner predictions.</p>
+</div>
+<p><strong>T-learner</strong> fits separate outcome models in treated and control groups and subtracts predictions. It is flexible but can be unstable when one group is small.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 19.3: T-learner">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 19.3: T-learner
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">regression_forest</span>(X[treatment<span class="sc">==</span><span class="dv">1</span>,], outcome[treatment<span class="sc">==</span><span class="dv">1</span>])</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fit0 <span class="ot">&lt;-</span> <span class="fu">regression_forest</span>(X[treatment<span class="sc">==</span><span class="dv">0</span>,], outcome[treatment<span class="sc">==</span><span class="dv">0</span>])</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>uplift_t <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit1, X)<span class="sc">$</span>predictions <span class="sc">-</span> <span class="fu">predict</span>(fit0, X)<span class="sc">$</span>predictions</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<p><strong>X-learner</strong> first estimates outcome models, constructs imputed treatment effects in each group, models those effects, and combines them using propensity-based weights. It can perform well with imbalance but increases modeling choices and must be cross-validated.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 19.5: X-learner">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 19.5: X-learner
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit outcome models, impute pseudo-effects, model each pseudo-effect,</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and combine using the estimated propensity score</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch19-image3.png" class="img-fluid" style="width:100.0%"> <img src="images/ch19-image4.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 19.3–19.5 output: T- and X-learner estimates.</p>
+</div>
 </section>
-<section id="regression-based-uplift-modeling" class="level2" data-number="19.4">
-<h2 data-number="19.4" class="anchored" data-anchor-id="regression-based-uplift-modeling"><span class="header-section-number">19.4</span> Regression-based uplift modeling</h2>
-<p><em>To be added.</em></p>
+<section id="decision-tree-based-uplift-modeling" class="level3" data-number="19.3.2">
+<h3 data-number="19.3.2" class="anchored" data-anchor-id="decision-tree-based-uplift-modeling"><span class="header-section-number">19.3.2</span> Decision-tree-based uplift modeling</h3>
+<p>Uplift trees and causal forests search for splits that maximize differences in treatment effects rather than outcomes. Honest estimation and out-of-sample assessment are essential; trees can otherwise manufacture persuasive but non-replicable subgroups.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 19.7–19.8">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 19.7–19.8
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cf <span class="ot">&lt;-</span> <span class="fu">causal_forest</span>(X, outcome, treatment)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="fu">predict</span>(cf)<span class="sc">$</span>predictions</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch19-image5.png" class="img-fluid" style="width:100.0%"> <img src="images/ch19-image6.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 19.7–19.8 output: tree-based uplift model.</p>
+</div>
 </section>
-<section id="tree-based-uplift-modeling" class="level2" data-number="19.5">
-<h2 data-number="19.5" class="anchored" data-anchor-id="tree-based-uplift-modeling"><span class="header-section-number">19.5</span> Tree-based uplift modeling</h2>
-<p><em>To be added.</em></p>
 </section>
-<section id="validation-of-uplift-models" class="level2" data-number="19.6">
-<h2 data-number="19.6" class="anchored" data-anchor-id="validation-of-uplift-models"><span class="header-section-number">19.6</span> Validation of uplift models</h2>
-<p><em>To be added.</em></p>
+<section id="evaluating-uplift-models-and-clinical-value" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="evaluating-uplift-models-and-clinical-value"><span class="header-section-number">19.4</span> Evaluating uplift models and clinical value</h2>
+<p>Evaluate calibration for treatment effects, overlap, subgroup balance, uncertainty, external validation, and policy value. Qini/uplift curves and policy-value curves may describe ranking performance, but should be estimated out of sample and accompanied by confidence intervals. Compare a model-guided treatment rule with treat-all, treat-none, and current practice; include treatment harms, costs, capacity, and equity. A high apparent CATE does not justify individualized care unless it improves validated decision outcomes.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 19.10">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 19.10
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># evaluate out-of-sample policy value for model-guided treatment,</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># treat-all, and treat-none rules</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Kent DM, Steyerberg E, van Klaveren D. Personalized evidence based medicine. <em>BMJ</em>. 2018;363:k4245.</li>
+<li>Künzel SR, Sekhon JS, Bickel PJ, Yu B. Metalearners for estimating heterogeneous treatment effects. <em>PNAS</em>. 2019;116:4156-4165.</li>
+<li>Wager S, Athey S. Heterogeneous treatment effects using random forests. <em>JASA</em>. 2018;113:1228-1242.</li>
+<li>Powers S, Qian J, Jung K, et al.&nbsp;Some methods for heterogeneous treatment effect estimation. <em>Statistics in Medicine</em>. 2018;37:1767-1787.</li>
+</ol>
 
 
 <!-- -->
@@ -814,8 +901,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/18-ml-causal-inference.html" class="pagination-link" aria-label="Integrating Machine Learning into Causal Inference">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Machine Learning into Causal Inference</span></span>
+      <a href="../chapters/18-ml-causal-inference.html" class="pagination-link" aria-label="Integrating Causal Inference and Machine Learning">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Causal Inference and Machine Learning</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -824,36 +911,103 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Heterogeneity and Individual Causal Effects</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Subgroup analysis</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Risk modeling</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Treatment effect (uplift) modeling</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Regression-based uplift modeling</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tree-based uplift modeling</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Validation of uplift models</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Heterogeneity and Individual Causal Effects</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Average treatment effects can conceal clinically important heterogeneity. The goal is not to claim that every patient has a reliably estimated individual effect, but to identify reproducible variation in conditional average treatment effects and determine whether it improves decisions.</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Subgroup analysis</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>Subgroups should be prespecified, biologically/clinically plausible, and assessed with interaction tests rather than separate within-subgroup p values. Multiple testing, limited power, and post hoc search make apparent subgroup effects fragile. Present absolute and relative effects, uncertainty, and external validation.</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Risk modeling</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>Prognostic models estimate baseline risk under a reference strategy. Risk stratification may be clinically valuable even when relative treatment effect is constant, because the same relative effect produces larger absolute benefit at higher baseline risk. Evaluate calibration, discrimination, transportability, and clinical consequences.</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Treatment-effect and uplift modeling</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>Treatment-effect or uplift models estimate the contrast between predicted outcomes under treatment and control. Their target is a CATE, not response probability under treatment alone. Causal assumptions, overlap, and valid outcome measurement remain necessary.</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### Regression-based learners</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>**S-learner** fits one model containing treatment and covariates, then predicts each person twice, once with treatment and once with control. It is efficient but may shrink treatment heterogeneity toward zero when treatment is weakly predictive.</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 19.1–19.2: S-learner"}</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>fit_s <span class="ot">&lt;-</span> grf<span class="sc">::</span><span class="fu">regression_forest</span>(<span class="fu">cbind</span>(X, treatment), outcome)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_s, <span class="fu">cbind</span>(X, <span class="dv">1</span>))<span class="sc">$</span>predictions</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_s, <span class="fu">cbind</span>(X, <span class="dv">0</span>))<span class="sc">$</span>predictions</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>uplift_s <span class="ot">&lt;-</span> mu1 <span class="sc">-</span> mu0</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch19-image1.png)</span>{width="100%"}</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch19-image2.png)</span>{width="100%"}</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>Code 19.1–19.2 output: S-learner predictions.</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>**T-learner** fits separate outcome models in treated and control groups and subtracts predictions. It is flexible but can be unstable when one group is small.</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 19.3: T-learner"}</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">regression_forest</span>(X[treatment<span class="sc">==</span><span class="dv">1</span>,], outcome[treatment<span class="sc">==</span><span class="dv">1</span>])</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>fit0 <span class="ot">&lt;-</span> <span class="fu">regression_forest</span>(X[treatment<span class="sc">==</span><span class="dv">0</span>,], outcome[treatment<span class="sc">==</span><span class="dv">0</span>])</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>uplift_t <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit1, X)<span class="sc">$</span>predictions <span class="sc">-</span> <span class="fu">predict</span>(fit0, X)<span class="sc">$</span>predictions</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>**X-learner** first estimates outcome models, constructs imputed treatment effects in each group, models those effects, and combines them using propensity-based weights. It can perform well with imbalance but increases modeling choices and must be cross-validated.</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 19.5: X-learner"}</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="co"># fit outcome models, impute pseudo-effects, model each pseudo-effect,</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="co"># and combine using the estimated propensity score</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch19-image3.png)</span>{width="100%"}</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch19-image4.png)</span>{width="100%"}</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>Code 19.3–19.5 output: T- and X-learner estimates.</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### Decision-tree-based uplift modeling</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>Uplift trees and causal forests search for splits that maximize differences in treatment effects rather than outcomes. Honest estimation and out-of-sample assessment are essential; trees can otherwise manufacture persuasive but non-replicable subgroups.</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 19.7–19.8"}</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>cf <span class="ot">&lt;-</span> <span class="fu">causal_forest</span>(X, outcome, treatment)</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="fu">predict</span>(cf)<span class="sc">$</span>predictions</span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch19-image5.png)</span>{width="100%"}</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch19-image6.png)</span>{width="100%"}</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>Code 19.7–19.8 output: tree-based uplift model.</span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## Evaluating uplift models and clinical value</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>Evaluate calibration for treatment effects, overlap, subgroup balance, uncertainty, external validation, and policy value. Qini/uplift curves and policy-value curves may describe ranking performance, but should be estimated out of sample and accompanied by confidence intervals. Compare a model-guided treatment rule with treat-all, treat-none, and current practice; include treatment harms, costs, capacity, and equity. A high apparent CATE does not justify individualized care unless it improves validated decision outcomes.</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 19.10"}</span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a><span class="co"># evaluate out-of-sample policy value for model-guided treatment,</span></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a><span class="co"># treat-all, and treat-none rules</span></span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Kent DM, Steyerberg E, van Klaveren D. Personalized evidence based medicine. *BMJ*. 2018;363:k4245.</span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Künzel SR, Sekhon JS, Bickel PJ, Yu B. Metalearners for estimating heterogeneous treatment effects. *PNAS*. 2019;116:4156-4165.</span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Wager S, Athey S. Heterogeneous treatment effects using random forests. *JASA*. 2018;113:1228-1242.</span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Powers S, Qian J, Jung K, et al. Some methods for heterogeneous treatment effect estimation. *Statistics in Medicine*. 2018;37:1767-1787.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

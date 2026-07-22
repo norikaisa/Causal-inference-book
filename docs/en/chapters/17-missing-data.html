@@ -256,7 +256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/18-ml-causal-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Machine Learning into Causal Inference</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Causal Inference and Machine Learning</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -287,10 +287,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#mechanisms-of-missingness" id="toc-mechanisms-of-missingness" class="nav-link active" data-scroll-target="#mechanisms-of-missingness"><span class="header-section-number">17.1</span> Mechanisms of missingness</a></li>
-  <li><a href="#traditional-methods-for-missing-data" id="toc-traditional-methods-for-missing-data" class="nav-link" data-scroll-target="#traditional-methods-for-missing-data"><span class="header-section-number">17.2</span> Traditional methods for missing data</a></li>
-  <li><a href="#adherence" id="toc-adherence" class="nav-link" data-scroll-target="#adherence"><span class="header-section-number">17.3</span> Adherence</a></li>
-  <li><a href="#survivor-bias-and-treatment-time-zero" id="toc-survivor-bias-and-treatment-time-zero" class="nav-link" data-scroll-target="#survivor-bias-and-treatment-time-zero"><span class="header-section-number">17.4</span> Survivor bias and treatment time zero</a></li>
+  <li><a href="#mechanisms-of-missingness" id="toc-mechanisms-of-missingness" class="nav-link active" data-scroll-target="#mechanisms-of-missingness"><span class="header-section-number">17.1</span> Mechanisms of missingness</a>
+  <ul class="collapse">
+  <li><a href="#missing-completely-at-random" id="toc-missing-completely-at-random" class="nav-link" data-scroll-target="#missing-completely-at-random"><span class="header-section-number">17.1.1</span> Missing completely at random</a></li>
+  <li><a href="#missing-at-random" id="toc-missing-at-random" class="nav-link" data-scroll-target="#missing-at-random"><span class="header-section-number">17.1.2</span> Missing at random</a></li>
+  <li><a href="#missing-not-at-random" id="toc-missing-not-at-random" class="nav-link" data-scroll-target="#missing-not-at-random"><span class="header-section-number">17.1.3</span> Missing not at random</a></li>
+  </ul></li>
+  <li><a href="#traditional-methods" id="toc-traditional-methods" class="nav-link" data-scroll-target="#traditional-methods"><span class="header-section-number">17.2</span> Traditional methods</a>
+  <ul class="collapse">
+  <li><a href="#deleting-incomplete-cases" id="toc-deleting-incomplete-cases" class="nav-link" data-scroll-target="#deleting-incomplete-cases"><span class="header-section-number">17.2.1</span> Deleting incomplete cases</a></li>
+  <li><a href="#single-imputation" id="toc-single-imputation" class="nav-link" data-scroll-target="#single-imputation"><span class="header-section-number">17.2.2</span> Single imputation</a></li>
+  <li><a href="#multiple-imputation" id="toc-multiple-imputation" class="nav-link" data-scroll-target="#multiple-imputation"><span class="header-section-number">17.2.3</span> Multiple imputation</a></li>
+  </ul></li>
+  <li><a href="#adherence-and-intercurrent-events" id="toc-adherence-and-intercurrent-events" class="nav-link" data-scroll-target="#adherence-and-intercurrent-events"><span class="header-section-number">17.3</span> Adherence and intercurrent events</a>
+  <ul class="collapse">
+  <li><a href="#intercurrent-events-and-rescue-medication" id="toc-intercurrent-events-and-rescue-medication" class="nav-link" data-scroll-target="#intercurrent-events-and-rescue-medication"><span class="header-section-number">17.3.1</span> Intercurrent events and rescue medication</a></li>
+  <li><a href="#bias-from-loss-to-follow-up" id="toc-bias-from-loss-to-follow-up" class="nav-link" data-scroll-target="#bias-from-loss-to-follow-up"><span class="header-section-number">17.3.2</span> Bias from loss to follow-up</a></li>
+  <li><a href="#inverse-probability-of-censoring-weighting" id="toc-inverse-probability-of-censoring-weighting" class="nav-link" data-scroll-target="#inverse-probability-of-censoring-weighting"><span class="header-section-number">17.3.3</span> Inverse-probability-of-censoring weighting</a></li>
+  </ul></li>
+  <li><a href="#survivor-bias-and-time-zero" id="toc-survivor-bias-and-time-zero" class="nav-link" data-scroll-target="#survivor-bias-and-time-zero"><span class="header-section-number">17.4</span> Survivor bias and time zero</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -316,34 +332,102 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<p>Missing data are common in clinical research and can bias estimates, reduce precision, and change the target population. The right response begins by describing why, when, and for whom data are missing—not by applying a mechanical imputation command.</p>
+<section id="mechanisms-of-missingness" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="mechanisms-of-missingness"><span class="header-section-number">17.1</span> Mechanisms of missingness</h2>
+<section id="missing-completely-at-random" class="level3" data-number="17.1.1">
+<h3 data-number="17.1.1" class="anchored" data-anchor-id="missing-completely-at-random"><span class="header-section-number">17.1.1</span> Missing completely at random</h3>
+<p>Data are MCAR when missingness is independent of observed and unobserved values. Complete-case analysis is unbiased under MCAR but usually inefficient; MCAR is often implausible.</p>
+</section>
+<section id="missing-at-random" class="level3" data-number="17.1.2">
+<h3 data-number="17.1.2" class="anchored" data-anchor-id="missing-at-random"><span class="header-section-number">17.1.2</span> Missing at random</h3>
+<p>Data are MAR when, conditional on observed variables included in the analysis/imputation model, missingness no longer depends on the unobserved value. Mixed models, inverse-probability weighting, and multiple imputation often rely on MAR. MAR is an assumption, not a result of a test.</p>
+</section>
+<section id="missing-not-at-random" class="level3" data-number="17.1.3">
+<h3 data-number="17.1.3" class="anchored" data-anchor-id="missing-not-at-random"><span class="header-section-number">17.1.3</span> Missing not at random</h3>
+<p>Data are MNAR when missingness depends on the unobserved value even after conditioning on observed data—for example, people with worsening symptoms are more likely to miss follow-up. MNAR cannot be resolved from observed data alone; use clinically informed sensitivity analyses such as delta adjustment, pattern-mixture, or selection models.</p>
+</section>
+</section>
+<section id="traditional-methods" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="traditional-methods"><span class="header-section-number">17.2</span> Traditional methods</h2>
+<section id="deleting-incomplete-cases" class="level3" data-number="17.2.1">
+<h3 data-number="17.2.1" class="anchored" data-anchor-id="deleting-incomplete-cases"><span class="header-section-number">17.2.1</span> Deleting incomplete cases</h3>
+<p>Complete-case analysis is simple but can be biased and inefficient. It is reasonable only when its assumptions are made explicit and sensitivity analyses are presented.</p>
+</section>
+<section id="single-imputation" class="level3" data-number="17.2.2">
+<h3 data-number="17.2.2" class="anchored" data-anchor-id="single-imputation"><span class="header-section-number">17.2.2</span> Single imputation</h3>
+<p>Replacing missing values with a mean, last observation carried forward, or a fixed value understates uncertainty and can distort associations. Such methods should not generally be a primary analysis.</p>
+</section>
+<section id="multiple-imputation" class="level3" data-number="17.2.3">
+<h3 data-number="17.2.3" class="anchored" data-anchor-id="multiple-imputation"><span class="header-section-number">17.2.3</span> Multiple imputation</h3>
+<p>Multiple imputation creates several plausible completed datasets, analyzes each, and combines estimates using Rubin’s rules. Include outcome, exposure, important confounders, predictors of missingness, and compatible auxiliary variables; impute within design/analysis groups where appropriate. Use enough imputations for the fraction of missing information and diagnose convergence and plausibility. MI supports MAR, not MNAR.</p>
+</section>
+</section>
+<section id="adherence-and-intercurrent-events" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="adherence-and-intercurrent-events"><span class="header-section-number">17.3</span> Adherence and intercurrent events</h2>
+<section id="intercurrent-events-and-rescue-medication" class="level3" data-number="17.3.1">
+<h3 data-number="17.3.1" class="anchored" data-anchor-id="intercurrent-events-and-rescue-medication"><span class="header-section-number">17.3.1</span> Intercurrent events and rescue medication</h3>
+<p>Treatment discontinuation, switching, rescue medication, death, and other events after assignment require an estimand strategy: treatment policy, hypothetical, composite, while-on-treatment, or principal stratum. The protocol must specify how data after each event contribute to the primary analysis.</p>
+</section>
+<section id="bias-from-loss-to-follow-up" class="level3" data-number="17.3.2">
+<h3 data-number="17.3.2" class="anchored" data-anchor-id="bias-from-loss-to-follow-up"><span class="header-section-number">17.3.2</span> Bias from loss to follow-up</h3>
+<p>Loss to follow-up is selection bias when both treatment and potential outcome affect observation. Compare observed baseline predictors, outcome history, and follow-up by treatment; identify the causal structure and define the population to which the estimate applies.</p>
+</section>
+<section id="inverse-probability-of-censoring-weighting" class="level3" data-number="17.3.3">
+<h3 data-number="17.3.3" class="anchored" data-anchor-id="inverse-probability-of-censoring-weighting"><span class="header-section-number">17.3.3</span> Inverse-probability-of-censoring weighting</h3>
+<p>Model each participant’s probability of remaining observed conditional on treatment and past covariates, then weight observed records by its inverse. Correct specification, positivity, and measurement of predictors of censoring are essential; stabilized weights and diagnostics for extreme weights should be reported.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 17.1">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Drafting note
+<span class="screen-reader-only">Note</span>Code 17.1
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Chapter content in progress. Migrate the corresponding text here; use <code>$...$</code> / <code>$$...$$</code> for math, place figures in <code>images/</code>, and use <code>{r} or</code>{python} code blocks.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> observed treatment baseline_covariates time_varying_covariates</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">predict</span> p_observed</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> ipcw = 1/p_observed <span class="kw">if</span> observed</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">svyset</span> <span class="dt">_n</span> [<span class="kw">pweight</span>=ipcw]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">svy</span>: <span class="kw">regress</span> outcome treatment baseline_covariates</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<section id="mechanisms-of-missingness" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="mechanisms-of-missingness"><span class="header-section-number">17.1</span> Mechanisms of missingness</h2>
-<p><em>To be added.</em></p>
+<div class="text-center">
+<p><img src="images/ch17-image1.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 17.1 output: inverse-probability-of-censoring weighting.</p>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Code 17.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Code 17.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tebalance <span class="kw">summarize</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="text-center">
+<p><img src="images/ch17-image2.png" class="img-fluid" style="width:100.0%"></p>
+<p>Code 17.2 output: weighted covariate summary.</p>
+</div>
 </section>
-<section id="traditional-methods-for-missing-data" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="traditional-methods-for-missing-data"><span class="header-section-number">17.2</span> Traditional methods for missing data</h2>
-<p><em>To be added.</em></p>
 </section>
-<section id="adherence" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="adherence"><span class="header-section-number">17.3</span> Adherence</h2>
-<p><em>To be added.</em></p>
+<section id="survivor-bias-and-time-zero" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="survivor-bias-and-time-zero"><span class="header-section-number">17.4</span> Survivor bias and time zero</h2>
+<p>Define a common time zero at which eligibility, treatment strategies, and follow-up begin. Assigning exposure using future information or including only people who survive long enough to receive treatment creates immortal-time or survivor bias. Emulate the target trial: make eligibility and treatment assignment measurable at time zero, align follow-up, and use appropriate methods for adherence and censoring.</p>
 </section>
-<section id="survivor-bias-and-treatment-time-zero" class="level2" data-number="17.4">
-<h2 data-number="17.4" class="anchored" data-anchor-id="survivor-bias-and-treatment-time-zero"><span class="header-section-number">17.4</span> Survivor bias and treatment time zero</h2>
-<p><em>To be added.</em></p>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Little RJA, Rubin DB. <em>Statistical Analysis with Missing Data</em>. 3rd ed.&nbsp;Wiley; 2019.</li>
+<li>Sterne JAC, White IR, Carlin JB, et al.&nbsp;Multiple imputation for missing data. <em>BMJ</em>. 2009;338:b2393.</li>
+<li>National Research Council. <em>The Prevention and Treatment of Missing Data in Clinical Trials</em>. National Academies Press; 2010.</li>
+<li>Hernán MA, Robins JM. <em>Causal Inference: What If</em>. Chapman &amp; Hall/CRC; 2020.</li>
+</ol>
 
 
 <!-- -->
@@ -809,33 +893,95 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/18-ml-causal-inference.html" class="pagination-link" aria-label="Integrating Machine Learning into Causal Inference">
-        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Machine Learning into Causal Inference</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/18-ml-causal-inference.html" class="pagination-link" aria-label="Integrating Causal Inference and Machine Learning">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Integrating Causal Inference and Machine Learning</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Missing Data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Drafting note</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Chapter content in progress. Migrate the corresponding text here; use <span class="in">`$...$`</span> / <span class="in">`$$...$$`</span> for math, place figures in <span class="in">`images/`</span>, and use ```{r} or ```{python} code blocks.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Mechanisms of missingness</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Traditional methods for missing data</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Adherence</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>_To be added._</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Survivor bias and treatment time zero</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>_To be added._</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Missing Data</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Missing data are common in clinical research and can bias estimates, reduce precision, and change the target population. The right response begins by describing why, when, and for whom data are missing—not by applying a mechanical imputation command.</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Mechanisms of missingness</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">### Missing completely at random</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Data are MCAR when missingness is independent of observed and unobserved values. Complete-case analysis is unbiased under MCAR but usually inefficient; MCAR is often implausible.</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">### Missing at random</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>Data are MAR when, conditional on observed variables included in the analysis/imputation model, missingness no longer depends on the unobserved value. Mixed models, inverse-probability weighting, and multiple imputation often rely on MAR. MAR is an assumption, not a result of a test.</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### Missing not at random</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>Data are MNAR when missingness depends on the unobserved value even after conditioning on observed data—for example, people with worsening symptoms are more likely to miss follow-up. MNAR cannot be resolved from observed data alone; use clinically informed sensitivity analyses such as delta adjustment, pattern-mixture, or selection models.</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Traditional methods</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### Deleting incomplete cases</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>Complete-case analysis is simple but can be biased and inefficient. It is reasonable only when its assumptions are made explicit and sensitivity analyses are presented.</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Single imputation</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>Replacing missing values with a mean, last observation carried forward, or a fixed value understates uncertainty and can distort associations. Such methods should not generally be a primary analysis.</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multiple imputation</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>Multiple imputation creates several plausible completed datasets, analyzes each, and combines estimates using Rubin’s rules. Include outcome, exposure, important confounders, predictors of missingness, and compatible auxiliary variables; impute within design/analysis groups where appropriate. Use enough imputations for the fraction of missing information and diagnose convergence and plausibility. MI supports MAR, not MNAR.</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Adherence and intercurrent events</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### Intercurrent events and rescue medication</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>Treatment discontinuation, switching, rescue medication, death, and other events after assignment require an estimand strategy: treatment policy, hypothetical, composite, while-on-treatment, or principal stratum. The protocol must specify how data after each event contribute to the primary analysis.</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bias from loss to follow-up</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>Loss to follow-up is selection bias when both treatment and potential outcome affect observation. Compare observed baseline predictors, outcome history, and follow-up by treatment; identify the causal structure and define the population to which the estimate applies.</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="fu">### Inverse-probability-of-censoring weighting</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>Model each participant’s probability of remaining observed conditional on treatment and past covariates, then weight observed records by its inverse. Correct specification, positivity, and measurement of predictors of censoring are essential; stabilized weights and diagnostics for extreme weights should be reported.</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 17.1"}</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="in">logit observed treatment baseline_covariates time_varying_covariates</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="in">predict p_observed</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="in">gen ipcw = 1/p_observed if observed</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="in">svyset _n [pweight=ipcw]</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="in">svy: regress outcome treatment baseline_covariates</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch17-image1.png)</span>{width="100%"}</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>Code 17.1 output: inverse-probability-of-censoring weighting.</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple" icon="false" title="Code 17.2"}</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="in">```stata</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="in">tebalance summarize</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>::: {.text-center}</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/ch17-image2.png)</span>{width="100%"}</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>Code 17.2 output: weighted covariate summary.</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Survivor bias and time zero</span></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>Define a common time zero at which eligibility, treatment strategies, and follow-up begin. Assigning exposure using future information or including only people who survive long enough to receive treatment creates immortal-time or survivor bias. Emulate the target trial: make eligibility and treatment assignment measurable at time zero, align follow-up, and use appropriate methods for adherence and censoring.</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="fu">## References {.unnumbered}</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Little RJA, Rubin DB. *Statistical Analysis with Missing Data*. 3rd ed. Wiley; 2019.</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Sterne JAC, White IR, Carlin JB, et al. Multiple imputation for missing data. *BMJ*. 2009;338:b2393.</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>National Research Council. *The Prevention and Treatment of Missing Data in Clinical Trials*. National Academies Press; 2010.</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Hernán MA, Robins JM. *Causal Inference: What If*. Chapman &amp; Hall/CRC; 2020.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
